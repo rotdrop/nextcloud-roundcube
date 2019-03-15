@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<info>
+	<id>roundcube</id>
+	<namespace>RoundCube</namespace>
+	<name>RoundCube Mail</name>
+	<licence>AGPL</licence>
+	<author>Martin Reinhardt</author>
+	<version>2.6.1</version>
+	<dependencies>
+		<owncloud min-version="8.0" max-version="11.0" />
+	</dependencies>
+	<description>
+		Integrates existing roundcube into OwnCloud, check the instructions below.
+		The app needs the bookmarks
+		application to be enabled.
+	</description>
+
+	<documentation>
+		<admin>https://github.com/hypery2k/owncloud/wiki/Installation#roundcube</admin>
+	</documentation>
+
+	<website>https://github.com/hypery2k/owncloud</website>
+</info>

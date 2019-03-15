@@ -1,0 +1,40 @@
+/* Show password toggle */
+#rc_mail_password_show {
+  display:none;
+}
+#rc_mail_password_show:checked + label {
+  ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+  filter:alpha(opacity=80);
+  opacity:.8;
+}
+#rc_mail_password_show + label {
+  text-indent: 100% !important;
+  overflow:hidden !important; 
+  position:absolute!important;
+  height:14px;
+  width:24px;
+  background-image:url("../../../core/img/actions/toggle.png");
+  background-repeat:no-repeat;
+  ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
+  filter:alpha(opacity=30);
+  opacity:.3;
+}
+#rc_mail_password, input[name="mail_password-clone"] {
+  padding:0.6em 2.5em 0.4em 0.4em;
+  width:8em;
+}
+#rc_mail_password_show + label {
+  margin-top:1em; margin-left:-3em;
+}
+.successmessage {
+  background-color: #DDFFDD;
+}
+.errormessage {
+  background-color: #FFDDDD;
+}
+.statusmessage {
+  background-color: #DDDDFF;
+}
+.successmessage,.errormessage,.statusmessage{
+  display:none;
+}
