@@ -1,0 +1,287 @@
+<?php
+namespace OCA\RoundCube;
+
+use OCP\Util;
+use OCA\RoundCube\AuthHelper;
+use OCA\RoundCube\CCTMaildir;
+
+/**
+ * This class provides the login to RC server using curl.
+ */
+class BackLogin
+{
+    const FORM_URLENCODED = 'application/x-www-form-urlencoded';
+
+    // Credentials
+    private $username;
+    private $password;
+    // Config
+    private $config;
+    private $rcHost;
+    private $rcPort;
+    private $hasSSLVerify = true;
+    private $rcInternalAddress;
+    // Params
+    private $ocServer;
+    private $rcSessionID = "";
+    private $rcSessionAuth = "";
+
+    /**
+     * @param string $username Email address.
+     * @param string $password The password.
+     * @return array/bool ['sessid', 'sessauth'] on success, false on error.
+     */
+    public function __construct($username, $password) {
+        $this->username     = $username;
+        $this->password     = $password;
+        $this->config       = \OC::$server->getConfig();
+        $this->rcHost       = $this->config->getAppValue('roundcube', 'rcHost', '');
+        if ($this->rcHost === '') {
+            $this->rcHost = \OC::$server->getRequest()->getServerHost();
+        }
+        $this->rcPort       = $this->config->getAppValue('roundcube', 'rcPort', 0);
+        $this->hasSSLVerify = $this->config->getAppValue('roundcube', 'sslVerify', true);
+        $this->rcInternalAddress = $this->makeUrl();
+        $this->ocServer     = preg_replace("(^https?://|/.*)", "", \OC::$server->getURLGenerator()->getAbsoluteURL());
+    }
+
+    public function login() {
+        // Delete cookies sessauth y sessid by expiring them.
+        \setcookie(AuthHelper::COOKIE_RC_SESSID, "-del-", 1);
+        \setcookie(AuthHelper::COOKIE_RC_SESSAUTH, "-del-", 1);
+        // Get login page, sessionID and token.
+        $loginPageObj = $this->sendRequest("?_task=login", "GET");
+        $cookies = self::parseCookies($loginPageObj[0][set-cookie]);
+        if (isset($cookies[AuthHelper::COOKIE_RC_SESSID])) {
+            $this->rcSessionID = $cookies[AuthHelper::COOKIE_RC_SESSID];
+        }
+        // Get input values from login form and prepare data to send.
+        $inputs = self::parseInputs($loginPageObj[1]);
+        $data = array(
+            "_token"    => $inputs["_token"]["value"],
+            "_task"     => "login",
+            "_action"   => "login",
+            "_timezone" => $inputs["_timezone"]["value"],
+            "_url"      => $inputs["_url"]["value"],
+            "_user"     => urlencode($this->username),
+            "_pass"     => urlencode($this->password)
+        );
+        // Post login form.
+        $loginAnswerObj = $this->sendRequest("?_task=login&_action=login", "POST", $data);
+        // Set cookies sessauth and sessid.
+        $cookiesLogin = self::parseCookies($loginAnswerObj[0][set-cookie]);
+        if (isset($cookiesLogin[AuthHelper::COOKIE_RC_SESSID])) {
+            $this->rcSessionID = $cookiesLogin[AuthHelper::COOKIE_RC_SESSID];
+            \setcookie(AuthHelper::COOKIE_RC_SESSID, $this->rcSessionID,
+                0, "/", $this->ocServer, true, true);
+        }
+        if (isset($cookiesLogin[AuthHelper::COOKIE_RC_SESSAUTH])) {
+            $this->rcSessionAuth = $cookiesLogin[AuthHelper::COOKIE_RC_SESSAUTH];
+            \setcookie(AuthHelper::COOKIE_RC_SESSAUTH, $this->rcSessionAuth,
+                0, "/", $this->ocServer, true, true);
+            return true;
+        }
+        // Check again whether input fields of login form exist.
+        $inputsLogin = self::parseInputs($loginAnswerObj[1]);
+        if (empty($inputsLogin) || !isset($inputsLogin["_user"]) || !isset($inputsLogin["_pass"])) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Generate RoundCube server address on-the-fly based on public address
+     */
+    private function makeUrl() {
+        $rcInternalAddress = $this->config->getAppValue('roundcube', 'rcInternalAddress', '');
+        if ($rcInternalAddress === "") {
+            $url = "";
+            if ((isset($_SERVER['HTTPS']) && $_SERVER["HTTPS"] || isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) {
+                $url = "https://";
+            } else {
+                $url = "http://";
+            }
+            $url .= $this->rcHost;
+            if (is_numeric($this->rcPort) && $this->rcPort > 0 && $this->rcPort < 65536) {
+                $url .= ":{$this->rcPort}";
+            }
+            $maildir = ltrim(CCTMaildir::getCCTMaildir($this->username), ' /');
+            return "$url/$maildir";
+        } else {
+            return $rcInternalAddress;
+        }
+    }
+
+    /**
+     * @param string $text The text where to look for input fields.
+     * @return array [name => [key, value]] Input fields indexed by name.
+     */
+    private static function parseInputs($text) {
+        $inputs = array();
+        if (preg_match_all('/<input ([^>]*)>/i', $text, $inputMatches)) {
+            foreach ($inputMatches[1] as $input) {
+                if (preg_match_all('/(\w+)="([^"]*)"/i', $input, $keyvalMatches)) {
+                    $tmp = array();
+                    $name = "";
+                    foreach ($keyvalMatches[1] as $index => $key) {
+                        if ($key === "name") {
+                            $name = $keyvalMatches[2][$index];
+                        } else {
+                            $tmp[$key] = $keyvalMatches[2][$index];
+                        }
+                    }
+                    if ($name !== "") {
+                        $inputs[$name] = $tmp;
+                    }
+                }
+            }
+        }
+        return $inputs;
+    }
+
+    /**
+     * Send request using cURL.
+     *
+     * @param string $rcUrl  Part to append to the rcInternalAddress.
+     * @param string $method POST or GET request.
+     * @param string $data   Data to send.
+     * @return response Object
+     */
+    private function sendRequest($rcUrl, $method, $data = null) {
+        $response = false;
+        try {
+            $curl = curl_init();
+            // general settings
+            $curlOpts = array(
+                CURLOPT_URL            => $rcUrl,
+                CURLOPT_HEADER         => true,
+                CURLOPT_FOLLOWLOCATION => false,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_FRESH_CONNECT  => true
+            );
+            if ($method === 'POST') {
+                $curlOpts[CURLOPT_POST] = true;
+                if ($data) {
+                    $postData = http_build_query($data);
+                    $curlOpts[CURLOPT_POSTFIELDS] = $postData;
+                    $curlOpts[CURLOPT_TIMEOUT] = 60;
+                    $curlOpts[CURLOPT_HTTPHEADER] = array(
+                        'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+                        'Accept-Encoding: identity',
+                        'Content-Type: ' . self::FORM_URLENCODED,
+                        'Content-Length: ' . strlen($postData),
+                        'Cache-Control: no-cache',
+                        'Pragma: no-cache'
+                    );
+                }
+            } else {
+                $curlOpts[CURLOPT_HTTPGET] = true;
+            }
+            $cookies = "";
+            if ($this->rcSessionID !== "") {
+                $cookies .= AuthHelper::COOKIE_RC_SESSID . "={$this->rcSessionID}; path=/; secure; HttpOnly";
+            }
+            if ($this->rcSessionAuth !== "") {
+                $cookies .= AuthHelper::COOKIE_RC_SESSAUTH . "={$this->rcSessionAuth}; path=/; secure; HttpOnly";
+            }
+            $curlOpts[CURLOPT_COOKIE] = $cookies;
+            if (!$this->hasSSLVerify) {
+                Util::writeLog('roundcube', __METHOD__ . "Disabling SSL verification.", Util::WARN);
+                $curlOpts[CURLOPT_SSL_VERIFYPEER] = false;
+                $curlOpts[CURLOPT_SSL_VERIFYHOST] = 0;
+            }
+            curl_setopt_array($curl, $curlOpts);
+
+            $rawResponse = curl_exec($curl);
+
+            // Error handling
+            $curlErrorNum   = curl_errno($curl);
+            $curlError      = curl_error($curl);
+            $headerSize     = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
+            $respHttpCode   = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+            Util::writeLog('roundcube', __METHOD__ . "Got the following HTTP Status Code: ($respHttpCode) $curlError", Util::WARN);
+            if ($curlErrorNum !== CURLE_OK) {
+                Util::writeLog('roundcube', __METHOD__ . "Opening url '$rcUrl' failed with '$curlError'", Util::WARN);
+            } else {
+                $response = self::splitResponse($rawResponse, $headerSize);
+            }
+            curl_close($curl);
+        } catch (Exception $e) {
+            Util::writeLog('roundcube', __METHOD__ . "URL '$rcUrl' open failed.", Util::WARN);
+        }
+        return $response;
+    }
+
+    /**
+     * Splits a curl response into headers and html.
+     * @param string $response
+     * @param int    $headerSize
+     * @return array [[headers], html]
+     */
+    private static function splitResponse($response, $headerSize) {
+        $headers = $html = "";
+        if ($headerSize) {
+            $headers = substr($response, 0, $headerSize);
+            $html    = substr($response, $headerSize);
+        } else {
+            $hh = explode("\r\n\r\n", $response, 2);
+            $headers = $hh[0];
+            $html    = $hh[1];
+        }
+        $headersArray = self::parseResponseHeaders($headers);
+        return array(
+            $headersArray,
+            $html
+        );
+    }
+
+    /**
+     * @param string $rawHeaders String of headers from a curl response.
+     * Example:
+     * HTTP/1.1 200 OK
+     * Date: Tue, 19 Mar 2019 15:19:28 GMT
+     * Server: Apache/2.2.22 (Debian)
+     * X-Powered-By: PHP/5.4.45-0+deb7u7
+     * Expires: Tue, 19 Mar 2019 15:19:28 GMT
+     * Cache-Control: private, no-cache, no-store, must-revalidate, post-check=0, pre-check=0
+     * Pragma: no-cache
+     * Last-Modified: Tue, 19 Mar 2019 15:19:28 GMT
+     * X-DNS-Prefetch-Control: off
+     * Content-Language: es
+     * Vary: Accept-Encoding
+     * Content-Type: text/html; charset=UTF-8
+     * Set-Cookie: roundcube_sessid=h5s3o6qasjhbd6bq4gfrl5amh2; path=/; secure; HttpOnly
+     * Transfer-Encoding: chunked
+     *
+     * @return array [header0, header1, ...]
+     */
+    private static function parseResponseHeaders($rawHeaders) {
+        $responseHeaders = array();
+        $headerLines = explode("\r\n", trim($rawHeaders));
+        foreach ($headerLines as $header) {
+            if ($header && is_string($header) && strpos($header, ':') !== false) {
+                list($name, $value) = explode(': ', $header, 2);
+                $name = strtolower($name);
+                if (!isset($responseHeaders[$name])) {
+                    $responseHeaders[$name] = array();
+                } else {
+                    $responseHeaders[$name][] = $value;
+                }
+            }
+        }
+        return $responseHeaders;
+    }
+
+    private static function parseCookies($cookieHeaders) {
+        $cookies = array();
+        foreach ($cookieHeaders as $ch) {
+            if (preg_match('/^([^=]+)=([^;]+);/i', $ch, $match)) {
+                if ($match[1] !== "" && $match[2] !== "" && \strlen($match[2]) > 5) {
+                    $cookies[$match[1]] = $match[2];
+                }
+            }
+        }
+        return $cookies;
+    }
+}

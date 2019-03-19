@@ -45,8 +45,12 @@ class CCTMaildir
         return \OC::$server->getConfig()->getAppValue('roundcube', 'maildir', '');
     }
 
-    public static function getCCTMaildir() {
-        $user_domain = explode('@', \OC::$server->getUserSession()->getUser()->getUID());
+    public static function getCCTMaildir($username = null) {
+        $user = $username;
+        if ($username === null) {
+            $user = \OC::$server->getUserSession()->getUser()->getUID();
+        }
+        $user_domain = explode('@', $user);
         if (count($user_domain) === 2) {
             $dominio = $user_domain[1];
             return self::getCCTMaildirOfDomain($dominio);
