@@ -5,7 +5,7 @@
 "Unable to store email credentials in the data-base." => "Imposible guardar credenciales de corre en base de datos",
 "Email-user credentials successfully stored. Please login again to OwnCloud for applying the new settings." => "Credenciales de correo de usuario guardadas. Por favor inicia session otra vez.",
 "Webmail" => "CorreoWeb",
-"Auto-Login is not working. Please contact you're administrator" => "Auto-inicio no esta funcionando. Porfavor contacta el administrador",
+"Auto-Login is not working. Please contact your administrator." => "Auto-Login no está funcionando. Por favor contacte al administrador.",
 "Database error" => "Error base de datos",
 "Please follow the wiki page to setup the database manually:" => "Por favor lee la wiki para configurar la base de datos manualmente",
 "You have errors in your settings" => "Tienes errores en la configuracion",

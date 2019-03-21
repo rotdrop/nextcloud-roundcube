@@ -47,7 +47,7 @@ msgid "Webmail"
 msgstr "Webmail"
 
 #: templates/part.error.autologin.php:2
-msgid "Auto-Login is not working. Please contact you're administrator"
+msgid "Auto-Login is not working. Please contact your administrator."
 msgstr ""
 "Der automatische Login funktioniert nicht. Kontaktieren Sie bitte Ihren "
 "Systemadministrator."

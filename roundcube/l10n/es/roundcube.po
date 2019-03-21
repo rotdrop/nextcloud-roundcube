@@ -43,8 +43,8 @@ msgid "Webmail"
 msgstr "CorreoWeb"
 
 #: templates/part.error.autologin.php:2
-msgid "Auto-Login is not working. Please contact you're administrator"
-msgstr "Auto-inicio no esta funcionando. Porfavor contacta el administrador"
+msgid "Auto-Login is not working. Please contact your administrator."
+msgstr "Auto-Login no está funcionando. Por favor contacte al administrador."
 
 #: templates/part.error.db.php:3
 msgid "Database error"

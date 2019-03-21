@@ -5,7 +5,7 @@
 "Unable to store email credentials in the data-base." => "Impossible de stocker email pouvoirs dans la base.",
 "Email-user credentials successfully stored. Please login again to OwnCloud for applying the new settings." => "Email pouvoirs utilisateur stockées avec succès. Se il vous plaît vous connecter à nouveau à OwnCloud pour appliquer les nouveaux paramètres.",
 "Webmail" => "Webmail",
-"Auto-Login is not working. Please contact you're administrator" => "Auto-Login ne fonctionne pas. Se il vous plaît communiquer avec vous êtes la administrateur",
+"Auto-Login is not working. Please contact your administrator." => "Auto-Login ne fonctionne pas. Se il vous plaît communiquer avec vous êtes la administrateur",
 "Database error" => "Erreur de base de données",
 "Please follow the wiki page to setup the database manually:" => "Se il vous plaît suivre la page wiki pour configurer manuellement la base de données:",
 "You have errors in your settings" => "Il y a une erreur dans les paramètres",
