@@ -1,4 +1,23 @@
 <?php
+/**
+ * ownCloud - RoundCube login with cURL backend
+ *
+ * @author 2019 Leonardo R. Morelli github.com/LeonardoRM
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 namespace OCA\RoundCube;
 
 use OCP\Util;
@@ -42,21 +61,22 @@ class BackLogin
         $this->rcPort       = $this->config->getAppValue('roundcube', 'rcPort', 0);
         $this->hasSSLVerify = $this->config->getAppValue('roundcube', 'sslVerify', true);
         $this->rcInternalAddress = $this->makeUrl();
-        $this->ocServer     = preg_replace("(^https?://|/.*)", "", \OC::$server->getURLGenerator()->getAbsoluteURL());
+        $this->ocServer     = preg_replace("(^https?://|/.*)", "", \OC::$server->getURLGenerator()->getAbsoluteURL("/"));
     }
 
     /**
      * Performs a login and stores RoundCube cookies.
      * On success, RoundCube is ready to show up.
+     * @return bool True on login, false otherwise.
      */
     public function login() {
         // End previous session:
         // Delete cookies sessauth & sessid by expiring them.
-        \setcookie(AuthHelper::COOKIE_RC_SESSID, "-del-", 1);
-        \setcookie(AuthHelper::COOKIE_RC_SESSAUTH, "-del-", 1);
+        setcookie(AuthHelper::COOKIE_RC_SESSID, "-del-", 1, "/", "", true, true);
+        setcookie(AuthHelper::COOKIE_RC_SESSAUTH, "-del-", 1, "/", "", true, true);
         // Get login page, extracts sessionID and token.
         $loginPageObj = $this->sendRequest("?_task=login", "GET");
-        $cookies = self::parseCookies($loginPageObj['headers'][set-cookie]);
+        $cookies = self::parseCookies($loginPageObj['headers']['set-cookie']);
         if (isset($cookies[AuthHelper::COOKIE_RC_SESSID])) {
             $this->rcSessionID = $cookies[AuthHelper::COOKIE_RC_SESSID];
         }
@@ -68,23 +88,26 @@ class BackLogin
             "_action"   => "login",
             "_timezone" => $inputs["_timezone"]["value"],
             "_url"      => $inputs["_url"]["value"],
-            "_user"     => urlencode($this->username),
-            "_pass"     => urlencode($this->password)
+            "_user"     => $this->username,
+            "_pass"     => $this->password
         );
         // Post login form.
         $loginAnswerObj = $this->sendRequest("?_task=login&_action=login", "POST", $data);
         // Set cookies sessauth and sessid.
-        $cookiesLogin = self::parseCookies($loginAnswerObj['headers'][set-cookie]);
-        if (isset($cookiesLogin[AuthHelper::COOKIE_RC_SESSID])) {
+        $cookiesLogin = self::parseCookies($loginAnswerObj['headers']['set-cookie']);
+        if (isset($cookiesLogin[AuthHelper::COOKIE_RC_SESSID]) &&
+            $cookiesLogin[AuthHelper::COOKIE_RC_SESSID] !== "-del-") {
             $this->rcSessionID = $cookiesLogin[AuthHelper::COOKIE_RC_SESSID];
-            \setcookie(AuthHelper::COOKIE_RC_SESSID, $this->rcSessionID,
-                0, "/", $this->ocServer, true, true);
+            setcookie(AuthHelper::COOKIE_RC_SESSID, $this->rcSessionID,
+                0, "/", "", true, true);
         }
-        if (isset($cookiesLogin[AuthHelper::COOKIE_RC_SESSAUTH])) {
+        if (isset($cookiesLogin[AuthHelper::COOKIE_RC_SESSAUTH]) &&
+            $cookiesLogin[AuthHelper::COOKIE_RC_SESSAUTH] !== "-del-") {
             // We received a sessauth => logged in!
             $this->rcSessionAuth = $cookiesLogin[AuthHelper::COOKIE_RC_SESSAUTH];
-            \setcookie(AuthHelper::COOKIE_RC_SESSAUTH, $this->rcSessionAuth,
-                0, "/", $this->ocServer, true, true);
+            setcookie(AuthHelper::COOKIE_RC_SESSAUTH, $this->rcSessionAuth,
+                0, "/", "", true, true);
+            \OC::$server->getSession()->set(AuthHelper::SESSION_RC_ADDRESS, $this->rcInternalAddress);
             return true;
         }
         // Check again whether input fields of login form exist.
@@ -92,13 +115,14 @@ class BackLogin
         if (empty($inputsLogin) || !isset($inputsLogin["_user"]) || !isset($inputsLogin["_pass"])) {
             return true; // It shouldn't get here ever.
         } else {
-            Util::writeLog('roundcube', __METHOD__ . "Could not login.", Util::ERROR);
+            Util::writeLog('roundcube', __METHOD__ . ": Could not login.", Util::ERROR);
             return false;
         }
     }
 
     /**
      * Generate RoundCube server address on-the-fly based on public address
+     * @return string https?://server/maildir/
      */
     private function makeUrl() {
         $rcInternalAddress = $this->config->getAppValue('roundcube', 'rcInternalAddress', '');
@@ -113,8 +137,8 @@ class BackLogin
             if (is_numeric($this->rcPort) && $this->rcPort > 0 && $this->rcPort < 65536) {
                 $url .= ":{$this->rcPort}";
             }
-            $maildir = ltrim(CCTMaildir::getCCTMaildir($this->username), ' /');
-            return "$url/$maildir";
+            $maildir = trim(CCTMaildir::getCCTMaildir($this->username), ' /');
+            return "$url/$maildir/";
         } else {
             return $rcInternalAddress;
         }
@@ -150,13 +174,14 @@ class BackLogin
     /**
      * Send request using cURL.
      *
-     * @param string $rcUrl  Part to append to the rcInternalAddress.
+     * @param string $rcUrl  To append to rcInternalAddress (no slash at begin).
      * @param string $method POST or GET request.
      * @param string $data   Data to send.
      * @return array ['headers' => [headers], 'html' => html]
      */
     private function sendRequest($rcUrl, $method, $data = null) {
         $response = false;
+        $rcUrl = $this->rcInternalAddress . "$rcUrl";
         try {
             $curl = curl_init();
             // general settings
@@ -187,14 +212,14 @@ class BackLogin
             }
             $cookies = "";
             if ($this->rcSessionID !== "") {
-                $cookies .= AuthHelper::COOKIE_RC_SESSID . "={$this->rcSessionID}; path=/; secure; HttpOnly";
+                $cookies .= AuthHelper::COOKIE_RC_SESSID . "={$this->rcSessionID}; ";
             }
             if ($this->rcSessionAuth !== "") {
-                $cookies .= AuthHelper::COOKIE_RC_SESSAUTH . "={$this->rcSessionAuth}; path=/; secure; HttpOnly";
+                $cookies .= AuthHelper::COOKIE_RC_SESSAUTH . "={$this->rcSessionAuth}; ";
             }
-            $curlOpts[CURLOPT_COOKIE] = $cookies;
+            $curlOpts[CURLOPT_COOKIE] = rtrim($cookies, "; ");
             if (!$this->hasSSLVerify) {
-                Util::writeLog('roundcube', __METHOD__ . "Disabling SSL verification.", Util::WARN);
+                Util::writeLog('roundcube', __METHOD__ . ": Disabling SSL verification.", Util::WARN);
                 $curlOpts[CURLOPT_SSL_VERIFYPEER] = false;
                 $curlOpts[CURLOPT_SSL_VERIFYHOST] = 0;
             }
@@ -207,15 +232,15 @@ class BackLogin
             $curlError      = curl_error($curl);
             $headerSize     = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
             $respHttpCode   = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-            Util::writeLog('roundcube', __METHOD__ . "Got the following HTTP Status Code: ($respHttpCode) $curlError", Util::WARN);
+            Util::writeLog('roundcube', __METHOD__ . ": Got the following HTTP Status Code: ($respHttpCode) $curlError", Util::DEBUG);
             if ($curlErrorNum === CURLE_OK) {
                 $response = self::splitResponse($rawResponse, $headerSize);
             } else {
-                Util::writeLog('roundcube', __METHOD__ . "Opening url '$rcUrl' failed with '$curlError'", Util::WARN);
+                Util::writeLog('roundcube', __METHOD__ . ": Opening url '$rcUrl' failed with '$curlError'", Util::WARN);
             }
             curl_close($curl);
         } catch (Exception $e) {
-            Util::writeLog('roundcube', __METHOD__ . "URL '$rcUrl' open failed.", Util::WARN);
+            Util::writeLog('roundcube', __METHOD__ . ": URL '$rcUrl' open failed.", Util::WARN);
         }
         return $response;
     }
@@ -271,7 +296,7 @@ class BackLogin
                 list($name, $value) = explode(': ', $header, 2);
                 $name = strtolower($name);
                 if (!isset($responseHeaders[$name])) {
-                    $responseHeaders[$name] = array();
+                    $responseHeaders[$name] = array($value);
                 } else {
                     $responseHeaders[$name][] = $value;
                 }
@@ -280,12 +305,19 @@ class BackLogin
         return $responseHeaders;
     }
 
+    /**
+     * @param array $cookieHeaders ['name=value; text', ...]
+     * @return array ['name' => 'value', ...]
+     */
     private static function parseCookies($cookieHeaders) {
         $cookies = array();
-        foreach ($cookieHeaders as $ch) {
-            if (preg_match('/^([^=]+)=([^;]+);/i', $ch, $match)) {
-                if ($match[1] !== "" && $match[2] !== "" && \strlen($match[2]) > 5) {
-                    $cookies[$match[1]] = $match[2];
+        if (is_array($cookieHeaders)) {
+            foreach ($cookieHeaders as $ch) {
+                if (preg_match('/^([^=]+)=([^;]+);/i', $ch, $match)) {
+                    if ($match[1] !== "" && $match[2] !== "" && strlen($match[2]) > 5) {
+                        $cookies[$match[1]] = $match[2];
+                    }
+                    // Util::writeLog('roundcube', __METHOD__ . ": found cookie: {$match[1]}={$match[2]}.", Util::DEBUG);
                 }
             }
         }

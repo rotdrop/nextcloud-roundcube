@@ -1,7 +1,6 @@
 <?php
 /**
- * @author Leonardo R. Morelli
- * @copyright 2019 github.com/LeonardoRM
+ * @author 2019 Leonardo R. Morelli github.com/LeonardoRM
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE

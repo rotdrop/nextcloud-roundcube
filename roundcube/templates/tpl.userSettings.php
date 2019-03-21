@@ -47,7 +47,7 @@ if (!$table_exists) {
 	$enable_auto_login = \OC::$server->getConfig()->getAppValue('roundcube', 'autoLogin', false);
 	if (!$enable_auto_login) {
 		foreach($mail_userdata_entries as $mail_userdata) {
-			$mail_username = isset($_SESSION[App::SESSION_ATTR_RCUSER])?$_SESSION[App::SESSION_ATTR_RCUSER]:'';
+			$mail_username = isset($_SESSION[App::SESSION_RC_USER])?$_SESSION[App::SESSION_RC_USER]:'';
 			$mail_password = '';
 			// TODO use template and add button for adding entries
 ?>

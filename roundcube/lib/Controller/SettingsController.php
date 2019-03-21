@@ -1,16 +1,12 @@
 <?php
 namespace OCA\RoundCube\Controller;
 
-use OCP\AppFramework\{
-	Controller,
-	Http\JSONResponse
-};
-use OCP\IRequest;
+use OCP\AppFramework\Http\JSONResponse;
 use OCP\Template;
 
-class SettingsController extends Controller
+class SettingsController extends \OCP\AppFramework\Controller
 {
-	public function __construct($AppName, IRequest $request) {
+	public function __construct($AppName, \OCP\IRequest $request) {
 		parent::__construct($AppName, $request);
 	}
 
@@ -18,7 +14,7 @@ class SettingsController extends Controller
 		// fill template
 		$params = array('maildir', 'removeHeaderNav', 'removeControlNav', 'autoLogin', 'noSSLverify','enableDebug', 'rcHost', 'rcPort', 'rcInternalAddress', 'rcRefreshInterval');
 
-		$tmpl = new \OCP\Template('roundcube', 'tpl.adminSettings');
+		$tmpl = new Template('roundcube', 'tpl.adminSettings');
 		foreach ($params as $param) {
 			$value = \OC::$server->getConfig()->getAppValue('roundcube', $param, '');
 			$tmpl->assign($param, $value);
@@ -36,7 +32,7 @@ class SettingsController extends Controller
 	public function userSettings() {
 		// fill template
 		$params = array();
-		$tmpl = new \OCP\Template('roundcube', 'tpl.userSettings');
+		$tmpl = new Template('roundcube', 'tpl.userSettings');
 		foreach ($params as $param) {
 			$value = \OC::$server->getConfig()->getAppValue('roundcube', $param, '');
 			$tmpl->assign($param, $value);

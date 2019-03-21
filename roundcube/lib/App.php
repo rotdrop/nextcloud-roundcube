@@ -3,6 +3,7 @@
  * ownCloud - roundcube mail plugin
  *
  * @author Martin Reinhardt and David Jaedke
+ * @author 2019 Leonardo R. Morelli github.com/LeonardoRM
  * @copyright 2012 Martin Reinhardt contact@martinreinhardt-online.de
  *
  * This library is free software; you can redistribute it and/or
@@ -31,11 +32,10 @@ use OCA\RoundCube\DBUtil;
  */
 class App
 {
-    const SESSION_ATTR_RCPRIVKEY = 'OC\\ROUNDCUBE\\privateKey';
-    const SESSION_ATTR_RCUSER = 'OC\\ROUNDCUBE\\rcUser';
-    const SESSION_ATTR_RCSESSID = 'OC\\ROUNDCUBE\\rcSessID';
-    const SESSION_ATTR_RCSESSAUTH = 'OC\\ROUNDCUBE\\rcSessAuth';
-    const SESSION_ATTR_RCPASS = 'OC\\ROUNDCUBE\\rcPass'; //CCT
+    const SESSION_RC_PRIVKEY  = 'OC\\ROUNDCUBE\\privateKey';
+    const SESSION_RC_USER     = 'OC\\ROUNDCUBE\\rcUser';
+    const SESSION_RC_SESSID   = 'OC\\ROUNDCUBE\\rcSessID';
+    const SESSION_RC_SESSAUTH = 'OC\\ROUNDCUBE\\rcSessAuth';
 
     private $path = '';
 
@@ -184,7 +184,7 @@ class App
         // Save private key for later usage, need to export in order
         // to convert from a resource to real data.
         openssl_pkey_export($uncryptedPrivKey, $exportedPrivKey);
-        self::setSessionVariable(App::SESSION_ATTR_RCPRIVKEY, $exportedPrivKey);
+        self::setSessionVariable(App::SESSION_RC_PRIVKEY, $exportedPrivKey);
 
         return $uncryptedPrivKey;
     }
@@ -288,147 +288,6 @@ class App
         return $result;
     }
 
-    public static function makeLoginHandler($rcHost, $rcPort, $maildir, $enableVerbose) {
-        $enableDebug = \OC::$server->getConfig()->getAppValue('roundcube', 'enableDebug', 'false');
-        $disableSSLverify = \OC::$server->getConfig()->getAppValue('roundcube', 'noSSLverify', 'false');
-
-        $url = \OC::$server->getConfig()->getAppValue('roundcube', 'rcInternalAddress', '');
-        // Generate RoundCube server address on-the-fly based on public address
-        if (!$url) {
-            if ((isset($_SERVER['HTTPS']) && $_SERVER["HTTPS"] || isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) {
-                $url = "https://";
-            } else {
-                $url = "http://";
-            }
-            $url .= $rcHost;
-            if (strlen($rcPort) > 0) {
-                $url .= ":" . $rcPort;
-            }
-
-            $sep = ($maildir[0] !== '/' ? '/' : '');
-            $url = $url . $sep . $maildir;
-        }
-        return new Login($url, $disableSSLverify, $enableDebug, $enableVerbose);
-    }
-
-    /**
-     * Logs the current user out from roundcube
-     *
-     * @param
-     *            roundcube server address $rcHost
-     * @param
-     *            roundcube server port $rcPort
-     * @param
-     *            path to roundcube installation, Note: The first parameter is the URL-path of the RC inst
-     *            NOT the file-system path http://host.com/path/to/roundcube/ --> "/path/to/roundcube" $maildir
-     * @param
-     *            roundcube usernam $user
-     */
-    public static function logout($rcHost, $rcPort, $maildir, $user)
-    {
-        $rcl = self::makeLoginHandler($rcHost, $rcPort, $maildir, false);
-        if ($rcl->logout()) {
-            \OCP\Util::writeLog('roundcube', __METHOD__ . ': ' . $user . ' successfully logged off from roundcube ', \OCP\Util::INFO);
-        } else {
-            \OCP\Util::writeLog('roundcube', __METHOD__ . ': Failed to log-off ' . $user . ' from roundcube. If you are using roundcube 1.0.4. Please update to roundcube 1.0.5', \OCP\Util::ERROR);
-        }
-        self::setSessionVariable(self::SESSION_ATTR_RCSESSID, '1');
-        self::setSessionVariable(self::SESSION_ATTR_RCSESSAUTH, '1');
-    }
-
-    /**
-     * Login to roundcube host
-     *
-     * @param
-     *            roundcube host to use $rcHost
-     * @param
-     *            port of the roundcube server $rcPort
-     * @param
-     *            context path of roundcube $maildir
-     * @param
-     *            login to be used $pLogin
-     * @param
-     *            password to be used $pPassword
-     */
-    public static function login($rcHost, $rcPort, $maildir, $pLogin, $pPassword)
-    {
-        // Create RC login object.
-        $rcl = self::makeLoginHandler($rcHost, $rcPort, $maildir, false);
-        // Try to login
-        \OCP\Util::writeLog('roundcube', __METHOD__ . ": Trying to log into roundcube webinterface under $maildir as user $pLogin", \OCP\Util::DEBUG);
-        $rcl->login($pLogin, $pPassword);
-        if ($rcl->isLoggedIn()) {
-            // save roundcube session ID to Session
-            self::setSessionVariable(self::SESSION_ATTR_RCSESSID, $rcl->getSessionID());
-            self::setSessionVariable(self::SESSION_ATTR_RCSESSAUTH, $rcl->getSessionAuth());
-            \OCP\Util::writeLog('roundcube', __METHOD__ . ": $pLogin already logged into roundcube with session ID {$rcl->getSessionID()}", \OCP\Util::DEBUG);
-            return true;
-        } else {
-            $rcl->login($pLogin, $pPassword);
-            if ($rcl->isLoggedIn()) {
-                // save roundcube session ID to Session
-                self::setSessionVariable(self::SESSION_ATTR_RCSESSID, $rcl->getSessionID());
-                self::setSessionVariable(self::SESSION_ATTR_RCSESSAUTH, $rcl->getSessionAuth());
-                \OCP\Util::writeLog('roundcube', __METHOD__ . ": $pLogin successfully logged into roundcube with session ID {$rcl->getSessionID()}", \OCP\Util::DEBUG);
-                return true;
-            } else {
-                // If the login fails, display an error message in the loggs
-                \OCP\Util::writeLog('roundcube', __METHOD__ . ": $pLogin: RoundCube can't login to roundcube due to a login error to roundcube.", \OCP\Util::ERROR);
-                return false;
-            }
-        }
-    }
-
-    /**
-     * Try to refresh roundcube session
-     *
-     * @param
-     *            roundcube host to use $rcHost
-     * @param
-     *            port of the roundcube server $rcPort
-     * @param
-     *            context path of roundcube $maildir
-     * @return true if session refresh was successfull, otherwise false
-     */
-    public static function refresh($rcHost, $rcPort, $maildir)
-    {
-        $ocUser = \OC::$server->getUserSession()->getUser()->getUID();
-        // Create RC login object.
-        $rcl = self::makeLoginHandler($rcHost, $rcPort, $maildir, false);
-        // reuse session ID
-        $sessId = self::getSessionVariable(self::SESSION_ATTR_RCSESSID);
-        if ($sessId !== false) {
-            $rcl->setSessionID($sessId);
-        } else {
-            \OCP\Util::writeLog('roundcube', __METHOD__ . ': SessionID false.', \OCP\Util::DEBUG);
-        }
-        $sessAuth = self::getSessionVariable(self::SESSION_ATTR_RCSESSAUTH);
-        if ($sessAuth !== false) {
-            $rcl->setSessionAuth($sessAuth);
-        } else {
-            \OCP\Util::writeLog('roundcube', __METHOD__ . ': sessionAuth false.', \OCP\Util::DEBUG);
-        }
-        // Try to refresh
-        \OCP\Util::writeLog('roundcube', __METHOD__ . ": Trying to refresh RoundCube session under $maildir", \OCP\Util::DEBUG);
-        if ($rcl->isLoggedIn()) {
-            \OCP\Util::writeLog('roundcube', __METHOD__ . ": Successfully refreshed the RC session.", \OCP\Util::INFO);
-            self::setSessionVariable(self::SESSION_ATTR_RCSESSAUTH, $rcl->getSessionAuth());
-            return true;
-        } else {
-            // login errors, let's try once again
-            \OCP\Util::writeLog('roundcube', __METHOD__ . ": Trying again to refresh RoundCube session under $maildir.", \OCP\Util::DEBUG);
-            if ($rcl->isLoggedIn()) {
-                self::setSessionVariable(self::SESSION_ATTR_RCSESSAUTH, $rcl->getSessionAuth());
-                \OCP\Util::writeLog('roundcube', __METHOD__ . ": Successfully refreshed the RC session the second try.", \OCP\Util::INFO);
-                return true;
-            } else {
-                // TODO add new exception here for relogin
-                \OCP\Util::writeLog('roundcube', __METHOD__ . ": Failed to refresh the RC session.", \OCP\Util::INFO);
-                return false;
-            }
-        }
-    }
-
     /**
      *
      * @brief showing up roundcube iFrame
@@ -445,7 +304,7 @@ class App
     public static function showMailFrame($rcHost, $rcPort, $maildir)
     {
         $ocUser = \OC::$server->getUserSession()->getUser()->getUID();
-        $rcLogin = self::getSessionVariable(self::SESSION_ATTR_RCUSER);
+        $rcLogin = self::getSessionVariable(self::SESSION_RC_USER);
         $returnObject = new MailObject();
         $enableDebug = \OC::$server->getConfig()->getAppValue('roundcube', 'enableDebug', true);
         $enableAutologin = \OC::$server->getConfig()->getAppValue('roundcube', 'autoLogin', false);
