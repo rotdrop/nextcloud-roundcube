@@ -5,38 +5,34 @@ var Roundcube = Roundcube || {};
  * init admin settings view
  */
 Roundcube.adminSettingsUI = function() {
-
-  if ($('#roundcube').length > 0) {
-
+    if ($('#roundcube').length <= 0) {
+        return;
+    }
     $('#rcAdminSubmit').click(function(event) {
-      event.preventDefault();
+        event.preventDefault();
 
-      var self = $(this);
-      var post = $('#rcMailAdminPrefs').serialize();
-      $('#adminmail_update_message').show();
-      $('#adminmail_success_message').hide();
-      $('#adminmail_error_message').hide();
-      // Ajax foobar
-      $.post(OC.filePath('roundcube', 'ajax', 'adminSettings.php'), post, function(data) {
-        $('#adminmail_update_message').hide();
-        if (data.status == 'success') {
-          $('#adminmail_success_message').html(data.data.message);
-          $('#adminmail_success_message').show();
-          window.setTimeout(function() {
-              $('#adminmail_success_message').hide();
-          }, 1000);
-        } else {
-          $('#adminmail_error_message').html(data.data.message);
-          $('#adminmail_error_message').show();
-        }
-      }, 'json');
-      return false;
+        $('#requesttoken').val(oc_requesttoken);
+        var postData = $('#rcMailAdminPrefs').serialize();
+        $('#adminmail_success_message').hide();
+        $('#adminmail_error_message').hide();
+        $('#adminmail_update_message').show();
+        // Ajax foobar
+        $.post(OC.filePath('roundcube', 'ajax', 'adminSettings.php'), postData, function(data) {
+            $('#adminmail_update_message').hide();
+            if (data.status == 'success') {
+                $('#maildir').val(data.config.maildir);
+                $('#adminmail_success_message').text(data.message).show();
+                window.setTimeout(function() {
+                    $('#adminmail_success_message').hide();
+                }, 1000);
+            } else {
+                $('#adminmail_error_message').text(data.message).show();
+            }
+        }, 'json');
+        return false;
     });
-  }
 }
 
 $(document).ready(function() {
-  if ($('#roundcube')) {
     Roundcube.adminSettingsUI();
-  }
 });

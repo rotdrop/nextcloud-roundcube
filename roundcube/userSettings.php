@@ -3,6 +3,7 @@
  * ownCloud - roundcube mail plugin
  *
  * @author Martin Reinhardt and David Jaedke
+ * @author 2019 Leonardo R. Morelli github.com/LeonardoRM
  * @copyright 2012 Martin Reinhardt contact@martinreinhardt-online.de
  *
  * This library is free software; you can redistribute it and/or
@@ -20,4 +21,7 @@
  *
  */
 
-return \OC::$server->getAppContainer('roundcube')->query('\OCA\RoundCube\Controller\SettingsController')->userSettings();
+return \OC::$server->getAppContainer('roundcube')
+	->query('\OCA\RoundCube\Controller\SettingsController')
+	->userSettings()
+	->render();

@@ -1,88 +1,87 @@
 <?php
+/**
+ * ownCloud - roundcube mail plugin
+ *
+ * @author Martin Reinhardt and David Jaedke
+ * @author 2019 Leonardo R. Morelli github.com/LeonardoRM
+ * @copyright 2012 Martin Reinhardt contact@martinreinhardt-online.de
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 style('roundcube', 'adminSettings');
 script('roundcube', 'adminSettings');
 ?>
-<form id="rcMailAdminPrefs" action="#" method="post">
-	<!-- Prevent CSRF attacks-->
-	<input type="hidden" name="requesttoken" value="<?php echo $_['requesttoken']; ?>" id="requesttoken">
-	<input type="hidden" name="appname" value="roundcube">
-	<div id="roundcube" class="section">
-		<h2><?php echo $l->t('RoundCube Settings'); ?></h2>
-		<h3><?php echo $l->t('Basic settings'); ?></h3>
-		<label for="maildir"> <?php echo $l->t('Absolute path to roundcube installation, e.g. If you have http://example.com/roundcube enter /roundcube/ here. Note that subdomains or URLs do not work, just absolute paths to the same domain owncloud is running.'); ?>
+<div class="section" id="roundcube">
+	<form id="rcMailAdminPrefs" action="#" method="post">
+		<!-- Prevent CSRF attacks-->
+		<input type="hidden" name="requesttoken" value="" id="requesttoken">
+		<input type="hidden" name="appname" value="roundcube">
+		<h2>RoundCube</h2>
+		<h3><?php p($l->t('Basic settings')); ?></h3>
+		<label for="maildir" title="<?php p($l->t('If you have "http://example.com/roundcube" enter "/roundcube/" here. Note that subdomains or URLs do not work, just absolute paths to the same domain ownCloud is running.')); ?>"><?php p($l->t('Absolute path to RC installation')); ?>
 		</label>
-		<br>
 		<input type="text" id="maildir" name="maildir"
-			style="width: 400px;" value="<?php echo $_['maildir']; ?>"
-			onchange="var lastChar = $('#maildir').val().substr($('#maildir').val().length - 1); if (lastChar !== '/') {$('#maildir').val($('#maildir').val() + '/');}" />
+			value="<?php p($_['maildir']); ?>">
 		<br>
-		<label for="rcRefreshInterval"
-			title="<?php echo $l->t('This should be set to somewhat (e.g. 60 seconds, YMMV) less than half the session life-time of your RoundCube install (refer to the Roundcube documentation, please).'); ?>">
-			<?php echo $l->t('Refresh interval for the Roundcube-session in seconds'); ?>
-			<input type="text" id="rcRefreshInterval" name="rcRefreshInterval"
-			value="<?php echo $_['rcRefreshInterval']; ?>">
-		</label>
-		<br>
-		<h3><?php echo $l->t('Advanced settings'); ?></h3>
-		<input type="checkbox" name="removeControlNav" id="removeControlNav"
-		<?php if ($_['removeControlNav']) { echo ' checked'; } ?>>
+		<h3><?php p($l->t('Advanced settings')); ?></h3>
 		<label
-			title="<?php echo $l->t('Remove RoundCube control navigation menu items with currently logged in user information'); ?>"
-			for="removeControlNav"><?php echo $l->t('Remove information bar on top of page'); ?>
+			title="<?php p($l->t('Show RoundCube control navigation menu items with currently logged in user information')); ?>">
+			<input type="checkbox" name="showTopLine" id="showTopLine"
+				<?php if ($_['showTopLine']) { p(' checked="checked"'); } ?>>
+			<?php p($l->t('Show information bar on top of page')); ?>
 		</label>
 		<br>
-		<input type="checkbox" name="noSSLverify"
-			id="noSSLverify"
-			<?php if ($_['noSSLverify']) { echo ' checked'; } ?>>
 		<label
-			title="<?php echo $l->t('Disable SSL verification, e.g. for self-signed certificates'); ?>"
-			for="noSSLverify"><?php echo $l->t('Disable SSL verification, e.g. for self-signed certificates'); ?>
+			title="<?php p($l->t('Enable SSL verification, e.g. disable for self-signed certificates')); ?>">
+			<input type="checkbox" name="enableSSLVerify" id="enableSSLVerify"
+				<?php if ($_['enableSSLVerify']) { p(' checked="checked"'); } ?>>
+			<?php p($l->t('Enable SSL verification, e.g. disable for self-signed certificates')); ?>
 		</label>
 		<br>
-		<input type="checkbox" name="autoLogin" id="autoLogin"
-		<?php if ($_['autoLogin']) echo ' checked'; ?>> <label
-			title="<?php echo $l->t('Enable autologin for users, which reuse the login data from OC for RoundCube.'); ?>"
-			for="autoLogin"><?php echo $l->t('Enable autologin for users'); ?>
-		</label>
-        <br>
-        <input type="checkbox" name="removeHeaderNav" id="removeHeaderNav"
-        <?php if ($_['removeHeaderNav']) { echo ' checked'; } ?>>
-        <label
-            title="<?php echo $l->t('Removes the buttons for different sections (mail, adressbook, settings) within the RoundCube mail application'); ?>"
-            for="removeHeaderNav"><?php echo $l->t('Remove RoundCube header navigation menu items'); ?>
-        </label>
-		<br>
-		<input type="checkbox" name="enableDebug" id="enableDebug"
-		<?php if ($_['enableDebug']) { echo ' checked'; } ?>>
 		<label
-			title="<?php echo $l->t('Enable debug messages. RC tends to bloat the log-files.'); ?>"
-			for="enableDebug"><?php echo $l->t('Enable debug logging'); ?>
+			title="<?php p($l->t('Enable debug messages. RC tends to bloat the log-files.')); ?>">
+			<input type="checkbox" name="enableDebug" id="enableDebug"
+				<?php if ($_['enableDebug']) { p(' checked="checked"'); } ?>>
+			<?php p($l->t('Enable debug logging')); ?>
 		</label>
 		<br>
 		<br>
-		<label for="rcHost"> <?php echo $l->t('Overwrite roundcube server hostname if not the same as owncloud, e.g. for (sub)domains which resides on the same server, e.g rc.domain.tld But keep in mind that due to iFrame security constraints it will be only working on the same server, see HTML/JS same-origin policies'); ?>
+		<label for="rcHost" title="<?php p($l->t('Overwrite roundcube server hostname if not the same as owncloud, e.g. for (sub)domains which resides on the same server, e.g rc.domain.tld. But keep in mind that due to iFrame security constraints it will be only working on the same server, see HTML/JS same-origin policies.')); ?>">
+			<?php p($l->t('Overwrite RC server hostname')); ?>
 		</label>
-		<input type="text" id="rcHost" name="rcHost"
-			value="<?php echo $_['rcHost']; ?>">
+		<input type="text" id="rcHost" name="rcHost" value="<?php p($_['rcHost']); ?>">
 		<br>
-		<label for="rcPort"> <?php echo $l->t('Overwrite roundcube server port (If not specified, ports 80/443 are used for HTTP/S)'); ?>
+		<label for="rcPort" title="<?php p($l->t('Overwrite roundcube server port (If not specified, ports 80/443 are used for HTTP/S).')); ?>">
+			<?php p($l->t('Overwrite RC server port')); ?>
 		</label>
-		<input type="text" id="rcPort" name="rcPort"
-			value="<?php echo $_['rcPort']; ?>">
+		<input type="text" id="rcPort" name="rcPort" value="<?php p($_['rcPort']); ?>">
 		<br>
 		<br>
-		<label for="rcInternalAddress"> <?php echo $l->t('Internal RoundCube address (as seen by the OwnCloud server). Use this if the internal address, to which OwnCloud should connect when talking to RoundCube, does not match the host and port set above.'); ?>
+		<label for="rcInternalAddress" title="<?php p($l->t('Internal RoundCube address (as seen by the OwnCloud server). Use this if the internal address, to which OwnCloud should connect when talking to RoundCube, does not match the host and port set above.')); ?>">
+			<?php p($l->t('Internal RC address')); ?>
 		</label>
 		<br>
 		<input type="url" id="rcInternalAddress" name="rcInternalAddress" style="width: 400px;"
-			value="<?php echo $_['rcInternalAddress']; ?>">
+			value="<?php p($_['rcInternalAddress']); ?>">
 		<br>
 		<br>
-		<input id="rcAdminSubmit" type="submit" value="Save" />
 		<div id="adminmail_update_message" class="statusmessage">
-			<?php echo $l->t('Saving...'); ?>
+			<?php p($l->t('Saving...')); ?>
 		</div>
 		<div id="adminmail_error_message" class="errormessage"></div>
 		<div id="adminmail_success_message" class="successmessage"></div>
-	</div>
-</form>
+		<input id="rcAdminSubmit" type="submit" value="<?php p($l->t('Save')); ?>">
+	</form>
+</div>
