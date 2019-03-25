@@ -37,9 +37,8 @@ class PageController extends \OCP\AppFramework\Controller
 	 * @NoCSRFRequired
 	 */
 	public function index() {
-		// workaround to detect OC version
+		// Detect OC version
 		// $ocVersion = implode('.', \OCP\Util::getVersion());
-		// \OCP\Util::writeLog('roundcube', __METHOD__ . "Running on OwnCloud $ocVersion", \OCP\Util::DEBUG);
 		$l = \OC::$server->getL10N($this->appName);
 		\OC::$server->getNavigationManager()->setActiveEntry($this->appName);
 		$user = \OC::$server->getUserSession()->getUser()->getUID();
@@ -55,15 +54,11 @@ class PageController extends \OCP\AppFramework\Controller
 		if (!AuthHelper::login()) {
 			return new TemplateResponse($this->appName, "part.error.login", array());
 		}
-		$config = \OC::$server->getConfig();
 		$url = \OC::$server->getSession()->get(AuthHelper::SESSION_RC_ADDRESS);
 		$tplParams = array(
-			'user'      => $user,
 			'appName'   => $this->appName,
 			'url'       => $url,
-			'loading'   => \OC::$server->getURLGenerator()->imagePath($this->appName, 'loader.gif'),
-			'rmCtrlNav' => $config->getAppValue($this->appName, 'removeControlNav', false),
-			'rmHdrNav'  => $config->getAppValue($this->appName, 'removeHeaderNav', false)
+			'loading'   => \OC::$server->getURLGenerator()->imagePath($this->appName, 'loader.gif')
 		);
 		$tpl = new TemplateResponse($this->appName, "tpl.mail", $tplParams);
 		// This is mandatory to embed a different subdomain in an iframe.

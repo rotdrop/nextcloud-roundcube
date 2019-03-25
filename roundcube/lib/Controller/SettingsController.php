@@ -2,7 +2,7 @@
 namespace OCA\RoundCube\Controller;
 
 use OCP\AppFramework\Http\JSONResponse;
-use OCP\Template;
+use OCP\AppFramework\Http\TemplateResponse;
 
 class SettingsController extends \OCP\AppFramework\Controller
 {
@@ -11,118 +11,77 @@ class SettingsController extends \OCP\AppFramework\Controller
 	}
 
 	public function adminSettings() {
-		// fill template
-		$params = array('maildir', 'removeHeaderNav', 'removeControlNav', 'autoLogin', 'noSSLverify','enableDebug', 'rcHost', 'rcPort', 'rcInternalAddress', 'rcRefreshInterval');
-
-		$tmpl = new Template('roundcube', 'tpl.adminSettings');
-		foreach ($params as $param) {
-			$value = \OC::$server->getConfig()->getAppValue('roundcube', $param, '');
-			$tmpl->assign($param, $value);
-		}
-		// workaround to detect OC version
-		$ocVersion = \OCP\Util::getVersion();
-		$tmpl->assign('ocVersion', $ocVersion[0]);
-		//$tmpl->assign('user', 'admin'); // CCT add
-		return $tmpl->fetchPage();
-	}
-
-	/**
-	 * @NoAdminRequired
-	 */
-	public function userSettings() {
-		// fill template
-		$params = array();
-		$tmpl = new Template('roundcube', 'tpl.userSettings');
-		foreach ($params as $param) {
-			$value = \OC::$server->getConfig()->getAppValue('roundcube', $param, '');
-			$tmpl->assign($param, $value);
-		}
-		// workaround to detect OC version
-		$ocVersion = \OCP\Util::getVersion();
-		$tmpl->assign('ocVersion', $ocVersion[0]);
-		return $tmpl -> fetchPage();
-	}
-
-	/**
-	 * @NoAdminRequired
-	 */
-	public function setUserSettings() {
-		return \OCA\RoundCube\App::saveUserSettings(
-			$_POST['appname'],
-			\OC::$server->getUserSession()->getUser()->getUID(),
-			$_POST['rc_mail_username'],
-			$_POST['rc_mail_password']
+		$config = \OC::$server->getConfig();
+		$tplParams = array(
+			'maildir'           => $config->getAppValue($this->appName, 'maildir', ''),
+			'showTopLine'       => $config->getAppValue($this->appName, 'showTopLine', false),
+			'enableSSLVerify'   => $config->getAppValue($this->appName, 'enableSSLVerify', true),
+			'enableDebug'       => $config->getAppValue($this->appName, 'enableDebug', false),
+			'rcHost'            => $config->getAppValue($this->appName, 'rcHost', ''),
+			'rcPort'            => $config->getAppValue($this->appName, 'rcPort', ''),
+			'rcInternalAddress' => $config->getAppValue($this->appName, 'rcInternalAddress', '')
 		);
+		return new TemplateResponse($this->appName, 'tpl.adminSettings', $tplParams, 'blank');
 	}
 
 	public function setAdminSettings() {
 		$l = \OC::$server->getL10N('roundcube');
-
-		$chkboxs = array('removeHeaderNav', 'removeControlNav', 'autoLogin',
-			'noSSLverify', 'enableDebug');
-
-		if (isset($_POST['appname']) && $_POST['appname'] === "roundcube") {
-			foreach ($chkboxs as $c) {
-				\OC::$server->getConfig()->setAppValue('roundcube', $c, isset($_POST[$c]));
-			}
-			if (isset($_POST['rcHost'])) {
-				if ($_POST['rcHost'] === '' || strlen($_POST['rcHost']) > 3) {
-					\OC::$server->getConfig()->setAppValue('roundcube', 'rcHost', $_POST['rcHost']);
-				}
-			}
-			\OC::$server->getConfig()->setAppValue('roundcube', 'rcPort', $_POST['rcPort']);
-			if (isset($_POST['maildir'])) {
-				$maildir =  $_POST['maildir'];
-				if (substr($maildir, -1) !== '/') {
-					$maildir .= '/';
-				}
-				\OC::$server->getConfig()->setAppValue('roundcube', 'maildir', $maildir);
-			}
-			if (isset($_POST['rcInternalAddress'])) {
-				if ($_POST['rcInternalAddress'] == '' || strpos($_POST['rcInternalAddress'], '://') > -1) {
-					\OC::$server->getConfig()->setAppValue('roundcube', 'rcInternalAddress', $_POST['rcInternalAddress']);
-				} else {
-					return new JSONResponse(array(
-						"status" => 'error',
-						"data" => array(
-							"message" => $l->t("Internal address '%s' is not an URL",
-								array($_POST['rcInternalAddress	']))
-						)
-					));
-				}
-			}
-			if (isset($_POST['rcRefreshInterval'])) {
-				$refresh = trim($_POST['rcRefreshInterval']);
-				if ($refresh === '') {
-					\OC::$server->getConfig()->deleteAppValue('roundcube', 'rcRefreshInterval');
-				} elseif (!is_numeric($refresh)) {
-					return new JSONResponse(array(
-						"status" => 'error',
-						"data" => array(
-							"message" => $l->t("Refresh interval '%s' is not a number.",
-								array($refresh))
-						)
-					));
-				} else {
-					\OC::$server->getConfig()->setAppValue('roundcube', 'rcRefreshInterval', $refresh);
-				}
-			}
-			// update login status
-			// CCT: comentado porque admin no hace login
-			// $username = \OC::$server->getUserSession()->getUser()->getUID();
-			// $params = array("uid" => $username);
-			// $loginHelper = new \OCA\RoundCube\AuthHelper();
-			// $loginHelper->login($params);
-		} else {
+		$req = \OC::$server->getRequest();
+		$appName = $req->getParam('appname', null);
+		if ($appName !== $this->appName) {
 			return new JSONResponse(array(
-				"status" => 'error',
-				"data" => array("message" => $l->t("Not submitted for us."))
+				"status"  => 'error',
+				"message" => $l->t("Not submitted for us.")
 			));
 		}
 
+		$config = \OC::$server->getConfig();
+		$maildir           = $req->getParam('maildir', '');
+		$showTopLine       = $req->getParam('showTopLine', null);
+		$enableSSLVerify   = $req->getParam('enableSSLVerify', null);
+		$enableDebug       = $req->getParam('enableDebug', null);
+		$rcHost            = $req->getParam('rcHost', '');
+		$rcPort            = $req->getParam('rcPort', '');
+		$rcInternalAddress = $req->getParam('rcInternalAddress', '');
+
+		$validation = array();
+		if (!is_string($maildir) || $maildir === '') {
+			$validation[] = $l->t("Maildir can't be an empty string.");
+		}
+		if (!is_string($rcHost) || ($rcHost !== '' && strlen($rcHost) < 4)) {
+			$validation[] = $l->t("Host is not valid.");
+		}
+		if (! ((is_numeric($rcPort) && $rcPort > 0 && $rcPort < 65536) || $rcPort === '')) {
+			$validation[] = $l->t("Port must be a valid port number or left empty.");
+		}
+		if (! ((is_string($rcInternalAddress) && strpos($rcInternalAddress, '://') > -1)
+			|| $rcInternalAddress === '')) {
+			$validation[] = $l->t("Internal address '%s' is not an URL",
+				array($rcInternalAddress));
+		}
+		if (!empty($validation)) {
+			return new JSONResponse(array(
+				'status'  => 'error',
+				'message' => $l->t("Some inputs are not valid."),
+				'invalid' => $validation
+			));
+		}
+
+		// Passed validation.
+		$maildirFixed = "/" . trim($maildir, " /") . "/";
+		$config->setAppValue($appName, 'maildir', $maildirFixed);
+		$checkBoxes = array('showTopLine', 'enableSSLVerify', 'enableDebug');
+		foreach ($checkBoxes as $c) {
+			$config->setAppValue($appName, $c, $$c !== null);
+		}
+		$config->setAppValue($appName, 'rcHost', $rcHost);
+		$config->setAppValue($appName, 'rcPort', $rcPort);
+		$config->setAppValue($appName, 'rcInternalAddress', $rcInternalAddress);
+
 		return new JSONResponse(array(
-			"status" => 'success',
-			'data' => array('message' => $l->t('Application settings successfully stored.'))
+			'status'  => 'success',
+			'message' => $l->t('Application settings successfully stored.'),
+			'config'  => array('maildir' => $maildirFixed)
 		));
 	}
 }

@@ -128,7 +128,7 @@ class BackLogin
         $rcInternalAddress = $this->config->getAppValue('roundcube', 'rcInternalAddress', '');
         if ($rcInternalAddress === "") {
             $url = "";
-            if ((isset($_SERVER['HTTPS']) && $_SERVER["HTTPS"] || isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) {
+            if ((isset($_SERVER['HTTPS']) && $_SERVER["HTTPS"] || isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https')) {
                 $url = "https://";
             } else {
                 $url = "http://";

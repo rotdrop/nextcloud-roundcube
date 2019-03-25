@@ -28,7 +28,6 @@
                        'OCA\RoundCube\AuthHelper', 'changePasswordListener');
 
 \OCP\App::registerAdmin('roundcube', 'adminSettings');
-\OCP\App::registerPersonal('roundcube', 'userSettings');
 
 \OC::$server->getNavigationManager()->add(function () {
     $urlGen = \OC::$server->getURLGenerator();
