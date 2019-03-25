@@ -43,10 +43,6 @@ class PageController extends \OCP\AppFramework\Controller
 		\OC::$server->getNavigationManager()->setActiveEntry($this->appName);
 		$user = \OC::$server->getUserSession()->getUser()->getUID();
 
-		if (!\OCA\RoundCube\DBUtil::tableExists()) {
-			Util::writeLog($this->appName, __METHOD__ . ": DB table entries not created.", Util::WARN);
-			return new TemplateResponse($this->appName, "part.error.db", array());
-		}
 		if ($user === 'admin') {
 			Util::writeLog($this->appName, __METHOD__ . ": 'admin' no hace login/logout.", Util::INFO);
 			return new TemplateResponse($this->appName, "part.error.admin", array());
