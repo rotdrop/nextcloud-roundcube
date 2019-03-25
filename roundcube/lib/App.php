@@ -47,7 +47,7 @@ class App
      * @param
      *            Value for the variable $value
      */
-    public static function setSessionVariable($key, $value)
+    private static function setSessionVariable($key, $value)
     {
         if (isset(\OC::$server)) {
             \OC::$server->getSession()->set($key, $value);
@@ -64,7 +64,7 @@ class App
      *
      * @return Value of the session variable
      */
-    public static function getSessionVariable($key)
+    private static function getSessionVariable($key)
     {
         if (isset(\OC::$server)) {
             return \OC::$server->getSession()->get($key);
@@ -286,78 +286,6 @@ class App
             );
         }
         return $result;
-    }
-
-    /**
-     *
-     * @brief showing up roundcube iFrame
-     *
-     * @param
-     *            roundcube host $rcHost
-     * @param
-     *            roundcube port $rcPort
-     * @param
-     *            path to roundcube installation, Note: The first parameter is the URL-path of the RC inst
-     *            NOT the file-system path http://host.com/path/to/roundcube/ --> "/path/to/roundcube" $maildir
-     *
-     */
-    public static function showMailFrame($rcHost, $rcPort, $maildir)
-    {
-        $ocUser = \OC::$server->getUserSession()->getUser()->getUID();
-        $rcLogin = self::getSessionVariable(self::SESSION_RC_USER);
-        $returnObject = new MailObject();
-        $enableDebug = \OC::$server->getConfig()->getAppValue('roundcube', 'enableDebug', true);
-        $enableAutologin = \OC::$server->getConfig()->getAppValue('roundcube', 'autoLogin', false);
-        try {
-            if (! self::refresh($rcHost, $rcPort, $maildir)) {
-                // If the login fails, display an error message in the logs
-                \OCP\Util::writeLog('roundcube', __METHOD__ . ': There were login errors for user: '.$ocUser, \OCP\Util::ERROR);
-                throw new MailLoginException("Unable to login to roundcube. (ES) Por favor cierre sesión y vuelva a ingresar."); // CCT edit
-            }
-            \OCP\Util::writeLog('roundcube', __METHOD__ . ': Preparing iFrame for roundcube.', \OCP\Util::DEBUG);
-            // loader image
-            $loader_image = \OC::$server->getURLGenerator()->imagePath('roundcube', 'loader.gif');
-            $disable_header_nav = \OC::$server->getConfig()->getAppValue('roundcube', 'removeHeaderNav', 'false');
-            $disable_control_nav = \OC::$server->getConfig()->getAppValue('roundcube', 'removeControlNav', 'false');
-
-            $returnObject->setDisplayName($rcLogin);
-            // create iFrame begin
-            $returnObject->appendHtmlOutput('<div id="roundcubeLoaderContainer"><img src="' . $loader_image . '" id="roundcubeLoader"></div>');
-            $returnObject->appendHtmlOutput('<iframe src="' . self::getRedirectPath($rcHost, $rcPort, $maildir) . '" id="roundcubeFrame"  name="roundcube" width="100%" style="display:none;">  </iframe>');
-            $returnObject->appendHtmlOutput('<input type="hidden" id="disable_header_nav" value="' . $disable_header_nav . '"/>');
-            $returnObject->appendHtmlOutput('<input type="hidden" id="disable_control_nav" value="' . $disable_control_nav . '"/>');
-            // create iFrame end
-        } catch (MailNetworkingException $ex_net) {
-            $returnObject->setErrorOccurred(true);
-            $returnObject->setErrorCode(MailObject::ERROR_CODE_NETWORK);
-            $returnObject->setHtmlOutput('');
-            $returnObject->setErrorDetails("ERROR: Technical problem during trying to connect to roundcube server, " . $ex_net->getMessage());
-            \OCP\Util::writeLog('roundcube', __METHOD__ . ': RoundCube can not login to roundcube due to a network connection exception to roundcube', \OCP\Util::ERROR);
-        } catch (MailLoginException $ex_login) {
-            $returnObject->setErrorOccurred(true);
-            if ($enableAutologin) {
-                \OCP\Util::writeLog('roundcube', __METHOD__ . ': Autologin is enabled. Seems that the owncloud and roundcube login details do not match', \OCP\Util::ERROR);
-                $returnObject->setErrorCode(MailObject::ERROR_CODE_AUTOLOGIN);
-            } else {
-                $returnObject->setErrorCode(MailObject::ERROR_CODE_LOGIN);
-            }
-            $returnObject->setHtmlOutput('');
-            $returnObject->setErrorDetails("ERROR: Technical problem, " . $ex_login->getMessage());
-            \OCP\Util::writeLog('roundcube', __METHOD__ . ': RoundCube can not login to roundcube due to a login exception to roundcube', \OCP\Util::ERROR);
-        } catch (MailRCInstallNotFoundException $ex_login) {
-            $returnObject->setErrorOccurred(true);
-            $returnObject->setErrorCode(MailObject::ERROR_CODE_RC_NOT_FOUND);
-            $returnObject->setHtmlOutput('');
-            $returnObject->setErrorDetails("ERROR: Technical problem, " . $ex_login->getMessage());
-            \OCP\Util::writeLog('roundcube', __METHOD__ . ': RoundCube can nott be found on the given path.', \OCP\Util::ERROR);
-        } catch (\Exception $ex_login) {
-            $returnObject->setErrorOccurred(true);
-            $returnObject->setErrorCode(MailObject::ERROR_CODE_GENERAL);
-            $returnObject->setHtmlOutput('');
-            $returnObject->setErrorDetails("ERROR: Technical problem, " . $ex_login->getMessage());
-            \OCP\Util::writeLog('roundcube', __METHOD__ . ': RoundCube can not login to roundcube due to a unkown exception to roundcube', \OCP\Util::ERROR);
-        }
-        return $returnObject;
     }
 
     public static function getRedirectPath($pRcHost, $pRcPort, $pRcPath)
