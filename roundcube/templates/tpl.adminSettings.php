@@ -77,11 +77,9 @@ script('roundcube', 'adminSettings');
 			value="<?php p($_['rcInternalAddress']); ?>">
 		<br>
 		<br>
-		<div id="adminmail_update_message" class="statusmessage">
-			<?php p($l->t('Saving...')); ?>
-		</div>
-		<div id="adminmail_error_message" class="errormessage"></div>
-		<div id="adminmail_success_message" class="successmessage"></div>
 		<input id="rcAdminSubmit" type="submit" value="<?php p($l->t('Save')); ?>">
+		<span id="rc_save_status" class="msg hidden"><?php p($l->t('Saving...')); ?></span>
+		<span id="rc_save_error" class="msg error hidden"></span>
+		<span id="rc_save_success" class="msg success hidden"></span>
 	</form>
 </div>

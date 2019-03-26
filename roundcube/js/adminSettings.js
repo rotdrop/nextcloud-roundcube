@@ -13,20 +13,16 @@ Roundcube.adminSettingsUI = function() {
 
         $('#requesttoken').val(oc_requesttoken);
         var postData = $('#rcMailAdminPrefs').serialize();
-        $('#adminmail_success_message').hide();
-        $('#adminmail_error_message').hide();
-        $('#adminmail_update_message').show();
+        $('#rc_save_success').hide();
+        $('#rc_save_error').hide();
+        $('#rc_save_status').show();
         // Ajax foobar
         $.post(OC.filePath('roundcube', 'ajax', 'adminSettings.php'), postData, function(data) {
-            $('#adminmail_update_message').hide();
+            $('#rc_save_status').hide();
             if (data.status == 'success') {
                 $('#maildir').val(data.config.maildir);
-                $('#adminmail_success_message').text(data.message).show();
-                window.setTimeout(function() {
-                    $('#adminmail_success_message').hide();
-                }, 1000);
-            } else {
-                $('#adminmail_error_message').text(data.message).show();
+                $('#rc_save_success').text(data.message).show().delay(2000).fadeOut(2000);
+                $('#rc_save_error').text(data.message).show();
             }
         }, 'json');
         return false;
