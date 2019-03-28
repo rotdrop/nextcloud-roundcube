@@ -21,6 +21,7 @@
 namespace OCA\RoundCube\Controller;
 
 use OCA\RoundCube\AuthHelper;
+use OCA\RoundCube\InternalAddress;
 use OCP\AppFramework\Http\ContentSecurityPolicy;
 use OCP\AppFramework\Http\JSONResponse;
 use OCP\AppFramework\Http\TemplateResponse;
@@ -37,8 +38,6 @@ class PageController extends \OCP\AppFramework\Controller
 	 * @NoCSRFRequired
 	 */
 	public function index() {
-		// Detect OC version
-		// $ocVersion = implode('.', \OCP\Util::getVersion());
 		$l = \OC::$server->getL10N($this->appName);
 		\OC::$server->getNavigationManager()->setActiveEntry($this->appName);
 		$user = \OC::$server->getUserSession()->getUser()->getUID();
@@ -52,16 +51,22 @@ class PageController extends \OCP\AppFramework\Controller
 		}
 		$url = \OC::$server->getSession()->get(AuthHelper::SESSION_RC_ADDRESS);
 		$tplParams = array(
-			'appName'   => $this->appName,
-			'url'       => $url,
-			'loading'   => \OC::$server->getURLGenerator()->imagePath($this->appName, 'loader.gif')
+			'appName'     => $this->appName,
+			'url'         => $url,
+			'loading'     => \OC::$server->getURLGenerator()->imagePath($this->appName, 'loader.gif'),
+			'showTopLine' => \OC::$server->getConfig()->getAppValue('roundcube', 'showTopLine', false)
 		);
 		$tpl = new TemplateResponse($this->appName, "tpl.mail", $tplParams);
-		// This is mandatory to embed a different subdomain in an iframe.
-		$csp = new ContentSecurityPolicy();
-		$csp->addAllowedFrameDomain('*.rosario-conicet.gov.ar');
-		$tpl->setContentSecurityPolicy($csp);
-
+		// This is mandatory to embed a different server in an iframe.
+		$rcServer = \OC::$server->getSession()->get(AuthHelper::SESSION_RC_SERVER, '');
+		if ($rcServer !== '') {
+			$csp = new ContentSecurityPolicy();
+			$csp->addAllowedFrameDomain($rcServer);
+			// $csp->addAllowedScriptDomain($rcServer);
+			$csp->allowInlineScript(true)->allowEvalScript(true);
+			// Util::writeLog($this->appName, __METHOD__ . ": Added CSP frame: $rcServer", Util::DEBUG);
+			$tpl->setContentSecurityPolicy($csp);
+		}
 		return $tpl;
 	}
 }

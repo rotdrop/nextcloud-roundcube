@@ -22,7 +22,7 @@ namespace OCA\RoundCube;
 
 use OCP\Util;
 use OCA\RoundCube\AuthHelper;
-use OCA\RoundCube\CCTMaildir;
+use OCA\RoundCube\InternalAddress;
 
 /**
  * This class provides the login to RC server using curl.
@@ -36,12 +36,10 @@ class BackLogin
     private $password;
     // Config
     private $config;
-    private $rcHost;
-    private $rcPort;
-    private $hasSSLVerify = true;
+    private $enableSSLVerify = true;
     private $rcInternalAddress;
+    private $rcServer;
     // Params
-    private $ocServer;
     private $rcSessionID = "";
     private $rcSessionAuth = "";
 
@@ -51,17 +49,12 @@ class BackLogin
      * @return array/bool ['sessid', 'sessauth'] on success, false on error.
      */
     public function __construct($username, $password) {
-        $this->username     = $username;
-        $this->password     = $password;
-        $this->config       = \OC::$server->getConfig();
-        $this->rcHost       = $this->config->getAppValue('roundcube', 'rcHost', '');
-        if ($this->rcHost === '') {
-            $this->rcHost = \OC::$server->getRequest()->getServerHost();
-        }
-        $this->rcPort       = $this->config->getAppValue('roundcube', 'rcPort', 0);
-        $this->hasSSLVerify = $this->config->getAppValue('roundcube', 'sslVerify', true);
-        $this->rcInternalAddress = $this->makeUrl();
-        $this->ocServer     = preg_replace("(^https?://|/.*)", "", \OC::$server->getURLGenerator()->getAbsoluteURL("/"));
+        $this->username        = $username;
+        $this->password        = $password;
+        $this->config          = \OC::$server->getConfig();
+        $this->enableSSLVerify = $this->config->getAppValue('roundcube', 'enableSSLVerify', true);
+        $this->rcServer          = \OC::$server->getSession()->get(AuthHelper::SESSION_RC_SERVER, '');
+        $this->rcInternalAddress = \OC::$server->getSession()->get(AuthHelper::SESSION_RC_ADDRESS, '');
     }
 
     /**
@@ -72,10 +65,14 @@ class BackLogin
     public function login() {
         // End previous session:
         // Delete cookies sessauth & sessid by expiring them.
-        setcookie(AuthHelper::COOKIE_RC_SESSID, "-del-", 1, "/", "", true, true);
-        setcookie(AuthHelper::COOKIE_RC_SESSAUTH, "-del-", 1, "/", "", true, true);
+        setcookie(AuthHelper::COOKIE_RC_SESSID, "-del-", 1, "/", $this->rcServer, true, true);
+        setcookie(AuthHelper::COOKIE_RC_SESSAUTH, "-del-", 1, "/", $this->rcServer, true, true);
         // Get login page, extracts sessionID and token.
         $loginPageObj = $this->sendRequest("?_task=login", "GET");
+        if ($loginPageObj === false) {
+            Util::writeLog('roundcube', __METHOD__ . ": Could not get login page.", Util::ERROR);
+            return false;
+        }
         $cookies = self::parseCookies($loginPageObj['headers']['set-cookie']);
         if (isset($cookies[AuthHelper::COOKIE_RC_SESSID])) {
             $this->rcSessionID = $cookies[AuthHelper::COOKIE_RC_SESSID];
@@ -93,21 +90,24 @@ class BackLogin
         );
         // Post login form.
         $loginAnswerObj = $this->sendRequest("?_task=login&_action=login", "POST", $data);
+        if ($loginAnswerObj === false) {
+            Util::writeLog('roundcube', __METHOD__ . ": Could not get login response.", Util::ERROR);
+            return false;
+        }
         // Set cookies sessauth and sessid.
         $cookiesLogin = self::parseCookies($loginAnswerObj['headers']['set-cookie']);
         if (isset($cookiesLogin[AuthHelper::COOKIE_RC_SESSID]) &&
             $cookiesLogin[AuthHelper::COOKIE_RC_SESSID] !== "-del-") {
             $this->rcSessionID = $cookiesLogin[AuthHelper::COOKIE_RC_SESSID];
             setcookie(AuthHelper::COOKIE_RC_SESSID, $this->rcSessionID,
-                0, "/", "", true, true);
+                0, "/", $this->rcServer, true, true);
         }
         if (isset($cookiesLogin[AuthHelper::COOKIE_RC_SESSAUTH]) &&
             $cookiesLogin[AuthHelper::COOKIE_RC_SESSAUTH] !== "-del-") {
             // We received a sessauth => logged in!
             $this->rcSessionAuth = $cookiesLogin[AuthHelper::COOKIE_RC_SESSAUTH];
             setcookie(AuthHelper::COOKIE_RC_SESSAUTH, $this->rcSessionAuth,
-                0, "/", "", true, true);
-            \OC::$server->getSession()->set(AuthHelper::SESSION_RC_ADDRESS, $this->rcInternalAddress);
+                0, "/", $this->rcServer, true, true);
             return true;
         }
         // Check again whether input fields of login form exist.
@@ -117,30 +117,6 @@ class BackLogin
         } else {
             Util::writeLog('roundcube', __METHOD__ . ": Could not login.", Util::ERROR);
             return false;
-        }
-    }
-
-    /**
-     * Generate RoundCube server address on-the-fly based on public address
-     * @return string https?://server/maildir/
-     */
-    private function makeUrl() {
-        $rcInternalAddress = $this->config->getAppValue('roundcube', 'rcInternalAddress', '');
-        if ($rcInternalAddress === "") {
-            $url = "";
-            if ((isset($_SERVER['HTTPS']) && $_SERVER["HTTPS"] || isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https')) {
-                $url = "https://";
-            } else {
-                $url = "http://";
-            }
-            $url .= $this->rcHost;
-            if (is_numeric($this->rcPort) && $this->rcPort > 0 && $this->rcPort < 65536) {
-                $url .= ":{$this->rcPort}";
-            }
-            $maildir = trim(CCTMaildir::getCCTMaildir($this->username), ' /');
-            return "$url/$maildir/";
-        } else {
-            return $rcInternalAddress;
         }
     }
 
@@ -174,19 +150,21 @@ class BackLogin
     /**
      * Send request using cURL.
      *
-     * @param string $rcUrl  To append to rcInternalAddress (no slash at begin).
+     * @param string $rcQuery  Query string to append to rcInternalAddress
+     *                       (Example: "?_task=login").
      * @param string $method POST or GET request.
      * @param string $data   Data to send.
      * @return array ['headers' => [headers], 'html' => html]
      */
-    private function sendRequest($rcUrl, $method, $data = null) {
+    private function sendRequest($rcQuery, $method, $data = null) {
         $response = false;
-        $rcUrl = $this->rcInternalAddress . "$rcUrl";
+        $rcQuery = $this->rcInternalAddress . "$rcQuery";
+        Util::writeLog('roundcube', __METHOD__ . ": URL: '$rcQuery'.", Util::DEBUG);
         try {
             $curl = curl_init();
             // general settings
             $curlOpts = array(
-                CURLOPT_URL            => $rcUrl,
+                CURLOPT_URL            => $rcQuery,
                 CURLOPT_HEADER         => true,
                 CURLOPT_FOLLOWLOCATION => false,
                 CURLOPT_RETURNTRANSFER => true,
@@ -218,7 +196,7 @@ class BackLogin
                 $cookies .= AuthHelper::COOKIE_RC_SESSAUTH . "={$this->rcSessionAuth}; ";
             }
             $curlOpts[CURLOPT_COOKIE] = rtrim($cookies, "; ");
-            if (!$this->hasSSLVerify) {
+            if (!$this->enableSSLVerify) {
                 Util::writeLog('roundcube', __METHOD__ . ": Disabling SSL verification.", Util::WARN);
                 $curlOpts[CURLOPT_SSL_VERIFYPEER] = false;
                 $curlOpts[CURLOPT_SSL_VERIFYHOST] = 0;
@@ -232,15 +210,15 @@ class BackLogin
             $curlError      = curl_error($curl);
             $headerSize     = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
             $respHttpCode   = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-            Util::writeLog('roundcube', __METHOD__ . ": Got the following HTTP Status Code: ($respHttpCode) $curlError", Util::DEBUG);
-            if ($curlErrorNum === CURLE_OK) {
+            Util::writeLog('roundcube', __METHOD__ . ": Got the following HTTP Status Code: ($respHttpCode) $curlErrorNum: $curlError", Util::DEBUG);
+            if ($curlErrorNum === CURLE_OK && $respHttpCode < 400) {
                 $response = self::splitResponse($rawResponse, $headerSize);
             } else {
-                Util::writeLog('roundcube', __METHOD__ . ": Opening url '$rcUrl' failed with '$curlError'", Util::WARN);
+                Util::writeLog('roundcube', __METHOD__ . ": Opening url '$rcQuery' failed with '$curlError'", Util::WARN);
             }
             curl_close($curl);
         } catch (Exception $e) {
-            Util::writeLog('roundcube', __METHOD__ . ": URL '$rcUrl' open failed.", Util::WARN);
+            Util::writeLog('roundcube', __METHOD__ . ": URL '$rcQuery' open failed.", Util::WARN);
         }
         return $response;
     }

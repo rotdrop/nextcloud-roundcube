@@ -13,13 +13,11 @@ class SettingsController extends \OCP\AppFramework\Controller
 	public function adminSettings() {
 		$config = \OC::$server->getConfig();
 		$tplParams = array(
-			'maildir'           => $config->getAppValue($this->appName, 'maildir', ''),
+			'ocServer'          => \OC::$server->getURLGenerator()->getAbsoluteURL("/"),
+			'defaultRCPath'     => $config->getAppValue($this->appName, 'defaultRCPath', ''),
+			'domainPath'        => json_decode($config->getAppValue($this->appName, 'domainPath', ''), true),
 			'showTopLine'       => $config->getAppValue($this->appName, 'showTopLine', false),
-			'enableSSLVerify'   => $config->getAppValue($this->appName, 'enableSSLVerify', true),
-			'enableDebug'       => $config->getAppValue($this->appName, 'enableDebug', false),
-			'rcHost'            => $config->getAppValue($this->appName, 'rcHost', ''),
-			'rcPort'            => $config->getAppValue($this->appName, 'rcPort', ''),
-			'rcInternalAddress' => $config->getAppValue($this->appName, 'rcInternalAddress', '')
+			'enableSSLVerify'   => $config->getAppValue($this->appName, 'enableSSLVerify', true)
 		);
 		return new TemplateResponse($this->appName, 'tpl.adminSettings', $tplParams, 'blank');
 	}
@@ -36,28 +34,36 @@ class SettingsController extends \OCP\AppFramework\Controller
 		}
 
 		$config = \OC::$server->getConfig();
-		$maildir           = $req->getParam('maildir', '');
-		$showTopLine       = $req->getParam('showTopLine', null);
-		$enableSSLVerify   = $req->getParam('enableSSLVerify', null);
-		$enableDebug       = $req->getParam('enableDebug', null);
-		$rcHost            = $req->getParam('rcHost', '');
-		$rcPort            = $req->getParam('rcPort', '');
-		$rcInternalAddress = $req->getParam('rcInternalAddress', '');
+		$defaultRCPath   = $req->getParam('defaultRCPath', '');
+		$rcDomains       = $req->getParam('rcDomain', '');
+		$rcPaths         = $req->getParam('rcPath', '');
+		$showTopLine     = $req->getParam('showTopLine', null);
+		$enableSSLVerify = $req->getParam('enableSSLVerify', null);
 
 		$validation = array();
-		if (!is_string($maildir) || $maildir === '') {
-			$validation[] = $l->t("Maildir can't be an empty string.");
+		if (!is_string($defaultRCPath) || $defaultRCPath === '') {
+			$validation[] = $l->t("Default RC installation path can't be an empty string.");
 		}
-		if (!is_string($rcHost) || ($rcHost !== '' && strlen($rcHost) < 4)) {
-			$validation[] = $l->t("Host is not valid.");
+		foreach ($rcDomains as &$dom) {
+			if (!is_string($dom) || preg_match('/(@|\/)/', $dom) === 1) {
+				$validation[] = $l->t("A domain is not valid.");
+				break;
+			} else {
+				$dom = trim($dom);
+			}
 		}
-		if (! ((is_numeric($rcPort) && $rcPort > 0 && $rcPort < 65536) || $rcPort === '')) {
-			$validation[] = $l->t("Port must be a valid port number or left empty.");
+		foreach ($rcPaths as &$path) {
+			if (!is_string($path)) {
+				$validation[] = $l->t("A path is not valid.");
+				break;
+			}
+			$path = trim($path);
+			if (preg_match('/^https?:\/\//', $path) === 0 && $path !== '') {
+				$path = ltrim($path, " /");
+			}
 		}
-		if (! ((is_string($rcInternalAddress) && strpos($rcInternalAddress, '://') > -1)
-			|| $rcInternalAddress === '')) {
-			$validation[] = $l->t("Internal address '%s' is not an URL",
-				array($rcInternalAddress));
+		if (count($rcDomains) !== count($rcPaths)) {
+			$validation[] = $l->t("Unpaired domains and paths.");
 		}
 		if (!empty($validation)) {
 			return new JSONResponse(array(
@@ -68,20 +74,28 @@ class SettingsController extends \OCP\AppFramework\Controller
 		}
 
 		// Passed validation.
-		$maildirFixed = "/" . trim($maildir, " /") . "/";
-		$config->setAppValue($appName, 'maildir', $maildirFixed);
-		$checkBoxes = array('showTopLine', 'enableSSLVerify', 'enableDebug');
+		$defaultRCPath = trim($defaultRCPath);
+		if (preg_match('/^https?:\/\//', $defaultRCPath) === 0) {
+			$defaultRCPath = ltrim($defaultRCPath, " /");
+		}
+		$config->setAppValue($appName, 'defaultRCPath', $defaultRCPath);
+		$domainPath = json_encode(array_filter(
+			array_combine($rcDomains, $rcPaths),
+			function($v, $k) {
+				return $k !== '' && $v !== '';
+			},
+			ARRAY_FILTER_USE_BOTH
+		));
+		$config->setAppValue($appName, 'domainPath', $domainPath);
+		$checkBoxes = array('showTopLine', 'enableSSLVerify');
 		foreach ($checkBoxes as $c) {
 			$config->setAppValue($appName, $c, $$c !== null);
 		}
-		$config->setAppValue($appName, 'rcHost', $rcHost);
-		$config->setAppValue($appName, 'rcPort', $rcPort);
-		$config->setAppValue($appName, 'rcInternalAddress', $rcInternalAddress);
 
 		return new JSONResponse(array(
 			'status'  => 'success',
 			'message' => $l->t('Application settings successfully stored.'),
-			'config'  => array('maildir' => $maildirFixed)
+			'config'  => array('defaultRCPath' => $defaultRCPath)
 		));
 	}
 }

@@ -34,6 +34,7 @@ class AuthHelper
     const COOKIE_RC_SESSAUTH  = "roundcube_sessauth";
     const SESSION_RC_PRIVKEY  = 'oc-rc-privateKey';
     const SESSION_RC_ADDRESS  = 'oc-rc-internal-address';
+    const SESSION_RC_SERVER   = 'oc-rc-server';
 
     /**
      * Save Login data for later login into roundcube server
@@ -65,6 +66,14 @@ class AuthHelper
         \OC::$server->getSession()->set(self::SESSION_RC_PRIVKEY, $pair['privateKey']);
         setcookie(self::COOKIE_RC_TOKEN, $passphrase, 0, "", "", true, true);
         setcookie(self::COOKIE_RC_STRING, $b64crypted, 0, "", "", true, true);
+
+        $app = new \OCP\AppFramework\App('roundcube');
+        $rcIA = $app->getContainer()->query('OCA\RoundCube\InternalAddress');
+        $rcAddress = $rcIA->getAddress();
+        $rcServer  = $rcIA->getServer();
+        \OC::$server->getSession()->set(AuthHelper::SESSION_RC_ADDRESS, $rcAddress);
+        \OC::$server->getSession()->set(AuthHelper::SESSION_RC_SERVER, $rcServer);
+
         return true;
     }
 
@@ -96,10 +105,11 @@ class AuthHelper
         }
         \OC::$server->getSession()->remove(self::SESSION_RC_PRIVKEY);
         // Expires cookies.
+        $rcServer = \OC::$server->getSession()->set(self::SESSION_RC_SERVER, "");
         setcookie(self::COOKIE_RC_TOKEN,    "-del-", 1, "", "", true, true);
         setcookie(self::COOKIE_RC_STRING,   "-del-", 1, "", "", true, true);
-        setcookie(self::COOKIE_RC_SESSID,   "-del-", 1, "/", "", true, true);
-        setcookie(self::COOKIE_RC_SESSAUTH, "-del-", 1, "/", "", true, true);
+        setcookie(self::COOKIE_RC_SESSID,   "-del-", 1, "/", $rcServer, true, true);
+        setcookie(self::COOKIE_RC_SESSAUTH, "-del-", 1, "/", $rcServer, true, true);
         Util::writeLog('roundcube', __METHOD__ . ": Logout of user '$user' from RoundCube done.", Util::INFO);
         return true;
     }
