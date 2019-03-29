@@ -37,11 +37,11 @@ $imgDel = \OC::$server->getURLGenerator()->imagePath('core', 'actions/delete.svg
 				value="<?php p($_['defaultRCPath']); ?>"
 				maxlength="128" style="width:400px">
 			</label>
-			<p><?php p($l->t('Default path relative to ownCloud server (%s), or full URL if it\'s on a different domain.', $_['ocServer'])); ?></p>
+			<p><?php p($l->t('Default path relative to ownCloud server (%s).', $_['ocServer'])); ?></p>
 		</div>
 		<div class="rcSetting">
 			<h3><?php p($l->t('Per email domain RC installations')); ?></h3>
-			<p><?php p($l->t("Enter your users' email domains and their corresponding paths if you have different RoundCube installations. For example: 'domain1.com':'roundcube1', 'domain2.com':'https://mail.domain2.com/'. Path relative to ownCloud server or full URL.")); ?></p>
+			<p><?php p($l->t("Enter your users' email domains and their corresponding paths if you have different RoundCube installations. For example: 'domain1.com':'roundcube1/', 'domain2.com':'roundcube2/'. Path relative to ownCloud server.")); ?></p>
 			<table id="rcTableDomainPath">
 				<tbody>
 					<template id="rcDomainPath">

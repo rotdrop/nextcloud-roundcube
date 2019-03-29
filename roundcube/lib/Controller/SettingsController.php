@@ -22,6 +22,15 @@ class SettingsController extends \OCP\AppFramework\Controller
 		return new TemplateResponse($this->appName, 'tpl.adminSettings', $tplParams, 'blank');
 	}
 
+	/**
+	 * Validates and stores RC admin settings.
+	 * @return JSONResponse array(
+	 *                        "status"   => ...,
+	 *                        "message"  => ...,
+	 *                        ["invalid" => array($msg1, $msg2, ...),]
+	 *                        ["config" => array("key" => "value", ...)]
+	 *                      )
+	 */
 	public function setAdminSettings() {
 		$l = \OC::$server->getL10N('roundcube');
 		$req = \OC::$server->getRequest();
@@ -40,9 +49,14 @@ class SettingsController extends \OCP\AppFramework\Controller
 		$showTopLine     = $req->getParam('showTopLine', null);
 		$enableSSLVerify = $req->getParam('enableSSLVerify', null);
 
+		// Validate and do a first fix of some values.
 		$validation = array();
 		if (!is_string($defaultRCPath) || $defaultRCPath === '') {
 			$validation[] = $l->t("Default RC installation path can't be an empty string.");
+		} elseif (preg_match('/^([a-zA-Z]+:)?\/\//', $path) === 1) {
+			$validation[] = $l->t("Default path must be a url relative to this server.");
+		} else {
+			$defaultRCPath = trim($defaultRCPath);
 		}
 		foreach ($rcDomains as &$dom) {
 			if (!is_string($dom) || preg_match('/(@|\/)/', $dom) === 1) {
@@ -58,13 +72,17 @@ class SettingsController extends \OCP\AppFramework\Controller
 				break;
 			}
 			$path = trim($path);
-			if (preg_match('/^https?:\/\//', $path) === 0 && $path !== '') {
+			if (preg_match('/^([a-zA-Z]+:)?\/\//', $path) === 1 || $path === '') {
+				$validation[] = $l->t("Paths must be urls relative to this server.");
+				break;
+			} else {
 				$path = ltrim($path, " /");
 			}
 		}
 		if (count($rcDomains) !== count($rcPaths)) {
 			$validation[] = $l->t("Unpaired domains and paths.");
 		}
+		// Won't change anything if validation fails.
 		if (!empty($validation)) {
 			return new JSONResponse(array(
 				'status'  => 'error',
@@ -74,10 +92,7 @@ class SettingsController extends \OCP\AppFramework\Controller
 		}
 
 		// Passed validation.
-		$defaultRCPath = trim($defaultRCPath);
-		if (preg_match('/^https?:\/\//', $defaultRCPath) === 0) {
-			$defaultRCPath = ltrim($defaultRCPath, " /");
-		}
+		$defaultRCPath = ltrim($defaultRCPath, " /");
 		$config->setAppValue($appName, 'defaultRCPath', $defaultRCPath);
 		$domainPath = json_encode(array_filter(
 			array_combine($rcDomains, $rcPaths),

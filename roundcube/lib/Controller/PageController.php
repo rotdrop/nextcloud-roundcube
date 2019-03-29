@@ -42,9 +42,9 @@ class PageController extends \OCP\AppFramework\Controller
 		\OC::$server->getNavigationManager()->setActiveEntry($this->appName);
 		$user = \OC::$server->getUserSession()->getUser()->getUID();
 
-		if ($user === 'admin') {
-			Util::writeLog($this->appName, __METHOD__ . ": 'admin' no hace login/logout.", Util::INFO);
-			return new TemplateResponse($this->appName, "part.error.admin", array());
+		if (strpos($user, '@') === false) {
+			Util::writeLog($this->appName, __METHOD__ . ": username ($user) is not an email address.", Util::WARN);
+			return new TemplateResponse($this->appName, "part.error.noemail", array('user' => $user));
 		}
 		if (!AuthHelper::login()) {
 			return new TemplateResponse($this->appName, "part.error.login", array());

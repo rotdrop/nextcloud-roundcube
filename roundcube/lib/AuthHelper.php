@@ -44,17 +44,16 @@ class AuthHelper
      */
     public static function postLogin($params) {
         \OCP\App::checkAppEnabled('roundcube');
-        if ($params['uid'] === 'admin') {
-            // admin no hace login/logout
-            Util::writeLog('roundcube', __METHOD__ . ": 'admin' no hace login/logout", Util::INFO);
+        if (strpos($params['uid'], '@') === false) {
+            Util::writeLog('roundcube', __METHOD__ . ": username ({$params['uid']}) is not an email address.", Util::WARN);
             return false;
         }
-        $via = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
+        $via = \OC::$server->getRequest()->getRequestUri();
         if (preg_match(
-                '#(/ocs/v1.php|'.
-                  '/apps/calendar/caldav.php|'.
-                  '/apps/contacts/carddav.php|'.
-                  '/remote.php/webdav)/#', $via)
+            '#(/ocs/v\d.php|'.
+            '/apps/calendar/caldav.php|'.
+            '/apps/contacts/carddav.php|'.
+            '/remote.php/webdav)/#', $via)
         ) {
             return false;
         }
@@ -64,8 +63,8 @@ class AuthHelper
         $plainText = $params['password'];
         $b64crypted = Crypto::publicEncrypt($plainText, $pair['publicKey']);
         \OC::$server->getSession()->set(self::SESSION_RC_PRIVKEY, $pair['privateKey']);
-        setcookie(self::COOKIE_RC_TOKEN, $passphrase, 0, "", "", true, true);
-        setcookie(self::COOKIE_RC_STRING, $b64crypted, 0, "", "", true, true);
+        setcookie(self::COOKIE_RC_TOKEN, $passphrase, 0, "/", "", true, true);
+        setcookie(self::COOKIE_RC_STRING, $b64crypted, 0, "/", "", true, true);
 
         $app = new \OCP\AppFramework\App('roundcube');
         $rcIA = $app->getContainer()->query('OCA\RoundCube\InternalAddress');
@@ -98,18 +97,16 @@ class AuthHelper
     public static function logout() {
         \OCP\App::checkAppEnabled('roundcube');
         $user = \OC::$server->getUserSession()->getUser()->getUID();
-        if ($user === 'admin') {
-            // admin no hace login/logout
-            Util::writeLog('roundcube', __METHOD__ . ": 'admin' no hace login/logout", Util::INFO);
-            return true;
+        if (strpos($user, '@') === false) {
+            Util::writeLog('roundcube', __METHOD__ . ": username ($user) is not an email address.", Util::WARN);
+            return false;
         }
         \OC::$server->getSession()->remove(self::SESSION_RC_PRIVKEY);
         // Expires cookies.
-        $rcServer = \OC::$server->getSession()->set(self::SESSION_RC_SERVER, "");
-        setcookie(self::COOKIE_RC_TOKEN,    "-del-", 1, "", "", true, true);
-        setcookie(self::COOKIE_RC_STRING,   "-del-", 1, "", "", true, true);
-        setcookie(self::COOKIE_RC_SESSID,   "-del-", 1, "/", $rcServer, true, true);
-        setcookie(self::COOKIE_RC_SESSAUTH, "-del-", 1, "/", $rcServer, true, true);
+        setcookie(self::COOKIE_RC_TOKEN,    "-del-", 1, "/", "", true, true);
+        setcookie(self::COOKIE_RC_STRING,   "-del-", 1, "/", "", true, true);
+        setcookie(self::COOKIE_RC_SESSID,   "-del-", 1, "/", "", true, true);
+        setcookie(self::COOKIE_RC_SESSAUTH, "-del-", 1, "/", "", true, true);
         Util::writeLog('roundcube', __METHOD__ . ": Logout of user '$user' from RoundCube done.", Util::INFO);
         return true;
     }

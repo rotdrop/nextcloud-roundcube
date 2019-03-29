@@ -65,8 +65,8 @@ class BackLogin
     public function login() {
         // End previous session:
         // Delete cookies sessauth & sessid by expiring them.
-        setcookie(AuthHelper::COOKIE_RC_SESSID, "-del-", 1, "/", $this->rcServer, true, true);
-        setcookie(AuthHelper::COOKIE_RC_SESSAUTH, "-del-", 1, "/", $this->rcServer, true, true);
+        setcookie(AuthHelper::COOKIE_RC_SESSID, "-del-", 1, "/", "", true, true);
+        setcookie(AuthHelper::COOKIE_RC_SESSAUTH, "-del-", 1, "/", "", true, true);
         // Get login page, extracts sessionID and token.
         $loginPageObj = $this->sendRequest("?_task=login", "GET");
         if ($loginPageObj === false) {
@@ -100,14 +100,14 @@ class BackLogin
             $cookiesLogin[AuthHelper::COOKIE_RC_SESSID] !== "-del-") {
             $this->rcSessionID = $cookiesLogin[AuthHelper::COOKIE_RC_SESSID];
             setcookie(AuthHelper::COOKIE_RC_SESSID, $this->rcSessionID,
-                0, "/", $this->rcServer, true, true);
+                0, "/", "", true, true);
         }
         if (isset($cookiesLogin[AuthHelper::COOKIE_RC_SESSAUTH]) &&
             $cookiesLogin[AuthHelper::COOKIE_RC_SESSAUTH] !== "-del-") {
             // We received a sessauth => logged in!
             $this->rcSessionAuth = $cookiesLogin[AuthHelper::COOKIE_RC_SESSAUTH];
             setcookie(AuthHelper::COOKIE_RC_SESSAUTH, $this->rcSessionAuth,
-                0, "/", $this->rcServer, true, true);
+                0, "/", "", true, true);
             return true;
         }
         // Check again whether input fields of login form exist.
