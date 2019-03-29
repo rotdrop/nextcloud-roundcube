@@ -5,7 +5,7 @@ var Roundcube = Roundcube || {};
  * This is only for larry/melanie2_larry_mobile skins.
  * For other skins we don't do anything.
  */
-Roundcube.modIframe = function() {
+Roundcube.hideTopLine = function() {
 	var rcf = $("#roundcubeFrame");
 	if (!rcf[0].contentWindow.rcmail.env.skin.includes("larry")) {
 		return;
@@ -64,9 +64,11 @@ Roundcube.resizeIframe = function() {
 }
 
 $('#roundcubeFrame').ready(function() {
-	$('#roundcubeFrame').load(function() {
-		Roundcube.modIframe();
-	});
+    if (!$('#roundcubeFrame').hasClass('showTopLine')) {
+        $('#roundcubeFrame').load(function() {
+            Roundcube.hideTopLine();
+        });
+    }
 	Roundcube.resizeIframe();
 });
 

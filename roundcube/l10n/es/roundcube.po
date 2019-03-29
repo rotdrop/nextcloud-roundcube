@@ -2,133 +2,102 @@
 msgid "Webmail"
 msgstr "Webmail"
 
-#: lib/Controller/SettingsController.php:34
+#: lib/Controller/SettingsController.php:41
 msgid "Not submitted for us."
 msgstr "No enviado para nosotros."
 
-#: lib/Controller/SettingsController.php:49
-msgid "Maildir can't be an empty string."
-msgstr "Maildir no puede estar vacía."
-
-#: lib/Controller/SettingsController.php:52
-msgid "Host is not valid."
-msgstr "El host no es válido."
-
 #: lib/Controller/SettingsController.php:55
-msgid "Port must be a valid port number or left empty."
-msgstr "El número de puerto debe ser válido o dejado vacío."
+msgid "Default RC installation path can't be an empty string."
+msgstr "La ruta por defecto de la instalación del RC no puede ser vacía."
 
-#: lib/Controller/SettingsController.php:59
-#, php-format
-msgid "Internal address '%s' is not an URL"
-msgstr "La dirección interna '%s' no es una URL."
+#: lib/Controller/SettingsController.php:57
+msgid "Default path must be a url relative to this server."
+msgstr "La ruta por defecto debe ser una url relativa a este servidor."
 
-#: lib/Controller/SettingsController.php:65
+#: lib/Controller/SettingsController.php:63
+msgid "A domain is not valid."
+msgstr "Uno de los dominios no es válido."
+
+#: lib/Controller/SettingsController.php:71
+msgid "A path is not valid."
+msgstr "Una de las rutas no es válida."
+
+#: lib/Controller/SettingsController.php:76
+msgid "Paths must be urls relative to this server."
+msgstr "Las rutas deben ser urls relativas a este servidor."
+
+#: lib/Controller/SettingsController.php:83
+msgid "Unpaired domains and paths."
+msgstr "El número de dominios y rutas no es parejo."
+
+#: lib/Controller/SettingsController.php:89
 msgid "Some inputs are not valid."
 msgstr "Algunas entradas no son válidas."
 
-#: lib/Controller/SettingsController.php:83
+#: lib/Controller/SettingsController.php:112
 msgid "Application settings successfully stored."
 msgstr "Configuración de la aplicación guardada con éxito."
-
-#: templates/part.error.admin.php:2
-msgid "Usuario 'admin' no hace Auto-Login."
-msgstr "Usuario 'admin' no hace Auto-Login."
 
 #: templates/part.error.login.php:2
 msgid "Unable to login into roundcube. There are login errors."
 msgstr "No se puede hacer login en RoundCube. Hay errores de login."
 
-#: templates/tpl.adminSettings.php:32
-msgid "Basic settings"
-msgstr "Configuración básica"
+#: templates/part.error.noemail.php:2
+#, php-format
+msgid "Username '%s' is not an email address."
+msgstr "El usuario '%s' no es un email válido."
 
-#: templates/tpl.adminSettings.php:33
+#: templates/tpl.adminSettings.php:35
+msgid "Default RC installation path"
+msgstr "Ruta por defecto al RC"
+
+#: templates/tpl.adminSettings.php:40
+#, php-format
+msgid "Default path relative to ownCloud server (%s)."
+msgstr "Ruta por defecto relativa al servidor ownCloud (%s)."
+
+#: templates/tpl.adminSettings.php:43
+msgid "Per email domain RC installations"
+msgstr "Rutas a RC por dominio de email"
+
+#: templates/tpl.adminSettings.php:44
 msgid ""
-"If you have \"http://example.com/roundcube\" enter \"/roundcube/\" here. "
-"Note that subdomains or URLs do not work, just absolute paths to the same "
-"domain ownCloud is running."
-msgstr "Si se tiene \"http://example.com/roundcube\", ingresar \"/roundcube/\" "
-"aquí. Notar que subdominios o URLs no funcionan, sólo rutas absolutas al "
-"mismo dominio en el que está ejecutándose ownCloud."
+"Enter your users' email domains and their corresponding paths if you have "
+"different RoundCube installations. For example: 'domain1.com':'roundcube1/', "
+"'domain2.com':'roundcube2/'. Path relative to ownCloud server."
+msgstr "Ingresar los dominios de los emails de sus usuarios y las "
+"correspondientes rutas si tiene diferentes instalaciones de RoundCube. Por "
+"ejemplo: 'domain1.com':'roundcube1/', 'domain2.com':'roundcube2/'. "
+"Rutas relativas al servidor ownCloud."
 
-#: templates/tpl.adminSettings.php:33
-msgid "Absolute path to RC installation"
-msgstr "Ruta absoluta a la instalación del RC."
+#: templates/tpl.adminSettings.php:51 templates/tpl.adminSettings.php:67
+msgid "Remove"
+msgstr "Quitar"
 
-#: templates/tpl.adminSettings.php:38
+#: templates/tpl.adminSettings.php:78
+msgid "Add"
+msgstr "Agregar"
+
+#: templates/tpl.adminSettings.php:85
 msgid "Advanced settings"
 msgstr "Configuración avanzada"
 
-#: templates/tpl.adminSettings.php:40
-msgid "Show RoundCube control navigation menu items with currently logged in "
-"user information"
-msgstr "Mostrar menú de control de navegación del RC con información del "
-"usuario logueado."
+#: templates/tpl.adminSettings.php:89
+msgid "Show RoundCube top information bar (shows logout button)."
+msgstr "Mostrar barra de información de RoundCube arriba (muestra botón de logout)."
 
-#: templates/tpl.adminSettings.php:43
-msgid "Show information bar on top of page"
-msgstr "Mostrar barra de información arriba de la página."
+#: templates/tpl.adminSettings.php:93
+msgid "Disable when debugging with self-signed certificates."
+msgstr "Deshabilitar para depurar con certificados auto-firmados."
 
-#: templates/tpl.adminSettings.php:47 templates/tpl.adminSettings.php:50
-msgid "Enable SSL verification, e.g. disable for self-signed certificates"
-msgstr "Habilitar verificación SSL (deshabilitar para certificados "
-"auto-firmados)."
+#: templates/tpl.adminSettings.php:96
+msgid "Enable SSL verification."
+msgstr "Habilitar verificación SSL."
 
-#: templates/tpl.adminSettings.php:54
-msgid "Enable debug messages. RC tends to bloat the log-files."
-msgstr ""
-"Habilitar mensajes de depuración. RC tiende a llenar los archivos de log."
-
-#: templates/tpl.adminSettings.php:57
-msgid "Enable debug logging"
-msgstr "Habilitar depuración."
-
-#: templates/tpl.adminSettings.php:61
-msgid ""
-"Overwrite roundcube server hostname if not the same as owncloud, e.g. for "
-"(sub)domains which resides on the same server, e.g rc.domain.tld. But keep "
-"in mind that due to iFrame security constraints it will be only working on "
-"the same server, see HTML/JS same-origin policies."
-msgstr ""
-"Sobreescribir el hostname del servidor de RC si no es el mismo que ownCloud, "
-"ej.: para (sub)dominios que residan en el mismo servidor (rc.dominio.tld). "
-"Tener en cuenta que sólo funcionará en el mismo servidor por las restricciones"
-" de seguridad del iFrame. Ver políticas de HTML/JS same-origin."
-
-#: templates/tpl.adminSettings.php:62
-msgid "Overwrite RC server hostname"
-msgstr "Sobreescribir el hostname del servidor de RC."
-
-#: templates/tpl.adminSettings.php:66
-msgid ""
-"Overwrite roundcube server port (If not specified, ports 80/443 are used for "
-"HTTP/S)."
-msgstr "Sobreescribir el puerto del servidor de RC. (Si no se especifica, se "
-"usan los puertos 80/443 para HTTP/S."
-
-#: templates/tpl.adminSettings.php:67
-msgid "Overwrite RC server port"
-msgstr "Sobreescribir el puerto del servidor de RC."
-
-#: templates/tpl.adminSettings.php:72
-msgid ""
-"Internal RoundCube address (as seen by the OwnCloud server). Use this if the "
-"internal address, to which OwnCloud should connect when talking to "
-"RoundCube, does not match the host and port set above."
-msgstr ""
-"Dirección interna del RC (como la ve el servidor ownCloud). Usar esto si la "
-"dirección interna, a la que el ownCloud se debería conectar cuando habla con "
-"RC, no concuerda con el host y puerto de arriba."
-
-#: templates/tpl.adminSettings.php:73
-msgid "Internal RC address"
-msgstr "Dirección interna del RC."
-
-#: templates/tpl.adminSettings.php:81
-msgid "Saving..."
-msgstr "Guardando..."
-
-#: templates/tpl.adminSettings.php:85
+#: templates/tpl.adminSettings.php:100
 msgid "Save"
 msgstr "Guardar"
+
+#: templates/tpl.adminSettings.php:101
+msgid "Saving..."
+msgstr "Guardando..."

@@ -1,6 +1,6 @@
 <?php
 /**
- * ownCloud - roundcube mail plugin
+ * ownCloud - RoundCube mail plugin
  *
  * @author Martin Reinhardt and David Jaedke
  * @author 2019 Leonardo R. Morelli github.com/LeonardoRM
@@ -23,6 +23,7 @@
 $appName    = $_['appName'];
 $url        = $_['url'] ."?_task=mail";
 $imgLoading = $_['loading'];
+$showTopLine = ($_['showTopLine'] ? 'showTopLine' : '');
 
 style($appName, 'base');
 script($appName, 'app');
@@ -30,4 +31,4 @@ script($appName, 'app');
 <div id="roundcubeLoaderContainer">
     <img src="<?php p($imgLoading); ?>" id="roundcubeLoader">
 </div>
-<iframe src="<?php p($url); ?>" id="roundcubeFrame" name="roundcube"></iframe>
+<iframe src="<?php p($url); ?>" id="roundcubeFrame" class="<?php p($showTopLine); ?>" name="roundcube"></iframe>

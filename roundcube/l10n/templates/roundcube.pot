@@ -6,13 +6,13 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: ownCloud roundcube 10.0.0\n"
+"Project-Id-Version: ownCloud roundcube 10.0.1\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2019-03-26 11:41-0300\n"
+"POT-Creation-Date: 2019-03-29 09:29-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Last-Translator: Leonardo R. Morelli <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -21,121 +21,99 @@ msgstr ""
 msgid "Webmail"
 msgstr ""
 
-#: lib/Controller/SettingsController.php:34
+#: lib/Controller/SettingsController.php:41
 msgid "Not submitted for us."
 msgstr ""
 
-#: lib/Controller/SettingsController.php:49
-msgid "Maildir can't be an empty string."
-msgstr ""
-
-#: lib/Controller/SettingsController.php:52
-msgid "Host is not valid."
-msgstr ""
-
 #: lib/Controller/SettingsController.php:55
-msgid "Port must be a valid port number or left empty."
+msgid "Default RC installation path can't be an empty string."
 msgstr ""
 
-#: lib/Controller/SettingsController.php:59
-#, php-format
-msgid "Internal address '%s' is not an URL"
+#: lib/Controller/SettingsController.php:57
+msgid "Default path must be a url relative to this server."
 msgstr ""
 
-#: lib/Controller/SettingsController.php:65
-msgid "Some inputs are not valid."
+#: lib/Controller/SettingsController.php:63
+msgid "A domain is not valid."
+msgstr ""
+
+#: lib/Controller/SettingsController.php:71
+msgid "A path is not valid."
+msgstr ""
+
+#: lib/Controller/SettingsController.php:76
+msgid "Paths must be urls relative to this server."
 msgstr ""
 
 #: lib/Controller/SettingsController.php:83
-msgid "Application settings successfully stored."
+msgid "Unpaired domains and paths."
 msgstr ""
 
-#: templates/part.error.admin.php:2
-msgid "Usuario 'admin' no hace Auto-Login."
+#: lib/Controller/SettingsController.php:89
+msgid "Some inputs are not valid."
+msgstr ""
+
+#: lib/Controller/SettingsController.php:112
+msgid "Application settings successfully stored."
 msgstr ""
 
 #: templates/part.error.login.php:2
 msgid "Unable to login into roundcube. There are login errors."
 msgstr ""
 
-#: templates/tpl.adminSettings.php:32
-msgid "Basic settings"
+#: templates/part.error.noemail.php:2
+#, php-format
+msgid "Username '%s' is not an email address."
 msgstr ""
 
-#: templates/tpl.adminSettings.php:33
-msgid ""
-"If you have \"http://example.com/roundcube\" enter \"/roundcube/\" here. "
-"Note that subdomains or URLs do not work, just absolute paths to the same "
-"domain ownCloud is running."
-msgstr ""
-
-#: templates/tpl.adminSettings.php:33
-msgid "Absolute path to RC installation"
-msgstr ""
-
-#: templates/tpl.adminSettings.php:38
-msgid "Advanced settings"
+#: templates/tpl.adminSettings.php:35
+msgid "Default RC installation path"
 msgstr ""
 
 #: templates/tpl.adminSettings.php:40
-msgid ""
-"Show RoundCube control navigation menu items with currently logged in user "
-"information"
+#, php-format
+msgid "Default path relative to ownCloud server (%s)."
 msgstr ""
 
 #: templates/tpl.adminSettings.php:43
-msgid "Show information bar on top of page"
+msgid "Per email domain RC installations"
 msgstr ""
 
-#: templates/tpl.adminSettings.php:47 templates/tpl.adminSettings.php:50
-msgid "Enable SSL verification, e.g. disable for self-signed certificates"
-msgstr ""
-
-#: templates/tpl.adminSettings.php:54
-msgid "Enable debug messages. RC tends to bloat the log-files."
-msgstr ""
-
-#: templates/tpl.adminSettings.php:57
-msgid "Enable debug logging"
-msgstr ""
-
-#: templates/tpl.adminSettings.php:61
+#: templates/tpl.adminSettings.php:44
 msgid ""
-"Overwrite roundcube server hostname if not the same as owncloud, e.g. for "
-"(sub)domains which resides on the same server, e.g rc.domain.tld. But keep "
-"in mind that due to iFrame security constraints it will be only working on "
-"the same server, see HTML/JS same-origin policies."
+"Enter your users' email domains and their corresponding paths if you have "
+"different RoundCube installations. For example: 'domain1.com':'roundcube1/', "
+"'domain2.com':'roundcube2/'. Path relative to ownCloud server."
 msgstr ""
 
-#: templates/tpl.adminSettings.php:62
-msgid "Overwrite RC server hostname"
+#: templates/tpl.adminSettings.php:51 templates/tpl.adminSettings.php:67
+msgid "Remove"
 msgstr ""
 
-#: templates/tpl.adminSettings.php:66
-msgid ""
-"Overwrite roundcube server port (If not specified, ports 80/443 are used for "
-"HTTP/S)."
-msgstr ""
-
-#: templates/tpl.adminSettings.php:67
-msgid "Overwrite RC server port"
-msgstr ""
-
-#: templates/tpl.adminSettings.php:72
-msgid ""
-"Internal RoundCube address (as seen by the OwnCloud server). Use this if the "
-"internal address, to which OwnCloud should connect when talking to "
-"RoundCube, does not match the host and port set above."
-msgstr ""
-
-#: templates/tpl.adminSettings.php:73
-msgid "Internal RC address"
-msgstr ""
-
-#: templates/tpl.adminSettings.php:81
-msgid "Saving..."
+#: templates/tpl.adminSettings.php:78
+msgid "Add"
 msgstr ""
 
 #: templates/tpl.adminSettings.php:85
+msgid "Advanced settings"
+msgstr ""
+
+#: templates/tpl.adminSettings.php:89
+msgid "Show RoundCube top information bar (shows logout button)."
+msgstr ""
+
+#: templates/tpl.adminSettings.php:93
+msgid "Disable when debugging with self-signed certificates."
+msgstr ""
+
+#: templates/tpl.adminSettings.php:96
+msgid "Enable SSL verification."
+msgstr ""
+
+#: templates/tpl.adminSettings.php:100
 msgid "Save"
+msgstr ""
+
+#: templates/tpl.adminSettings.php:101
+msgid "Saving..."
 msgstr ""

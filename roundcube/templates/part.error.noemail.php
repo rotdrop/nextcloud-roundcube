@@ -2,9 +2,7 @@
 /**
  * ownCloud - RoundCube mail plugin
  *
- * @author Martin Reinhardt and David Jaedke
  * @author 2019 Leonardo R. Morelli github.com/LeonardoRM
- * @copyright 2012 Martin Reinhardt contact@martinreinhardt-online.de
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -22,5 +20,5 @@
  */
 ?>
 <div id="errorMsg">
-    <p><?php p($l->t("Unable to login into roundcube. There are login errors.")); ?></p>
+    <p><?php p($l->t("Username '%s' is not an email address.", $_['user'])); ?></p>
 </div>

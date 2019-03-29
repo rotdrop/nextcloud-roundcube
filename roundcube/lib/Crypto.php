@@ -1,5 +1,7 @@
 <?php
 /**
+ * ownCloud - RoundCube mail plugin
+ *
  * @author 2019 Leonardo R. Morelli github.com/LeonardoRM
  *
  * This library is free software; you can redistribute it and/or

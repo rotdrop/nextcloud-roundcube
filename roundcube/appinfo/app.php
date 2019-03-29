@@ -1,6 +1,6 @@
 <?php
 /**
- * ownCloud - roundcube mail plugin
+ * ownCloud - RoundCube mail plugin
  *
  * @author Martin Reinhardt and David Jaedke
  * @author 2019 Leonardo R. Morelli github.com/LeonardoRM
