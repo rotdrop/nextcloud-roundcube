@@ -15,6 +15,7 @@ The app needed an update to work with newer versions of ownCloud. This app doesn
 ## Requirements
 - ownCloud >= 10
 - Roundcube Webmail >= 1.1
+- curl
 
 ## Tested with
 - ownCloud 10.0.10
