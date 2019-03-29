@@ -1,5 +1,5 @@
 # owncloud-roundcube
-OwnCloud app to integrate RoundCube Webmail. The app embeds the [https://roundcube.net/][RoundCube webmail] interface in ownCloud.
+OwnCloud app to integrate RoundCube Webmail. The app embeds the [RoundCube webmail](https://roundcube.net/ "RoundCube's homepage") interface in ownCloud.
 
 ## Requirements
 - ownCloud >= 10
