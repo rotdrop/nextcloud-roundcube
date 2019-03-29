@@ -1,6 +1,6 @@
 <?php
 /**
- * ownCloud - RoundCube authentication helper
+ * ownCloud - RoundCube mail plugin
  *
  * @author Martin Reinhardt
  * @author 2019 Leonardo R. Morelli github.com/LeonardoRM

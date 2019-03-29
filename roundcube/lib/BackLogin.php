@@ -1,6 +1,6 @@
 <?php
 /**
- * ownCloud - RoundCube login with cURL backend
+ * ownCloud - RoundCube mail plugin
  *
  * @author 2019 Leonardo R. Morelli github.com/LeonardoRM
  *
@@ -295,7 +295,6 @@ class BackLogin
                     if ($match[1] !== "" && $match[2] !== "" && strlen($match[2]) > 5) {
                         $cookies[$match[1]] = $match[2];
                     }
-                    // Util::writeLog('roundcube', __METHOD__ . ": found cookie: {$match[1]}={$match[2]}.", Util::DEBUG);
                 }
             }
         }
