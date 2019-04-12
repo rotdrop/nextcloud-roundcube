@@ -58,7 +58,7 @@ msgid "Application settings successfully stored."
 msgstr ""
 
 #: templates/part.error.login.php:2
-msgid "Unable to login into roundcube. There are login errors."
+msgid "Unable to login into roundcube. There are login errors. Relogin to ownCloud."
 msgstr ""
 
 #: templates/part.error.noemail.php:2
