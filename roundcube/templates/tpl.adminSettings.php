@@ -1,10 +1,12 @@
 <?php
 /**
- * ownCloud - RoundCube mail plugin
+ * nextCloud - RoundCube mail plugin
  *
  * @author Martin Reinhardt and David Jaedke
  * @author 2019 Leonardo R. Morelli github.com/LeonardoRM
  * @copyright 2012 Martin Reinhardt contact@martinreinhardt-online.de
+ * @author Claus-Justus Heine
+ * @copyright 2020 Claus-Justus Heine <himself@claus-justus-heine.de>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -20,86 +22,125 @@
  * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-style('roundcube', 'adminSettings');
-script('roundcube', 'adminSettings');
-$imgDel = \OC::$server->getURLGenerator()->imagePath('core', 'actions/delete.svg');
+
+namespace OCA\RoundCube;
+
+use OCA\RoundCube\Service\Constants;
+
+style($appName, 'admin-settings');
+script($appName, 'admin-settings');
+
 ?>
 <div class="section" id="roundcube">
-	<h2 class="app-name">RoundCube</h2>
-	<form id="rcAdminSettings" action="#" method="post">
-		<!-- Prevent CSRF attacks-->
-		<input type="hidden" name="requesttoken" id="requesttoken">
-		<input type="hidden" name="appname" value="roundcube">
+  <h2 class="app-name"><?php p($l->t('Embedded RoundCube')); ?></h2>
+  <form id="<?php echo Constants::APP_PREFIX; ?>settings" action="#" method="post">
+    <input type="hidden" name="appname" value="<?php p($appName); ?>"/>
+    <input type="hidden" name="submit" value="1"/>
 
-		<div class="rcSetting">
-			<h3><?php p($l->t('Default RC installation path')); ?></h3>
-			<label><input type="text" id="defaultRCPath" name="defaultRCPath"
-				value="<?php p($_['defaultRCPath']); ?>"
-				maxlength="128" style="width:400px">
-			</label>
-			<p><?php p($l->t('Default path relative to ownCloud server (%s).', $_['ocServer'])); ?></p>
-		</div>
-		<div class="rcSetting">
-			<h3><?php p($l->t('Per email domain RC installations')); ?></h3>
-			<p><?php p($l->t("Enter your users' email domains and their corresponding paths if you have different RoundCube installations. For example: 'domain1.com':'roundcube1/', 'domain2.com':'roundcube2/'. Path relative to ownCloud server.")); ?></p>
-			<table id="rcTableDomainPath">
-				<tbody>
-					<template id="rcDomainPath">
-						<tr>
-							<td><input type="text" name="rcDomain[]" maxlength="64" style="width:200px"></td>
-							<td><input type="text" name="rcPath[]" maxlength="128" style="width:350px"></td>
-							<td class="remove"><a class="action delete" href="#" title="<?php p($l->t('Remove')); ?>"><img class="action" src="<?php p($imgDel); ?>"></a></td>
-						</tr>
-					</template>
-<?php
-foreach ($_['domainPath'] as $domain => $path) : ?>
-					<tr>
-						<td>
-							<input type="text" name="rcDomain[]" maxlength="64"
-							style="width:200px" value="<?php p($domain); ?>">
-						</td>
-						<td>
-							<input type="text" name="rcPath[]" maxlength="128"
-							style="width:350px" value="<?php p($path); ?>">
-						</td>
-						<td class="remove">
-							<a class="action delete" href="#"
-								title="<?php p($l->t('Remove')); ?>">
-								<img class="action" src="<?php p($imgDel); ?>">
-							</a>
-						</td>
-					</tr>
-<?php
-endforeach; ?>
-				</tbody>
-				<tfoot>
-					<tr>
-						<td>
-							<a id="rcAddDomainPath" class="button" href="#"><?php p($l->t('Add')); ?></a>
-						</td>
-					</tr>
-				</tfoot>
-			</table>
-		</div>
-		<div class="rcSetting">
-			<h3><?php p($l->t('Advanced settings')); ?></h3>
-			<label>
-				<input type="checkbox" name="showTopLine" id="showTopLine"
-					<?php if ($_['showTopLine']) { p(' checked="checked"'); } ?>>
-				<?php p($l->t('Show RoundCube top information bar (shows logout button).')); ?>
-			</label>
-			<br>
-			<label
-				title="<?php p($l->t('Disable when debugging with self-signed certificates.')); ?>">
-				<input type="checkbox" name="enableSSLVerify" id="enableSSLVerify"
-					<?php if ($_['enableSSLVerify']) { p(' checked="checked"'); } ?>>
-				<?php p($l->t('Enable SSL verification.')); ?>
-			</label>
-		</div>
+    <div class="rcSetting">
+      <h3><?php p($l->t('Default RC installation path')); ?></h3>
+      <label>
+        <input type="text"
+               id="externalLocation"
+               class="externalLocation"
+               name="externalLocation"
+	       value="<?php p($externalLocation); ?>"
+	       maxlength="128"
+        />
+      </label>
+      <p><?php p($l->t('Default path relative to ownCloud server (%s).', $ocServer)); ?></p>
+    </div>
+    <div class="rcSetting">
+      <h3><?php p($l->t('Email Address Selection')); ?></h3>
+      <input type="radio"
+             name="emailAddressChoice"
+             class="radio emailAdressChoice"
+             id="userIdEmail"
+             value="userIdEmail"
+	     <?php if ($userIdEmail) { echo 'checked="checked"'; } ?>
+             title="<?php p($l->t('Use the cloud user-id as (user part of) the email address')); ?>"
+      />
+      <label for="userIdEmail">
+        <?php p($l->t('Cloud login-id')); ?>
+      </label>
+      <span class="emailDefaultDomain<?php if (empty($userIdEmail)) { p(' disabled'); } ?>">
+        <span>&nbsp;--&nbsp;</span>
+        <span class="typewriter">USER_ID@</span>
+        <input type="text"
+               name="emailDefaultDomain"
+               class="emailDefaultDomain"
+               placeholder="<?php p($l->t('Email Domain')); ?>"
+               value="<?php p($emailDefaultDomain); ?>"
+               title="<?php p($l->t('Specify the domain-part for the case that the user-id is not an email-address.')); ?>"
+	       <?php if (empty($userIdEmail)) { echo 'disabled="disabled"'; } ?>
+	       maxlength="128"
+        />
+      </span>
+      <br/>
+      <input type="radio"
+             name="emailAddressChoice"
+             class="radio emailAdressChoice"
+             id="userPreferencesEmail"
+             value="userPreferencesEmail"
+	     <?php if ($userPreferencesEmail) { echo 'checked="checked"'; } ?>
+             title="<?php p($l->t('Use the email-address from the user\'s preferences.')); ?>"
+      />
+      <label for="userPreferencesEmail">
+        <?php p($l->t('User\'s Preferences')); ?>
+      </label>
+      <br/>
+      <input type="radio"
+             name="emailAddressChoice"
+             class="radio emailAdressChoice"
+             id="userChosenEmail"
+             value="userChosenEmail"
+	     <?php if ($userChosenEmail) { echo 'checked="checked"'; } ?>
+             title="<?php p($l->t('Let the user specify an arbitrary address.')); ?>"
+      />
+      <label for="userChosenEmail">
+        <?php p($l->t('User\'s Choice')); ?>
+      </label>
+    </div>
+    <div class="rcSetting">
+      <h3><?php p($l->t('Advanced settings')); ?></h3>
+      <label>
+	<input type="number"
+               min="0"
+               name="authenticationRefreshInterval"
+               id="authenticationRefreshInterval"
+               class="authenticationRefreshInterval"
+               value="<?php echo $authenticationRefreshInterval; ?>"
+               placeholder="<?php echo $l->t('Refresh Time [s]'); ?>"
+               title="<?php echo $l->t('Please enter the desired session-refresh interval here. The interval is measured in seconds and should be somewhat smaller than the configured session life-time for the roundcube instance in use.'); ?>"
+        />
+	<?php p($l->t('Session refresh rate [s].')); ?>
+      </label>
+      <br/>
+      <input type="checkbox"
+             class="checkbox"
+             name="showTopLine"
+             id="showTopLine"
+	     <?php if ($showTopLine) { echo 'checked="checked"'; } ?>
+      />
+      <label for="showTopLine">
+	<?php p($l->t('Show RoundCube top information bar (shows logout button).')); ?>
+      </label>
+      <br/>
+      <input type="checkbox"
+             name="enableSSLVerify"
+             id="enableSSLVerify"
+             class="checkbox"
+	     <?php if ($enableSSLVerify) { echo 'checked="checked"'; } ?>
+      />
+      <label title="<?php p($l->t('Disable when debugging with self-signed certificates.')); ?>"
+             for="enableSSLVerify">
+	<?php p($l->t('Enable SSL verification.')); ?>
+      </label>
+    </div>
 
-		<input id="rcAdminSubmit" type="submit" value="<?php p($l->t('Save')); ?>">
-		<span id="rc_save_status" class="msg hidden"><?php p($l->t('Saving...')); ?></span>
-		<span id="rc_save_error" class="msg error hidden"></span>
-		<span id="rc_save_success" class="msg success hidden"></span>
-	</form>
+    <input id="rcAdminSubmit" type="submit" value="<?php p($l->t('Save')); ?>"/>
+    <span id="rc_save_status" class="msg status hidden"/><?php p($l->t('Saving...')); ?></span>
+    <span id="rc_save_error" class="msg error hidden"/></span>
+    <span id="rc_save_success" class="msg success hidden"/></span>
+  </form>
 </div>

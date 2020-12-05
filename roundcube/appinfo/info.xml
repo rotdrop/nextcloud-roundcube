@@ -4,14 +4,28 @@
 	<namespace>RoundCube</namespace>
 	<name>RoundCube Mail</name>
 	<license>AGPL</license>
-	<author>Martin Reinhardt; Leonardo R. Morelli</author>
+	<author>Martin Reinhardt</author>
+        <author>Leonardo R. Morelli</author>
+        <author>Claus-Justus Heine</author>
 	<version>1.0.0</version>
 	<dependencies>
+		<php min-version="7.4" max-version="7.4" />
+		<nextcloud min-version="20" max-version="20" />
 		<owncloud min-version="10.0" max-version="11.0" />
 	</dependencies>
 	<description>
-		Integrates existing roundcube server into OwnCloud.
+		Integrates existing roundcube server into NextCloud.
 	</description>
 	<category>integration</category>
-	<website>https://github.com/LeonardoRM/owncloud-roundcube/</website>
+	<website>https://github.com/rotdrop/nextcloud-roundcube/</website>
+	<navigations>
+		<navigation>
+			<name>RoundCube Web Mail</name>
+			<route>roundcube.page.index</route>
+		</navigation>
+	</navigations>
+	<settings>
+		<admin>OCA\RoundCube\Settings\Admin</admin>
+		<admin-section>OCA\RoundCube\Settings\AdminSection</admin-section>
+	</settings>
 </info>

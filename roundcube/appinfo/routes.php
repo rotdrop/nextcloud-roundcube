@@ -1,6 +1,6 @@
 <?php
 /**
- * ownCloud - RoundCube mail plugin
+ * nextCloud - RoundCube mail plugin
  *
  * @author Martin Reinhardt and David Jaedke
  * @author 2019 Leonardo R. Morelli github.com/LeonardoRM
@@ -20,8 +20,18 @@
  * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-return ['routes' => [
-	['name' => 'page#index', 'url' => '/', 'verb' => 'GET'],
-	//settings
-	['name' => 'settings#setAdminSettings', 'url' => '/ajax/adminSettings.php', 'verb' => 'POST'],
-]];
+return [
+  'routes' => [
+    [
+      'name' => 'page#index',
+      'url' => '/',
+      'verb' => 'GET'
+    ],
+    //settings
+    [
+      'name' => 'admin_settings#set',
+      'url' => '/settings/admin/set',
+      'verb' => 'POST',
+    ],
+  ]
+];

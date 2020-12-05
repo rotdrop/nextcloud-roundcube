@@ -1,0 +1,11 @@
+.hidden, .status.hidden {
+  display:none;
+}
+
+#externalLocation {
+  width:400px;
+}
+
+.disabled, .disabled * {
+  opacity:0.5;
+}

@@ -1,10 +1,9 @@
 <?php
 /**
- * ownCloud - roundcube mail plugin
+ * nextCloud - RoundCube mail plugin
  *
- * @author Martin Reinhardt and David Jaedke
- * @author 2019 Leonardo R. Morelli github.com/LeonardoRM
- * @copyright 2012 Martin Reinhardt contact@martinreinhardt-online.de
+ * @author Claus-Justus Heine
+ * @copyright 2020 Claus-Justus Heine <himself@claus-justus-heine.de>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -21,7 +20,10 @@
  *
  */
 
-return \OC::$server->getAppContainer('roundcube')
-	->query('\OCA\RoundCube\Controller\SettingsController')
-	->adminSettings()
-	->render();
+namespace OCA\RoundCube\Service;
+
+class Constants
+{
+  const APP_PREFIX = 'roundcube';
+  const APP_NAME = self::APP_PREFIX; // .'embedded'
+}
