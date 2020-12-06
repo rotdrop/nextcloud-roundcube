@@ -33,5 +33,10 @@ return [
       'url' => '/settings/admin/set',
       'verb' => 'POST',
     ],
+    [
+      'name' => 'personal_settings#set',
+      'url' => '/settings/personal/set',
+      'verb' => 'POST',
+    ],
   ]
 ];

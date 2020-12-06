@@ -105,6 +105,10 @@ class AdminSettingsController extends Controller
           }
           $value = $realValue;
           break;
+        case 'emailDefaultDomain':
+        case 'emailAddressChoice':
+          // @TODO validate
+          break;
       }
       $this->config->setAppValue($this->appName, $setting, $value);
       $responseData[$setting] = [

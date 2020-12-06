@@ -25,27 +25,19 @@ namespace OCA\RoundCube\Settings;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\Settings\ISettings;
 use OCP\IURLGenerator;
+use OCP\IUserSession;
 use OCP\IConfig;
 use OCP\ILogger;
 use OCP\IL10N;
 
-class Admin implements ISettings
-{
+use OCA\RoundCube\Service\Constants;
 
-  const TEMPLATE = 'tpl.adminSettings';
-  const EMAIL_ADDRESS = [
-    'userIdEmail',
-    'userPreferencesEmail',
-    'userChosenEmail',
-  ];
-  const SETTINGS = [
-    'externalLocation' => '',
-    'emailDefaultDomain' => '',
-    'emailAddressChoice' => 'userPreferencesEmail',
-    'showTopLine' => false,
-    'enableSSLVerify' => true,
-    'authenticationRefreshInterval' => 600,
-  ];
+class Personal implements ISettings
+{
+  const TEMPLATE = 'tpl.personalSettings';
+
+  /** @var \OCP\IUser */
+  private $user;
 
   /** @var string */
   private $appName;
@@ -58,10 +50,12 @@ class Admin implements ISettings
 
   public function __construct(
     $appName
+    , IUserSession $userSession
     , IConfig $config
     , IURLGenerator $urlGenerator
   ) {
     $this->appName = $appName;
+    $this->user = $userSession->getUser();
     $this->config = $config;
     $this->urlGenerator = $urlGenerator;
   }
@@ -69,12 +63,10 @@ class Admin implements ISettings
   public function getForm() {
     $templateParameters = [
       'appName' => $this->appName,
-      'ocServer' => $this->urlGenerator->getAbsoluteURL("/"),
+      'userId' => $this->user->getUID(),
+      'userEmail' => $this->user->getEMailAddress(),
       'urlGenerator' => $this->urlGenerator,
     ];
-    foreach (self::SETTINGS as $setting => $default) {
-      $templateParameters[$setting] = $this->config->getAppValue($this->appName, $setting, $default);
-    }
     return new TemplateResponse(
       $this->appName,
       self::TEMPLATE,

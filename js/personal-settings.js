@@ -83,7 +83,7 @@ RoundCube.Settings = RoundCube.Settings || {};
       post += $(this).attr('name') + '=' + 'off';
     });
     console.info(post);
-    $.post(OC.generateUrl('/apps/'+RoundCube.appName+'/settings/admin/set'), post)
+    $.post(OC.generateUrl('/apps/'+RoundCube.appName+'/settings/personal/set'), post)
       .done(function(data) {
         msgStatus.hide();
         console.info("Got response data", data);
@@ -104,40 +104,18 @@ RoundCube.Settings = RoundCube.Settings || {};
 
 })(window, jQuery, RoundCube);
 
-
 $(function(){
-  const formId = RoundCube.appName+'settings';
-  const inputs = {
-    'externalLocation': 'blur',
-    'userIdEmail': 'change',
-    'emailDefaultDomain': 'blur',
-    'userPreferencesEmail': 'change',
-    'userChosenEmail': 'change',
-    'authenticationRefreshInterval': 'blur',
-    'showTopLine': 'change',
-    'enableSSLVerify': 'change',
-  };
-  inputs[formId] = 'submit';
 
-  for (const input in inputs) {
-    const id = '#' + input;
-    const event = inputs[input];
+  var id;
 
-    console.info(id, event);
-
-    $(id).on(event, function(event) {
-      event.preventDefault();
-      RoundCube.Settings.storeSettings(event, id);
-      return false;
-    });
-  }
-
-  $('input[name="emailAddressChoice"]').on('change', function(event) {
-    if ($('#userIdEmail').is(':checked')) {
-      $('.emailDefaultDomain').removeClass('disabled').prop('disabled', false);
-    } else {
-      $('.emailDefaultDomain').addClass('disabled').prop('disabled', true);
-    }
-    return false;
+  id = '#emailAddress';
+  $(id).on('blur', function(event) {
+    return RoundCube.Settings.storeSettings(event, id);
   });
+
+  id = '#emailPassword';
+  $(id).on('blur', function(event) {
+    return RoundCube.Settings.storeSettings(event, id);
+  });
+
 });

@@ -27,7 +27,7 @@ namespace OCA\RoundCube;
 
 use OCA\RoundCube\Service\Constants;
 
-style($appName, 'admin-settings');
+style($appName, 'settings');
 script($appName, 'admin-settings');
 
 ?>
@@ -57,22 +57,23 @@ script($appName, 'admin-settings');
              class="radio emailAdressChoice"
              id="userIdEmail"
              value="userIdEmail"
-	     <?php if ($userIdEmail) { echo 'checked="checked"'; } ?>
+	     <?php if ($emailAddressChoice == 'userIdEmail') { echo 'checked="checked"'; } ?>
              title="<?php p($l->t('Use the cloud user-id as (user part of) the email address')); ?>"
       />
       <label for="userIdEmail">
         <?php p($l->t('Cloud login-id')); ?>
       </label>
-      <span class="emailDefaultDomain<?php if (empty($userIdEmail)) { p(' disabled'); } ?>">
+      <span class="emailDefaultDomain<?php if ($emailAddressChoice != 'userIdEmail') { p(' disabled'); } ?>">
         <span>&nbsp;--&nbsp;</span>
         <span class="typewriter">USER_ID@</span>
         <input type="text"
+               id="emailDefaultDomain"
                name="emailDefaultDomain"
                class="emailDefaultDomain"
                placeholder="<?php p($l->t('Email Domain')); ?>"
                value="<?php p($emailDefaultDomain); ?>"
                title="<?php p($l->t('Specify the domain-part for the case that the user-id is not an email-address.')); ?>"
-	       <?php if (empty($userIdEmail)) { echo 'disabled="disabled"'; } ?>
+	       <?php if ($emailAddressChoice != 'userIdEmail') { echo 'disabled="disabled"'; } ?>
 	       maxlength="128"
         />
       </span>
@@ -82,7 +83,7 @@ script($appName, 'admin-settings');
              class="radio emailAdressChoice"
              id="userPreferencesEmail"
              value="userPreferencesEmail"
-	     <?php if ($userPreferencesEmail) { echo 'checked="checked"'; } ?>
+	     <?php if ($emailAddressChoice == 'userPreferencesEmail') { echo 'checked="checked"'; } ?>
              title="<?php p($l->t('Use the email-address from the user\'s preferences.')); ?>"
       />
       <label for="userPreferencesEmail">
@@ -94,7 +95,7 @@ script($appName, 'admin-settings');
              class="radio emailAdressChoice"
              id="userChosenEmail"
              value="userChosenEmail"
-	     <?php if ($userChosenEmail) { echo 'checked="checked"'; } ?>
+	     <?php if ($emailAddressChoice  == 'userChosenEmail') { echo 'checked="checked"'; } ?>
              title="<?php p($l->t('Let the user specify an arbitrary address.')); ?>"
       />
       <label for="userChosenEmail">
@@ -138,7 +139,7 @@ script($appName, 'admin-settings');
       </label>
     </div>
 
-    <input id="rcAdminSubmit" type="submit" value="<?php p($l->t('Save')); ?>"/>
+    <input id="rcSettingsSubmit" type="submit" value="<?php p($l->t('Save')); ?>"/>
     <span id="rc_save_status" class="msg status hidden"/><?php p($l->t('Saving...')); ?></span>
     <span id="rc_save_error" class="msg error hidden"/></span>
     <span id="rc_save_success" class="msg success hidden"/></span>
