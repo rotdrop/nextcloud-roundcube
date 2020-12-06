@@ -9,3 +9,26 @@
 .disabled, .disabled * {
   opacity:0.5;
 }
+
+input[type=checkbox].emailPasswordShow {
+  display: none;
+}
+
+input[type=checkbox].emailPasswordShow:checked + label.emailPasswordShow {
+  filter: alpha(opacity=80);
+  opacity: .8;
+}
+
+input[type=checkbox].emailPasswordShow + label.emailPasswordShow {
+  position: absolute !important;
+  margin-top: 11px;
+  margin-left: -36px;
+  height: 14px;
+  width: 24px;
+  background-image: url("../../../core/img/actions/toggle.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  filter: alpha(opacity=30);
+  opacity: .3;
+  text-indent: -10000em;
+}

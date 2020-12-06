@@ -30,12 +30,40 @@ use OCA\RoundCube\Service\Constants;
 style($appName, 'settings');
 script($appName, 'personal-settings');
 
+switch ($emailAddressChoice) {
+  case 'userIdEmail':
+    $emailAddressDisable = 'disabled="disabled"';
+    $emailAddressTitle = $l->t('Globally configured as USERID@%s', [ $emailDefaultDomain ]);
+    break;
+  case 'userPreferencesEmail':
+    $emailAddressDisable = 'disabled="disabled"';
+    $emailAddressTitle = $l->t("Globally configured as user's email address, see user's personal settings.");
+    break;
+  case 'userChosenEmail':
+    $emailAddressDisable = '';
+    $emailAddressTitle = $l->t('Please specify an email address to use with RoundCube.');
+    break;
+}
+
+if ($forceSSO == 'on') {
+  $emailPasswordDisable = 'disabled="disabled"';
+  $emailPasswordTitle = $l->t("Single-sign-on is globally forced `on'.");
+} else {
+  $emailPasswordDisable = '';
+  $emailPasswordTitle = $l->t('Email password for RoundCube, if needed.');
+}
+
+$formAction = $urlGenerator->linkToRoute($appName.'.personal_settings.set');
+
 ?>
 <div class="section" id="roundcube">
   <h2 class="app-name"><?php p($l->t('Embedded RoundCube')); ?></h2>
-  <form id="<?php echo Constants::APP_PREFIX; ?>settings" action="#" method="post">
+  <form id="<?php echo Constants::APP_PREFIX; ?>settings"
+        action="<?php echo $formAction; ?>"
+        method="post">
     <input type="hidden" name="appname" value="<?php p($appName); ?>"/>
     <input type="hidden" name="submit" value="1"/>
+    <input type="hidden" name="requesttoken" value="<?php p($requesttoken); ?>"/>
 
     <!-- @TODO disable depending on admin settings -->
     <div class="rcSetting">
@@ -43,7 +71,9 @@ script($appName, 'personal-settings');
              id="emailAddress"
              class="emailAddress"
              name="emailAddress"
-	     value="<?php p($emailAddress); ?>"
+             value="<?php p($emailAddress); ?>"
+             <?php echo $emailAddressDisable; ?>
+             title="<?php echo $emailAddressTitle; ?>"
       />
       <label>
         <?php p($l->t('Email-User for Roundcube')); ?>
@@ -56,8 +86,17 @@ script($appName, 'personal-settings');
              class="emailPassword"
              name="emailPassword"
 	     value="<?php p($emailPassword); ?>"
+             data-typetoggle="#emailPasswordShow"
+             <?php echo $emailPasswordDisable; ?>
+             title="<?php echo $emailPasswordTitle; ?>"
       />
-      <label>
+      <input type="checkbox"
+             id="emailPasswordShow"
+             class="emailPasswordShow"
+             name="emailPasswordShow"
+      />
+      <label class="emailPasswordShow" for="emailPasswordShow"><?php p($l->t('show')); ?></label>
+      <label for="emailPassword">
         <?php p($l->t('Email-Password for Roundcube')); ?>
       </label>
     </div>

@@ -119,9 +119,19 @@ script($appName, 'admin-settings');
       <br/>
       <input type="checkbox"
              class="checkbox"
+             name="forceSSO"
+             id="forceSSO"
+	     <?php if ($forceSSO == 'on') { echo 'checked="checked"'; } ?>
+      />
+      <label for="forceSSO">
+	<?php p($l->t('Force single sign on (disables custom password).')); ?>
+      </label>
+      <br/>
+      <input type="checkbox"
+             class="checkbox"
              name="showTopLine"
              id="showTopLine"
-	     <?php if ($showTopLine) { echo 'checked="checked"'; } ?>
+	     <?php if ($showTopLine == 'on') { echo 'checked="checked"'; } ?>
       />
       <label for="showTopLine">
 	<?php p($l->t('Show RoundCube top information bar (shows logout button).')); ?>
@@ -131,7 +141,7 @@ script($appName, 'admin-settings');
              name="enableSSLVerify"
              id="enableSSLVerify"
              class="checkbox"
-	     <?php if ($enableSSLVerify) { echo 'checked="checked"'; } ?>
+	     <?php if ($enableSSLVerify == 'on') { echo 'checked="checked"'; } ?>
       />
       <label title="<?php p($l->t('Disable when debugging with self-signed certificates.')); ?>"
              for="enableSSLVerify">

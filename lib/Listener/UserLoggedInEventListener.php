@@ -31,6 +31,7 @@ use OCP\ILogger;
 use OCP\IL10N;
 
 use OCA\RoundCube\Service\Constants;
+use OCA\RoundCube\Service\Crypto;
 
 class UserLoggedInEventListener implements IEventListener
 {
@@ -47,13 +48,18 @@ class UserLoggedInEventListener implements IEventListener
   /** @var OCA\RoundCube\Service\AuthDokuWiki */
   private $authenticator;
 
+  /** @var OCA\RoundCube\Service\Crypto */
+  private $crypto;
+
   public function __construct(
     IRequest $request
+    , Crypto $crypto
     , ILogger $logger
     , IL10N $l10n
   ) {
     $this->appName = Constants::APP_NAME;
     $this->request = $request;
+    $this->crypto = $crypto;
     $this->logger = $logger;
     $this->l = $l10n;
   }

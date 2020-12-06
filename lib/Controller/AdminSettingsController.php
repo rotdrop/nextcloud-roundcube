@@ -107,7 +107,15 @@ class AdminSettingsController extends Controller
           break;
         case 'emailDefaultDomain':
         case 'emailAddressChoice':
-          // @TODO validate
+          break;
+        case 'forceSSO':
+        case 'showTopLine':
+        case 'enableSSLVerify':
+          // $realValue = filter_var($value, FILTER_VALIDATE_BOOLEAN, ['flags' => FILTER_NULL_ON_FAILURE]);
+          // if ($realValue === null) {
+          //   return self::grumble($this->l->t('Value "%1$s" for set "%2$s" is not convertible to boolean.', [$value, $setting]));
+          // }
+          // $value = $realValue;
           break;
       }
       $this->config->setAppValue($this->appName, $setting, $value);

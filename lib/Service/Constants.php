@@ -26,4 +26,6 @@ class Constants
 {
   const APP_PREFIX = 'roundcube';
   const APP_NAME = self::APP_PREFIX; // .'embedded'
+  const PUBLIC_KEY_SETTING = 'pubkey';
+  const PRIVATE_KEY_SETTING = 'privkey';
 }

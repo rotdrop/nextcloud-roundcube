@@ -114,8 +114,16 @@ $(function(){
   });
 
   id = '#emailPassword';
-  $(id).on('blur', function(event) {
+  const password = $(id);
+  password.on('blur', function(event) {
     return RoundCube.Settings.storeSettings(event, id);
   });
+
+  const tmp = password.val();
+  var showElement;
+  $(id).showPassword(function(args) {
+    showElement = args.clone;
+  });
+  password.val(tmp);
 
 });

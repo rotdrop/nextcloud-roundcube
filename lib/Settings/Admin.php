@@ -42,6 +42,7 @@ class Admin implements ISettings
     'externalLocation' => '',
     'emailDefaultDomain' => '',
     'emailAddressChoice' => 'userPreferencesEmail',
+    'forceSSO' => false,
     'showTopLine' => false,
     'enableSSLVerify' => true,
     'authenticationRefreshInterval' => 600,

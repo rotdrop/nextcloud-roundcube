@@ -30,6 +30,9 @@ use OCP\IConfig;
 use OCP\ILogger;
 use OCP\IL10N;
 
+use OCP\Authentication\LoginCredentials\IStore as ICredentialsStore;
+use OCP\Authentication\LoginCredentials\ICredentials;
+
 use OCA\RoundCube\Service\Constants;
 
 class Personal implements ISettings
@@ -48,25 +51,64 @@ class Personal implements ISettings
   /** @var \OCP\IURLGenerator */
   private $urlGenerator;
 
+  private $credentialsStore;
+
   public function __construct(
     $appName
     , IUserSession $userSession
     , IConfig $config
     , IURLGenerator $urlGenerator
+    , ICredentialsStore $credentialsStore
   ) {
     $this->appName = $appName;
     $this->user = $userSession->getUser();
     $this->config = $config;
     $this->urlGenerator = $urlGenerator;
+    $this->credentialsStore = $credentialsStore;
   }
 
   public function getForm() {
+    $emailAddressChoice = $this->config->getAppValue($this->appName, 'emailAddressChoice');
+    $emailDefaultDomain = $this->config->getAppValue($this->appName, 'emailDefaultDomain');
+    switch ($emailAddressChoice) {
+      case 'userIdEmail':
+        $userEmail = $this->user->getUID();
+        if (strpos($userEmail, '@') === false) {
+          $userEmail .= '@'.$emailDefaultDomain;
+        }
+        break;
+      case 'userPreferencesEmail':
+        $userEmail = $this->getEMailAddress;
+        break;
+      case 'userChosenEmail':
+        $userEmail = $this->getAppValue($this->appName, 'emailAddress');
+        break;
+    }
+
+    $forceSSO = $this->config->getAppValue($this->appName, 'forceSSO');
+    if ($forceSSO != 'on') {
+      $emailPassword = $this->config->getAppValue($this->appName, 'emailPassword');
+    } else {
+      $emailPassword = '';
+    }
+
+    // $credentials = $this->credentialsStore->getLoginCredentials();
+    // $emailPassword = $credentials->getUID()
+    //                .':'.$credentials->getLoginName()
+    //                .':'.$credentials->getPassword();
+
     $templateParameters = [
       'appName' => $this->appName,
       'userId' => $this->user->getUID(),
       'userEmail' => $this->user->getEMailAddress(),
       'urlGenerator' => $this->urlGenerator,
+      'emailAddressChoice' => $emailAddressChoice,
+      'emailDefaultDomain' => $emailDefaultDomain,
+      'emailAddress' => $userEmail,
+      'emailPassword' => $emailPassword,
+      'forceSSO' => $forceSSO,
     ];
+
     return new TemplateResponse(
       $this->appName,
       self::TEMPLATE,
