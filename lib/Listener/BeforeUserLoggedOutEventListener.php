@@ -22,79 +22,45 @@
 
 namespace OCA\RoundCube\Listener;
 
-use OCP\User\Events\UserLoggedInEvent as Event1;
-use OCP\User\Events\UserLoggedInWithCookieEvent as Event2;
+use OCP\User\Events\BeforeUserLoggedOutEvent as HandledEvent;
 use OCP\EventDispatcher\Event;
 use OCP\EventDispatcher\IEventListener;
-use OCP\IRequest;
 use OCP\ILogger;
 use OCP\IL10N;
 
 use OCA\RoundCube\Service\Constants;
-use OCA\RoundCube\Service\Crypto;
+use OCA\RoundCube\Service\AuthRoundCube;
 
-class UserLoggedInEventListener implements IEventListener
+class BeforeUserLoggedOutEventListener implements IEventListener
 {
   use \OCA\RoundCube\Traits\LoggerTrait;
 
-  const EVENT = [ Event1::class, Event2::class ];
+  const EVENT = HandledEvent::class;
 
   /** @var string */
   private $appName;
 
-  /** @var OCP\IRequest */
-  private $request;
-
-  /** @var OCA\RoundCube\Service\AuthDokuWiki */
+  /** @var OCA\RoundCube\Service\AuthRoundCube */
   private $authenticator;
 
-  /** @var OCA\RoundCube\Service\Crypto */
-  private $crypto;
-
   public function __construct(
-    IRequest $request
-    , Crypto $crypto
+    AuthRoundCube $authenticator
     , ILogger $logger
     , IL10N $l10n
   ) {
     $this->appName = Constants::APP_NAME;
-    $this->request = $request;
-    $this->crypto = $crypto;
+    $this->authenticator = $authenticator;
     $this->logger = $logger;
     $this->l = $l10n;
   }
 
   public function handle(Event $event): void {
-    if (!($event instanceOf Event1 && !($event instanceOf Event2))) {
+    if (!($event instanceOf HandledEvent)) {
       return;
     }
 
-    if ($this->ignoreRequest($this->request)) {
-      return;
-    }
-
-    $userName = $event->getUser()->getUID();
-    $password = $event->getPassword();
-    // do something with it
+    $this->authenticator->logout();
   }
-
-  /**
-   * In order to avoid request ping-pong the auto-login should only be
-   * attempted for UI logins.
-   */
-  private function ignoreRequest(IRequest $request):bool
-  {
-    if ($request->getHeader('OCS-APIREQUEST') === 'true') {
-      $this->logInfo('Ignoring API login');
-      return true;
-    }
-    if (strpos($this->request->getHeader('Authorization'), 'Bearer ') === 0) {
-      $this->logInfo('Ignoring API "bearer" auth');
-      return true;
-    }
-    return false;
-  }
-
 }
 
 // Local Variables: ***

@@ -161,6 +161,7 @@ class AuthRoundCube
     }
     // Get input values from login form and prepare data to send.
     $inputs = self::parseInputs($loginPageObj['html']);
+    $this->rcRequestToken = $inputs['_token']['value'];
     $data = [
       "_token"    => $inputs["_token"]["value"],
       "_task"     => "login",
@@ -178,6 +179,8 @@ class AuthRoundCube
     }
     // Set cookies sessauth and sessid.
     $cookiesLogin = self::parseCookies($loginAnswerObj['headers']['set-cookie']);
+    $inputsLogin = self::parseInputs($loginAnswerObj['html']);
+    $this->rcRequestToken = $inputs['_token']['value'];
     if (isset($cookiesLogin[self::COOKIE_RC_SESSID]) &&
         $cookiesLogin[self::COOKIE_RC_SESSID] !== "-del-") {
       $this->rcSessionId = $cookiesLogin[self::COOKIE_RC_SESSID];
@@ -213,57 +216,19 @@ class AuthRoundCube
       '_action' => 'logout',
       '_task' => 'logout',
     ];
-    if ($this->lastToken) {
-      $data["_token"] = $this->lastToken;
+    if ($this->rqRequestToken) {
+      $data['_token'] = $this->rqRequestToken;
     }
-    $this->sendRequest($data);
-
-    // remove cookies
-    return ! $this->isLoggedIn();
-  }
-
-  /**
-   * Return true if the current login status is "logged in".
-   */
-  public function isLoggedIn()
-  {
-    $this->updateLoginStatus();
-
-    return $this->loginStatus() == self::STATUS_LOGGED_IN;
-  }
-
-  /**
-   * Return the current login status.
-   *
-   * @return string, one of self::STATUS_LOGGED_IN, self::STATUS_LOGGED_OUT or self::STATUS_UNKNOWN.
-   */
-  public function loginStatus()
-  {
-    $this->updateLoginStatus();
-
-    return $this->loginStatus;
-  }
-
-  /**
-   * Ping the external application in order to extend its login
-   * session.
-   */
-  public function refresh():bool
-  {
-    return $this->isLoggedIn();
-  }
-
-  public function updateLoginStatus($forceUpdate = false, $response = null)
-  {
-    if (empty($response) && !empty($this->rcSessionId) && $this->loginStatus != self::STATUS_UNKNOWN && !$forceUpdate) {
-      return;
+    $logoutPageObj = $this->sendRequest('', 'POST', $data);
+    if ($logoutPageObj === false) {
+      $this->logError("Could not trigger logout.");
+      return false;
     }
 
-    if (empty($response)) {
-      $response = $this->sendRequest();
-    }
+    setcookie(self::COOKIE_RC_SESSID, "-del-", 1, "/", "", true, true);
+    setcookie(self::COOKIE_RC_SESSAUTH, "-del-", 1, "/", "", true, true);
 
-
+    return true;
   }
 
   /**
