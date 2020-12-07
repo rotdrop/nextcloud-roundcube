@@ -34,10 +34,15 @@ use OCP\Authentication\LoginCredentials\IStore as ICredentialsStore;
 use OCP\Authentication\LoginCredentials\ICredentials;
 
 use OCA\RoundCube\Service\Constants;
+use OCA\RoundCube\Service\Config;
 
 class Personal implements ISettings
 {
   const TEMPLATE = 'tpl.personalSettings';
+  const SETTINGS = [
+    'emailAddress',
+    'emailPassword',
+  ];
 
   /** @var \OCP\IUser */
   private $user;
@@ -45,7 +50,7 @@ class Personal implements ISettings
   /** @var string */
   private $appName;
 
-  /** @var \OCP\IConfig */
+  /** @var \OCA\RoundCube\Servcie\Config */
   private $config;
 
   /** @var \OCP\IURLGenerator */
@@ -56,7 +61,7 @@ class Personal implements ISettings
   public function __construct(
     $appName
     , IUserSession $userSession
-    , IConfig $config
+    , Config $config
     , IURLGenerator $urlGenerator
     , ICredentialsStore $credentialsStore
   ) {
@@ -68,8 +73,8 @@ class Personal implements ISettings
   }
 
   public function getForm() {
-    $emailAddressChoice = $this->config->getAppValue($this->appName, 'emailAddressChoice');
-    $emailDefaultDomain = $this->config->getAppValue($this->appName, 'emailDefaultDomain');
+    $emailAddressChoice = $this->config->getAppValue('emailAddressChoice');
+    $emailDefaultDomain = $this->config->getAppValue('emailDefaultDomain');
     switch ($emailAddressChoice) {
       case 'userIdEmail':
         $userEmail = $this->user->getUID();
@@ -81,21 +86,16 @@ class Personal implements ISettings
         $userEmail = $this->getEMailAddress;
         break;
       case 'userChosenEmail':
-        $userEmail = $this->getAppValue($this->appName, 'emailAddress');
+        $userEmail = $this->config->getPersonalValue('emailAddress');
         break;
     }
 
-    $forceSSO = $this->config->getAppValue($this->appName, 'forceSSO');
+    $forceSSO = $this->config->getAppValue('forceSSO');
     if ($forceSSO != 'on') {
-      $emailPassword = $this->config->getAppValue($this->appName, 'emailPassword');
+      $emailPassword = $this->config->getPersonalValue('emailPassword');
     } else {
       $emailPassword = '';
     }
-
-    // $credentials = $this->credentialsStore->getLoginCredentials();
-    // $emailPassword = $credentials->getUID()
-    //                .':'.$credentials->getLoginName()
-    //                .':'.$credentials->getPassword();
 
     $templateParameters = [
       'appName' => $this->appName,

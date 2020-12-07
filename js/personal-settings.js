@@ -120,10 +120,23 @@ $(function(){
   });
 
   const tmp = password.val();
-  var showElement;
+  var passwordShown;
   $(id).showPassword(function(args) {
-    showElement = args.clone;
+    passwordShown = args.clone;
   });
   password.val(tmp);
+
+  $(passwordShown).on('blur', function(event) {
+    password.trigger('blur');
+    return false;
+  });
+
+  id = '#roundcubesettings';
+  $(id).off('submit').on('submit', function(event) {
+    passwordShown.hide();
+    password.show();
+    $('#emailPasswordShow').prop('checked', false);
+    return RoundCube.Settings.storeSettings(event, id);
+  });
 
 });

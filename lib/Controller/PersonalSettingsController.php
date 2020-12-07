@@ -33,7 +33,8 @@ use OCP\IUserSession;
 use OCP\ILogger;
 use OCP\IL10N;
 
-use OCA\RoundCube\Settings\Admin;
+use OCA\RoundCube\Settings\Personal;
+use OCA\RoundCube\Service\Config;
 use OCA\RoundCube\Service\AuthRoundCube as Authenticator;
 
 class PersonalSettingsController extends Controller
@@ -53,7 +54,7 @@ class PersonalSettingsController extends Controller
     , IRequest $request
     , IUserSession $userSession
     , Authenticator $authenticator
-    , IConfig $config
+    , Config $config
     , IURLGenerator $urlGenerator
     , ILogger $logger
     , IL10N $l10n
@@ -76,6 +77,39 @@ class PersonalSettingsController extends Controller
    */
   public function set()
   {
-    return new DataResponse([ 'message' => $this->l->t('Unknown Request') ], Http::STATUS_BAD_REQUEST);
+    $responseData = [];
+    foreach (Personal::SETTINGS as $setting) {
+      if (!isset($this->request[$setting])) {
+        continue;
+      }
+      $value = trim($this->request[$setting]);
+      switch ($setting) {
+        case 'emailAddress':
+          $message = $this->l->t('Parameter "%s" set to "%s"', [ $setting, $value ]);
+          break;
+        case 'emailPassword':
+          $message = $this->l->t('Parameter "%s" set to given value', [ $setting ]);
+          break;
+      }
+      $this->config->setPersonalValue($setting, $value);
+      $responseData[$setting] = [
+        'value' => $value,
+        'message' => $message,
+      ];
+    }
+    switch (count($responseData)) {
+      case 0:
+        return self::grumble($this->l->t('Unknown Request'));
+      case 1:
+        return self::dataResponse(array_values($responseData)[0]);
+      default:
+        $values = [];
+        $messages = [];
+        foreach ($responseData as $key => $data) {
+          $values[$key] = $data['value'];
+          $messages[] = $data['message'];
+        }
+        return self::dataResponse([ 'value' => $values, 'message' => implode(', ', $messages).'.']);
+    }
   }
 }

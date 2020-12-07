@@ -65,7 +65,6 @@ $formAction = $urlGenerator->linkToRoute($appName.'.personal_settings.set');
     <input type="hidden" name="submit" value="1"/>
     <input type="hidden" name="requesttoken" value="<?php p($requesttoken); ?>"/>
 
-    <!-- @TODO disable depending on admin settings -->
     <div class="rcSetting">
       <input type="text"
              id="emailAddress"

@@ -34,6 +34,7 @@ use OCP\IL10N;
 
 use OCA\RoundCube\Settings\Admin;
 use OCA\RoundCube\Service\AuthRoundCube as Authenticator;
+use OCA\RoundCube\Service\Config;
 
 class AdminSettingsController extends Controller
 {
@@ -50,7 +51,7 @@ class AdminSettingsController extends Controller
     $appName
     , IRequest $request
     , Authenticator $authenticator
-    , IConfig $config
+    , Config $config
     , IURLGenerator $urlGenerator
     , $UserId
     , ILogger $logger
@@ -72,12 +73,10 @@ class AdminSettingsController extends Controller
   {
     $responseData = [];
     foreach (Admin::SETTINGS as $setting => $default) {
-      $this->logInfo("$setting: ".$this->request[$setting]);
       if (!isset($this->request[$setting])) {
         continue;
       }
       $value = trim($this->request[$setting]);
-      $this->logInfo("Got setting ".$setting.": ".$value);
       switch ($setting) {
         case 'externalLocation':
           if ($value === '') { // ok, reset
@@ -118,7 +117,7 @@ class AdminSettingsController extends Controller
           // $value = $realValue;
           break;
       }
-      $this->config->setAppValue($this->appName, $setting, $value);
+      $this->config->setAppValue($setting, $value);
       $responseData[$setting] = [
         'value' => $value,
         'message' => $this->l->t('Parameter %s set to "%s"', [ $setting, $value ]),
@@ -126,9 +125,9 @@ class AdminSettingsController extends Controller
     }
     switch (count($responseData)) {
       case 0:
-        return new DataResponse([ 'message' => $this->l->t('Unknown Request') ], Http::STATUS_BAD_REQUEST);
+        return self::grumble($this->l->t('Unknown Request'));
       case 1:
-        return new DataResponse(array_values($responseData)[0]);
+        return self::dataResponse(array_values($responseData)[0]);
       default:
         $values = [];
         $messages = [];
@@ -136,7 +135,7 @@ class AdminSettingsController extends Controller
           $values[$key] = $data['value'];
           $messages[] = $data['message'];
         }
-        return new DataResponse([ 'value' => $values, 'message' => implode(', ', $messages).'.']);
+        return self::dataResponse([ 'value' => $values, 'message' => implode(', ', $messages).'.']);
     }
   }
 }
