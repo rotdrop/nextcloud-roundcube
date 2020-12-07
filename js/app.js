@@ -101,17 +101,19 @@ RoundCube.resizeIframe = function() {
     RoundCube.fillWidth(selector);
 }
 
-$('#roundcubeFrame').ready(function() {
-    $('#roundcubeFrame').load(function() {
-	if (!RoundCube.showTopline) {
-            RoundCube.hideTopLine();
-        }
-	RoundCube.resizeIframe();
-	// Fade in roundcube nice with timeout to let iframe load
-	$("#roundcubeLoaderContainer").fadeOut(500);
-    });
-});
-
 $(function() {
+
+    $('#roundcubeFrame').ready(function() {
+	$('#roundcubeFrame').load(function() {
+	    if (!RoundCube.showTopline) {
+		RoundCube.hideTopLine();
+            }
+	    RoundCube.resizeIframe();
+	    // Fade in roundcube nice with timeout to let iframe load
+	    $("#roundcubeLoaderContainer").fadeOut(500);
+	});
+    });
+    
     window.onresize = RoundCube.resizeIframe;
+    
 });
