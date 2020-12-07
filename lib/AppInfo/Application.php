@@ -66,6 +66,7 @@ class Application extends App implements IBootstrap
     /* @var OCP\IConfig */
     $config = $container->query(IConfig::class);
     $refreshInterval = $config->getAppValue(Constants::APP_NAME, 'authenticationRefreshInterval', 600);
+    $showTopLine = $config->getAppValue(Constants::APP_NAME, 'showTopLine', false);
 
     /* @var OCP\IInitialStateService */
     $initialState = $container->query(IInitialStateService::class);
@@ -83,10 +84,11 @@ class Application extends App implements IBootstrap
             'appName' => Constants::APP_NAME,
             'webPrefix' => Constants::APP_PREFIX,
             'refreshInterval' => $refreshInterval,
+            'showTopLine' => $showTopLine,
           ]
         );
 
-        \OCP\Util::addScript(Constants::APP_NAME, 'refresh');
+        //\OCP\Util::addScript(Constants::APP_NAME, 'refresh');
       }
     );
   }

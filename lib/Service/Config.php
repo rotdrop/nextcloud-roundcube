@@ -106,18 +106,72 @@ class Config
     if (empty($password)) {
       $password = $this->userPassword;
     }
-    $value = $this->crypto->encrypt($value, $this->userPassword);
+    $value = $this->crypto->encrypt($value, $password);
     return $this->config->setUserValue($this->userId, $this->appName, $key, $value);
   }
-
-  public function recryptPersonalValues($oldPassword, $newPassword)
+  
+  public function recryptPersonalValues($newPassword)
   {
     $keys = $this->config->getUserKeys($this->userId, $this->appName);
     foreach ($keys as $key) {
-      $value = $this->getPersonalValue($key, null, $oldPassword);
+      $value = $this->getPersonalValue($key);
       if ($value !== null) {
         $this->setPersonalValue($key, $value, $newPassword);
+      } else {
+        $this->logWarn("Empty value for config entry `$key'.");
+        //$this->config->deleteUserValue($this->userId, $this->appName, $key);
       }
     }
   }
+
+  /**
+   * Return the login credentials for the configured email account for
+   * the current user.
+   *
+   * @return array
+   * ```
+   * [
+   *   userId: BLAH@FOO.BAR,
+   *   password: PASSWORD,
+   * ]
+   * ```
+   */
+  public function emailCredentials()
+  {
+    $emailAddressChoice = $this->getAppValue('emailAddressChoice', 'userPreferencesEmail');
+    switch ($emailAddressChoice) {
+    case 'userIdEmail':
+      $userEmail = $this->user->getUID();
+      if (strpos($userEmail, '@') === false) {
+        $emailDefaultDomain = $this->getAppValue('emailDefaultDomain', '');
+        $userEmail .= '@'.$emailDefaultDomain;
+      }
+      break;
+    case 'userPreferencesEmail':
+      $userEmail = $this->user->getEMailAddress();
+      break;
+    case 'userChosenEmail':
+      $userEmail = $this->getPersonalValue('emailAddress', '');
+      break;
+    }
+    if (empty($userEmail)) {
+      $this->logError('Unable to obtain email credentials for user '.$this->userId);
+      return false;
+    }
+    $forceSSO = $this->getAppValue('forceSSO', false);
+    if (!$forceSSO) {
+      $userPassword = $this->getPersonalValue('emailPassword');
+    } else {
+      $userPassword = $this->userPassword;
+    }
+    if (empty($userPassword)) { 
+      $this->logError('Unable to obtain email credentials for user '.$this->userId);
+      return false;
+    }
+    return [
+      'userId' => $userEmail,
+      'password' => $userPassword,
+    ];
+  }
+  
 }

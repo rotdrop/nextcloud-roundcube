@@ -20,5 +20,5 @@
  */
 ?>
 <div id="errorMsg">
-    <p><?php p($l->t("Username '%s' is not an email address.", $_['user'])); ?></p>
+    <p><?php p($l->t("Unable to obtain email credentials for '%s'.", $user)); ?></p>
 </div>

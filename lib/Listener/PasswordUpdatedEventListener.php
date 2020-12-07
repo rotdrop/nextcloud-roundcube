@@ -29,26 +29,33 @@ use OCP\ILogger;
 use OCP\IL10N;
 
 use OCA\RoundCube\Service\Constants;
+use OCA\RoundCube\Service\Config;
+use OCA\RoundCube\Service\AuthRoundCube as Authenticator;
 
 class PasswordUpdatedEventListener implements IEventListener
 {
-  use \OCA\DokuWikiEmbedded\Traits\LoggerTrait;
+  use \OCA\RoundCube\Traits\LoggerTrait;
 
   const EVENT = HandledEvent::class;
 
   /** @var string */
   private $appName;
 
-  /** @var OCA\DokuWikiEmbedded\Service\AuthDokuWiki */
+  /** @var \OCA\RoundCube\Service\AuthRoundCube */
   private $authenticator;
 
+  /** @var \OCA\RoundCube\Service\Config */
+  private $config;
+
   public function __construct(
-    AuthDokuWiki $authenticator
+    Authenticator $authenticator
+    , Config $config
     , ILogger $logger
     , IL10N $l10n
   ) {
     $this->appName = Constants::APP_NAME;
     $this->authenticator = $authenticator;
+    $this->config = $config;
     $this->logger = $logger;
     $this->l = $l10n;
   }
@@ -58,7 +65,7 @@ class PasswordUpdatedEventListener implements IEventListener
       return;
     }
 
-    // do something
+    $this->config->recryptPersonalValues($event->getPassword());
   }
 }
 

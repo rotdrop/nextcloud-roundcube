@@ -25,17 +25,17 @@ namespace OCA\RoundCube\Controller;
 use OCP\AppFramework\Controller;
 use OCP\IRequest;
 
-use OCA\RoundCube\AuthHelper;
-use OCA\RoundCube\InternalAddress;
 use OCP\AppFramework\Http\ContentSecurityPolicy;
 use OCP\AppFramework\Http\JSONResponse;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\Util;
 use OCP\ISession;
-use OCP\IConfig;
 use OCP\IURLGenerator;
 use OCP\ILogger;
 use OCP\IL10N;
+
+use OCA\RoundCube\Service\Config;
+use OCA\RoundCube\Service\AuthRoundCube as Authenticator;
 
 class PageController extends Controller
 {
@@ -43,6 +43,9 @@ class PageController extends Controller
 
   /** @var string */
   private $userId;
+
+  /** @var \OCA\RoundCube\Service\AuthRoundCube */
+  private $authenticator;
 
   /** @var \OCP\IConfig */
   private $config;
@@ -55,9 +58,10 @@ class PageController extends Controller
 
   public function __construct(
     $appName
-    , $userId
     , IRequest $request
-    , IConfig $config
+    , $userId
+    , Authenticator $authenticator
+    , Config $config
     , ISession $session
     , IURLGenerator $urlGenerator
     , ILogger $logger
@@ -65,6 +69,7 @@ class PageController extends Controller
   ) {
     parent::__construct($appName, $request);
     $this->userId = $userId;
+    $this->authenticator = $authenticator;    
     $this->config = $config;
     $this->session = $session;
     $this->urlGenerator = $urlGenerator;
@@ -76,25 +81,30 @@ class PageController extends Controller
    * @NoAdminRequired
    * @NoCSRFRequired
    */
-  public function index() {
-
-    if (strpos($this->userId, '@') === false) {
-      $this->logWarn("username ($this->userId) is not an email address.");
-      return new TemplateResponse($this->appName, "part.error.noemail", array('user' => $this->userId));
+  public function index()
+  {
+    $credentials = $this->config->emailCredentials();
+    if (empty($credentials)) {
+      return new TemplateResponse($this->appName, "part.error.noemail", [ 'user' => $this->userId ]);
     }
-    if (!AuthHelper::login()) {
+    
+    if (!$this->authenticator->login($credentials['userId'], $credentials['password'])) {
       return new TemplateResponse($this->appName, "part.error.login", array());
     }
-    $url = $session->get(AuthHelper::SESSION_RC_ADDRESS);
-    $tplParams = array(
+    $url = $this->authenticator->externalURL();
+    $this->logInfo($url);    
+    $tplParams = [
       'appName'     => $this->appName,
       'url'         => $url,
       'loading'     => $this->urlGenerator->imagePath($this->appName, 'loader.gif'),
       'showTopLine' => $this->config->getAppValue($this->appName, 'showTopLine', false)
-    );
+    ];
     $tpl = new TemplateResponse($this->appName, "tpl.mail", $tplParams);
+
     // This is mandatory to embed a different server in an iframe.
-    $rcServer = $this->session->get(AuthHelper::SESSION_RC_SERVER, '');
+    $urlParts = parse_url($url);
+    $rcServer = $urlParts['host'];
+    
     if ($rcServer !== '') {
       $csp = new ContentSecurityPolicy();
       $csp->addAllowedFrameDomain($rcServer);

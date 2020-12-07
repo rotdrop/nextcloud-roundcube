@@ -71,7 +71,7 @@ class AuthRoundCube
   private $rcSessionAuth;
 
   public function __construct(
-    IConfig $config
+    Config $config
     , IURLGenerator $urlGenerator
     , ISession $session
     , $userId
@@ -86,9 +86,9 @@ class AuthRoundCube
     $this->logger = $logger;
     $this->l = $l10n;
 
-    $this->enableSSLVerify = $this->config->getAppValue('roundcube', 'enableSSLVerify', true);
+    $this->enableSSLVerify = $this->config->getAppValue('enableSSLVerify', true);
 
-    $location = $this->config->getAppValue($this->appName, 'roundCubePath');
+    $location = $this->config->getAppValue('externalLocation');
     if ($location[0] == '/') {
       $url = $this->urlGenerator->getAbsoluteURL($location);
     } else {
@@ -144,10 +144,11 @@ class AuthRoundCube
    */
   public function login(string $username, string $password)
   {
+    $this->logInfo('user: '.$username.' password: '.$password[0]);
     // End previous session:
     // Delete cookies sessauth & sessid by expiring them.
-    setcookie(Constants::COOKIE_RC_SESSID, "-del-", 1, "/", "", true, true);
-    setcookie(Constants::COOKIE_RC_SESSAUTH, "-del-", 1, "/", "", true, true);
+    setcookie(self::COOKIE_RC_SESSID, "-del-", 1, "/", "", true, true);
+    setcookie(self::COOKIE_RC_SESSAUTH, "-del-", 1, "/", "", true, true);
     // Get login page, extracts sessionID and token.
     $loginPageObj = $this->sendRequest("?_task=login", "GET");
     if ($loginPageObj === false) {
@@ -306,7 +307,7 @@ class AuthRoundCube
     $response = false;
 
     if (!empty($rcQuery) && $rcQuery[0] != '/') {
-      $formPath = '/'.$rcQuery;
+      $rcQuery = '/'.$rcQuery;
     }
     $rcQuery = $this->externalURL().$rcQuery;
     $this->logDebug("URL: '$rcQuery'.");

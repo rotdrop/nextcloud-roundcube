@@ -30,11 +30,11 @@ use OCP\IConfig;
 use OCP\ILogger;
 use OCP\IL10N;
 
-use OCP\Authentication\LoginCredentials\IStore as ICredentialsStore;
-use OCP\Authentication\LoginCredentials\ICredentials;
-
 use OCA\RoundCube\Service\Constants;
 use OCA\RoundCube\Service\Config;
+
+use OCP\Security\ICrypto;
+use OCP\Authentication\LoginCredentials\IStore as ICredentialsStore;
 
 class Personal implements ISettings
 {
@@ -56,20 +56,17 @@ class Personal implements ISettings
   /** @var \OCP\IURLGenerator */
   private $urlGenerator;
 
-  private $credentialsStore;
-
   public function __construct(
     $appName
     , IUserSession $userSession
     , Config $config
     , IURLGenerator $urlGenerator
-    , ICredentialsStore $credentialsStore
+    , IL10N $l10n
   ) {
     $this->appName = $appName;
     $this->user = $userSession->getUser();
     $this->config = $config;
-    $this->urlGenerator = $urlGenerator;
-    $this->credentialsStore = $credentialsStore;
+    $this->urlGenerator = $urlGenerator;    
   }
 
   public function getForm() {
@@ -83,7 +80,7 @@ class Personal implements ISettings
         }
         break;
       case 'userPreferencesEmail':
-        $userEmail = $this->getEMailAddress;
+        $userEmail = $this->user->getEMailAddress();
         break;
       case 'userChosenEmail':
         $userEmail = $this->config->getPersonalValue('emailAddress');

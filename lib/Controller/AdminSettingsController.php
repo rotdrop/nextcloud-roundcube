@@ -93,7 +93,7 @@ class AdminSettingsController extends Controller
             return self::grumble($this->l->t("Host-part of external URL seems to be empty"));
           }
           $this->authenticator->externalURL($value);
-          if ($this->authenticator->loginStatus() == Authenticator::STATUS_UNKNOWN) {
+          if (false && $this->authenticator->loginStatus() == Authenticator::STATUS_UNKNOWN) {
             return self::grumble($this->l->t("RoundCube instance does not seem to be reachable at %s", [ $value ]));
           }
           break;
@@ -110,17 +110,21 @@ class AdminSettingsController extends Controller
         case 'forceSSO':
         case 'showTopLine':
         case 'enableSSLVerify':
-          // $realValue = filter_var($value, FILTER_VALIDATE_BOOLEAN, ['flags' => FILTER_NULL_ON_FAILURE]);
-          // if ($realValue === null) {
-          //   return self::grumble($this->l->t('Value "%1$s" for set "%2$s" is not convertible to boolean.', [$value, $setting]));
-          // }
-          // $value = $realValue;
+          $realValue = filter_var($value, FILTER_VALIDATE_BOOLEAN, ['flags' => FILTER_NULL_ON_FAILURE]);
+          if ($realValue === null) {
+            return self::grumble($this->l->t('Value "%1$s" for set "%2$s" is not convertible to boolean.', [$value, $setting]));
+          }
+          $value = $realValue;
+          $strValue = $value ? 'on' : 'off';
           break;
       }
       $this->config->setAppValue($setting, $value);
+      if (empty($strValue)) {
+        $strValue = $value;
+      }
       $responseData[$setting] = [
         'value' => $value,
-        'message' => $this->l->t('Parameter %s set to "%s"', [ $setting, $value ]),
+        'message' => $this->l->t('Parameter %s set to "%s"', [ $setting, $strValue ]),
       ];
     }
     switch (count($responseData)) {
