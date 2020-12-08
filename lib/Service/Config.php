@@ -109,9 +109,10 @@ class Config
     $value = $this->crypto->encrypt($value, $password);
     return $this->config->setUserValue($this->userId, $this->appName, $key, $value);
   }
-  
+
   public function recryptPersonalValues($newPassword)
   {
+    $this->logInfo("Re-encrypting personal values.");
     $keys = $this->config->getUserKeys($this->userId, $this->appName);
     foreach ($keys as $key) {
       $value = $this->getPersonalValue($key);
@@ -164,7 +165,7 @@ class Config
     } else {
       $userPassword = $this->userPassword;
     }
-    if (empty($userPassword)) { 
+    if (empty($userPassword)) {
       $this->logError('Unable to obtain email credentials for user '.$this->userId);
       return false;
     }
@@ -173,5 +174,5 @@ class Config
       'password' => $userPassword,
     ];
   }
-  
+
 }
