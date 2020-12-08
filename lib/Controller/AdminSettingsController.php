@@ -72,7 +72,7 @@ class AdminSettingsController extends Controller
   public function set()
   {
     $responseData = [];
-    foreach (Admin::SETTINGS as $setting => $default) {
+    foreach (array_keys(Config::SETTINGS) as $setting) {
       if (!isset($this->request[$setting])) {
         continue;
       }
@@ -97,19 +97,13 @@ class AdminSettingsController extends Controller
             return self::grumble($this->l->t("RoundCube instance does not seem to be reachable at %s", [ $value ]));
           }
           break;
-        case 'authenticationRefreshInterval':
-          $realValue = filter_var($value, FILTER_VALIDATE_INT, ['min_range' => 0]);
-          if ($realValue === false) {
-            return self::grumble($this->l->t('Value "%1$s" for set "%2$s" is not in the allowed range.', [$value, $setting]));
-          }
-          $value = $realValue;
-          break;
         case 'emailDefaultDomain':
         case 'emailAddressChoice':
           break;
         case 'forceSSO':
         case 'showTopLine':
         case 'enableSSLVerify':
+        case 'personalEncryption':
           $realValue = filter_var($value, FILTER_VALIDATE_BOOLEAN, ['flags' => FILTER_NULL_ON_FAILURE]);
           if ($realValue === null) {
             return self::grumble($this->l->t('Value "%1$s" for set "%2$s" is not convertible to boolean.', [$value, $setting]));

@@ -66,7 +66,7 @@ class Personal implements ISettings
     $this->appName = $appName;
     $this->user = $userSession->getUser();
     $this->config = $config;
-    $this->urlGenerator = $urlGenerator;    
+    $this->urlGenerator = $urlGenerator;
   }
 
   public function getForm() {

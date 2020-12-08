@@ -52,15 +52,16 @@ script($appName, 'admin-settings');
     </div>
     <div class="rcSetting">
       <h3><?php p($l->t('Email Address Selection')); ?></h3>
+      <?php $title = $l->t('Use the cloud user-id as (user part of) the email address'); ?>
       <input type="radio"
              name="emailAddressChoice"
              class="radio emailAdressChoice"
              id="userIdEmail"
              value="userIdEmail"
 	     <?php if ($emailAddressChoice == 'userIdEmail') { echo 'checked="checked"'; } ?>
-             title="<?php p($l->t('Use the cloud user-id as (user part of) the email address')); ?>"
+             title="<?php p($title); ?>"
       />
-      <label for="userIdEmail">
+      <label for="userIdEmail" title="<?php p($title); ?>">
         <?php p($l->t('Cloud login-id')); ?>
       </label>
       <span class="emailDefaultDomain<?php if ($emailAddressChoice != 'userIdEmail') { p(' disabled'); } ?>">
@@ -78,50 +79,39 @@ script($appName, 'admin-settings');
         />
       </span>
       <br/>
+      <?php $title = $l->t('Use the email-address from the user\'s preferences.'); ?>
       <input type="radio"
              name="emailAddressChoice"
              class="radio emailAdressChoice"
              id="userPreferencesEmail"
              value="userPreferencesEmail"
 	     <?php if ($emailAddressChoice == 'userPreferencesEmail') { echo 'checked="checked"'; } ?>
-             title="<?php p($l->t('Use the email-address from the user\'s preferences.')); ?>"
+             title="<?php p($title); ?>"
       />
-      <label for="userPreferencesEmail">
+      <label for="userPreferencesEmail" title="<?php p($title); ?>">
         <?php p($l->t('User\'s Preferences')); ?>
       </label>
       <br/>
+      <?php $title = $l->t('Let the user specify an arbitrary address.'); ?>
       <input type="radio"
              name="emailAddressChoice"
              class="radio emailAdressChoice"
              id="userChosenEmail"
              value="userChosenEmail"
 	     <?php if ($emailAddressChoice  == 'userChosenEmail') { echo 'checked="checked"'; } ?>
-             title="<?php p($l->t('Let the user specify an arbitrary address.')); ?>"
+             title="<?php p($title); ?>"
       />
-      <label for="userChosenEmail">
+      <label for="userChosenEmail" title="<?php p($title); ?>">
         <?php p($l->t('User\'s Choice')); ?>
       </label>
     </div>
     <div class="rcSetting">
       <h3><?php p($l->t('Advanced settings')); ?></h3>
-      <label>
-	<input type="number"
-               min="0"
-               name="authenticationRefreshInterval"
-               id="authenticationRefreshInterval"
-               class="authenticationRefreshInterval"
-               value="<?php echo $authenticationRefreshInterval; ?>"
-               placeholder="<?php echo $l->t('Refresh Time [s]'); ?>"
-               title="<?php echo $l->t('Please enter the desired session-refresh interval here. The interval is measured in seconds and should be somewhat smaller than the configured session life-time for the roundcube instance in use.'); ?>"
-        />
-	<?php p($l->t('Session refresh rate [s].')); ?>
-      </label>
-      <br/>
       <input type="checkbox"
              class="checkbox"
              name="forceSSO"
              id="forceSSO"
-	     <?php if ($forceSSO == 'on') { echo 'checked="checked"'; } ?>
+	     <?php if ($forceSSO) { echo 'checked="checked"'; } ?>
       />
       <label for="forceSSO">
 	<?php p($l->t('Force single sign on (disables custom password).')); ?>
@@ -131,7 +121,7 @@ script($appName, 'admin-settings');
              class="checkbox"
              name="showTopLine"
              id="showTopLine"
-	     <?php if ($showTopLine == 'on') { echo 'checked="checked"'; } ?>
+	     <?php if ($showTopLine) { echo 'checked="checked"'; } ?>
       />
       <label for="showTopLine">
 	<?php p($l->t('Show RoundCube top information bar (shows logout button).')); ?>
@@ -141,11 +131,22 @@ script($appName, 'admin-settings');
              name="enableSSLVerify"
              id="enableSSLVerify"
              class="checkbox"
-	     <?php if ($enableSSLVerify == 'on') { echo 'checked="checked"'; } ?>
+	     <?php if ($enableSSLVerify) { echo 'checked="checked"'; } ?>
       />
       <label title="<?php p($l->t('Disable when debugging with self-signed certificates.')); ?>"
              for="enableSSLVerify">
 	<?php p($l->t('Enable SSL verification.')); ?>
+      </label>
+      <br/>
+      <input type="checkbox"
+             name="personalEncryption"
+             id="personalEncryption"
+             class="checkbox"
+	     <?php if ($personalEncryption) { echo 'checked="checked"'; } ?>
+      />
+      <label title="<?php p($l->t('Encrypt per-user data -- in particular their email passwords -- with their personal cloud password. This implies that these settings will be lost when users forget their passwords. If unchecked the email login credentials are still protected by the server secret. The latter implies that an administrator is able to decrypt the login credentials, but the configuration data survives user password-loss.')); ?>"
+             for="personalEncryption">
+	<?php p($l->t('Per-user encryption of config values.')); ?>
       </label>
     </div>
 

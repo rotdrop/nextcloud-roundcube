@@ -45,7 +45,7 @@ switch ($emailAddressChoice) {
     break;
 }
 
-if ($forceSSO == 'on') {
+if ($forceSSO) {
   $emailPasswordDisable = 'disabled="disabled"';
   $emailPasswordTitle = $l->t("Single-sign-on is globally forced `on'.");
 } else {
@@ -92,6 +92,7 @@ $formAction = $urlGenerator->linkToRoute($appName.'.personal_settings.set');
       <input type="checkbox"
              id="emailPasswordShow"
              class="emailPasswordShow"
+             <?php echo $emailPasswordDisable; ?>
              name="emailPasswordShow"
       />
       <label class="emailPasswordShow" for="emailPasswordShow"><?php p($l->t('show')); ?></label>

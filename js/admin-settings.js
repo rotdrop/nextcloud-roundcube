@@ -117,6 +117,7 @@ $(function(){
     'forceSSO': 'change',
     'showTopLine': 'change',
     'enableSSLVerify': 'change',
+    'personalEncryption': 'change'
   };
   inputs[formId] = 'submit';
 

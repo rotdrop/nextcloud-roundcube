@@ -34,6 +34,21 @@ class Config
 {
   use \OCA\RoundCube\Traits\LoggerTrait;
 
+  const EMAIL_ADDRESS = [
+    'userIdEmail',
+    'userPreferencesEmail',
+    'userChosenEmail',
+  ];
+  const SETTINGS = [
+    'externalLocation' => '',
+    'emailDefaultDomain' => '',
+    'emailAddressChoice' => 'userPreferencesEmail',
+    'forceSSO' => false,
+    'showTopLine' => false,
+    'enableSSLVerify' => true,
+    'personalEncryption' => true,
+  ];
+
   /** @var \OCP\IUser */
   private $user;
 
@@ -50,6 +65,13 @@ class Config
   /** @var \OCP\ICrypto */
   private $crypto;
 
+  /**
+   * @var bool
+   *
+   * Whether to encrypt personal data with the user's password.
+   */
+  private $personalEncryption;
+
   public function __construct(
     $appName
     , IUserSession $userSession
@@ -60,23 +82,33 @@ class Config
     , IL10N $l10n
   ) {
     $this->appName = $appName;
-    $this->user = $userSession->getUser();
-    $this->userId = $this->user->getUID();
+    $this->config = $config;
+    $this->crypto = $crypto;
+    $this->logger = $logger;
+    $this->l = $l10n;
+    $this->personalEncryption = $this->getAppValue('personalEncryption');
+    try {
+      $this->user = $userSession->getUser();
+      $this->userId = $this->user->getUID();
+    } catch (\Throwable $t) {
+      $this->logException($t);
+      $this->user = null;
+      $this->userId = null;
+    }
+    $this->credentials = null;
+    $this->userPassword = null;
     try {
       $this->credentials = $credentialsStore->getLoginCredentials();
       $this->userPassword = $this->credentials->getPassword();
     } catch (\Throwable $t) {
       $this->logException($t);
-      $this->credentials = null;
-      $this->userPassword = null;
     }
-    $this->config = $config;
-    $this->crypto = $crypto;
-    $this->logger = $logger;
-    $this->l = $l10n;
   }
 
   public function getAppValue(string $key, $default = null) {
+    if (empty($default) && isset(self::SETTINGS[$key])) {
+      $default = self::SETTINGS[$key];
+    }
     return $this->config->getAppValue($this->appName, $key, $default);
   }
 
@@ -86,16 +118,34 @@ class Config
 
   public function getPersonalValue(string $key, $default = null, $password = null)
   {
-    if (empty($password)) {
+    if (!$this->personalEncryption) {
+      $password = '';
+    } else if (empty($password)) {
       $password = $this->userPassword;
     }
     $value = $this->config->getUserValue($this->userId, $this->appName, $key, $default);
     if (!empty($value) && $value !== $default) {
       try {
-        $value = $this->crypto->decrypt($value, $password);
+        $decrypted = $this->crypto->decrypt($value, $password);
+        $value = $decrypted;
       } catch (\Throwable $t) {
-        $this->logException($t);
-        $value = $default;
+        try {
+          if ($this->personalEncryption && !empty($password)) {
+            // retry with server password
+            $this->logInfo("Retry decrypt of $key with server passphrase");
+            $decrypted = $this->crypto->decrypt($value);
+            $this->setPersonalValue($key, $decrypted);
+            $value = $decrypted;
+          } else if (!$this->personalEncryption && !empty($this->userPassword)) {
+            $this->logInfo("Retry decrypt of $key with user password");
+            $decrypted = $this->crypto->decrypt($value, $this->userPassword);
+            $this->setPersonalValue($key, $decrypted);
+            $value = $decrypted;
+          }
+        } catch (\Throwable $t) {
+          $this->logException($t);
+          $value = $default;
+        }
       }
     }
     return $value;
@@ -103,7 +153,9 @@ class Config
 
   public function setPersonalValue(string $key, $value, $password = null)
   {
-    if (empty($password)) {
+    if (!$this->personalEncryption) {
+      $password = '';
+    } else if (empty($password)) {
       $password = $this->userPassword;
     }
     $value = $this->crypto->encrypt($value, $password);
@@ -113,6 +165,10 @@ class Config
   public function recryptPersonalValues($newPassword)
   {
     $this->logInfo("Re-encrypting personal values.");
+    if ($this->personalEncryption && empty($this->userPassword)) {
+      $this->logError('Unable to re-crypt configuration values without old password.');
+      return;
+    }
     $keys = $this->config->getUserKeys($this->userId, $this->appName);
     foreach ($keys as $key) {
       $value = $this->getPersonalValue($key);

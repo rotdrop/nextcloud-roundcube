@@ -29,24 +29,12 @@ use OCP\IConfig;
 use OCP\ILogger;
 use OCP\IL10N;
 
+use OCA\RoundCube\Service\Config;
+
 class Admin implements ISettings
 {
 
   const TEMPLATE = 'tpl.adminSettings';
-  const EMAIL_ADDRESS = [
-    'userIdEmail',
-    'userPreferencesEmail',
-    'userChosenEmail',
-  ];
-  const SETTINGS = [
-    'externalLocation' => '',
-    'emailDefaultDomain' => '',
-    'emailAddressChoice' => 'userPreferencesEmail',
-    'forceSSO' => false,
-    'showTopLine' => false,
-    'enableSSLVerify' => true,
-    'authenticationRefreshInterval' => 600,
-  ];
 
   /** @var string */
   private $appName;
@@ -59,7 +47,7 @@ class Admin implements ISettings
 
   public function __construct(
     $appName
-    , IConfig $config
+    , Config $config
     , IURLGenerator $urlGenerator
   ) {
     $this->appName = $appName;
@@ -73,8 +61,8 @@ class Admin implements ISettings
       'ocServer' => $this->urlGenerator->getAbsoluteURL("/"),
       'urlGenerator' => $this->urlGenerator,
     ];
-    foreach (self::SETTINGS as $setting => $default) {
-      $templateParameters[$setting] = $this->config->getAppValue($this->appName, $setting, $default);
+    foreach (array_keys(Config::SETTINGS) as $setting) {
+      $templateParameters[$setting] = $this->config->getAppValue($setting);
     }
     return new TemplateResponse(
       $this->appName,
