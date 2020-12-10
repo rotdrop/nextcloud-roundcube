@@ -113,7 +113,6 @@ $(function(){
     'emailDefaultDomain': 'blur',
     'userPreferencesEmail': 'change',
     'userChosenEmail': 'change',
-    'authenticationRefreshInterval': 'blur',
     'forceSSO': 'change',
     'showTopLine': 'change',
     'enableSSLVerify': 'change',
