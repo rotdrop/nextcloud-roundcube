@@ -50,13 +50,21 @@ use OCA\RoundCube\Listener\Registration as ListenerRegistration;
  **********************************************************
  *
  */
-use OCA\RoundCube\Service\Constants;
 
 class Application extends App implements IBootstrap
 {
+  /** @var string */
+  protected $appName;
 
   public function __construct (array $urlParams = []) {
-    parent::__construct(Constants::APP_NAME, $urlParams);
+    $infoXml = new \SimpleXMLElement(file_get_contents(__DIR__ . '/../../appinfo/info.xml'));
+    $this->appName = (string)$infoXml->id;
+    parent::__construct($this->appName, $urlParams);
+  }
+
+  public function getAppName()
+  {
+    return $this->appName;
   }
 
   public function boot(IBootContext $context): void
@@ -65,8 +73,8 @@ class Application extends App implements IBootstrap
 
     /* @var OCP\IConfig */
     $config = $container->query(IConfig::class);
-    $refreshInterval = $config->getAppValue(Constants::APP_NAME, 'authenticationRefreshInterval', 600);
-    $showTopLine = $config->getAppValue(Constants::APP_NAME, 'showTopLine', false);
+    $refreshInterval = $config->getAppValue($this->appName, 'authenticationRefreshInterval', 600);
+    $showTopLine = $config->getAppValue($this->appName, 'showTopLine', false);
 
     /* @var OCP\IInitialStateService */
     $initialState = $container->query(IInitialStateService::class);
@@ -78,17 +86,17 @@ class Application extends App implements IBootstrap
       function() use ($initialState, $refreshInterval) {
 
         $initialState->provideInitialState(
-          Constants::APP_NAME,
+          $this->appName,
           'initial',
           [
-            'appName' => Constants::APP_NAME,
-            'webPrefix' => Constants::APP_PREFIX,
+            'appName' => $this->appName,
+            'webPrefix' => $this->appName,
             'refreshInterval' => $refreshInterval,
             'showTopLine' => $showTopLine,
           ]
         );
 
-        //\OCP\Util::addScript(Constants::APP_NAME, 'refresh');
+        //\OCP\Util::addScript($this->appName, 'refresh');
       }
     );
   }

@@ -69,7 +69,7 @@ class PageController extends Controller
   ) {
     parent::__construct($appName, $request);
     $this->userId = $userId;
-    $this->authenticator = $authenticator;    
+    $this->authenticator = $authenticator;
     $this->config = $config;
     $this->session = $session;
     $this->urlGenerator = $urlGenerator;
@@ -87,24 +87,25 @@ class PageController extends Controller
     if (empty($credentials)) {
       return new TemplateResponse($this->appName, "part.error.noemail", [ 'user' => $this->userId ]);
     }
-    
+
     if (!$this->authenticator->login($credentials['userId'], $credentials['password'])) {
       return new TemplateResponse($this->appName, "part.error.login", array());
     }
     $url = $this->authenticator->externalURL();
-    $this->logInfo($url);    
+    $this->logInfo($url);
     $tplParams = [
-      'appName'     => $this->appName,
-      'url'         => $url,
-      'loading'     => $this->urlGenerator->imagePath($this->appName, 'loader.gif'),
-      'showTopLine' => $this->config->getAppValue($this->appName, 'showTopLine', false)
+      'appName'      => $this->appName,
+      'webPrefix'    => $this->appName,
+      'url'          => $url,
+      'loadingImage' => $this->urlGenerator->imagePath($this->appName, 'loader.gif'),
+      'showTopLine'  => $this->config->getAppValue($this->appName, 'showTopLine', false)
     ];
     $tpl = new TemplateResponse($this->appName, "tpl.mail", $tplParams);
 
     // This is mandatory to embed a different server in an iframe.
     $urlParts = parse_url($url);
     $rcServer = $urlParts['host'];
-    
+
     if ($rcServer !== '') {
       $csp = new ContentSecurityPolicy();
       $csp->addAllowedFrameDomain($rcServer);

@@ -28,7 +28,6 @@ use OCP\EventDispatcher\IEventListener;
 use OCP\ILogger;
 use OCP\IL10N;
 
-use OCA\RoundCube\Service\Constants;
 use OCA\RoundCube\Service\AuthRoundCube;
 
 class BeforeUserLoggedOutEventListener implements IEventListener
@@ -48,8 +47,8 @@ class BeforeUserLoggedOutEventListener implements IEventListener
     , ILogger $logger
     , IL10N $l10n
   ) {
-    $this->appName = Constants::APP_NAME;
     $this->authenticator = $authenticator;
+    $this->appName = $this->authenticator->getAppName();
     $this->logger = $logger;
     $this->l = $l10n;
   }

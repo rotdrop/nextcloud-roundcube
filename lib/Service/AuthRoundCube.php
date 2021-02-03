@@ -28,6 +28,8 @@ use OCP\ILogger;
 use OCP\ISession;
 use OCP\IL10N;
 
+use OCA\RoundCube\AppInfo\Application;
+
 /**
  * This class provides the login to RC server using curl.
  */
@@ -71,15 +73,16 @@ class AuthRoundCube
   private $rcSessionAuth;
 
   public function __construct(
-    Config $config
+    Application $app
+    , Config $config
     , IURLGenerator $urlGenerator
     , ISession $session
     , $userId
     , ILogger $logger
     , IL10N $l10n
   ) {
+    $this->appName = $app->getAppName();
     $this->userId = $userId;
-    $this->appName = Constants::APP_NAME;
     $this->config = $config;
     $this->urlGenerator = $urlGenerator;
     $this->session = $session;
@@ -107,6 +110,14 @@ class AuthRoundCube
     $this->rcRequestToken = null;
     $this->rcSessionId = null;
     $this->rcSessionAuth = null;
+  }
+
+  /**
+   * Return the name of the app.
+   */
+  public function getAppName(): string
+  {
+    return $this->appName;
   }
 
   /**

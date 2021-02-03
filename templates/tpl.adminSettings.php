@@ -25,15 +25,13 @@
 
 namespace OCA\RoundCube;
 
-use OCA\RoundCube\Service\Constants;
-
-style($appName, 'settings');
+style($appName, 'admin-settings');
 script($appName, 'admin-settings');
 
 ?>
 <div class="section" id="roundcube">
   <h2 class="app-name"><?php p($l->t('Embedded RoundCube')); ?></h2>
-  <form id="<?php echo Constants::APP_PREFIX; ?>settings" action="#" method="post">
+  <form id="<?php p($webPrefix); ?>settings" action="#" method="post">
     <input type="hidden" name="appname" value="<?php p($appName); ?>"/>
     <input type="hidden" name="submit" value="1"/>
 

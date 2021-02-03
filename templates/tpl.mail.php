@@ -20,15 +20,19 @@
  * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-$appName    = $_['appName'];
-$url        = $_['url'] ."?_task=mail";
-$imgLoading = $_['loading'];
-$showTopLine = ($_['showTopLine'] ? 'showTopLine' : '');
 
-style($appName, 'base');
+$url .= '?_task=mail';
+
+style($appName, 'app');
 script($appName, 'app');
+
 ?>
-<div id="roundcubeLoaderContainer">
-    <img src="<?php p($imgLoading); ?>" id="roundcubeLoader">
+
+<div id="<?php p($webPrefix); ?>LoaderContainer">
+    <img src="<?php p($loadingImage); ?>" id="<?php p($webPrefix); ?>Loader">
 </div>
-<iframe src="<?php p($url); ?>" id="roundcubeFrame" class="<?php p($showTopLine); ?>" name="roundcube"></iframe>
+<iframe src="<?php p($url); ?>"
+        id="<?php p($webPrefix); ?>Frame"
+        class="<?php p($showTopLine); ?>"
+        name="<?php p($webPrefix); ?>">
+</iframe>

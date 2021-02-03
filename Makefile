@@ -9,7 +9,22 @@ PHPDOC_TEMPLATE=--template=default
 #--template=clean --template=xml
 #--template=responsive-twig
 
-all:
+all: build
+
+build: npm
+
+.PHONY: npm-update
+npm-update:
+	npm update
+
+.PHONY: npm-init
+npm-init:
+	npm install
+
+# Installs npm dependencies
+.PHONY: npm
+npm: npm-init
+	npm run dev
 
 .PHONY: doc
 doc: $(PHPDOC) $(DOC_BUILD_DIR)
@@ -32,6 +47,8 @@ $(DOC_BUILD_DIR):
 # Removes the appstore build
 .PHONY: clean
 clean:
+	rm -rf js/*
+	rm -rf css/*
 	rm -rf ./build
 
 # Same as clean but also removes dependencies installed by composer, bower and
@@ -42,9 +59,12 @@ distclean: clean
 	rm -rf node_modules
 	rm -rf js/vendor
 	rm -rf js/node_modules
+	rm -f *.html
+	find . -name "*~" -exec rm -f {} \;
 
 .PHONY: realclean
 realclean: distclean
 	rm -f composer.lock
 	rm -f composer.json
 	rm -f stamp.composer-core-versions
+	rm -f package-lock.json

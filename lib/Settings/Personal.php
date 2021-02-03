@@ -30,7 +30,6 @@ use OCP\IConfig;
 use OCP\ILogger;
 use OCP\IL10N;
 
-use OCA\RoundCube\Service\Constants;
 use OCA\RoundCube\Service\Config;
 
 use OCP\Security\ICrypto;
@@ -96,6 +95,7 @@ class Personal implements ISettings
 
     $templateParameters = [
       'appName' => $this->appName,
+      'webPrefix' => $this->appName,
       'userId' => $this->user->getUID(),
       'userEmail' => $this->user->getEMailAddress(),
       'urlGenerator' => $this->urlGenerator,

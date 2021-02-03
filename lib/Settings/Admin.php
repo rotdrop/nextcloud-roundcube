@@ -58,6 +58,7 @@ class Admin implements ISettings
   public function getForm() {
     $templateParameters = [
       'appName' => $this->appName,
+      'webPrefix' => $this->appName,
       'ocServer' => $this->urlGenerator->getAbsoluteURL("/"),
       'urlGenerator' => $this->urlGenerator,
     ];

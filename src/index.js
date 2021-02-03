@@ -1,4 +1,3 @@
-<?php
 /**
  * nextCloud - RoundCube mail plugin
  *
@@ -20,12 +19,29 @@
  *
  */
 
-namespace OCA\RoundCube\Service;
+import { webPrefix } from './config.js';
+import { loadHandler, resizeHandler, } from './roundcube.js';
+import '../style/base.css';
 
-class Constants
-{
-  const APP_PREFIX = 'roundcube';
-  const APP_NAME = self::APP_PREFIX; // .'embedded'
-  const PUBLIC_KEY_SETTING = 'pubkey';
-  const PRIVATE_KEY_SETTING = 'privkey';
-}
+const jQuery = require('jquery');
+const $ = jQuery;
+
+$(function() {
+  const frame = $('#' + webPrefix + 'Frame');
+
+  if (frame.length > 0) {
+    frame.on('load', function() {
+      loadHandler(frame);
+    });
+
+    $(window).resize(function() {
+      resizeHandler($frame);
+    });
+  }
+
+});
+
+// Local Variables: ***
+// js-indent-level: 2 ***
+// indent-tabs-mode: nil ***
+// End: ***
