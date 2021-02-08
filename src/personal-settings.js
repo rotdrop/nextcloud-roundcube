@@ -27,6 +27,7 @@ import '../style/settings.css';
 const jQuery = require('jquery');
 const $ = jQuery;
 require('./nextcloud/jquery/requesttoken.js');
+require('./nextcloud/jquery/showpassword.js');
 
 const storeSettings = function(event, id) {
   const msg = $('#' + webPrefix + 'settings .msg');
