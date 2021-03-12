@@ -3,7 +3,7 @@
  * nextCloud - RoundCube mail plugin
  *
  * @author Claus-Justus Heine
- * @copyright 2020 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2020, 2021 Claus-Justus Heine <himself@claus-justus-heine.de>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -116,14 +116,15 @@ class Config
     return $this->config->setAppValue($this->appName, $key, $value);
   }
 
-  public function getPersonalValue(string $key, $default = null, $password = null)
+  public function getPersonalValue(string $key, $default = null, $password = null, $userId = null)
   {
     if (!$this->personalEncryption) {
       $password = '';
     } else if (empty($password)) {
       $password = $this->userPassword;
     }
-    $value = $this->config->getUserValue($this->userId, $this->appName, $key, $default);
+    $userId = $userId?:$this->userId;
+    $value = $this->config->getUserValue($userId, $this->appName, $key, $default);
     if (!empty($value) && $value !== $default) {
       try {
         $decrypted = $this->crypto->decrypt($value, $password);
@@ -151,15 +152,16 @@ class Config
     return $value;
   }
 
-  public function setPersonalValue(string $key, $value, $password = null)
+  public function setPersonalValue(string $key, $value, $password = null, $userId = null)
   {
     if (!$this->personalEncryption) {
       $password = '';
     } else if (empty($password)) {
       $password = $this->userPassword;
     }
+    $userId = $userId?:$this->userId;
     $value = $this->crypto->encrypt($value, $password);
-    return $this->config->setUserValue($this->userId, $this->appName, $key, $value);
+    return $this->config->setUserValue($userId, $this->appName, $key, $value);
   }
 
   public function recryptPersonalValues($newPassword)
@@ -229,6 +231,28 @@ class Config
       'userId' => $userEmail,
       'password' => $userPassword,
     ];
+  }
+
+  public function setEmailCredentials($userId, $emailUser, $emailPassword)
+  {
+    $emailAddressChoice = $this->getAppValue('emailAddressChoice', 'userPreferencesEmail');
+    switch ($emailAddressChoice) {
+    case 'userIdEmail':
+    case 'userPreferencesEmail':
+      throw new \Exception($this->l->t('Cannot set email credentials for chosen address choice "%s".', $emailAddressChoice));
+    case 'userChosenEmail':
+      break;
+    }
+    $forceSSO = $this->getAppValue('forceSSO', false);
+    if ($forceSSO) {
+      throw new \Exception($this->l->t('Cannot set email credentials if SSO is enforced.'));
+    }
+    if ($this->personalEncryption) {
+      // @todo replace by asymmetric (public/private key pair) encryption
+      throw new \Exception($this->l->t('Cannot set email credentials if personal encryption is required.'));
+    }
+    $this->setPersonalValue('emailAddress', $emailUser, null, $userId);
+    $this->setPersonalValue('emailPassword', $emailPassword, null, $userId);
   }
 
 }
