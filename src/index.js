@@ -2,7 +2,7 @@
  * nextCloud - RoundCube mail plugin
  *
  * @author Claus-Justus Heine
- * @copyright 2020 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2020, 2021 Claus-Justus Heine <himself@claus-justus-heine.de>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -27,11 +27,11 @@ const jQuery = require('jquery');
 const $ = jQuery;
 
 $(function() {
-  const frame = $('#' + webPrefix + 'Frame');
+  const $frame = $('#' + webPrefix + 'Frame');
 
-  if (frame.length > 0) {
-    frame.on('load', function() {
-      loadHandler(frame);
+  if ($frame.length > 0) {
+    $frame.on('load', function() {
+      loadHandler($frame);
     });
 
     $(window).resize(function() {
