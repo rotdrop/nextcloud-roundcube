@@ -4,7 +4,7 @@
  *
  * @author 2019 Leonardo R. Morelli github.com/LeonardoRM
  * @author Claus-Justus Heine
- * @copyright 2020 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2020, 2021 Claus-Justus Heine <himself@claus-justus-heine.de>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -25,7 +25,6 @@ namespace OCA\RoundCube\Service;
 use OCP\IConfig;
 use OCP\IURLGenerator;
 use OCP\ILogger;
-use OCP\ISession;
 use OCP\IL10N;
 
 use OCA\RoundCube\AppInfo\Application;
@@ -52,9 +51,6 @@ class AuthRoundCube
   /** @var \OCP\IConfig */
   private $config;
 
-  /** @var \OCP\ISession */
-  private $session;
-
   /** @var \OCP\IURLGenerator */
   private $urlGenerator;
 
@@ -76,7 +72,6 @@ class AuthRoundCube
     Application $app
     , Config $config
     , IURLGenerator $urlGenerator
-    , ISession $session
     , $userId
     , ILogger $logger
     , IL10N $l10n
@@ -85,7 +80,6 @@ class AuthRoundCube
     $this->userId = $userId;
     $this->config = $config;
     $this->urlGenerator = $urlGenerator;
-    $this->session = $session;
     $this->logger = $logger;
     $this->l = $l10n;
 

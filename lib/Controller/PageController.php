@@ -4,7 +4,7 @@
  *
  * @author 2019 Leonardo R. Morelli github.com/LeonardoRM
  * @author 2020 Claus-Justus Heine
- * @copyright 2020 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2020, 2021 Claus-Justus Heine <himself@claus-justus-heine.de>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -29,7 +29,6 @@ use OCP\AppFramework\Http\ContentSecurityPolicy;
 use OCP\AppFramework\Http\JSONResponse;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\Util;
-use OCP\ISession;
 use OCP\IURLGenerator;
 use OCP\ILogger;
 use OCP\IL10N;
@@ -50,9 +49,6 @@ class PageController extends Controller
   /** @var \OCP\IConfig */
   private $config;
 
-  /** @var \OCP\ISession */
-  private $session;
-
   /** @var \OCP\IURLGenerator */
   private $urlGenerator;
 
@@ -62,7 +58,6 @@ class PageController extends Controller
     , $userId
     , Authenticator $authenticator
     , Config $config
-    , ISession $session
     , IURLGenerator $urlGenerator
     , ILogger $logger
     , IL10N $l10n
@@ -71,7 +66,6 @@ class PageController extends Controller
     $this->userId = $userId;
     $this->authenticator = $authenticator;
     $this->config = $config;
-    $this->session = $session;
     $this->urlGenerator = $urlGenerator;
     $this->logger = $logger;
     $this->l = $l10n;
