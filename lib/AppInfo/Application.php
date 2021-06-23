@@ -84,7 +84,7 @@ class Application extends App implements IBootstrap
     $dispatcher = $container->query(IEventDispatcher::class);
     $dispatcher->addListener(
       \OCP\AppFramework\Http\TemplateResponse::EVENT_LOAD_ADDITIONAL_SCRIPTS_LOGGEDIN,
-      function() use ($initialState, $refreshInterval) {
+      function() use ($initialState, $refreshInterval, $showTopLine) {
 
         $initialState->provideInitialState(
           $this->appName,
