@@ -26,17 +26,55 @@ import '../style/base.css';
 const jQuery = require('jquery');
 const $ = jQuery;
 
+const test = function() {
+  const $frame = $('#' + webPrefix + 'Frame');
+  if ($frame.length > 0) {
+    const rcfContents = $frame.contents();
+    if (rcfContents.find('#mainscreen').length > 0) {
+      console.info('ROUNDCUBE LOADED????');
+      trigger($frame, 'load');
+    } else {
+      console.info('NO CONTENT');
+    }
+  } else {
+    console.info('NO FRAME');
+  }
+};
+
 $(function() {
   const $frame = $('#' + webPrefix + 'Frame');
+  let gotLoadEvent = false;
 
   if ($frame.length > 0) {
     $frame.on('load', function() {
-      loadHandler($frame);
+      if (!gotLoadEvent) {
+        gotLoadEvent = true
+        loadHandler($frame);
+      } else {
+        console.warn('Duplicate load event');
+      }
     });
 
     $(window).resize(function() {
       resizeHandler($frame);
     });
+
+    const loadTimeout = 100;
+    let timerCount = 0;
+    const loadTimerHandler = function() {
+      if (gotLoadEvent) {
+        return;
+      }
+      ++timerCount;
+      const rcfContents = $frame.contents();
+      if (rcfContents.find('#mainscreen').length > 0) {
+        console.warn('LOAD EVENT FROM TIMER AFTER ' + (loadTimeout * timerCount) + ' ms');
+        $frame.trigger('load');
+      } else {
+        setTimeout(loadTimerHandler, loadTimeout);
+      }
+    }
+    setTimeout(loadTimerHandler, loadTimeout);
   }
 
 });
