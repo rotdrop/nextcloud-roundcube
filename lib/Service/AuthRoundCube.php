@@ -222,8 +222,8 @@ class AuthRoundCube
       '_action' => 'logout',
       '_task' => 'logout',
     ];
-    if ($this->rqRequestToken) {
-      $data['_token'] = $this->rqRequestToken;
+    if ($this->rcRequestToken) {
+      $data['_token'] = $this->rcRequestToken;
     }
     $logoutPageObj = $this->sendRequest('', 'POST', $data);
     if ($logoutPageObj === false) {
