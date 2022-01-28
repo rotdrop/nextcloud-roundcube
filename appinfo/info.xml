@@ -17,6 +17,7 @@
     Integrates existing roundcube server into NextCloud.
   </description>
   <category>integration</category>
+  <category>social</category>
   <website>https://github.com/rotdrop/nextcloud-roundcube/</website>
   <navigations>
     <navigation>
