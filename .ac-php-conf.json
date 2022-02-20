@@ -6,8 +6,26 @@
       "php"
     ],
     "php-path-list": [
-      "."
+      ".",
+      "../../3rdparty",
+      "../../lib"
     ],
-    "php-path-list-without-subdir": []
+    "php-path-list-without-subdir": [],
+    "ignore-ruleset": [
+      "# like .gitignore file ",
+      "/vendor*/**/polyfill-php80/**/*.php",
+      "/vendor*/**/polyfill-php81/**/*.php",
+      "/vendor*/humbug/php-scoper/**",
+      "/build/**",
+      "/3rdparty/**/[tT]ests/**/*.php",
+      "/vendor/**/[tT]ests/**/*.php",
+      "/3rdparty/**/[Ee]xamples/**/*.php",
+      "/vendor/**/[Ee]xamples/**/*.php",
+      "/vendor/composer/*.php",
+      "/vendor/*.php",
+      "# not need php_codesniffer",
+      "/vendor/squizlabs/php_codesniffer/**/*.php",
+      "#  -- end -- "
+    ]
   }
 }
