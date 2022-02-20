@@ -3,7 +3,7 @@
  * Nextcloud RoundCube App.
  *
  * @author Claus-Justus Heine
- * @copyright 2020, 2021 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2020, 2021, 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
  *
  * Nextcloud RoundCube App is free software: you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -25,8 +25,8 @@ namespace OCA\RoundCube\Listener;
 use OCP\User\Events\BeforeUserLoggedOutEvent as HandledEvent;
 use OCP\EventDispatcher\Event;
 use OCP\EventDispatcher\IEventListener;
+use OCP\AppFramework\IAppContainer;
 use OCP\ILogger;
-use OCP\IL10N;
 
 use OCA\RoundCube\Service\AuthRoundCube;
 
@@ -36,21 +36,12 @@ class BeforeUserLoggedOutEventListener implements IEventListener
 
   const EVENT = HandledEvent::class;
 
-  /** @var string */
-  private $appName;
+  /** @var IAppContainer */
+  private $appContainer;
 
-  /** @var OCA\RoundCube\Service\AuthRoundCube */
-  private $authenticator;
-
-  public function __construct(
-    AuthRoundCube $authenticator
-    , ILogger $logger
-    , IL10N $l10n
-  ) {
-    $this->authenticator = $authenticator;
-    $this->appName = $this->authenticator->getAppName();
-    $this->logger = $logger;
-    $this->l = $l10n;
+  public function __construct(IAppContainer $appContainer)
+  {
+    $this->appContainer = $appContainer;
   }
 
   public function handle(Event $event): void {
@@ -58,7 +49,15 @@ class BeforeUserLoggedOutEventListener implements IEventListener
       return;
     }
 
-    $this->authenticator->logout();
+    $this->logger = $this->appContainer->get(ILogger::class);
+
+    try {
+      /** @var AuthRoundCube $authenticator */
+      $authenticator = $this->appContainer->get(AuthRoundCube::class);
+      $authenticator->logout();
+    } catch (\Throwable $t) {
+      $this->logException($t, 'Unable to log out of roundcube app.');
+    }
   }
 }
 

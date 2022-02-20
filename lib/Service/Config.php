@@ -3,7 +3,7 @@
  * Nextcloud RoundCube App.
  *
  * @author Claus-Justus Heine
- * @copyright 2020, 2021 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2020, 2021, 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
  *
  * Nextcloud RoundCube App is free software: you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -91,7 +91,7 @@ class Config
       $this->user = $userSession->getUser();
       $this->userId = $this->user->getUID();
     } catch (\Throwable $t) {
-      $this->logException($t);
+      $this->logException($t, 'Unable to get user from session.');
       $this->user = null;
       $this->userId = null;
     }
@@ -101,7 +101,7 @@ class Config
       $this->credentials = $credentialsStore->getLoginCredentials();
       $this->userPassword = $this->credentials->getPassword();
     } catch (\Throwable $t) {
-      $this->logException($t);
+      $this->logException($t, 'Unable to get credentials from credentials-store.');
     }
   }
 

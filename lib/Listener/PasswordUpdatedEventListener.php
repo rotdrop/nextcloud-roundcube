@@ -25,6 +25,7 @@ namespace OCA\RoundCube\Listener;
 use OCP\User\Events\PasswordUpdatedEvent as HandledEvent;
 use OCP\EventDispatcher\Event;
 use OCP\EventDispatcher\IEventListener;
+use OCP\AppFramework\IAppContainer;
 use OCP\ILogger;
 use OCP\IL10N;
 
@@ -37,26 +38,12 @@ class PasswordUpdatedEventListener implements IEventListener
 
   const EVENT = HandledEvent::class;
 
-  /** @var string */
-  private $appName;
+  /** @var IAppContainer */
+  private $appContainer;
 
-  /** @var \OCA\RoundCube\Service\AuthRoundCube */
-  private $authenticator;
-
-  /** @var \OCA\RoundCube\Service\Config */
-  private $config;
-
-  public function __construct(
-    Authenticator $authenticator
-    , Config $config
-    , ILogger $logger
-    , IL10N $l10n
-  ) {
-    $this->authenticator = $authenticator;
-    $this->appName = $this->authenticator->getAppName();
-    $this->config = $config;
-    $this->logger = $logger;
-    $this->l = $l10n;
+  public function __construct(IAppContainer $appContainer)
+  {
+    $this->appContainer = $appContainer;
   }
 
   public function handle(Event $event): void {
@@ -64,7 +51,14 @@ class PasswordUpdatedEventListener implements IEventListener
       return;
     }
 
-    $this->config->recryptPersonalValues($event->getPassword());
+    $this->logger = $this->appContainer->get(ILogger::class);
+    try {
+      /** @var Config */
+      $config = $this->appContainer->get(Config::class);
+      $config->recryptPersonalValues($event->getPassword());
+    } catch (\Throwable $t) {
+      $this->logException($t, 'Unable to recrypt personal values');
+    }
   }
 }
 
