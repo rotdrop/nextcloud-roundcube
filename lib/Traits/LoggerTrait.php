@@ -3,7 +3,7 @@
  * Nextcloud RoundCube App.
  *
  * @author Claus-Justus Heine
- * @copyright 2020, 2021 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2020, 2021, 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
  *
  * Nextcloud RoundCube App is free software: you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -46,7 +46,7 @@ trait LoggerTrait
     return $this->logger->log($level, $prefix.$message, $context);
   }
 
-  public function logException($exception, $message = null, $shift = 0) {
+  public function logException($exception, $message = null, $level = ILogger::ERROR, $shift = 0) {
     $trace = debug_backtrace();
     $caller = $trace[$shift];
     $file = $caller['file'];
@@ -58,7 +58,10 @@ trait LoggerTrait
     $prefix = $file.':'.$line.': '.$class.'::'.$method.': ';
 
     empty($message) && ($message = "Caught an Exception");
-    $this->logger->logException($exception, [ 'message' => $prefix.$message ]);
+    $this->logger->logException($exception, [
+      'message' => $prefix.$message,
+      'level' => $level,
+    ]);
   }
 
   public function logError(string $message, array $context = [], $shift = 1) {

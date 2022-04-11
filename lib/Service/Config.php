@@ -91,7 +91,7 @@ class Config
       $this->user = $userSession->getUser();
       $this->userId = $this->user->getUID();
     } catch (\Throwable $t) {
-      $this->logException($t, 'Unable to get user from session.');
+      $this->logException($t, 'Unable to get user from session.', ILogger::DEBUG);
       $this->user = null;
       $this->userId = null;
     }
@@ -101,7 +101,7 @@ class Config
       $this->credentials = $credentialsStore->getLoginCredentials();
       $this->userPassword = $this->credentials->getPassword();
     } catch (\Throwable $t) {
-      $this->logException($t, 'Unable to get credentials from credentials-store.');
+      $this->logException($t, 'Unable to get credentials from credentials-store.', ILogger::DEBUG);
     }
   }
 
