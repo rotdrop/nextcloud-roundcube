@@ -2,7 +2,7 @@
  * Nextcloud RoundCube App.
  *
  * @author Claus-Justus Heine
- * @copyright 2020, 2021 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2020, 2021, 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
  *
  * Nextcloud RoundCube App is free software: you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -26,57 +26,49 @@ import '../style/base.css';
 const jQuery = require('jquery');
 const $ = jQuery;
 
-const test = function() {
-  const $frame = $('#' + webPrefix + 'Frame');
-  if ($frame.length > 0) {
-    const rcfContents = $frame.contents();
-    if (rcfContents.find('#mainscreen').length > 0) {
-      console.info('ROUNDCUBE LOADED????');
-      trigger($frame, 'load');
-    } else {
-      console.info('NO CONTENT');
-    }
+const rcFrameId = '#' + webPrefix + 'Frame';
+
+let gotLoadEvent = false;
+const loadTimeout = 100;
+let timerCount = 0;
+
+const loadTimerHandler = function($frame) {
+
+  if (gotLoadEvent) {
+    return;
+  }
+
+  ++timerCount;
+  const rcfContents = $frame.contents();
+
+  if (rcfContents.find('#mainscreen').length > 0) {
+    console.warn('LOAD EVENT FROM TIMER AFTER ' + (loadTimeout * timerCount) + ' ms');
+    $frame.trigger('load');
   } else {
-    console.info('NO FRAME');
+    setTimeout(loadTimerHandler, loadTimeout);
   }
 };
 
+const loadHandlerWrapper = function() {
+  gotLoadEvent = true
+  loadHandler($frame);
+};
+
 $(function() {
-  const $frame = $('#' + webPrefix + 'Frame');
-  let gotLoadEvent = false;
+  const $frame = $(rcFrameId);
+
+  $frame.on('load', () => loadHandler($frame))
 
   if ($frame.length > 0) {
-    $frame.on('load', function() {
-      if (!gotLoadEvent) {
-        gotLoadEvent = true
-        loadHandler($frame);
-      } else {
-        console.warn('Duplicate load event');
-      }
-    });
 
     $(window).resize(function() {
       resizeHandler($frame);
     });
 
-    const loadTimeout = 100;
-    let timerCount = 0;
-    const loadTimerHandler = function() {
-      if (gotLoadEvent) {
-        return;
-      }
-      ++timerCount;
-      const rcfContents = $frame.contents();
-      if (rcfContents.find('#mainscreen').length > 0) {
-        console.warn('LOAD EVENT FROM TIMER AFTER ' + (loadTimeout * timerCount) + ' ms');
-        $frame.trigger('load');
-      } else {
-        setTimeout(loadTimerHandler, loadTimeout);
-      }
-    }
-    setTimeout(loadTimerHandler, loadTimeout);
+    setTimeout(() => loadTimerHandler($frame), loadTimeout);
+  } else {
+    console.warn('ROUNDCUBE IFRAME NOT FOUND');
   }
-
 });
 
 // Local Variables: ***
