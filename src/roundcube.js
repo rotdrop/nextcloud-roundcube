@@ -2,7 +2,7 @@
  * Nextcloud RoundCube App.
  *
  * @author Claus-Justus Heine
- * @copyright 2020, 2021 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2020, 2021, 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
  *
  * Nextcloud RoundCube App is free software: you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -25,45 +25,40 @@ const jQuery = require('jquery');
 const $ = jQuery;
 
 /**
- * This is only for larry/melanie2_larry_mobile skins.
- * For other skins we don't do anything.
- *
  * @param {jQuery} rcf RoundCubeFrame.
  */
 const hideTopLine = function(rcf) {
-  if (rcf[0].contentWindow.rcmail.env.skin.includes('classic')) {
+  const skin = rcf[0].contentWindow.rcmail.env.skin;
+
+  if (skin.includes('classic')) {
     // just remove the logout button
     const rcfContents = rcf.contents();
     rcfContents.find('.button-logout').remove();
-    return;
-  }
-  if (rcf[0].contentWindow.rcmail.env.skin.includes('elastic')) {
+  } else if (skin.includes('elastic')) {
     // just remove the logout button
     const rcfContents = rcf.contents();
     rcfContents.find('.special-buttons .logout').remove();
     return;
+  } else if (skin.includes('larry')) {
+    const rcfContents = rcf.contents();
+    // User shouldn't be able to logout from rc, but from outer app:
+    // 1. #topline has a logout button which we don't want, so remove it and
+    // adjust the top attribute of #mainscreen. Reduce height if no toolbar.
+    // 2. Also remove button to show/hide the #topline and adjust the #taskbar.
+    // 3. Remove other logout buttons.
+    const toplineHeight = rcfContents.find('#topline').outerHeight();
+    const mainscreenTop = parseInt(rcfContents.find('#mainscreen').css('top'));
+    const toolbarHeight = 40;
+    let newMainscreenTop = mainscreenTop - toplineHeight;
+    rcfContents.find('#topline').remove(); // [1]
+    if (rcfContents.find('#mainscreen .toolbar').length === 0) {
+      newMainscreenTop -= toolbarHeight;
+    }
+    rcfContents.find('#mainscreen').css('top', newMainscreenTop); // [1]
+    rcfContents.find('#taskbar .minmodetoggle').remove(); // [2]
+    rcfContents.find('#taskbar').css('padding-right', 0); // [2]
+    rcfContents.find('.button-logout').remove(); // [3]
   }
-  if (!rcf[0].contentWindow.rcmail.env.skin.includes('larry')) {
-    return;
-  }
-  const rcfContents = rcf.contents();
-  // User shouldn't be able to logout from rc, but from outer app:
-  // 1. #topline has a logout button which we don't want, so remove it and
-  // adjust the top attribute of #mainscreen. Reduce height if no toolbar.
-  // 2. Also remove button to show/hide the #topline and adjust the #taskbar.
-  // 3. Remove other logout buttons.
-  const toplineHeight = rcfContents.find('#topline').outerHeight();
-  const mainscreenTop = parseInt(rcfContents.find('#mainscreen').css('top'));
-  const toolbarHeight = 40;
-  let newMainscreenTop = mainscreenTop - toplineHeight;
-  rcfContents.find('#topline').remove(); // [1]
-  if (rcfContents.find('#mainscreen .toolbar').length === 0) {
-    newMainscreenTop -= toolbarHeight;
-  }
-  rcfContents.find('#mainscreen').css('top', newMainscreenTop); // [1]
-  rcfContents.find('#taskbar .minmodetoggle').remove(); // [2]
-  rcfContents.find('#taskbar').css('padding-right', 0); // [2]
-  rcfContents.find('.button-logout').remove(); // [3]
 };
 
 /**
