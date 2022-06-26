@@ -45,7 +45,7 @@ const loadTimerHandler = function($frame) {
     console.warn('LOAD EVENT FROM TIMER AFTER ' + (loadTimeout * timerCount) + ' ms');
     $frame.trigger('load');
   } else {
-    setTimeout(loadTimerHandler, loadTimeout);
+    setTimeout(() => loadTimerHandler($frame), loadTimeout);
   }
 };
 
