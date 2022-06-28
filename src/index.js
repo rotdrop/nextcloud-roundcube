@@ -41,15 +41,15 @@ const loadTimerHandler = function($frame) {
   ++timerCount;
   const rcfContents = $frame.contents();
 
-  if (rcfContents.find('#mainscreen').length > 0) {
-    console.warn('LOAD EVENT FROM TIMER AFTER ' + (loadTimeout * timerCount) + ' ms');
-    $frame.trigger('load');
+  if (rcfContents.find('#layout').length > 0) {
+    console.info('LOAD EVENT FROM TIMER AFTER ' + (loadTimeout * timerCount) + ' ms');
+    $frame.trigger('load', 'synthesized');
   } else {
     setTimeout(() => loadTimerHandler($frame), loadTimeout);
   }
 };
 
-const loadHandlerWrapper = function() {
+const loadHandlerWrapper = function($frame, event, origin) {
   gotLoadEvent = true
   loadHandler($frame);
 };
@@ -57,7 +57,7 @@ const loadHandlerWrapper = function() {
 $(function() {
   const $frame = $(rcFrameId);
 
-  $frame.on('load', () => loadHandler($frame))
+  $frame.on('load', (event, origin) => loadHandlerWrapper($frame, event, origin))
 
   if ($frame.length > 0) {
 
@@ -67,7 +67,7 @@ $(function() {
 
     setTimeout(() => loadTimerHandler($frame), loadTimeout);
   } else {
-    console.warn('ROUNDCUBE IFRAME NOT FOUND');
+    console.info('ROUNDCUBE IFRAME NOT FOUND');
   }
 });
 
