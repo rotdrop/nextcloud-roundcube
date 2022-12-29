@@ -69,6 +69,9 @@ class AdminSettingsController extends Controller
     $this->l = $l10n;
   }
 
+  /**
+   * @AuthorizedAdminSetting(settings=OCA\RoundCube\Settings\Admin)
+   */
   public function set()
   {
     $responseData = [];

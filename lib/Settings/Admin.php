@@ -23,7 +23,7 @@
 namespace OCA\RoundCube\Settings;
 
 use OCP\AppFramework\Http\TemplateResponse;
-use OCP\Settings\ISettings;
+use OCP\Settings\IDelegatedSettings;
 use OCP\IURLGenerator;
 use OCP\IConfig;
 use OCP\ILogger;
@@ -31,7 +31,7 @@ use OCP\IL10N;
 
 use OCA\RoundCube\Service\Config;
 
-class Admin implements ISettings
+class Admin implements IDelegatedSettings
 {
 
   const TEMPLATE = 'tpl.adminSettings';
@@ -90,5 +90,13 @@ class Admin implements ISettings
   public function getPriority() {
     // @@TODO could be made a configure option.
     return 50;
+  }
+
+  public function getName(): ?string {
+    return null;
+  }
+
+  public function getAuthorizedAppConfig(): array {
+    return [];
   }
 }
