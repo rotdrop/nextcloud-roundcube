@@ -5,8 +5,10 @@ This was originally a fork from
 https://github.com/LeonardoRM/owncloud-roundcube
 
 However, now this fork just concentrates to embed an external
-Roundcube installation into an Nextcloud installation. Knowning that
-there is nowaday a dedicated native Nextcloud email app this might be
+Roundcube installation into a Nextcloud installation, there is no intent whatseover to keep
+compatibility with Owncloud.
+
+Knowning that there is nowaday a dedicated native Nextcloud email app this might be
 questionable. OTOH, Roundcube is **really** a **very** **mature** email web app. So.
 
 Currently the focus is on Roundcube version v1.6 and Nextcloud version
