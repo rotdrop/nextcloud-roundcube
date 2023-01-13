@@ -6,7 +6,8 @@
   "main": "app.js",
   "scripts": {
     "build": "NODE_ENV=production webpack --progress --mode production --hide-modules --config webpack.config.js",
-    "dev": "NODE_ENV=development webpack --progress --mode development --config webpack.config.js"
+    "dev": "NODE_ENV=development webpack --progress --mode development --config webpack.config.js",
+    "lint": "eslint --ext .js,.vue src"
   },
   "repository": {
     "type": "git",
