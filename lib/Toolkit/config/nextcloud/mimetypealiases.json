@@ -1,0 +1,19 @@
+{
+  "__comment": "Just map all supported archive types to package/x-generic",
+  "application/arj": "package/x-generic",
+  "application/java-archive": "package/x-generic",
+  "application/vnd.debian.binary-package": "package/x-generic",
+  "application/vnd.ms-cab-compressed": "package/x-generic",
+  "application/x-7z-compressed": "package/x-generic",
+  "application/x-apple-diskimage": "package/x-generic",
+  "application/x-bzip2": "package/x-generic",
+  "application/x-compress": "package/x-generic",
+  "application/x-gzip": "package/x-generic",
+  "application/x-iso9660-image": "package/x-generic",
+  "application/x-msi": "package/x-generic",
+  "application/x-rar-compressed": "package/x-generic",
+  "application/x-rpm": "package/x-generic",
+  "application/x-tar": "package/x-generic",
+  "application/x-xz": "package/x-generic",
+  "application/zip": "package/x-generic"
+}

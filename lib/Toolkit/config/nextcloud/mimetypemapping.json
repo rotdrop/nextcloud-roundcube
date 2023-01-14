@@ -1,0 +1,84 @@
+{
+  "__comment_tar_gz": "Mime-type for composite extensions are not officially supported, so don't use application/x-gtar or application/tar+gzip",
+  "tar.gz": [
+    "application/x-gzip"
+  ],
+  "tgz": [
+    "application/x-gzip"
+  ],
+  "__comment_tar_bz2": "Mime-type for composite extensions are not officially supported, so don't use application/x-gtar or application/tar+bzip2",
+  "tar.bz2": [
+    "application/x-bzip2"
+  ],
+  "tbz2": [
+    "application/x-bzip2"
+  ],
+  "__comment_tar_xz": "Mime-type for composite extensions are not officially supported, so don't use application/x-gtar or application/tar+xz",
+  "tar.xz": [
+    "application/x-xz"
+  ],
+  "txz": [
+    "application/x-xz"
+  ],
+  "tar.z": [
+    "application/x-compress"
+  ],
+  "__comment_non_composite_extensions": "Start of non-composite type",
+  "7z": [
+    "application/x-7z-compressed"
+  ],
+  "arj": [
+    "application/arj"
+  ],
+  "bz2": [
+    "application/x-bzip2"
+  ],
+  "cab": [
+    "application/vnd.ms-cab-compressed"
+  ],
+  "deb": [
+    "application/vnd.debian.binary-package"
+  ],
+  "dmg": [
+    "application/x-apple-diskimage"
+  ],
+  "efi": [
+    "package/x-generic"
+  ],
+  "gpt": [
+    "package/x-generic"
+  ],
+  "gz": [
+    "application/x-gzip"
+  ],
+  "iso": [
+    "application/x-iso9660-image"
+  ],
+  "jar": [
+    "application/java-archive"
+  ],
+  "mbr": [
+    "package/x-generic"
+  ],
+  "msi": [
+    "application/x-msi"
+  ],
+  "rar": [
+    "application/x-rar-compressed"
+  ],
+  "rpm": [
+    "application/x-rpm"
+  ],
+  "tar": [
+    "application/x-tar"
+  ],
+  "udf": [
+    "application/x-iso9660-image"
+  ],
+  "xz": [
+    "application/x-xz"
+  ],
+  "zip": [
+    "application/zip"
+  ]
+}
