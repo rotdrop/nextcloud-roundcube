@@ -3,7 +3,7 @@
  * A collection of reusable traits classes for Nextcloud apps.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022, 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -159,9 +159,9 @@ trait LoggerTrait
    *
    * @return void
    */
-  public function logError(string $message, array $context = [], int $shift = 1, bool $showTrace = false):void
+  public function logError(string $message, array $context = [], int $shift = 0, bool $showTrace = false):void
   {
-    $this->log(LogLevel::ERROR, $message, $context, $shift, $showTrace);
+    $this->log(LogLevel::ERROR, $message, $context, $shift + 1, $showTrace);
   }
 
   /**
@@ -174,9 +174,9 @@ trait LoggerTrait
    *
    * @return void
    */
-  public function logDebug(string $message, array $context = [], int $shift = 1, bool $showTrace = false):void
+  public function logDebug(string $message, array $context = [], int $shift = 0, bool $showTrace = false):void
   {
-    $this->log(LogLevel::DEBUG, $message, $context, $shift, $showTrace);
+    $this->log(LogLevel::DEBUG, $message, $context, $shift + 1, $showTrace);
   }
 
   /**
@@ -189,9 +189,9 @@ trait LoggerTrait
    *
    * @return void
    */
-  public function logInfo(string $message, array $context = [], int $shift = 1, bool $showTrace = false):void
+  public function logInfo(string $message, array $context = [], int $shift = 0, bool $showTrace = false):void
   {
-    $this->log(LogLevel::INFO, $message, $context, $shift, $showTrace);
+    $this->log(LogLevel::INFO, $message, $context, $shift + 1, $showTrace);
   }
 
   /**
@@ -204,9 +204,9 @@ trait LoggerTrait
    *
    * @return void
    */
-  public function logWarn(string $message, array $context = [], int $shift = 1, bool $showTrace = false):void
+  public function logWarn(string $message, array $context = [], int $shift = 0, bool $showTrace = false):void
   {
-    $this->log(LogLevel::WARNING, $message, $context, $shift, $showTrace);
+    $this->log(LogLevel::WARNING, $message, $context, $shift + 1, $showTrace);
   }
 
   /**
@@ -219,8 +219,8 @@ trait LoggerTrait
    *
    * @return void
    */
-  public function logFatal(string $message, array $context = [], int $shift = 1, bool $showTrace = false):void
+  public function logFatal(string $message, array $context = [], int $shift = 0, bool $showTrace = false):void
   {
-    $this->log(LogLevel::EMERGENCY, $message, $context, $shift, $showTrace);
+    $this->log(LogLevel::EMERGENCY, $message, $context, $shift + 1, $showTrace);
   }
 }

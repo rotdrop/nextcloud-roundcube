@@ -52,9 +52,9 @@ trait CloudAdminTrait
    *
    * @param bool $implode
    *
-   * @return array
+   * @return mixed
    */
-  protected function getCloudAdminContacts(bool $implode = false):string
+  protected function getCloudAdminContacts(bool $implode = false):mixed
   {
     $adminUsers = $this->getCloudAdmins();
     $contacts = [];
