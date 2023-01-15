@@ -5,7 +5,7 @@
  * @author Martin Reinhardt and David Jaedke
  * @author 2019 Leonardo R. Morelli github.com/LeonardoRM
  * @author Claus-Justus Heine
- * @copyright 2020, 2021 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2020, 2021, 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @copyright 2012 Martin Reinhardt contact@martinreinhardt-online.de
  *
  * Nextcloud RoundCube App is free software: you can redistribute it and/or
@@ -25,8 +25,8 @@
 
 $url .= '?_task=mail';
 
-style($appName, 'app');
-script($appName, 'app');
+script($appName, $assets['js']['asset']);
+style($appName, $assets['css']['asset']);
 
 ?>
 

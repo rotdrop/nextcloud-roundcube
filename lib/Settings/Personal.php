@@ -3,7 +3,8 @@
  * Nextcloud RoundCube App.
  *
  * @author Claus-Justus Heine
- * @copyright 2020, 2021 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2020, 2021, 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @license AGPL-3.0-or-later
  *
  * Nextcloud RoundCube App is free software: you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -30,11 +31,14 @@ use OCP\IConfig;
 use OCP\ILogger;
 use OCP\IL10N;
 
+use OCA\RoundCube\Constants;
+use OCA\RoundCube\Service\AssetService;
 use OCA\RoundCube\Service\Config;
 
 use OCP\Security\ICrypto;
 use OCP\Authentication\LoginCredentials\IStore as ICredentialsStore;
 
+/** Personal settings. */
 class Personal implements ISettings
 {
   const TEMPLATE = 'tpl.personalSettings';
@@ -52,23 +56,32 @@ class Personal implements ISettings
   /** @var \OCA\RoundCube\Servcie\Config */
   private $config;
 
+  /** @var AssetService */
+  private $assetService;
+
   /** @var \OCP\IURLGenerator */
   private $urlGenerator;
 
+  // phpcs:disable Squiz.Commenting.FunctionComment.Missing
   public function __construct(
-    $appName
-    , IUserSession $userSession
-    , Config $config
-    , IURLGenerator $urlGenerator
-    , IL10N $l10n
+    string $appName,
+    IUserSession $userSession,
+    Config $config,
+    AssetService $assetService,
+    IURLGenerator $urlGenerator,
+    IL10N $l10n,
   ) {
     $this->appName = $appName;
     $this->user = $userSession->getUser();
     $this->config = $config;
+    $this->assetService = $assetService;
     $this->urlGenerator = $urlGenerator;
   }
+  // phpcs:enable Squiz.Commenting.FunctionComment.Missing
 
-  public function getForm() {
+  /** {@inheritdoc} */
+  public function getForm()
+  {
     $emailAddressChoice = $this->config->getAppValue('emailAddressChoice');
     $emailDefaultDomain = $this->config->getAppValue('emailDefaultDomain');
     switch ($emailAddressChoice) {
@@ -104,6 +117,10 @@ class Personal implements ISettings
       'emailAddress' => $userEmail,
       'emailPassword' => $emailPassword,
       'forceSSO' => $forceSSO,
+      'assets' => [
+        Constants::JS => $this->assetService->getJSAsset(self::TEMPLATE),
+        Constants::CSS => $this->assetService->getCSSAsset(self::TEMPLATE),
+      ],
     ];
 
     return new TemplateResponse(
@@ -112,23 +129,15 @@ class Personal implements ISettings
       $templateParameters);
   }
 
-  /**
-   * @return string the section ID, e.g. 'sharing'
-   * @since 9.1
-   */
-  public function getSection() {
+  /** {@inheritdoc} */
+  public function getSection()
+  {
     return $this->appName;
   }
 
-  /**
-   * @return int whether the form should be rather on the top or bottom of
-   * the admin section. The forms are arranged in ascending order of the
-   * priority values. It is required to return a value between 0 and 100.
-   *
-   * E.g.: 70
-   * @since 9.1
-   */
-  public function getPriority() {
+  /** {@inheritdoc} */
+  public function getPriority()
+  {
     // @@TODO could be made a configure option.
     return 50;
   }

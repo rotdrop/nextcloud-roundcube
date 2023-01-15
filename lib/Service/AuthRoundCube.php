@@ -3,8 +3,9 @@
  * Nextcloud RoundCube App.
  *
  * @author 2019 Leonardo R. Morelli github.com/LeonardoRM
- * @author Claus-Justus Heine
- * @copyright 2020, 2021 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @author Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2020, 2021, 2023 Claus-Justus Heine
+ * @license AGPL-3.0-or-later
  *
  * Nextcloud RoundCube App is free software: you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -25,7 +26,7 @@ namespace OCA\RoundCube\Service;
 
 use OCP\IConfig;
 use OCP\IURLGenerator;
-use OCP\ILogger;
+use Psr\Log\LoggerInterface as ILogger;
 use OCP\IL10N;
 
 use OCA\RoundCube\AppInfo\Application;
@@ -35,7 +36,7 @@ use OCA\RoundCube\AppInfo\Application;
  */
 class AuthRoundCube
 {
-  use \OCA\RoundCube\Traits\LoggerTrait;
+  use \OCA\RotDrop\Toolkit\Traits\LoggerTrait;
 
   const COOKIE_RC_SESSID    = 'roundcube_sessid';
   const COOKIE_RC_SESSAUTH  = 'roundcube_sessauth';
@@ -69,13 +70,14 @@ class AuthRoundCube
   private $rcSessionId;
   private $rcSessionAuth;
 
+  // phpcs:disable Squiz.Commenting.FunctionComment.Missing
   public function __construct(
-    Application $app
-    , Config $config
-    , IURLGenerator $urlGenerator
-    , $userId
-    , ILogger $logger
-    , IL10N $l10n
+    Application $app,
+    Config $config,
+    IURLGenerator $urlGenerator,
+    ?string $userId,
+    ILogger $logger,
+    IL10N $l10n,
   ) {
     $this->appName = $app->getAppName();
     $this->userId = $userId;
@@ -106,19 +108,24 @@ class AuthRoundCube
     $this->rcSessionId = null;
     $this->rcSessionAuth = null;
   }
+  // phpcs:enable Squiz.Commenting.FunctionComment.Missing
 
   /**
-   * Return the name of the app.
+   * @return string Return the name of the app.
    */
-  public function getAppName(): string
+  public function getAppName():string
   {
     return $this->appName;
   }
 
   /**
    * Return the URL for use with an iframe or object tag
+   *
+   * @param null|string $url
+   *
+   * @return string
    */
-  public function externalURL($url = null)
+  public function externalURL(?string $url = null):string
   {
     if (!empty($url)) {
       if ($url[0] == '/') {
@@ -142,13 +149,13 @@ class AuthRoundCube
   /**
    * Log  into the external application.
    *
-   * @param $username Login name
+   * @param string $username Login name.
    *
-   * @param $password credentials
+   * @param string $password credentials.
    *
-   * @return true if successful, false otherwise.
+   * @return bool true if successful, false otherwise.
    */
-  public function login(string $username, string $password)
+  public function login(string $username, string $password):bool
   {
     $this->logInfo('user: '.$username.' password: '.$password[0]);
     // End previous session:
@@ -190,15 +197,17 @@ class AuthRoundCube
     if (isset($cookiesLogin[self::COOKIE_RC_SESSID]) &&
         $cookiesLogin[self::COOKIE_RC_SESSID] !== "-del-") {
       $this->rcSessionId = $cookiesLogin[self::COOKIE_RC_SESSID];
-      setcookie(self::COOKIE_RC_SESSID, $this->rcSessionId,
-                0, "/", "", true, true);
+      setcookie(
+        self::COOKIE_RC_SESSID, $this->rcSessionId,
+        0, "/", "", true, true);
     }
     if (isset($cookiesLogin[self::COOKIE_RC_SESSAUTH]) &&
         $cookiesLogin[self::COOKIE_RC_SESSAUTH] !== "-del-") {
       // We received a sessauth => logged in!
       $this->rcSessionAuth = $cookiesLogin[self::COOKIE_RC_SESSAUTH];
-      setcookie(self::COOKIE_RC_SESSAUTH, $this->rcSessionAuth,
-                0, "/", "", true, true);
+      setcookie(
+        self::COOKIE_RC_SESSAUTH, $this->rcSessionAuth,
+        0, "/", "", true, true);
       return true;
     }
     // Check again whether input fields of login form exist.
@@ -239,14 +248,16 @@ class AuthRoundCube
 
   /**
    * @param string $text The text where to look for input fields.
+   *
    * @return array [name => [key, value]] Input fields indexed by name.
    */
-  private static function parseInputs($text) {
-    $inputs = array();
+  private static function parseInputs(string $text):array
+  {
+    $inputs = [];
     if (preg_match_all('/<input ([^>]*)>/i', $text, $inputMatches)) {
       foreach ($inputMatches[1] as $input) {
         if (preg_match_all('/(\w+)="([^"]*)"/i', $input, $keyvalMatches)) {
-          $tmp = array();
+          $tmp = [];
           $name = "";
           foreach ($keyvalMatches[1] as $index => $key) {
             if ($key === "name") {
@@ -269,13 +280,16 @@ class AuthRoundCube
    *
    * @param string $rcQuery  Query string to append to rcInternalAddress
    *                       (Example: "?_task=login").
+   *
    * @param string $method POST or GET request.
-   * @param string $data   Data to send.
-   * @return array ['headers' => [headers], 'html' => html]
+   *
+   * @param null|array $data   Data to send.
+   *
+   * @return null|array ['headers' => [headers], 'html' => html]
    */
-  private function sendRequest($rcQuery = '', $method = 'POST', $data = null)
+  private function sendRequest(string $rcQuery = '', string $method = 'POST', ?array $data = null):?array
   {
-    $response = false;
+    $response = null;
 
     if (!empty($rcQuery) && $rcQuery[0] != '/') {
       $rcQuery = '/'.$rcQuery;
@@ -285,27 +299,27 @@ class AuthRoundCube
     try {
       $curl = curl_init();
       // general settings
-      $curlOpts = array(
+      $curlOpts = [
         CURLOPT_URL            => $rcQuery,
         CURLOPT_HEADER         => true,
         CURLOPT_FOLLOWLOCATION => false,
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_FRESH_CONNECT  => true
-      );
+      ];
       if ($method === 'POST') {
         $curlOpts[CURLOPT_POST] = true;
         if ($data) {
           $postData = http_build_query($data);
           $curlOpts[CURLOPT_POSTFIELDS] = $postData;
           $curlOpts[CURLOPT_TIMEOUT] = 60;
-          $curlOpts[CURLOPT_HTTPHEADER] = array(
+          $curlOpts[CURLOPT_HTTPHEADER] = [
             'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
             'Accept-Encoding: identity',
             'Content-Type: ' . self::FORM_URLENCODED,
             'Content-Length: ' . strlen($postData),
             'Cache-Control: no-cache',
             'Pragma: no-cache'
-          );
+          ];
         }
       } else {
         $curlOpts[CURLOPT_HTTPGET] = true;
@@ -347,19 +361,21 @@ class AuthRoundCube
 
   /**
    * Splits a curl response into headers and html.
+   *
    * @param string $response
+   *
    * @param int    $headerSize
+   *
    * @return array ['headers' => [headers], 'html' => html]
    */
-  private static function splitResponse($response, $headerSize) {
+  private static function splitResponse(string $response, int $headerSize):array
+  {
     $headers = $html = "";
     if ($headerSize) {
       $headers = substr($response, 0, $headerSize);
       $html    = substr($response, $headerSize);
     } else {
-      $hh = explode("\r\n\r\n", $response, 2);
-      $headers = $hh[0];
-      $html    = $hh[1];
+      list($headers, $html) = explode("\r\n\r\n", $response, 2);
     }
     $headersArray = self::parseResponseHeaders($headers);
     return [
@@ -385,11 +401,13 @@ class AuthRoundCube
    * Content-Type: text/html; charset=UTF-8
    * Set-Cookie: roundcube_sessid=h5s3o6qasjhbd6bq4gfrl5amh2; path=/; secure; HttpOnly
    * Transfer-Encoding: chunked
+   * .
    *
    * @return array ['name0' => [header0:0, header0:1], 'name1' => [header1:0], ...]
    */
-  private static function parseResponseHeaders($rawHeaders) {
-    $responseHeaders = array();
+  private static function parseResponseHeaders(string $rawHeaders):array
+  {
+    $responseHeaders = [];
     $headerLines = explode("\r\n", trim($rawHeaders));
     foreach ($headerLines as $header) {
       if ($header && is_string($header) && strpos($header, ':') !== false) {
@@ -406,11 +424,13 @@ class AuthRoundCube
   }
 
   /**
-   * @param array $cookieHeaders ['name=value; text', ...]
+   * @param array $cookieHeaders ['name=value; text', ...].
+   *
    * @return array ['name' => 'value', ...]
    */
-  private static function parseCookies($cookieHeaders) {
-    $cookies = array();
+  private static function parseCookies(array $cookieHeaders):array
+  {
+    $cookies = [];
     if (is_array($cookieHeaders)) {
       foreach ($cookieHeaders as $ch) {
         if (preg_match('/^([^=]+)=([^;]+);/i', $ch, $match)) {

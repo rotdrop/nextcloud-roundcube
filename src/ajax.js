@@ -2,7 +2,7 @@
  * Nextcloud RoundCube App.
  *
  * @author Claus-Justus Heine
- * @copyright 2020, 2021 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2020, 2021, 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
  *
  * Nextcloud RoundCube App is free software: you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -24,13 +24,13 @@ import { appName } from './config.js';
 /**
  * Fetch data from an error response.
  *
- * @param {Object} xhr jqXHR, see fail() method of jQuery ajax.
+ * @param {object} xhr jqXHR, see fail() method of jQuery ajax.
  *
- * @param {Object} status from jQuery, see fail() method of jQuery ajax.
+ * @param {object} status from jQuery, see fail() method of jQuery ajax.
  *
- * @param {Object} errorThrown, see fail() method of jQuery ajax.
+ * @param {object} errorThrown See fail() method of jQuery ajax.
  *
- * @returns {Array}
+ * @return {Array}
  */
 const ajaxFailData = function(xhr, status, errorThrown) {
   const ct = xhr.getResponseHeader('content-type') || '';
@@ -49,7 +49,7 @@ const ajaxFailData = function(xhr, status, errorThrown) {
     const response = JSON.parse(xhr.responseText);
     // console.info('XHR response text', xhr.responseText);
     // console.log('JSON response', response);
-    data = {...data, ...response };
+    data = { ...data, ...response };
   } else {
     console.log('unknown response');
   }
@@ -58,8 +58,3 @@ const ajaxFailData = function(xhr, status, errorThrown) {
 };
 
 export default ajaxFailData;
-
-// Local Variables: ***
-// js-indent-level: 2 ***
-// indent-tabs-mode: nil ***
-// End: ***

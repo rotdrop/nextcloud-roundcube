@@ -2,9 +2,10 @@
 /**
  * Nextcloud RoundCube App.
  *
- * @author Claus-Justus Heine
+ * @author Claus-Justus Heine <himself@claus-justus-heine.de>
  * @author 2019 Leonardo R. Morelli github.com/LeonardoRM
- * @copyright 2020, 2021 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2020, 2021, 2023 Claus-Justus Heine
+ * @license   AGPL-3.0-or-later
  *
  * Nextcloud RoundCube App is free software: you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -31,15 +32,18 @@ use OCP\AppFramework\Http\JSONResponse;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\Util;
 use OCP\IURLGenerator;
-use OCP\ILogger;
+use Psr\Log\LoggerInterface as ILogger;
 use OCP\IL10N;
 
+use OCA\RoundCube\Constants;
+use OCA\RoundCube\Service\AssetService;
 use OCA\RoundCube\Service\Config;
 use OCA\RoundCube\Service\AuthRoundCube as Authenticator;
 
+/** Main page entry point. */
 class PageController extends Controller
 {
-  use \OCA\RoundCube\Traits\LoggerTrait;
+  use \OCA\RotDrop\Toolkit\Traits\LoggerTrait;
 
   /** @var string */
   private $userId;
@@ -50,29 +54,38 @@ class PageController extends Controller
   /** @var \OCP\IConfig */
   private $config;
 
+  /** @var AssetService */
+  private $assetService;
+
   /** @var \OCP\IURLGenerator */
   private $urlGenerator;
 
+  // phpcs:disable Squiz.Commenting.FunctionComment.Missing
   public function __construct(
-    $appName
-    , IRequest $request
-    , $userId
-    , Authenticator $authenticator
-    , Config $config
-    , IURLGenerator $urlGenerator
-    , ILogger $logger
-    , IL10N $l10n
+    string $appName,
+    IRequest $request,
+    ?string $userId,
+    Authenticator $authenticator,
+    Config $config,
+    AssetService $assetService,
+    IURLGenerator $urlGenerator,
+    ILogger $logger,
+    IL10N $l10n,
   ) {
     parent::__construct($appName, $request);
     $this->userId = $userId;
     $this->authenticator = $authenticator;
     $this->config = $config;
+    $this->assetService = $assetService;
     $this->urlGenerator = $urlGenerator;
     $this->logger = $logger;
     $this->l = $l10n;
   }
+  // phpcs:enable Squiz.Commenting.FunctionComment.Missing
 
   /**
+   * @return TemplateResponse
+   *
    * @NoAdminRequired
    * @NoCSRFRequired
    */
@@ -93,7 +106,11 @@ class PageController extends Controller
       'webPrefix'    => $this->appName,
       'url'          => $url,
       'loadingImage' => $this->urlGenerator->imagePath($this->appName, 'loader.gif'),
-      'showTopLine'  => $this->config->getAppValue($this->appName, 'showTopLine', false)
+      'showTopLine'  => $this->config->getAppValue($this->appName, 'showTopLine', false),
+      'assets' => [
+        Constants::JS => $this->assetService->getJSAsset('app'),
+        Constants::CSS => $this->assetService->getCSSAsset('app'),
+      ],
     ];
     $tpl = new TemplateResponse($this->appName, "tpl.mail", $tplParams);
 

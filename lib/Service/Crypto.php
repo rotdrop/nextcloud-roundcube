@@ -3,8 +3,9 @@
  * Nextcloud RoundCube App.
  *
  * @author 2019 Leonardo R. Morelli github.com/LeonardoRM
- * @author Claus-Justus Heine
- * @copyright 2020, 2021 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @author Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2020, 2021, 2023 Claus-Justus Heine
+ * @license AGPL-3.0-or-later
  *
  * Nextcloud RoundCube App is free software: you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -23,6 +24,11 @@
 
 namespace OCA\RoundCube\Service;
 
+use openssl_pkey_new;
+use openssl_pkey_get_details;
+use openssl_pkey_get_private;
+use openssl_public_encrypt;
+
 use OCP\ILogger;
 use OCP\IL10N;
 use OCP\Security\ISecureRandom;
@@ -32,36 +38,41 @@ use OCP\Security\ISecureRandom;
  */
 class Crypto
 {
-  use \OCA\RoundCube\Traits\LoggerTrait;
+  use \OCA\RotDrop\Toolkit\Traits\LoggerTrait;
 
   /** @var \OCP\Security\ISecureRandom */
   private $secureRandom;
 
+  // phpcs:disable Squiz.Commenting.FunctionComment.Missing
   public function __construct(
-    ISecureRandom $secureRandom
-    , ILogger $logger
-    , IL10N $l10n
+    ISecureRandom $secureRandom,
+    ILogger $logger,
+    IL10N $l10n,
   ) {
     $this->secureRandom = $secureRandom;
     $this->logger = $logger;
     $this->l = $l10n;
   }
+  // phpcs:enable Squiz.Commenting.FunctionComment.Missing
 
   /**
    * Create the private and public keys with php defaults.
-   * @param string $passphrase The passphrase to unlock private key.
-   * @return array('privateKey', 'publicKey', 'encrytped') or false
+   *
+   * @param null|string $passphrase The passphrase to unlock private key.
+   *
+   * @return array ['privateKey', 'publicKey', 'encrytped'] or null
    *         where first two values are strings and last one indicates whether
    *         the private key is encrypted with a passphrase.
    */
-  public function generateKeyPair($passphrase = null) {
-    $res = \openssl_pkey_new();
+  public function generateKeyPair(?string $passphrase = null):?array
+  {
+    $res = openssl_pkey_new();
     /* Extract the private key from $res to string $privKey */
     if (!\openssl_pkey_export($res, $privKey, $passphrase)) {
       return false;
     }
     /* Extract the public key from $res to $pubKey */
-    $publicRes = \openssl_pkey_get_details($res); // it's a resource
+    $publicRes = openssl_pkey_get_details($res); // it's a resource
     if ($publicRes === false) {
       return false;
     }
@@ -75,47 +86,59 @@ class Crypto
 
   /**
    * @param string $encPrivKey Private key protected with passphrase.
+   *
    * @param string $passphrase Can be null for no passphrase.
-   * @return decrypted private key or false on error
+   *
+   * @return mixed decrypted private key or false on error
    */
-  private function showPrivKey($encPrivKey, $passphrase = null) {
-    return \openssl_pkey_get_private($encPrivKey, $passphrase);
+  private function showPrivKey(string $encPrivKey, ?string $passphrase = null):mixed
+  {
+    return openssl_pkey_get_private($encPrivKey, $passphrase);
   }
 
   /**
    * @param int $length Length of token.
-   * @return token
+   *
+   * @return string token
    */
-  public function generateToken($length = 32) {
+  public function generateToken(int $length = 32):string
+  {
     return $this->secureRandom->generate($length);
   }
 
   /**
    * @param string $plainText Data to be encrypted.
+   *
    * @param string $pubKey    Public key.
+   *
    * @return string Encrypted data on base64 format or false.
    */
-  public function publicEncrypt($plainText, $pubKey) {
+  public function publicEncrypt(string $plainText, string $pubKey):string
+  {
     $this->logDebug("Starting encryption.");
     if (\openssl_public_encrypt($plainText, $encryptedData, $pubKey) === false) {
       $this->logError("Error during encryption.");
       return false;
     }
-    $b64crypted = \base64_encode($encryptedData);
+    $b64crypted = base64_encode($encryptedData);
     return $b64crypted;
   }
 
   /**
    * @param string $b64crypted Encrypted data on base64 format.
+   *
    * @param string $privKey    Private key (encrypted with passphrase).
+   *
    * @param string $passphrase
+   *
    * @return string $plainText data or false.
    */
-  public static function privateDecrypt($b64crypted, $privKey, $passphrase = null) {
+  public static function privateDecrypt(string $b64crypted, string $privKey, ?string $passphrase = null):string
+  {
     \OCP\Util::writeLog('roundcube', __METHOD__ . ": Starting decryption.", \OCP\Util::DEBUG);
-    $encryptedData = \base64_decode($b64crypted);
+    $encryptedData = base64_decode($b64crypted);
     $privateKey = self::showPrivKey($privKey, $passphrase);
-    if (\openssl_private_decrypt($encryptedData, $plainText, $privateKey) === false) {
+    if (openssl_private_decrypt($encryptedData, $plainText, $privateKey) === false) {
       \OCP\Util::writeLog('roundcube', __METHOD__ . ": Decryption finished with errors.", \OCP\Util::ERROR);
       return false;
     }

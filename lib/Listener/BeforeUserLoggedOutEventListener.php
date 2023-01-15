@@ -2,8 +2,9 @@
 /**
  * Nextcloud RoundCube App.
  *
- * @author Claus-Justus Heine
- * @copyright 2020, 2021, 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @author Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2020, 2021, 2022, 2023 Claus-Justus Heine
+ * @license AGPL-3.0-or-later
  *
  * Nextcloud RoundCube App is free software: you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -22,6 +23,8 @@
 
 namespace OCA\RoundCube\Listener;
 
+use Throwable;
+
 use OCP\User\Events\BeforeUserLoggedOutEvent as HandledEvent;
 use OCP\EventDispatcher\Event;
 use OCP\EventDispatcher\IEventListener;
@@ -30,22 +33,27 @@ use OCP\ILogger;
 
 use OCA\RoundCube\Service\AuthRoundCube;
 
+/** Log the current user out of Roundcube when it logs out of Nextcloud. */
 class BeforeUserLoggedOutEventListener implements IEventListener
 {
-  use \OCA\RoundCube\Traits\LoggerTrait;
+  use \OCA\RotDrop\Toolkit\Traits\LoggerTrait;
 
   const EVENT = HandledEvent::class;
 
   /** @var IAppContainer */
   private $appContainer;
 
+  // phpcs:disable Squiz.Commenting.FunctionComment.Missing
   public function __construct(IAppContainer $appContainer)
   {
     $this->appContainer = $appContainer;
   }
+  // phpcs:enable Squiz.Commenting.FunctionComment.Missing
 
-  public function handle(Event $event): void {
-    if (!($event instanceOf HandledEvent)) {
+  /** {@inheritdoc} */
+  public function handle(Event $event): void
+  {
+    if (!($event instanceof HandledEvent)) {
       return;
     }
 
@@ -55,13 +63,8 @@ class BeforeUserLoggedOutEventListener implements IEventListener
       /** @var AuthRoundCube $authenticator */
       $authenticator = $this->appContainer->get(AuthRoundCube::class);
       $authenticator->logout();
-    } catch (\Throwable $t) {
+    } catch (Throwable $t) {
       $this->logException($t, 'Unable to log out of roundcube app.');
     }
   }
 }
-
-// Local Variables: ***
-// c-basic-offset: 2 ***
-// indent-tabs-mode: nil ***
-// End: ***

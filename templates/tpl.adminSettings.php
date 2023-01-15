@@ -4,8 +4,8 @@
  *
  * @author Martin Reinhardt and David Jaedke
  * @author 2019 Leonardo R. Morelli github.com/LeonardoRM
- * @author Claus-Justus Heine
- * @copyright 2020, 2021 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @author Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2020, 2021, 2023 Claus-Justus Heine
  * @copyright 2012 Martin Reinhardt contact@martinreinhardt-online.de
  *
  * Nextcloud RoundCube App is free software: you can redistribute it and/or
@@ -25,8 +25,8 @@
 
 namespace OCA\RoundCube;
 
-style($appName, 'admin-settings');
-script($appName, 'admin-settings');
+script($appName, $assets['js']['asset']);
+style($appName, $assets['css']['asset']);
 
 ?>
 <div class="section" id="roundcube">
@@ -42,8 +42,8 @@ script($appName, 'admin-settings');
                id="externalLocation"
                class="externalLocation"
                name="externalLocation"
-	       value="<?php p($externalLocation); ?>"
-	       maxlength="128"
+               value="<?php p($externalLocation); ?>"
+               maxlength="128"
         />
       </label>
       <p><?php p($l->t('Default path relative to ownCloud server (%s).', $ocServer)); ?></p>
@@ -56,7 +56,7 @@ script($appName, 'admin-settings');
              class="radio emailAdressChoice"
              id="userIdEmail"
              value="userIdEmail"
-	     <?php if ($emailAddressChoice == 'userIdEmail') { echo 'checked="checked"'; } ?>
+             <?php if ($emailAddressChoice == 'userIdEmail') { echo 'checked="checked"'; } ?>
              title="<?php p($title); ?>"
       />
       <label for="userIdEmail" title="<?php p($title); ?>">
@@ -72,8 +72,8 @@ script($appName, 'admin-settings');
                placeholder="<?php p($l->t('Email Domain')); ?>"
                value="<?php p($emailDefaultDomain); ?>"
                title="<?php p($l->t('Specify the domain-part for the case that the user-id is not an email-address.')); ?>"
-	       <?php if ($emailAddressChoice != 'userIdEmail') { echo 'disabled="disabled"'; } ?>
-	       maxlength="128"
+               <?php if ($emailAddressChoice != 'userIdEmail') { echo 'disabled="disabled"'; } ?>
+               maxlength="128"
         />
       </span>
       <br/>
@@ -83,7 +83,7 @@ script($appName, 'admin-settings');
              class="radio emailAdressChoice"
              id="userPreferencesEmail"
              value="userPreferencesEmail"
-	     <?php if ($emailAddressChoice == 'userPreferencesEmail') { echo 'checked="checked"'; } ?>
+             <?php if ($emailAddressChoice == 'userPreferencesEmail') { echo 'checked="checked"'; } ?>
              title="<?php p($title); ?>"
       />
       <label for="userPreferencesEmail" title="<?php p($title); ?>">
@@ -96,7 +96,7 @@ script($appName, 'admin-settings');
              class="radio emailAdressChoice"
              id="userChosenEmail"
              value="userChosenEmail"
-	     <?php if ($emailAddressChoice  == 'userChosenEmail') { echo 'checked="checked"'; } ?>
+             <?php if ($emailAddressChoice  == 'userChosenEmail') { echo 'checked="checked"'; } ?>
              title="<?php p($title); ?>"
       />
       <label for="userChosenEmail" title="<?php p($title); ?>">
@@ -109,42 +109,42 @@ script($appName, 'admin-settings');
              class="checkbox"
              name="forceSSO"
              id="forceSSO"
-	     <?php if ($forceSSO) { echo 'checked="checked"'; } ?>
+             <?php if ($forceSSO) { echo 'checked="checked"'; } ?>
       />
       <label for="forceSSO">
-	<?php p($l->t('Force single sign on (disables custom password).')); ?>
+        <?php p($l->t('Force single sign on (disables custom password).')); ?>
       </label>
       <br/>
       <input type="checkbox"
              class="checkbox"
              name="showTopLine"
              id="showTopLine"
-	     <?php if ($showTopLine) { echo 'checked="checked"'; } ?>
+             <?php if ($showTopLine) { echo 'checked="checked"'; } ?>
       />
       <label for="showTopLine">
-	<?php p($l->t('Show RoundCube top information bar (shows logout button).')); ?>
+        <?php p($l->t('Show RoundCube top information bar (shows logout button).')); ?>
       </label>
       <br/>
       <input type="checkbox"
              name="enableSSLVerify"
              id="enableSSLVerify"
              class="checkbox"
-	     <?php if ($enableSSLVerify) { echo 'checked="checked"'; } ?>
+             <?php if ($enableSSLVerify) { echo 'checked="checked"'; } ?>
       />
       <label title="<?php p($l->t('Disable when debugging with self-signed certificates.')); ?>"
              for="enableSSLVerify">
-	<?php p($l->t('Enable SSL verification.')); ?>
+        <?php p($l->t('Enable SSL verification.')); ?>
       </label>
       <br/>
       <input type="checkbox"
              name="personalEncryption"
              id="personalEncryption"
              class="checkbox"
-	     <?php if ($personalEncryption) { echo 'checked="checked"'; } ?>
+             <?php if ($personalEncryption) { echo 'checked="checked"'; } ?>
       />
       <label title="<?php p($l->t('Encrypt per-user data -- in particular their email passwords -- with their personal cloud password. This implies that these settings will be lost when users forget their passwords. If unchecked the email login credentials are still protected by the server secret. The latter implies that an administrator is able to decrypt the login credentials, but the configuration data survives user password-loss.')); ?>"
              for="personalEncryption">
-	<?php p($l->t('Per-user encryption of config values.')); ?>
+        <?php p($l->t('Per-user encryption of config values.')); ?>
       </label>
     </div>
 

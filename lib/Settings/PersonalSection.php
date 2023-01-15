@@ -2,8 +2,9 @@
 /**
  * Nextcloud RoundCube App.
  *
- * @author Claus-Justus Heine
- * @copyright 2020, 2021 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @author Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2020, 2021, 2023, 2023 Claus-Justus Heine
+ * @license AGPL-3.0-or-later
  *
  * Nextcloud RoundCube App is free software: you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -26,64 +27,53 @@ use OCP\Settings\IIconSection;
 use OCP\IURLGenerator;
 use OCP\IL10N;
 
+/** Settings section in left side-bar. */
 class PersonalSection implements IIconSection
 {
   /** @var string */
   private $appName;
 
   /** @var \OCP\IURLGenerator */
-  private $ulrGenerator;
+  private $urlGenerator;
 
   /** @var \OCP\IL10N */
   private $l;
 
+  // phpcs:disable Squiz.Commenting.FunctionComment.Missing
   public function __construct(
-    string $appName
-    , IURLGenerator $urlGenerator
-    , IL10N $l10n
+    string $appName,
+    IURLGenerator $urlGenerator,
+    IL10N $l10n,
   ) {
     $this->appName = $appName;
     $this->urlGenerator = $urlGenerator;
     $this->l = $l10n;
   }
+  // phpcs:enable Squiz.Commenting.FunctionComment.Missing
 
-  /**
-   * returns the ID of the section. It is supposed to be a lower case string
-   *
-   * @returns string
-   */
-  public function getID() {
+  /** {@inheritdoc} */
+  public function getID()
+  {
     return $this->appName;
   }
 
-  /**
-   * returns the translated name as it should be displayed, e.g. 'LDAP / AD
-   * integration'. Use the L10N service to translate it.
-   *
-   * @return string
-   */
-  public function getName() {
+  /** {@inheritdoc} */
+  public function getName()
+  {
     // @@TODO make this configurable
     return $this->l->t("RoundCube Integration");
   }
 
-  /**
-   * @return int whether the form should be rather on the top or bottom of
-   * the settings navigation. The sections are arranged in ascending order of
-   * the priority values. It is required to return a value between 0 and 99.
-   */
-  public function getPriority() {
+  /** {@inheritdoc} */
+  public function getPriority()
+  {
     return 50;
   }
 
-  public function getIcon() {
+  /** {@inheritdoc} */
+  public function getIcon()
+  {
     // @@TODO make it configurable
     return $this->urlGenerator->imagePath($this->appName, 'app.svg');
   }
-
 }
-
-// Local Variables: ***
-// c-basic-offset: 2 ***
-// indent-tabs-mode: nil ***
-// End: ***

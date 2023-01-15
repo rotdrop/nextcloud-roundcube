@@ -1,9 +1,12 @@
-/*
- * @copyright 2019 Christoph Wurst <christoph@winzerhof-wurst.at>
+<?php
+/**
+ * Orchestra member, musician and project management application.
  *
- * @author 2019 Christoph Wurst <christoph@winzerhof-wurst.at>
+ * CAFEVDB -- Camerata Academica Freiburg e.V. DataBase.
  *
- * @license GNU AGPL version 3 or any later version
+ * @author Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022, 2023, 2023 Claus-Justus Heine
+ * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -16,16 +19,14 @@
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import $ from 'jquery'
+namespace OCA\RoundCube;
 
-import { getToken } from '../OC/requesttoken'
+use OCA\RotDrop\Toolkit\Traits\Constants as TraitsConstants;
 
-$(document).on('ajaxSend', function(elm, xhr, settings) {
-	if (settings.crossDomain === false) {
-		xhr.setRequestHeader('requesttoken', getToken())
-		xhr.setRequestHeader('OCS-APIREQUEST', 'true')
-	}
-})
+/** General constants for the app. */
+class Constants extends TraitsConstants
+{
+}

@@ -2,7 +2,7 @@
  * Nextcloud RoundCube App.
  *
  * @author Claus-Justus Heine
- * @copyright 2020, 2021 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2020, 2021, 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
  *
  * Nextcloud RoundCube App is free software: you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -20,14 +20,10 @@
  */
 
 import { appName } from './config.js';
+import { generateUrl as nextcloudGenerateUrl } from '@nextcloud/router';
 
 const generateUrl = function(postFix) {
-  return OC.generateUrl('/apps/' + appName + '/' + postFix);
+  return nextcloudGenerateUrl('/apps/' + appName + '/' + postFix);
 };
 
 export default generateUrl;
-
-// Local Variables: ***
-// js-indent-level: 2 ***
-// indent-tabs-mode: nil ***
-// End: ***

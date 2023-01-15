@@ -2,8 +2,9 @@
 /**
  * Nextcloud RoundCube App.
  *
- * @author Claus-Justus Heine
- * @copyright 2020, 2021 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @author Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2020, 2021, 2023 Claus-Justus Heine
+ * @license   AGPL-3.0-or-later
  *
  * Nextcloud RoundCube App is free software: you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -22,7 +23,7 @@
 
 namespace OCA\RoundCube\AppInfo;
 
-/**********************************************************
+/*-********************************************************
  *
  * Bootstrap
  *
@@ -52,22 +53,28 @@ use OCA\RoundCube\Listener\Registration as ListenerRegistration;
  *
  */
 
+/**
+ * App entry point.
+ */
 class Application extends App implements IBootstrap
 {
-  /** @var string */
-  protected $appName;
+  use \OCA\RotDrop\Toolkit\Traits\AppNameTrait;
 
-  public function __construct (array $urlParams = []) {
-    $infoXml = new \SimpleXMLElement(file_get_contents(__DIR__ . '/../../appinfo/info.xml'));
-    $this->appName = (string)$infoXml->id;
+  // phpcs:disable Squiz.Commenting.FunctionComment.Missing
+  public function __construct(array $urlParams = [])
+  {
+    $this->appName = $this->getAppInfoAppName(__DIR__);
     parent::__construct($this->appName, $urlParams);
   }
+  // phpcs:enable Squiz.Commenting.FunctionComment.Missing
 
-  public function getAppName()
+  /** @return true */
+  public function getAppName():string
   {
     return $this->appName;
   }
 
+  /** {@inheritdoc} */
   public function boot(IBootContext $context): void
   {
     $container = $context->getAppContainer();
@@ -102,11 +109,9 @@ class Application extends App implements IBootstrap
     );
   }
 
-  // Called earlier than boot, so anything initialized in the
-  // "boot()" method must not be used here.
+  /** {@inheritdoc} */
   public function register(IRegistrationContext $context): void
   {
     ListenerRegistration::register($context);
   }
-
 }

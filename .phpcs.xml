@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<ruleset name="CJH">
+  <description>CJH Custom Code-Sniffer Standard</description>
+
+  <arg name="bootstrap" value="vendor/zebra-north/phpcs-short-types/short-types.php"/>
+
+  <rule ref="PSR2">
+    <exclude name="PSR2.Methods.FunctionCallSignature.Indent"/>
+    <exclude name="PSR2.Methods.FunctionCallSignature.CloseBracketLine"/>
+    <exclude name="PSR2.Methods.FunctionCallSignature.MultipleArguments"/>
+    <exclude name="PSR2.ControlStructures.SwitchDeclaration.BreakIndent"/>
+    <exclude name="PSR2.ControlStructures.SwitchDeclaration.BodyOnNextLineCASE"/>
+    <properties>
+      <property name="indent" value="2"/>
+    </properties>
+  </rule>
+
+  <rule ref="PEAR.WhiteSpace.ScopeClosingBrace">
+    <properties>
+      <property name="indent" value="2"/>
+    </properties>
+    <exclude name="PEAR.WhiteSpace.ScopeClosingBrace.Indent" />
+    <exclude name="PEAR.WhiteSpace.ScopeClosingBrace.Line"/>
+  </rule>
+
+  <rule ref="Generic.Files.LineLength">
+    <properties>
+      <property name="lineLimit" value="192"/>
+      <property name="absoluteLineLimit" value="0"/>
+    </properties>
+  </rule>
+
+  <rule ref="Generic.Commenting">
+    <properties>
+      <property name="indent" value="2"/>
+    </properties>
+    <!-- Allow single-line doc comments. See https://github.com/squizlabs/PHP_CodeSniffer/issues/258. -->
+    <exclude name="Generic.Commenting.DocComment.ContentAfterOpen" />
+    <exclude name="Generic.Commenting.DocComment.ContentBeforeClose" />
+    <exclude name="Generic.Commenting.DocComment.SpacingBeforeShort" />
+    <!-- Don't require short description -->
+    <exclude name="Generic.Commenting.DocComment.MissingShort" />
+    <!-- Doesn't work well with annotations -->
+    <exclude name="Generic.Commenting.DocComment.TagValueIndent" />
+    <!-- Allow empty lines between param -->
+    <exclude name="Generic.Commenting.DocComment.ParamGroup" />
+  </rule>
+PEAR.Commenting.FunctionComment.ParamCommentAlignment
+  <rule ref="PEAR.Commenting">
+    <exclude name="PEAR.Commenting.FileComment.InvalidAuthors"/>
+    <exclude name="PEAR.Commenting.FileComment.IncompleteCopyright"/>
+    <exclude name="PEAR.Commenting.FileComment.MissingCategoryTag"/>
+    <exclude name="PEAR.Commenting.FileComment.MissingPackageTag"/>
+    <exclude name="PEAR.Commenting.FileComment.MissingLinkTag"/>
+    <exclude name="PEAR.Commenting.FileComment.MissingVersion"/>
+    <exclude name="PEAR.Commenting.FileComment.IncompleteLicense"/>
+    <exclude name="PEAR.Commenting.ClassComment.MissingCategoryTag"/>
+    <exclude name="PEAR.Commenting.ClassComment.MissingPackageTag"/>
+    <exclude name="PEAR.Commenting.ClassComment.MissingAuthorTag"/>
+    <exclude name="PEAR.Commenting.ClassComment.MissingLicenseTag"/>
+    <exclude name="PEAR.Commenting.ClassComment.MissingLinkTag"/>
+    <exclude name="PEAR.Commenting.FunctionComment.MissingParamComment"/>
+    <exclude name="PEAR.Commenting.FunctionComment.SpacingAfterParamType"/>
+    <exclude name="PEAR.Commenting.FunctionComment.ParamCommentAlignment"/>
+    <exclude name="PEAR.Commenting.FunctionComment.SpacingAfterParamName"/>
+    <exclude name="PEAR.Commenting.FunctionComment.MissingParamTag"/>
+    <exclude name="PEAR.Commenting.FunctionComment.MissingReturn"/>
+    <exclude name="PEAR.Commenting.FunctionComment.ParamNameNoMatch"/>
+    <exclude name="PEAR.Commenting.FunctionComment.MissingParamType"/>
+    <exclude name="PEAR.Commenting.FunctionComment.WrongStyle"/>
+
+    <!-- already included by Squiz -->
+    <exclude name="PEAR.Commenting.FunctionComment.Missing"/>
+
+    <properties>
+      <property name="indent" value="2"/>
+      <property name="minimumVisibility" value="protected"/>
+    </properties>
+  </rule>
+  <rule ref="PEAR.Commenting.FileComment.Missing"/>
+
+  <rule ref="Generic.WhiteSpace.ScopeIndent">
+    <properties>
+      <property name="indent" value="2"/>
+      <property name="tabIndent" value="false"/>
+    </properties>
+  </rule>
+
+  <rule ref="Squiz.Commenting.FunctionComment">
+    <properties>
+      <property name="skipIfInheritdoc" value="true"/>
+    </properties>
+    <exclude name="Squiz.Commenting.FunctionComment.SpacingAfterParamName"/>
+    <exclude name="Squiz.Commenting.FunctionComment.SpacingAfterParamType"/>
+    <!-- The following would be just anoying. -->
+    <exclude name="Squiz.Commenting.FunctionComment.ParamCommentNotCapital"/>
+    <!-- Too much noise. Also, this produces boiler-plate documentation for setter/getter functions -->
+    <exclude name="Squiz.Commenting.FunctionComment.MissingParamComment"/>
+    <!-- We should rather use named exceptions than document each throw instruction -->
+    <exclude name="Squiz.Commenting.FunctionComment.EmptyThrows"/>
+  </rule>
+
+  <rule ref="Squiz.Functions.MultiLineFunctionDeclaration">
+    <exclude name="Squiz.Functions.MultiLineFunctionDeclaration.SpaceAfterFunction"/>
+  </rule>
+  <rule ref="Squiz.WhiteSpace.ControlStructureSpacing">
+    <exclude name="Squiz.WhiteSpace.ControlStructureSpacing.SpacingAfterOpen"/>
+    <exclude name="Squiz.WhiteSpace.ControlStructureSpacing.SpacingBeforeClose"/>
+  </rule>
+</ruleset>

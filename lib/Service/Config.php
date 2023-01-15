@@ -2,8 +2,9 @@
 /**
  * Nextcloud RoundCube App.
  *
- * @author Claus-Justus Heine
- * @copyright 2020, 2021, 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @author Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2020, 2021, 2022, 2023 Claus-Justus Heine
+ * @license AGPL-3.0-or-later
  *
  * Nextcloud RoundCube App is free software: you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -22,6 +23,8 @@
 
 namespace OCA\RoundCube\Service;
 
+use Exception;
+
 use OCP\IConfig;
 use OCP\IUserSession;
 use OCP\ILogger;
@@ -30,9 +33,10 @@ use OCP\Security\ICrypto;
 use OCP\Authentication\LoginCredentials\IStore as ICredentialsStore;
 use OCP\Authentication\LoginCredentials\ICredentials;
 
+/** Helper class for handling config values. */
 class Config
 {
-  use \OCA\RoundCube\Traits\LoggerTrait;
+  use \OCA\RotDrop\Toolkit\Traits\LoggerTrait;
 
   const EMAIL_ADDRESS = [
     'userIdEmail',
@@ -72,14 +76,15 @@ class Config
    */
   private $personalEncryption;
 
+  // phpcs:disable Squiz.Commenting.FunctionComment.Missing
   public function __construct(
-    $appName
-    , IUserSession $userSession
-    , IConfig $config
-    , ICredentialsStore $credentialsStore
-    , ICrypto $crypto
-    , ILogger $logger
-    , IL10N $l10n
+    string $appName,
+    IUserSession $userSession,
+    IConfig $config,
+    ICredentialsStore $credentialsStore,
+    ICrypto $crypto,
+    ILogger $logger,
+    IL10N $l10n,
   ) {
     $this->appName = $appName;
     $this->config = $config;
@@ -104,23 +109,55 @@ class Config
       $this->logException($t, 'Unable to get credentials from credentials-store.', ILogger::DEBUG);
     }
   }
+  // phpcs:enable Squiz.Commenting.FunctionComment.Missing
 
-  public function getAppValue(string $key, $default = null) {
+  /**
+   * @param string $key
+   *
+   * @param mixed $default
+   *
+   * @return mixed
+   */
+  public function getAppValue(string $key, mixed $default = null):mixed
+  {
     if (empty($default) && isset(self::SETTINGS[$key])) {
       $default = self::SETTINGS[$key];
     }
     return $this->config->getAppValue($this->appName, $key, $default);
   }
 
-  public function setAppValue(string $key, $value) {
-    return $this->config->setAppValue($this->appName, $key, $value);
+  /**
+   * @param string $key
+   *
+   * @param mixed $value
+   *
+   * @return void
+   */
+  public function setAppValue(string $key, mixed $value):void
+  {
+    $this->config->setAppValue($this->appName, $key, $value);
   }
 
-  public function getPersonalValue(string $key, $default = null, $password = null, $userId = null)
-  {
+  /**
+   * @param string $key
+   *
+   * @param mixed $default
+   *
+   * @param null|string $password
+   *
+   * @param null|string $userId
+   *
+   * @return mixed
+   */
+  public function getPersonalValue(
+    string $key,
+    mixed $default = null,
+    ?string $password = null,
+    ?string $userId = null,
+  ):mixed {
     if (!$this->personalEncryption) {
       $password = '';
-    } else if (empty($password)) {
+    } elseif (empty($password)) {
       $password = $this->userPassword;
     }
     $userId = $userId?:$this->userId;
@@ -137,7 +174,7 @@ class Config
             $decrypted = $this->crypto->decrypt($value);
             $this->setPersonalValue($key, $decrypted);
             $value = $decrypted;
-          } else if (!$this->personalEncryption && !empty($this->userPassword)) {
+          } elseif (!$this->personalEncryption && !empty($this->userPassword)) {
             $this->logInfo("Retry decrypt of $key with user password");
             $decrypted = $this->crypto->decrypt($value, $this->userPassword);
             $this->setPersonalValue($key, $decrypted);
@@ -152,19 +189,39 @@ class Config
     return $value;
   }
 
-  public function setPersonalValue(string $key, $value, $password = null, $userId = null)
-  {
+  /**
+   * @param string $key
+   *
+   * @param mixed $value
+   *
+   * @param null|string $password
+   *
+   * @param null|string $userId
+   *
+   * @return void
+   */
+  public function setPersonalValue(
+    string $key,
+    mixed $value,
+    ?string $password = null,
+    ?string $userId = null,
+  ):void {
     if (!$this->personalEncryption) {
       $password = '';
-    } else if (empty($password)) {
+    } elseif (empty($password)) {
       $password = $this->userPassword;
     }
     $userId = $userId?:$this->userId;
     $value = $this->crypto->encrypt($value, $password);
-    return $this->config->setUserValue($userId, $this->appName, $key, $value);
+    $this->config->setUserValue($userId, $this->appName, $key, $value);
   }
 
-  public function recryptPersonalValues($newPassword)
+  /**
+   * @param null|string $newPassword
+   *
+     @return void
+   */
+  public function recryptPersonalValues(?string $newPassword):void
   {
     $this->logInfo("Re-encrypting personal values.");
     if ($this->personalEncryption && empty($this->userPassword)) {
@@ -199,19 +256,19 @@ class Config
   {
     $emailAddressChoice = $this->getAppValue('emailAddressChoice', 'userPreferencesEmail');
     switch ($emailAddressChoice) {
-    case 'userIdEmail':
-      $userEmail = $this->user->getUID();
-      if (strpos($userEmail, '@') === false) {
-        $emailDefaultDomain = $this->getAppValue('emailDefaultDomain', '');
-        $userEmail .= '@'.$emailDefaultDomain;
-      }
-      break;
-    case 'userPreferencesEmail':
-      $userEmail = $this->user->getEMailAddress();
-      break;
-    case 'userChosenEmail':
-      $userEmail = $this->getPersonalValue('emailAddress', '');
-      break;
+      case 'userIdEmail':
+        $userEmail = $this->user->getUID();
+        if (strpos($userEmail, '@') === false) {
+          $emailDefaultDomain = $this->getAppValue('emailDefaultDomain', '');
+          $userEmail .= '@'.$emailDefaultDomain;
+        }
+        break;
+      case 'userPreferencesEmail':
+        $userEmail = $this->user->getEMailAddress();
+        break;
+      case 'userChosenEmail':
+        $userEmail = $this->getPersonalValue('emailAddress', '');
+        break;
     }
     if (empty($userEmail)) {
       $this->logError('Unable to obtain email credentials for user '.$this->userId);
@@ -233,26 +290,34 @@ class Config
     ];
   }
 
-  public function setEmailCredentials($userId, $emailUser, $emailPassword)
+  /**
+   * @param string $userId
+   *
+   * @param string $emailUser
+   *
+   * @param string $emailPassword
+   *
+   * @return void
+   */
+  public function setEmailCredentials(string $userId, string $emailUser, string $emailPassword):void
   {
     $emailAddressChoice = $this->getAppValue('emailAddressChoice', 'userPreferencesEmail');
     switch ($emailAddressChoice) {
-    case 'userIdEmail':
-    case 'userPreferencesEmail':
-      throw new \Exception($this->l->t('Cannot set email credentials for chosen address choice "%s".', $emailAddressChoice));
-    case 'userChosenEmail':
-      break;
+      case 'userIdEmail':
+      case 'userPreferencesEmail':
+        throw new Exception($this->l->t('Cannot set email credentials for chosen address choice "%s".', $emailAddressChoice));
+      case 'userChosenEmail':
+        break;
     }
     $forceSSO = $this->getAppValue('forceSSO', false);
     if ($forceSSO) {
-      throw new \Exception($this->l->t('Cannot set email credentials if SSO is enforced.'));
+      throw new Exception($this->l->t('Cannot set email credentials if SSO is enforced.'));
     }
     if ($this->personalEncryption) {
       // @todo replace by asymmetric (public/private key pair) encryption
-      throw new \Exception($this->l->t('Cannot set email credentials if personal encryption is required.'));
+      throw new Exception($this->l->t('Cannot set email credentials if personal encryption is required.'));
     }
     $this->setPersonalValue('emailAddress', $emailUser, null, $userId);
     $this->setPersonalValue('emailPassword', $emailPassword, null, $userId);
   }
-
 }

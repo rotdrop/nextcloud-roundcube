@@ -4,8 +4,8 @@
  *
  * @author Martin Reinhardt and David Jaedke
  * @author 2019 Leonardo R. Morelli github.com/LeonardoRM
- * @author Claus-Justus Heine
- * @copyright 2020, 2021 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @author Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2020, 2021, 2023 Claus-Justus Heine
  * @copyright 2012 Martin Reinhardt contact@martinreinhardt-online.de
  *
  * Nextcloud RoundCube App is free software: you can redistribute it and/or
@@ -25,8 +25,8 @@
 
 namespace OCA\RoundCube;
 
-style($appName, 'personal-settings');
-script($appName, 'personal-settings');
+script($appName, $assets['js']['asset']);
+style($appName, $assets['css']['asset']);
 
 switch ($emailAddressChoice) {
   case 'userIdEmail':
@@ -82,7 +82,7 @@ $formAction = $urlGenerator->linkToRoute($appName.'.personal_settings.set');
              id="emailPassword"
              class="emailPassword"
              name="emailPassword"
-	     value="<?php p($emailPassword); ?>"
+             value="<?php p($emailPassword); ?>"
              data-typetoggle="#emailPasswordShow"
              <?php echo $emailPasswordDisable; ?>
              title="<?php echo $emailPasswordTitle; ?>"

@@ -2,9 +2,10 @@
 /**
  * Nextcloud RoundCube App.
  *
- * @author Claus-Justus Heine
+ * @author Claus-Justus Heine <himself@claus-justus-heine.de>
  * @author 2019 Leonardo R. Morelli github.com/LeonardoRM
- * @copyright 2020, 2021 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2020, 2021, 2023 Claus-Justus Heine
+ * @license   AGPL-3.0-or-later
  *
  * Nextcloud RoundCube App is free software: you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -36,10 +37,11 @@ use OCA\RoundCube\Settings\Admin;
 use OCA\RoundCube\Service\AuthRoundCube as Authenticator;
 use OCA\RoundCube\Service\Config;
 
+/** AJAX endpoints for admin settings. */
 class AdminSettingsController extends Controller
 {
-  use \OCA\RoundCube\Traits\LoggerTrait;
-  use \OCA\RoundCube\Traits\ResponseTrait;
+  use \OCA\RotDrop\Toolkit\Traits\LoggerTrait;
+  use \OCA\RotDrop\Toolkit\Traits\ResponseTrait;
 
   private $userId;
 
@@ -47,15 +49,16 @@ class AdminSettingsController extends Controller
 
   private $urlGenerator;
 
+  // phpcs:disable Squiz.Commenting.FunctionComment.Missing
   public function __construct(
-    $appName
-    , IRequest $request
-    , Authenticator $authenticator
-    , Config $config
-    , IURLGenerator $urlGenerator
-    , $UserId
-    , ILogger $logger
-    , IL10N $l10n
+    $appName,
+    IRequest $request,
+    Authenticator $authenticator,
+    Config $config,
+    IURLGenerator $urlGenerator,
+    ?string $userId,
+    ILogger $logger,
+    IL10N $l10n,
   ) {
     parent::__construct($appName, $request);
 
@@ -64,12 +67,15 @@ class AdminSettingsController extends Controller
     $this->config = $config;
     $this->urlGenerator = $urlGenerator;
 
-    $this->userId = $UserId;
+    $this->userId = $userId;
     $this->logger = $logger;
     $this->l = $l10n;
   }
+  // phpcs:enable Squiz.Commenting.FunctionComment.Missing
 
   /**
+   * @return DataResponse
+   *
    * @AuthorizedAdminSetting(settings=OCA\RoundCube\Settings\Admin)
    */
   public function set()

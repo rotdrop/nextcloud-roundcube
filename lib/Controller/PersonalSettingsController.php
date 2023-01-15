@@ -2,8 +2,9 @@
 /**
  * Nextcloud RoundCube App.
  *
- * @author Claus-Justus Heine
- * @copyright 2020, 2021 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @author Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2020, 2021, 2023 Claus-Justus Heine
+ * @license   AGPL-3.0-or-later
  *
  * Nextcloud RoundCube App is free software: you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -36,10 +37,11 @@ use OCA\RoundCube\Settings\Personal;
 use OCA\RoundCube\Service\Config;
 use OCA\RoundCube\Service\AuthRoundCube as Authenticator;
 
+/** AJAX endpoints for personal settings. */
 class PersonalSettingsController extends Controller
 {
-  use \OCA\RoundCube\Traits\LoggerTrait;
-  use \OCA\RoundCube\Traits\ResponseTrait;
+  use \OCA\RotDrop\Toolkit\Traits\LoggerTrait;
+  use \OCA\RotDrop\Toolkit\Traits\ResponseTrait;
 
   /** @var \OCP\IUser */
   private $user;
@@ -48,15 +50,16 @@ class PersonalSettingsController extends Controller
 
   private $urlGenerator;
 
+  // phpcs:disable Squiz.Commenting.FunctionComment.Missing
   public function __construct(
-    $appName
-    , IRequest $request
-    , IUserSession $userSession
-    , Authenticator $authenticator
-    , Config $config
-    , IURLGenerator $urlGenerator
-    , ILogger $logger
-    , IL10N $l10n
+    string $appName,
+    IRequest $request,
+    IUserSession $userSession,
+    Authenticator $authenticator,
+    Config $config,
+    IURLGenerator $urlGenerator,
+    ILogger $logger,
+    IL10N $l10n,
   ) {
     parent::__construct($appName, $request);
 
@@ -70,8 +73,11 @@ class PersonalSettingsController extends Controller
     $this->logger = $logger;
     $this->l = $l10n;
   }
+  // phpcs:enable Squiz.Commenting.FunctionComment.Missing
 
   /**
+   * @return DataResponse
+   *
    * @NoAdminRequired
    */
   public function set()
