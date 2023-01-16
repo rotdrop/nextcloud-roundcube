@@ -53,6 +53,8 @@ use OCA\RoundCube\Listener\Registration as ListenerRegistration;
  *
  */
 
+include_once __DIR__ . '/../../vendor/autoload.php';
+
 /**
  * App entry point.
  */
