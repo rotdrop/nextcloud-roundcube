@@ -207,8 +207,6 @@ APPSTORE_FILES =\
  templates\
  lib\
  vendor\
- config\
- contrib\
  CHANGELOG.md\
  COPYING\
  README.md
