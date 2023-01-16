@@ -1,0 +1,6 @@
+syntax: glob
+.idea/workspace.xml
+.idea/deployment.xml
+.idea/MakeHelp.iml
+.idea/misc.xml
+*.pyc
