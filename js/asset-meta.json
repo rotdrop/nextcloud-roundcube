@@ -1,0 +1,13 @@
+{
+  "publicPath": "",
+  "js": [
+    "js/admin-settings-8f2ed89112d7bbd61d43.js",
+    "js/personal-settings-63027156f3c638274b94.js",
+    "js/app-a33c23e016449121202a.js"
+  ],
+  "css": [
+    "css/admin-settings-da9264f2740b928cf3b3.css",
+    "css/personal-settings-da9264f2740b928cf3b3.css",
+    "css/app-f003968cbbded4c9edb6.css"
+  ]
+}
