@@ -45,8 +45,8 @@ for me. However, the version you find here is highly experimental and
 
 ## Installation
 
-- Download a (pre-)release tarbal
-- The assets are also contained in the git repo, so may a simple clone  just works. Maybe not ...
-- Compile from source, do a `make dev` or `make build`. You need `composer` and `node` (`npm`).
+- Download a (pre-)release tarball
+- The assets are also contained in the git repo, so may simply cloning the git-repo into your app folder just works. Maybe not ...
+- Clone into your app-folder and compile from source, do a `make dev` or `make build`. You need `composer` and `node` (`npm`).
 
 ## More docs to follow ...
