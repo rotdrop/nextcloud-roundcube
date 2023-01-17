@@ -38,6 +38,7 @@ use OCA\RoundCube\Service\Config;
 class Admin implements IDelegatedSettings
 {
   const TEMPLATE = 'tpl.adminSettings';
+  const ASSET_NAME = 'admin-settings';
 
   /** @var string */
   private $appName;
@@ -74,8 +75,8 @@ class Admin implements IDelegatedSettings
       'ocServer' => $this->urlGenerator->getAbsoluteURL("/"),
       'urlGenerator' => $this->urlGenerator,
       'assets' => [
-        Constants::JS => $this->assetService->getJSAsset(self::TEMPLATE),
-        Constants::CSS => $this->assetService->getCSSAsset(self::TEMPLATE),
+        Constants::JS => $this->assetService->getJSAsset(self::ASSET_NAME),
+        Constants::CSS => $this->assetService->getCSSAsset(self::ASSET_NAME),
       ],
     ];
     foreach (array_keys(Config::SETTINGS) as $setting) {

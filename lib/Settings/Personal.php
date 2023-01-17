@@ -42,6 +42,7 @@ use OCP\Authentication\LoginCredentials\IStore as ICredentialsStore;
 class Personal implements ISettings
 {
   const TEMPLATE = 'tpl.personalSettings';
+  const ASSET_NAME = 'personal-settings';
   const SETTINGS = [
     'emailAddress',
     'emailPassword',
@@ -118,8 +119,8 @@ class Personal implements ISettings
       'emailPassword' => $emailPassword,
       'forceSSO' => $forceSSO,
       'assets' => [
-        Constants::JS => $this->assetService->getJSAsset(self::TEMPLATE),
-        Constants::CSS => $this->assetService->getCSSAsset(self::TEMPLATE),
+        Constants::JS => $this->assetService->getJSAsset(self::ASSET_NAME),
+        Constants::CSS => $this->assetService->getCSSAsset(self::ASSET_NAME),
       ],
     ];
 
