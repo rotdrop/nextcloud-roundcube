@@ -1,6 +1,6 @@
 {
   "name": "roundcube",
-  "version": "1.0.0",
+  "version": "1.0.0-rc1",
   "description": "RoundCube Mail NextCloud Plugin",
   "author": "Claus-Justus Heine <himself@claus-justus-heine.de>",
   "bugs": {

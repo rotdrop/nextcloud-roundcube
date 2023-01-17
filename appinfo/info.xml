@@ -7,7 +7,7 @@
   <author>Martin Reinhardt</author>
   <author>Leonardo R. Morelli</author>
   <author>Claus-Justus Heine</author>
-  <version>1.0.0</version>
+  <version>1.0.0-rc1</version>
   <dependencies>
     <php min-version="8.0" max-version="8.1" />
     <nextcloud min-version="24" max-version="25" />
