@@ -157,7 +157,7 @@ class AuthRoundCube
    */
   public function login(string $username, string $password):bool
   {
-    $this->logInfo('user: '.$username.' password: '.$password[0]);
+    // $this->logInfo('user: '.$username.' password: '.$password[0]);
     // End previous session:
     // Delete cookies sessauth & sessid by expiring them.
     setcookie(self::COOKIE_RC_SESSID, "-del-", 1, "/", "", true, true);
