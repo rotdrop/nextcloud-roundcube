@@ -23,8 +23,7 @@ namespace OCA\RoundCube\Service;
 use OCP\IL10N;
 use Psr\Log\LoggerInterface;
 
-use OCA\CAFEVDB\Exceptions;
-use OCA\CAFEVDB\Constants;
+use OCA\RoundCube\Constants;
 
 /**
  * Return JavaScript- and CSS-assets names dealing with the attached content
