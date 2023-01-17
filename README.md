@@ -19,6 +19,10 @@ This was originally a fork from
 
 https://github.com/LeonardoRM/owncloud-roundcube
 
+which in turn is based on a very early Owncloud app (discontinued)
+
+https://github.com/hypery2k/owncloud
+
 However, now this fork just concentrates to embed an external
 Roundcube installation into a Nextcloud installation, there is no intent whatseover to keep
 compatibility with Owncloud.
