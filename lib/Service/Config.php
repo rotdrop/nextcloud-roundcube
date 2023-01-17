@@ -27,7 +27,7 @@ use Exception;
 
 use OCP\IConfig;
 use OCP\IUserSession;
-use OCP\ILogger;
+use Psr\Log\LoggerInterface as ILogger;
 use OCP\IL10N;
 use OCP\Security\ICrypto;
 use OCP\Authentication\LoginCredentials\IStore as ICredentialsStore;

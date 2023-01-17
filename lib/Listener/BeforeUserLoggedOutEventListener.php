@@ -29,7 +29,7 @@ use OCP\User\Events\BeforeUserLoggedOutEvent as HandledEvent;
 use OCP\EventDispatcher\Event;
 use OCP\EventDispatcher\IEventListener;
 use OCP\AppFramework\IAppContainer;
-use OCP\ILogger;
+use Psr\Log\LoggerInterface as ILogger;
 
 use OCA\RoundCube\Service\AuthRoundCube;
 

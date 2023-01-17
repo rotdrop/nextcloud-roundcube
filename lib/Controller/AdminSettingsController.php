@@ -30,7 +30,7 @@ use OCP\IURLGenerator;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Controller;
-use OCP\ILogger;
+use Psr\Log\LoggerInterface as ILogger;
 use OCP\IL10N;
 
 use OCA\RoundCube\Settings\Admin;

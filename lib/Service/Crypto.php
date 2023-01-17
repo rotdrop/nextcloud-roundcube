@@ -29,7 +29,7 @@ use openssl_pkey_get_details;
 use openssl_pkey_get_private;
 use openssl_public_encrypt;
 
-use OCP\ILogger;
+use Psr\Log\LoggerInterface as ILogger;
 use OCP\IL10N;
 use OCP\Security\ISecureRandom;
 

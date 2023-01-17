@@ -27,7 +27,7 @@ use Throwable;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 
-use OCP\ILogger;
+use Psr\Log\LoggerInterface as ILogger;
 
 /**
  * Utitily trait to simplifiy logging somewhat.

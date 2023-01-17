@@ -28,7 +28,7 @@ use OCP\Settings\ISettings;
 use OCP\IURLGenerator;
 use OCP\IUserSession;
 use OCP\IConfig;
-use OCP\ILogger;
+use Psr\Log\LoggerInterface as ILogger;
 use OCP\IL10N;
 
 use OCA\RoundCube\Constants;
