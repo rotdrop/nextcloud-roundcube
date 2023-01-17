@@ -191,8 +191,8 @@ class AuthRoundCube
       return false;
     }
     // Set cookies sessauth and sessid.
-    $cookiesLogin = self::parseCookies($loginAnswerObj['headers']['set-cookie']);
-    $inputsLogin = self::parseInputs($loginAnswerObj['html']);
+    $cookiesLogin = self::parseCookies($loginAnswerObj['headers']['set-cookie'] ?? null);
+    $inputsLogin = self::parseInputs($loginAnswerObj['html'] ?? null);
     $this->rcRequestToken = $inputs['_token']['value'];
     if (isset($cookiesLogin[self::COOKIE_RC_SESSID]) &&
         $cookiesLogin[self::COOKIE_RC_SESSID] !== "-del-") {
@@ -211,7 +211,7 @@ class AuthRoundCube
       return true;
     }
     // Check again whether input fields of login form exist.
-    $inputsLogin = self::parseInputs($loginAnswerObj['html']);
+    $inputsLogin = self::parseInputs($loginAnswerObj['html'] ?? null);
     if (empty($inputsLogin) || !isset($inputsLogin["_user"]) || !isset($inputsLogin["_pass"])) {
       return true; // It shouldn't get here ever.
     } else {
@@ -247,11 +247,11 @@ class AuthRoundCube
   }
 
   /**
-   * @param string $text The text where to look for input fields.
+   * @param null|string $text The text where to look for input fields.
    *
    * @return array [name => [key, value]] Input fields indexed by name.
    */
-  private static function parseInputs(string $text):array
+  private static function parseInputs(?string $text):array
   {
     $inputs = [];
     if (preg_match_all('/<input ([^>]*)>/i', $text, $inputMatches)) {
@@ -428,7 +428,7 @@ class AuthRoundCube
    *
    * @return array ['name' => 'value', ...]
    */
-  private static function parseCookies(array $cookieHeaders):array
+  private static function parseCookies(?array $cookieHeaders):array
   {
     $cookies = [];
     if (is_array($cookieHeaders)) {
