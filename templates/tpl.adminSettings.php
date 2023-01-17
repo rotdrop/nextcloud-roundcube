@@ -46,7 +46,7 @@ style($appName, $assets['css']['asset']);
                maxlength="128"
         />
       </label>
-      <p><?php p($l->t('Default path relative to ownCloud server (%s).', $ocServer)); ?></p>
+      <p><?php p($l->t('RoundCube path can be enterered relative to the Nextcloud server (%s).', $ocServer)); ?></p>
     </div>
     <div class="rcSetting">
       <h3><?php p($l->t('Email Address Selection')); ?></h3>
