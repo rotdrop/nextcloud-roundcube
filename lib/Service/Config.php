@@ -28,6 +28,7 @@ use Exception;
 use OCP\IConfig;
 use OCP\IUserSession;
 use Psr\Log\LoggerInterface as ILogger;
+use Psr\Log\LogLevel;
 use OCP\IL10N;
 use OCP\Security\ICrypto;
 use OCP\Authentication\LoginCredentials\IStore as ICredentialsStore;
@@ -96,7 +97,7 @@ class Config
       $this->user = $userSession->getUser();
       $this->userId = $this->user->getUID();
     } catch (\Throwable $t) {
-      $this->logException($t, 'Unable to get user from session.', ILogger::DEBUG);
+      $this->logException($t, 'Unable to get user from session.', LogLevel::DEBUG);
       $this->user = null;
       $this->userId = null;
     }
@@ -106,7 +107,7 @@ class Config
       $this->credentials = $credentialsStore->getLoginCredentials();
       $this->userPassword = $this->credentials->getPassword();
     } catch (\Throwable $t) {
-      $this->logException($t, 'Unable to get credentials from credentials-store.', ILogger::DEBUG);
+      $this->logException($t, 'Unable to get credentials from credentials-store.', LogLevel::DEBUG);
     }
   }
   // phpcs:enable Squiz.Commenting.FunctionComment.Missing
