@@ -171,7 +171,7 @@ trait ResponseTrait
   }
 
   /**
-   * @param null|string $message
+   * @param mixed $message
    *
    * @param int $status Default is Http::STATUS_OK.
    *
@@ -179,15 +179,24 @@ trait ResponseTrait
    *
    * @see dataResponse()
    */
-  private static function response(?string $message, int $status = Http::STATUS_OK):DataResponse
+  private static function response(mixed $message, int $status = Http::STATUS_OK):DataResponse
   {
-    return self::dataResponse(
-      [
+    $responseData = [
+      'messages' => [],
+      'message' => null,
+    ];
+    if (is_string($message)) {
+      $responseData = [
         'messages' => [ $message ],
         'message' => $message,
-      ],
-      $status
-    );
+      ];
+    } elseif (is_array($message)) {
+      $responseData = [
+        'messages' => $message,
+        'message' => implode('; ', $message),
+      ];
+    }
+    return self::dataResponse($responseData, $status);
   }
 
   /**
