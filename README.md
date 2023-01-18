@@ -1,3 +1,5 @@
+# BIG FAT NOTE: app renamed from roundcube -> mail_roundcube
+
 # RoundCube Web Mail
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
