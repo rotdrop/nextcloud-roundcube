@@ -45,6 +45,12 @@ class PageController extends Controller
 {
   use \OCA\RotDrop\Toolkit\Traits\LoggerTrait;
 
+  const MAIN_TEMPLATE = 'app';
+  const MAIN_ASSET = self::MAIN_TEMPLATE;
+  const ERROR_NOEMAIL_TEMPLATE = 'error/noemail';
+  const ERROR_LOGIN_TEMPLATE = 'error/login';
+  const ERROR_ASSET = 'error';
+
   /** @var string */
   private $userId;
 
@@ -93,11 +99,31 @@ class PageController extends Controller
   {
     $credentials = $this->config->emailCredentials();
     if (empty($credentials)) {
-      return new TemplateResponse($this->appName, "part.error.noemail", [ 'user' => $this->userId ]);
+      return new TemplateResponse(
+        $this->appName,
+        self::ERROR_NOEMAIL_TEMPLATE, [
+          'appName' => $this->appName,
+          'user' => $this->userId,
+          'assets' => [
+            Constants::JS => $this->assetService->getJSAsset(self::ERROR_ASSET),
+            Constants::CSS => $this->assetService->getCSSAsset(self::ERROR_ASSET),
+          ],
+        ],
+      );
     }
 
     if (!$this->authenticator->login($credentials['userId'], $credentials['password'])) {
-      return new TemplateResponse($this->appName, "part.error.login", array());
+      return new TemplateResponse(
+        $this->appName,
+        self::ERROR_LOGIN_TEMPLATE, [
+          'appName' => $this->appName,
+          'user' => $this->userId,
+          'assets' => [
+            Constants::JS => $this->assetService->getJSAsset(self::ERROR_ASSET),
+            Constants::CSS => $this->assetService->getCSSAsset(self::ERROR_ASSET),
+          ],
+        ],
+      );
     }
     $url = $this->authenticator->externalURL();
     $this->logInfo($url);
@@ -108,11 +134,11 @@ class PageController extends Controller
       'loadingImage' => $this->urlGenerator->imagePath($this->appName, 'loader.gif'),
       'showTopLine'  => $this->config->getAppValue($this->appName, 'showTopLine', false),
       'assets' => [
-        Constants::JS => $this->assetService->getJSAsset('app'),
-        Constants::CSS => $this->assetService->getCSSAsset('app'),
+        Constants::JS => $this->assetService->getJSAsset(self::MAIN_ASSET),
+        Constants::CSS => $this->assetService->getCSSAsset(self::MAIN_ASSET),
       ],
     ];
-    $tpl = new TemplateResponse($this->appName, "tpl.mail", $tplParams);
+    $tpl = new TemplateResponse($this->appName, self::MAIN_TEMPLATE, $tplParams);
 
     // This is mandatory to embed a different server in an iframe.
     $urlParts = parse_url($url);
@@ -123,7 +149,7 @@ class PageController extends Controller
       $csp->addAllowedFrameDomain($rcServer);
       // $csp->addAllowedScriptDomain($rcServer);
       $csp->allowInlineScript(true)->allowEvalScript(true);
-      // Util::writeLog($this->appName, __METHOD__ . ": Added CSP frame: $rcServer", Util::DEBUG);
+      // $this->logDebug('Added CSP frame: ' . $rcServer);
       $tpl->setContentSecurityPolicy($csp);
     }
     return $tpl;

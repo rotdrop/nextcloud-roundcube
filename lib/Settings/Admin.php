@@ -37,7 +37,7 @@ use OCA\RoundCube\Service\Config;
 /** Admin settings. */
 class Admin implements IDelegatedSettings
 {
-  const TEMPLATE = 'tpl.adminSettings';
+  const TEMPLATE = 'settings/admin';
   const ASSET_NAME = 'admin-settings';
 
   /** @var string */

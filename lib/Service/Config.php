@@ -97,7 +97,7 @@ class Config
       $this->user = $userSession->getUser();
       $this->userId = $this->user->getUID();
     } catch (\Throwable $t) {
-      $this->logException($t, 'Unable to get user from session.', LogLevel::DEBUG);
+      $this->logException($t, 'Unable to get user from session.', level: LogLevel::DEBUG);
       $this->user = null;
       $this->userId = null;
     }

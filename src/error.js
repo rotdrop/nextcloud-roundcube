@@ -1,12 +1,9 @@
-<?php
 /**
- * nextCloud - RoundCube mail plugin
+ * Nextcloud RoundCube App.
  *
- * @author Martin Reinhardt and David Jaedke
- * @author 2019 Leonardo R. Morelli github.com/LeonardoRM
- * @author Claus-Justus Heine
- * @copyright 2020, 2021 Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2012 Martin Reinhardt contact@martinreinhardt-online.de
+ * @author Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2023 Claus-Justus Heine
+ * @license AGPL-3.0-or-later
  *
  * Nextcloud RoundCube App is free software: you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -23,7 +20,4 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-?>
-<div id="errorMsg">
-    <p><?php p($l->t("Unable to obtain email credentials for '%s'.", $user)); ?></p>
-</div>
+require('style/error.scss');

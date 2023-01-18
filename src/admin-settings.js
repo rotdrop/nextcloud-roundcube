@@ -22,7 +22,8 @@
 import { webPrefix } from './config.js';
 import ajaxFailData from './ajax.js';
 import generateUrl from './generate-url.js';
-import '../style/settings.css';
+
+require('style/settings.scss');
 
 const jQuery = require('jquery');
 const $ = jQuery;

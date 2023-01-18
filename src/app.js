@@ -1,8 +1,9 @@
 /**
  * Nextcloud RoundCube App.
  *
- * @author Claus-Justus Heine
- * @copyright 2020, 2021, 2022, 2023, 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @author Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2020, 2021, 2022, 2023, 2023 Claus-Justus Heine
+ * @license AGPL-3.0-or-later
  *
  * Nextcloud RoundCube App is free software: you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -21,7 +22,8 @@
 
 import { webPrefix } from './config.js';
 import { loadHandler, resizeHandler } from './roundcube.js';
-import '../style/base.css';
+
+require('style/app.scss');
 
 const jQuery = require('jquery');
 const $ = jQuery;

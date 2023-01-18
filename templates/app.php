@@ -5,7 +5,7 @@
  * @author Martin Reinhardt and David Jaedke
  * @author 2019 Leonardo R. Morelli github.com/LeonardoRM
  * @author Claus-Justus Heine
- * @copyright 2020, 2021 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2020, 2021, 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @copyright 2012 Martin Reinhardt contact@martinreinhardt-online.de
  *
  * Nextcloud RoundCube App is free software: you can redistribute it and/or
@@ -23,7 +23,18 @@
  * <http://www.gnu.org/licenses/>.
  */
 
+$url .= '?_task=mail'; // @todo IS THIS REALLY NEEDED?
+
+script($appName, $assets['js']['asset']);
+style($appName, $assets['css']['asset']);
+
 ?>
-<div id="errorMsg">
-    <p><?php p($l->t("Unable to login into roundcube. There are login errors. Relogin to ownCloud. Relogin to ownCloud.")); ?></p>
+
+<div id="<?php p($webPrefix); ?>LoaderContainer">
+    <img src="<?php p($loadingImage); ?>" id="<?php p($webPrefix); ?>Loader">
 </div>
+<iframe src="<?php p($url); ?>"
+        id="<?php p($webPrefix); ?>Frame"
+        class="<?php p($showTopLine); ?>"
+        name="<?php p($webPrefix); ?>">
+</iframe>

@@ -41,7 +41,7 @@ use OCP\Authentication\LoginCredentials\IStore as ICredentialsStore;
 /** Personal settings. */
 class Personal implements ISettings
 {
-  const TEMPLATE = 'tpl.personalSettings';
+  const TEMPLATE = 'settings/personal';
   const ASSET_NAME = 'personal-settings';
   const SETTINGS = [
     'emailAddress',

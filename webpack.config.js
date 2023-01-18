@@ -22,7 +22,8 @@ const productionMode = process.env.NODE_ENV === 'production';
 webpackConfig.entry = {
   'admin-settings': path.join(__dirname, 'src', 'admin-settings.js'),
   'personal-settings': path.join(__dirname, 'src', 'personal-settings.js'),
-  app: path.join(__dirname, 'src', 'index.js'),
+  app: path.join(__dirname, 'src', 'app.js'),
+  error: path.join(__dirname, 'src', 'error.js'),
 };
 
 webpackConfig.output = {
