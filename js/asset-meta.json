@@ -1,9 +1,9 @@
 {
   "publicPath": "",
   "js": [
-    "js/admin-settings-768e17118a814f570a49.js",
-    "js/personal-settings-595429eba4c0c6621c90.js",
-    "js/app-6187fe1a23993890380c.js",
+    "js/admin-settings-2d10aa4cda34e42f548e.js",
+    "js/personal-settings-44f6f8de3884a1d97a9c.js",
+    "js/app-8c0b3042c1345c2679e0.js",
     "js/error-719bb0aeb6818d7fce44.js"
   ],
   "css": [
