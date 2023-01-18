@@ -30,7 +30,8 @@ Roundcube installation into a Nextcloud installation, there is no intent whatseo
 compatibility with Owncloud.
 
 Knowning that there is nowaday a dedicated native Nextcloud email app this might be
-questionable. OTOH, Roundcube is **really** a **very** **mature** email web app. So.
+questionable. OTOH, Roundcube is really a very mature email web app with many nice plugins like ACL
+maintenance for folders (in particular shared folders), A Sieve plugin etc.
 
 Currently the focus is on Roundcube version v1.6 and Nextcloud version
 25 and on pushing this fork into the Nextcloud app-store.
