@@ -47,7 +47,7 @@ for me. However, the version you find here is highly experimental and
 
 Hopefully an installation is possible by one of the following alternatives:
 
-- ~install from the Nextcloud app-store~ (not yet, see)
+- ~install from the Nextcloud app-store~ (not yet)
 - download a (pre-)release tarball and extract it into you app directory
 - the assets are also contained in the git repo, so simply cloning the git-repo into your app folder *maybe* just works. Maybe not ...
 - clone into your app-folder and compile from source, do a `make dev` or `make build`. You need `composer` and `node` (`npm`). `make help` or just `make` will list the available targets.
