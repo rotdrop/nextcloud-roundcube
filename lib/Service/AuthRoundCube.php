@@ -157,7 +157,7 @@ class AuthRoundCube
    */
   public function login(string $username, string $password):bool
   {
-    // $this->logInfo('user: '.$username.' password: '.$password[0]);
+    // $this->logInfo('user: ' . $username . ' password: ' . $password);
     // End previous session:
     // Delete cookies sessauth & sessid by expiring them.
     setcookie(self::COOKIE_RC_SESSID, "-del-", 1, "/", "", true, true);
@@ -347,10 +347,13 @@ class AuthRoundCube
       $headerSize     = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
       $respHttpCode   = curl_getinfo($curl, CURLINFO_HTTP_CODE);
       $this->logDebug("Got the following HTTP Status Code: ($respHttpCode) $curlErrorNum: $curlError");
-      if ($curlErrorNum === CURLE_OK && $respHttpCode < 400) {
+      if ($curlErrorNum === CURLE_OK) {
+        if ($respHttpCode >= 400) {
+          $this->logWarn("Got the following HTTP Status Code: $respHttpCode.");
+        }
         $response = self::splitResponse($rawResponse, $headerSize);
       } else {
-        $this->logWarn("Opening url '$rcQuery' failed with '$curlError'");
+        $this->logWarn("Opening url '$rcQuery' failed with the following HTTP Status Code: '$respHttpCode'. Curl status: '$curlError' ($curlErrorNum).");
       }
       curl_close($curl);
     } catch (Exception $e) {
