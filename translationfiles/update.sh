@@ -1,6 +1,6 @@
 #! /bin/bash
 
-LANG=de
+LANG=${1:-de}
 
 APPDIR=$(realpath "$(dirname "$0")/..")
 APP=$(basename "$APPDIR")
@@ -26,6 +26,7 @@ if [ -d "${APPDIR}"/translationfiles/additions ]; then
         cat "$f" >> "${TMPFILE}"
     done
 fi
+sed -i 's/charset=CHARSET/charset=UTF-8/g' "${TRANSLATION}"
 sed -i 's/charset=CHARSET/charset=UTF-8/g' "${TMPFILE}"
 if msguniq "${TMPFILE}" > /dev/null 2>&1 ; then
     msguniq -o "${TEMPLATE}" "${TMPFILE}"
