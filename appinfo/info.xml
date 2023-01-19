@@ -34,4 +34,7 @@
     <personal>OCA\RoundCube\Settings\Personal</personal>
     <personal-section>OCA\RoundCube\Settings\PersonalSection</personal-section>
   </settings>
+  <screenshot>https://github.com/rotdrop/nextcloud-roundcube/raw/master/contrib/screenshots/main-window.png</screenshot>
+  <screenshot>https://github.com/rotdrop/nextcloud-roundcube/raw/master/contrib/screenshots/admin-settings.png</screenshot>
+  <screenshot>https://github.com/rotdrop/nextcloud-roundcube/raw/master/contrib/screenshots/personal-settings.png</screenshot>
 </info>

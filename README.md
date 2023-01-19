@@ -5,10 +5,16 @@
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
 **Table of Contents**
 
+- [BIG FAT NOTE: app renamed from roundcube -> mail_roundcube](#big-fat-note-app-renamed-from-roundcube---mail_roundcube)
 - [RoundCube Web Mail](#roundcube-web-mail)
     - [Intro](#intro)
     - [Installation](#installation)
     - [More docs to follow ...](#more-docs-to-follow-)
+    - [Screenshots](#screenshots)
+        - [Main Window](#main-window)
+        - [Preferences](#preferences)
+            - [Admin Settings](#admin-settings)
+            - [Personal Settings](#personal-settings)
 
 <!-- markdown-toc end -->
 
@@ -56,3 +62,19 @@ Hopefully an installation is possible by one of the following alternatives:
 - clone into your app-folder and compile from source, do a `make dev` or `make build`. You need `composer` and `node` (`npm`). `make help` or just `make` will list the available targets.
 
 ## More docs to follow ...
+
+## Screenshots
+
+### Main Window
+
+![file list](contrib/screenshots/main-window.png)
+
+### Preferences
+
+#### Admin Settings
+
+![file list](contrib/screenshots/admin-settings.png)
+
+#### Personal Settings
+
+![file list](contrib/screenshots/personal-settings.png)
