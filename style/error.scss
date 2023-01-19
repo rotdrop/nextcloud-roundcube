@@ -18,7 +18,7 @@
  * License along with Nextcloud RoundCube App. If not, see
  * <http://www.gnu.org/licenses/>.
  */
-.app-roundcube {
+.app-#{$appName} {
     #errorMsg {
         padding:1em 1em;
         font-weidth: bold;

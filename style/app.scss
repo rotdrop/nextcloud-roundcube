@@ -2,7 +2,7 @@
  * Nextcloud RoundCube App.
  *
  * @author Claus-Justus Heine
- * @copyright 2020, 2021 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2020, 2021, 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
  *
  * Nextcloud RoundCube App is free software: you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -19,12 +19,12 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-#roundcubeFrame {
+##{$appName}Frame {
 	height: 100%;
 	width: 100%;
 	display: block;
 }
-#roundcubeLoaderContainer {
+##{$appName}LoaderContainer {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -32,7 +32,7 @@
 	height: 100%;
 	background-color: #FFF;
 }
-#roundcubeLoader {
+##{$appName}Loader {
 	position: fixed;
 	top: 50%;
 	left: 50%;
