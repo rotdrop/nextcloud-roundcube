@@ -102,8 +102,3 @@ $(function() {
     return false;
   });
 });
-
-// Local Variables: ***
-// js-indent-level: 2 ***
-// indent-tabs-mode: nil ***
-// End: ***
