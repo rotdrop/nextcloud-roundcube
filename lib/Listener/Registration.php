@@ -28,13 +28,16 @@ use OCP\AppFramework\Bootstrap\IRegistrationContext;
 /** Register all listeners. */
 class Registration
 {
-  // phpcs:disable Squiz.Commenting.FunctionComment.Missing
-  public static function register(IRegistrationContext $context)
+  /**
+   * @param IRegistrationContext $context
+   *
+   * @return void
+   */
+  public static function register(IRegistrationContext $context):void
   {
     self::registerListener($context, BeforeUserLoggedOutEventListener::class);
     self::registerListener($context, PasswordUpdatedEventListener::class);
   }
-  // phpcs:enable Squiz.Commenting.FunctionComment.Missing
 
   /**
    * @param IRegistrationContext $context
