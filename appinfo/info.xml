@@ -25,7 +25,7 @@
   <navigations>
     <navigation>
       <name>RoundCube Web Mail</name>
-      <route>roundcube.page.index</route>
+      <route>mail_roundcube.page.index</route>
     </navigation>
   </navigations>
   <settings>
