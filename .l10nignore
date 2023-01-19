@@ -1,0 +1,5 @@
+vendor/
+build/
+doc/
+js/
+lib/Toolkit/Service/
