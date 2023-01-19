@@ -96,7 +96,15 @@ class AdminSettingsController extends Controller
           }
           $urlParts = parse_url($value);
           if (empty($urlParts['scheme']) || !preg_match('/https?/', $urlParts['scheme'])) {
-            return self::grumble($this->l->t("Scheme of external URL must be one of `http' or `https', `%s' given.", [$urlParts['scheme']]));
+            if (empty($urlParts['scheme'])) {
+              return self::grumble($this->l->t(
+                'Scheme of external URL must be one of "http" or "https", but nothing was specified.'));
+            } else {
+              return self::grumble($this->l->t(
+                'Scheme of external URL must be one of "http" or "https", "%s" given.', [
+                  $urlParts['scheme'],
+                ]));
+            }
           }
           if (empty($urlParts['host'])) {
             return self::grumble($this->l->t("Host-part of external URL seems to be empty"));
