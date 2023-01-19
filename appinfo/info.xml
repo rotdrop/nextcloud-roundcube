@@ -4,7 +4,9 @@
   <id>mail_roundcube</id>
   <name>RoundCube Mail</name>
   <summary>Embed an installation of RoundCube into Nextcloud</summary>
-  <description>Integrates existing roundcube server into NextCloud.</description>
+  <description>
+    Integrates an existing RoundCube standalone email-webapp into NextCloud, with optional SSO.
+  </description>
   <version>1.0.0-rc4</version>
   <licence>agpl</licence>
   <author mail="himself@claus-justus-heine.de">Claus-Justus Heine</author>
