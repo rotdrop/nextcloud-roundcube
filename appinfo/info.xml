@@ -4,7 +4,7 @@
   <id>mail_roundcube</id>
   <name>RoundCube Mail</name>
   <summary>Embed an installation of RoundCube into Nextcloud</summary>
-  <description>Embed an installation of RoundCube into Nextcloud</description>
+  <description>Integrates existing roundcube server into NextCloud.</description>
   <version>1.0.0-rc4</version>
   <licence>agpl</licence>
   <author mail="himself@claus-justus-heine.de">Claus-Justus Heine</author>
@@ -18,9 +18,6 @@
     <php min-version="8.0" max-version="8.1" />
     <nextcloud min-version="24" max-version="25" />
   </dependencies>
-  <description>
-    Integrates existing roundcube server into NextCloud.
-  </description>
   <bugs>https://github.com/rotdrop/nextcloud-roundcube/issues</bugs>
   <website>https://github.com/rotdrop/nextcloud-roundcube/</website>
   <navigations>
