@@ -1,5 +1,5 @@
 OC.L10N.register(
-    "roundcube",
+    "mail_roundcube",
     {
     "Webmail" : "Webmail",
     "Not submitted for us." : "No enviado para nosotros.",
