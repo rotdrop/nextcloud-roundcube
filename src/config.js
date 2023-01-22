@@ -20,7 +20,6 @@
  */
 
 import * as ncAuth from '@nextcloud/auth';
-import $ from './jquery.js';
 
 const appInfo = require('../appinfo/info.xml');
 const appName = appInfo.info.id[0];
@@ -29,7 +28,7 @@ const webRoot = OC.appswebroots[appName] + '/';
 const cloudUser = ncAuth.getCurrentUser();
 
 let state = OCP.InitialState.loadState(appName, 'initial');
-state = $.extend({}, state);
+state = { ...state };
 state.refreshTimer = false;
 
 if (appName !== state.appName) {

@@ -1,6 +1,6 @@
 /**
  * @copyright Copyright (c) 2022, 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
- * @author Claus-Justus Heine
+ * @author Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -18,28 +18,37 @@
  *
  */
 
-// jQuery stuff
+.oc-dialog {
 
-import { appName } from './config.js';
-import { getRequestToken, onRequestTokenUpdate } from '@nextcloud/auth';
-const jQuery = require('jquery');
+  @import 'error-dialogs.scss';
 
-if (window.jQuery && window.jQuery !== jQuery) {
-  console.info(appName + ': JQUERY VERSIONS W / A', window.jQuery.fn.jquery, jQuery.fn.jquery);
-  // if (window.jQuery.fn.jquery === jQuery.fn.jquery) {
-  //   console.info(appName + ': using matching window.jQuery version');
-  //   jQuery = window.jQuery;
-  // }
+  &.maximize-width {
+    .oc-dialog-content {
+      max-width:calc(100vw - 20px);
+    }
+
+    .error-wide {
+      width: auto;
+      white-space: nowrap;
+      max-width: unset;
+    }
+
+    .error-wide pre {
+      white-space:pre-wrap;
+    }
+
+    .error-wide li {
+      white-space:normal;
+      max-width:calc(100vw - 20px);
+      width:calc(100vw - 60px);
+    }
+  }
+
+  .exception.error {
+    &.name, ul.technical, .trace.visible {
+      &, * {
+        cursor:pointer;
+      }
+    }
+  }
 }
-
-let requestToken = getRequestToken() || '';
-jQuery.ajaxSetup({
-  beforeSend(xhr) {
-    xhr.setRequestHeader('requesttoken', requestToken);
-    xhr.setRequestHeader('OCS-APIREQUEST', 'true');
-  },
-});
-
-onRequestTokenUpdate(token => { requestToken = token; });
-
-export default jQuery;

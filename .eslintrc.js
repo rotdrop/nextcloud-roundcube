@@ -2,6 +2,9 @@ module.exports = {
   extends: [
     '@nextcloud',
   ],
+  ignorePatterns: [
+    'src/toolkit/util/file-download.js',
+  ],
   rules: {
     'no-tabs': ['error', { allowIndentationTabs: false }],
     indent: ['error', 2],

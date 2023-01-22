@@ -1,0 +1,131 @@
+/**
+ * @copyright Copyright (c) 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @author Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @license AGPL-3.0-or-later
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+.error {
+  &.missing,
+  &.syntax.contents,
+  &.contents,
+  &.general,
+  &.debug.contents {
+    display:block;
+    /* font-weight:bold;*/
+    color:blue;
+    margin:0 2em 0 2em;
+    max-width:100%;
+    overflow:auto;
+    /* white-space:nowrap; */
+  }
+
+  &.caption,
+  &.heading {
+    font-weight:bold;
+  }
+
+  &.general {
+    max-width:60em;
+  }
+
+  &.caption {
+    font-size:110%;
+    color:blue;
+    font-style:italic;
+  }
+
+  &.debug.contents p {
+    /* white-space:nowrap;   */
+  }
+
+  &.exception {
+
+    &.name {
+      display:block;
+      font-weight:bold;
+      color:red;
+      margin-left:2em;
+    }
+
+    &.trace {
+      display:none;
+      &.visible {
+        display: block;
+      }
+      font-weight:bold;
+      color:blue;
+      margin: 0 2em 0 2em;
+      max-width:100%;
+      overflow:auto;
+      /* white-space:nowrap; */
+    }
+
+    &.trace p {
+      /* white-space:nowrap; */
+    }
+
+    /* Exception extracted from Nextcloud HTML response */
+    h3 {
+      font-weight:bold;
+    }
+    .trace {
+      display:none;
+      &.visible {
+        display: block;
+      }
+      color:blue;
+      margin: 0 2em 0 2em;
+      max-width:100%;
+      overflow:auto;
+    }
+    ul.technical li {
+      &.class, &.code, &.file, &.line {
+        display:inline;
+      }
+      &.message {
+        color:red;
+        font-weight:bold;
+      }
+    }
+
+  }
+
+  a {
+    font-weight:bold;
+    text-decoration:underline;
+    color:red !important;
+  }
+
+  a:hover {
+    font-weight:bold;
+    font-style:italic;
+    text-decoration:underline;
+    color:red !important;
+  }
+
+  &.specialrole {
+    text-align:center;
+    font-weight:bold;
+    color:red;
+    font-size:200%;
+    margin-top:2em;
+  }
+}
+
+.#{$appName}.error-page .error-wide {
+  margin-left: 0px !important;
+  width:auto!important;
+}

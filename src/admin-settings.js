@@ -20,8 +20,8 @@
  */
 
 import { webPrefix } from './config.js';
-import ajaxFailData from './ajax.js';
-import generateUrl from './generate-url.js';
+import { failData as ajaxFailData } from './toolkit/util/ajax.js';
+import generateUrl from './toolkit/util/generate-url.js';
 
 require('style/settings.scss');
 
