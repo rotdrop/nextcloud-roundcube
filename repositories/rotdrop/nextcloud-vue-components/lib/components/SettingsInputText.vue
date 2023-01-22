@@ -1,4 +1,4 @@
-<!--
+ <!--
   - @copyright Copyright (c) 2019, 2022, 2023 Julius Härtl <jus@bitgrid.net>
   - @copyright Copyright (c) 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
   -
@@ -23,7 +23,9 @@
   -->
 
 <template>
-  <form :class="cloudVersionClasses" @submit.prevent="">
+  <form :class="['component-wrapper', ...cloudVersionClasses]"
+        @submit.prevent=""
+  >
     <div class="input-wrapper">
       <label :for="id" :class="{ empty: !label || label === '' }">{{ label }}</label>
       <input v-bind="$attrs"
@@ -34,22 +36,28 @@
              :placeholder="placeholder"
              @input="$emit('input', $event.target.value); inputVal = $event.target.value;"
       >
-      <input v-show="visibilityToggle"
-             v-model="inputIsVisible"
-             type="checkbox"
-             :disabled="disabled"
-      >
       <input type="submit"
              class="icon-confirm"
              value=""
              :disabled="disabled"
              @click="$emit('update', inputVal)"
       >
+      <input v-if="type === 'password'"
+             :id="id + '-visibility-toggle'"
+             v-model="inputIsVisible"
+             class="visibility-toggle"
+             type="checkbox"
+             :disabled="disabled"
+      >
+      <label v-if="type === 'password'"
+             :for="id + '-visibility-toggle'"
+             class="visibility-toggle"
+      />
+      <p v-if="hint !== '' || !!$slots.hint" class="hint">
+        {{ hint }}
+        <slot name="hint" />
+      </p>
     </div>
-    <p v-if="hint !== '' || !!$slots.hint" class="hint">
-      {{ hint }}
-      <slot name="hint" />
-    </p>
   </form>
 </template>
 
@@ -128,8 +136,15 @@ export default {
     --cloud-input-border-color: var(--color-border-maxcontrast);
   }
 }
+.component-wrapper {
+  .hint {
+    color: var(--color-text-lighter);
+    font-style:italic;
+  }
+}
 .input-wrapper {
   display: flex;
+  position:relative;
   flex-wrap: wrap;
   width: 100%;
   max-width: 400px;
@@ -144,7 +159,7 @@ export default {
     &[type='number'] {
       direction:rtl;
     }
-    &:read-only {
+    &:read-only, &:disabled {
       background-color: var(--color-background-dark);
       color: var(--color-text-maxcontrast);
       cursor: default;
@@ -152,15 +167,48 @@ export default {
     }
   }
 
-  .hint {
-    color: var(--color-text-lighter);
+  input + .icon-confirm + input.visibility-toggle {
+    position:absolute;
+    width:0;
+    height:0;
+    left:-10000px;
+    &:checked + label.visibility-toggle {
+      filter: alpha(opacity=80);
+      opacity: .8;
+    }
+    + label.visibility-toggle {
+      position:absolute;
+      width:24px;
+      height:100%;
+      right:32px;
+      background-image: var(--icon-toggle-dark);
+      background-repeat: no-repeat;
+      background-position: center;
+      filter: alpha(opacity=30);
+      opacity: .3;
+      text-indent: -10000em;
+      z-index: 10;
+    }
   }
 
   // Fixup for Nextcloud v25 not setting confirm button border
-  input[type='text'] {
-    + .icon-confirm {
-      border-width: var(--cloud-input-border-width);
-      border-color: var(--cloud-input-border-color);
+  input[type='text'], input[type='password'], input[type='number'], input[type='email'] {
+    &:not(:active):not(:hover):not(:focus), & {
+      + .icon-confirm {
+        border-width: var(--cloud-input-border-width);
+        border-color: var(--cloud-input-border-color);
+        &:disabled {
+          &, &:hover, &:active, &:focus {
+            background-color: var(--color-background-dark) !important;
+            border-color: var(--cloud-input-border-color) !important;
+            border-left-color: transparent !important;
+            border-radius: 0 var(--cloud-border-radius) var(--cloud-border-radius) 0 !important;
+            color: var(--color-text-maxcontrast) !important;
+            cursor: default;
+            opacity: 1;
+          }
+        }
+      }
     }
   }
 
@@ -194,7 +242,7 @@ export default {
         border-color: var(--color-primary-element) !important;
         border-radius: var(--border-radius) !important;
         &:disabled {
-          border-color: var(--color-background-darker) !important;
+          border-color: var(--cloud-input-border-color) !important;
         }
       }
     }
