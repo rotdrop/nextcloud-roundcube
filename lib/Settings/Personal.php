@@ -54,7 +54,7 @@ class Personal implements ISettings
   /** @var string */
   private $appName;
 
-  /** @var \OCA\RoundCube\Servcie\Config */
+  /** @var \OCA\RoundCube\Service\Config */
   private $config;
 
   /** @var AssetService */
