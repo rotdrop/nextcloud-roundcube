@@ -50,7 +50,7 @@ class SettingsController extends Controller
   public const EMAIL_DEFAULT_DOMAIN = 'emailDefaultDomain';
   public const EMAIL_ADDRESS_CHOICE = 'emailAddressChoice';
   public const EMAIL_ADDRESS_CHOICE_USER_ID = 'userIdEmail';
-  public const EMAIL_ADDRESS_CHOICE_USER_PREFERENCES = 'userPerferencesEmail';
+  public const EMAIL_ADDRESS_CHOICE_USER_PREFERENCES = 'userPreferencesEmail';
   public const EMAIL_ADDRESS_CHOICE_USER_CHOSEN = 'userChosenEmail';
   public const EMAIL_ADDRESS_CHOICE_DEFAULT = self::EMAIL_ADDRESS_CHOICE_USER_CHOSEN;
   public const EMAIL_ADDRESS_CHOICES = [
@@ -179,6 +179,7 @@ class SettingsController extends Controller
         break;
       case self::EMAIL_DEFAULT_DOMAIN:
       case self::EMAIL_ADDRESS_CHOICE:
+        $newValue = $value;
         break;
       case self::FORCE_SSO:
       case self::SHOW_TOP_LINE:
