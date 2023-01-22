@@ -45,7 +45,7 @@
         <label for="user-id-email">
           {{ t(appName, 'Cloud Login-Id') }}
         </label>
-        <span class="user-id-email-placeholder">{{ t(appName, 'USER-ID') }}@</span>
+        <span :class="['user-id-email-placeholder', { disabled: loading > 0 || (emailAddressChoice !== 'userIdEmail')}]">{{ t(appName, 'USER-ID') }}@</span>
         <SettingsInputText v-model="emailDefaultDomain"
                            label=""
                            :disabled="loading > 0 || (emailAddressChoice !== 'userIdEmail')"
@@ -232,14 +232,38 @@ export default {
     align-items:center;
   }
 }
-.user-id-email-placeholder {
-  font-family:mono-space;
-  font-weight:bold;
-  margin-left:0.5em;
-  margin-right:0.5em;
-  &::before {
-    content: '—';
+.settings-section {
+  :deep(.app-settings-section) {
+    margin-bottom: 40px;
+  }
+  :deep(.settings-section__title) {
+    position: relative;
+    padding-left:48px;
+    height:32px;
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 32px;
+      height: 32px;
+      background-size:32px;
+      background-image:url('../img/app.svg');
+      background-repeat:no-repeat;
+      background-origin:border-box;
+      background-position:left center;
+      filter: var(--cloud-theme-filter);
+    }
+  }
+  .user-id-email-placeholder {
+    font-family:mono-space;
+    font-weight:bold;
+    margin-left:0.5em;
     margin-right:0.5em;
+    &::before {
+      content: '—';
+      margin-right:0.5em;
+    }
   }
 }
 </style>

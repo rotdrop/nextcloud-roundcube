@@ -150,4 +150,28 @@ export default {
     --cloud-theme-filter: var(--background-invert-if-dark);
   }
 }
+.settings-section {
+  :deep(.app-settings-section) {
+    margin-bottom: 40px;
+  }
+  :deep(.settings-section__title) {
+    position: relative;
+    padding-left:48px;
+    height:32px;
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 32px;
+      height: 32px;
+      background-size:32px;
+      background-image:url('../img/app.svg');
+      background-repeat:no-repeat;
+      background-origin:border-box;
+      background-position:left center;
+      filter: var(--cloud-theme-filter);
+    }
+  }
+}
 </style>
