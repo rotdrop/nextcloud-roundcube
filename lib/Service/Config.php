@@ -130,6 +130,16 @@ class Config
   /**
    * @param string $key
    *
+   * @return void
+   */
+  public function deleteAppValue(string $key):void
+  {
+    $this->config->deleteAppValue($this->appName, $key);
+  }
+
+  /**
+   * @param string $key
+   *
    * @param mixed $value
    *
    * @return void
@@ -216,6 +226,13 @@ class Config
     $value = $this->crypto->encrypt($value, $password);
     $this->config->setUserValue($userId, $this->appName, $key, $value);
   }
+
+  public function deletePersonalValue(string $key, ?string $userId = null)
+  {
+    $this->config->deleteUserValue($userId, $appName, $key);
+
+  }
+
 
   /**
    * @param null|string $newPassword
