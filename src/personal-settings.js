@@ -35,6 +35,6 @@ __webpack_public_path__ = generateFilePath(appName, '', 'js/');
 Vue.mixin({ data() { return { appName }; }, methods: { t, n } });
 
 export default new Vue({
-  el: '#personal-settings',
+  el: '#' + appName + '-personal-settings',
   render: h => h(PersonalSettings),
 });

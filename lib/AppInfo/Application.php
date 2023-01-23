@@ -77,42 +77,12 @@ class Application extends App implements IBootstrap
   }
 
   /** {@inheritdoc} */
-  public function boot(IBootContext $context): void
+  public function boot(IBootContext $context):void
   {
-    $container = $context->getAppContainer();
-
-    /* @var OCP\IConfig */
-    $config = $container->query(IConfig::class);
-    $refreshInterval = $config->getAppValue($this->appName, 'authenticationRefreshInterval', 600);
-    $showTopLine = $config->getAppValue($this->appName, 'showTopLine', false);
-
-    /* @var OCP\IInitialStateService */
-    $initialState = $container->query(IInitialStateService::class);
-
-    /* @var IEventDispatcher $eventDispatcher */
-    $dispatcher = $container->query(IEventDispatcher::class);
-    $dispatcher->addListener(
-      \OCP\AppFramework\Http\TemplateResponse::EVENT_LOAD_ADDITIONAL_SCRIPTS_LOGGEDIN,
-      function() use ($initialState, $refreshInterval, $showTopLine) {
-
-        $initialState->provideInitialState(
-          $this->appName,
-          'initial',
-          [
-            'appName' => $this->appName,
-            'webPrefix' => $this->appName,
-            'refreshInterval' => $refreshInterval,
-            'showTopLine' => $showTopLine,
-          ]
-        );
-
-        //\OCP\Util::addScript($this->appName, 'refresh');
-      }
-    );
   }
 
   /** {@inheritdoc} */
-  public function register(IRegistrationContext $context): void
+  public function register(IRegistrationContext $context):void
   {
     ListenerRegistration::register($context);
   }

@@ -19,10 +19,13 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-import { webPrefix, state } from './config.js';
+import { appName } from './config.js';
+import { getInitialState } from './toolkit/services/InitialStateService.js';
 
 const jQuery = require('jquery');
 const $ = jQuery;
+
+const initialState = getInitialState();
 
 /**
  * @param {jQuery} rcf RoundCubeFrame.
@@ -102,13 +105,13 @@ const resizeIframe = function(frame) {
 
 const loadHandler = function(frame) {
 
-  if (!state.showTopline) {
+  if (!initialState.showTopline) {
     hideTopLine(frame);
   }
   resizeIframe(frame);
 
   // Fade in roundcube nice to let iframe load
-  $('#' + webPrefix + 'LoaderContainer').fadeOut('slow');
+  $('#' + appName + 'LoaderContainer').fadeOut('slow');
 };
 
 export { loadHandler, resizeIframe as resizeHandler };

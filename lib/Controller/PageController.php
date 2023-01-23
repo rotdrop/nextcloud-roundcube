@@ -30,12 +30,14 @@ use OCP\IRequest;
 use OCP\AppFramework\Http\ContentSecurityPolicy;
 use OCP\AppFramework\Http\JSONResponse;
 use OCP\AppFramework\Http\TemplateResponse;
+use OCP\AppFramework\Services\IInitialState;
 use OCP\Util;
 use OCP\IURLGenerator;
 use Psr\Log\LoggerInterface as ILogger;
 use OCP\IL10N;
 
 use OCA\RoundCube\Constants;
+use OCA\RoundCube\Controller\SettingsController;
 use OCA\RoundCube\Service\AssetService;
 use OCA\RoundCube\Service\Config;
 use OCA\RoundCube\Service\AuthRoundCube as Authenticator;
@@ -57,11 +59,14 @@ class PageController extends Controller
   /** @var \OCA\RoundCube\Service\AuthRoundCube */
   private $authenticator;
 
-  /** @var \OCP\IConfig */
+  /** @var Config */
   private $config;
 
   /** @var AssetService */
   private $assetService;
+
+  /** @var IInitialState */
+  private $initialState;
 
   /** @var \OCP\IURLGenerator */
   private $urlGenerator;
@@ -74,6 +79,7 @@ class PageController extends Controller
     Authenticator $authenticator,
     Config $config,
     AssetService $assetService,
+    IInitialState $initialState,
     IURLGenerator $urlGenerator,
     ILogger $logger,
     IL10N $l10n,
@@ -83,6 +89,7 @@ class PageController extends Controller
     $this->authenticator = $authenticator;
     $this->config = $config;
     $this->assetService = $assetService;
+    $this->initialState = $initialState;
     $this->urlGenerator = $urlGenerator;
     $this->logger = $logger;
     $this->l = $l10n;
@@ -125,14 +132,16 @@ class PageController extends Controller
         ],
       );
     }
+
+    $this->initialState->provideInitialState('config', [
+      SettingsController::EXTERNAL_LOCATION => $this->authenticator->externalURL(),
+      SettingsController::SHOW_TOP_LINE => $this->config->getAppValue(SettingsController::SHOW_TOP_LINE, flase),
+    ]);
+
     $url = $this->authenticator->externalURL();
     $this->logInfo($url);
     $tplParams = [
       'appName'      => $this->appName,
-      'webPrefix'    => $this->appName,
-      'url'          => $url,
-      'loadingImage' => $this->urlGenerator->imagePath($this->appName, 'loader.gif'),
-      'showTopLine'  => $this->config->getAppValue($this->appName, 'showTopLine', false),
       'assets' => [
         Constants::JS => $this->assetService->getJSAsset(self::MAIN_ASSET),
         Constants::CSS => $this->assetService->getCSSAsset(self::MAIN_ASSET),

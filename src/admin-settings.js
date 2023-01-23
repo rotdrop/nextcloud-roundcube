@@ -35,6 +35,6 @@ __webpack_public_path__ = generateFilePath(appName, '', 'js/');
 Vue.mixin({ data() { return { appName }; }, methods: { t, n } });
 
 export default new Vue({
-  el: '#admin-settings',
+  el: '#' + appName + '-admin-settings',
   render: h => h(AdminSettings),
 });

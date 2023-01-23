@@ -29,4 +29,4 @@ script($appName, $assets['js']['asset']);
 style($appName, $assets['css']['asset']);
 
 ?>
-<div id="personal-settings"></div>
+<div id="<?php p($appName) ?>-personal-settings"></div>
