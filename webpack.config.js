@@ -6,6 +6,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssoWebpackPlugin = require('csso-webpack-plugin').default;
 const ESLintPlugin = require('eslint-webpack-plugin');
 const DeadCodePlugin = require('webpack-deadcode-plugin');
+const Visualizer = require('webpack-visualizer-plugin2');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const fs = require('fs');
 const xml2js = require('xml2js');
 
@@ -57,13 +59,6 @@ webpackConfig.plugins = webpackConfig.plugins.concat([
       return JSON.stringify(arg.htmlWebpackPlugin.files, null, 2);
     },
   }),
-  new webpack.ProvidePlugin({
-    $: 'jquery',
-    jQuery: 'jquery',
-    jquery: 'jquery',
-    'window.$': 'jquery',
-    'window.jQuery': 'jquery',
-  }),
   new MiniCssExtractPlugin({
     filename: 'css/[name]-[contenthash].css',
   }),
@@ -81,6 +76,15 @@ webpackConfig.plugins = webpackConfig.plugins.concat([
     exclude: [
       'src/toolkit/**',
     ],
+  }),
+  new BundleAnalyzerPlugin({
+    analyzerPort: 11111,
+    analyzerMode: 'static',
+    openAnalyzer: false,
+    reportFilename: './statistics/bundle-analyzer.html',
+  }),
+  new Visualizer({
+    filename: './statistics/visualizer-stats.html',
   }),
 ]);
 

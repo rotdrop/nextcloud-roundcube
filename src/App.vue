@@ -20,7 +20,7 @@
 </script>
 <template>
   <div class="app-container">
-    <div :id="loaderId" />
+    <div ref="loaderContainer" class="loader-container" />
     <iframe v-if="state !== 'error'"
             :id="frameId"
             ref="roundCubeFrame"
@@ -39,8 +39,6 @@ import { appName } from './config.js'
 import { set as vueSet } from 'vue'
 import { loadHandler, resizeHandler } from './roundcube.js';
 import { getInitialState } from './toolkit/services/InitialStateService.js';
-
-const jQuery = require('jquery');
 
 const loadTimeout = 1000; // 1 second
 
@@ -67,9 +65,6 @@ export default {
   computed: {
     frameId() {
       return appName + 'Frame'
-    },
-    loaderId() {
-      return appName + 'LoaderContainer'
     },
     errorMessage() {
       if (this.state !== 'error') {
@@ -108,9 +103,12 @@ export default {
       }
     },
     loadHandlerWrapper() {
-      this.gotLoadEvent = true
       console.info('ROUNDCUBD: GOT LOAD EVENT');
       loadHandler(this.frameElement)
+      if (!this.gotLoadEvent) {
+        this.$refs.loaderContainer.classList.toggle('fading');
+      }
+      this.gotLoadEvent = true
     },
     resizeHandlerWrapper() {
       resizeHandler(this.frameElement)
@@ -120,7 +118,7 @@ export default {
         return
       }
       this.timerCount++
-      const rcfContents = this.frameElement.contentDocument || this.frameElement.contentWindow.document
+      const rcfContents = this.frameElement.contentWindow.document
       if (rcfContents.querySelector('#layout')) {
         console.info('ROUNDCUBE: LOAD EVENT FROM TIMER AFTER ' + (loadTimeout * this.timerCount) + ' ms')
         this.frameElement.dispatchEvent(new Event('load'))
@@ -132,10 +130,19 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-##{$appName}LoaderContainer {
+.loader-container {
   background-image: url('../img/loader.gif');
   background-repeat: no-repeat;
   background-position: center;
+  z-index:10;
+  width:100%;
+  height:100%;
+  position:fixed;
+  transition: visibility 1s, opacity 1s;
+  &.fading {
+    opacity: 0;
+    visibility: hidden;
+  }
 }
 #errorMsg {
   padding:1em 1em;

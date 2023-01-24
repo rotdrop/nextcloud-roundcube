@@ -19,73 +19,71 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-import { appName } from './config.js';
 import { getInitialState } from './toolkit/services/InitialStateService.js';
-
-const jQuery = require('jquery');
-const $ = jQuery;
 
 const initialState = getInitialState();
 
 /**
- * @param {jQuery} rcf RoundCubeFrame.
+ * @param {object} rcf RoundCubeFrame.
  */
 const hideTopLine = function(rcf) {
-  const skin = rcf[0].contentWindow.rcmail.env.skin;
+  const frameWindow = rcf.contentWindow;
+  const frameDocument = frameWindow.document;
 
+  const skin = frameWindow.rcmail.env.skin;
   if (skin.includes('classic')) {
     // just remove the logout button
-    const rcfContents = rcf.contents();
-    rcfContents.find('.button-logout').remove();
+    frameDocument.querySelectorAll('.button-logout').forEach(el => el.remove());
   } else if (skin.includes('elastic')) {
     // just remove the logout button
-    const rcfContents = rcf.contents();
-    rcfContents.find('.special-buttons .logout').remove();
+    frameDocument.querySelectorAll(':scope .special-buttons .logout').forEach(el => el.remove());
   } else if (skin.includes('larry')) {
-    const rcfContents = rcf.contents();
     // User shouldn't be able to logout from rc, but from outer app:
     // 1. #topline has a logout button which we don't want, so remove it and
     // adjust the top attribute of #mainscreen. Reduce height if no toolbar.
     // 2. Also remove button to show/hide the #topline and adjust the #taskbar.
     // 3. Remove other logout buttons.
-    const toplineHeight = rcfContents.find('#topline').outerHeight();
-    const mainscreenTop = parseInt(rcfContents.find('#mainscreen').css('top'));
+    const mainScreenElement = frameDocument.querySelector('#mainscreen');
+    const toplineHeight = frameDocument.querySelector('#topline').getBoundingClientRect().height;
+    const mainscreenTop = parseInt(mainScreenElement.style.top);
     const toolbarHeight = 40;
     let newMainscreenTop = mainscreenTop - toplineHeight;
-    rcfContents.find('#topline').remove(); // [1]
-    if (rcfContents.find('#mainscreen .toolbar').length === 0) {
+    frameDocument.querySelector('#topline').remove(); // [1]
+    if (!mainScreenElement.querySelector('.toolbar')) {
       newMainscreenTop -= toolbarHeight;
     }
-    rcfContents.find('#mainscreen').css('top', newMainscreenTop); // [1]
-    rcfContents.find('#taskbar .minmodetoggle').remove(); // [2]
-    rcfContents.find('#taskbar').css('padding-right', 0); // [2]
-    rcfContents.find('.button-logout').remove(); // [3]
+    mainScreenElement.style.top = newMainscreenTop + 'px'; // [1]
+    frameDocument.querySelector(':scope #taskbar .minmodetoggle').remove(); // [2]
+    frameDocument.querySelector('#taskbar').style['padding-right'] = 0; // [2]
+    frameDocument.querySelector('.button-logout').remove(); // [3]
   }
 };
 
 /**
  * Fills height of window (more precise than height: 100%;)
  *
- * @param {jQuery} frame The frame to be  resized.
+ * @param {object} frame The frame to be  resized.
  */
 const fillHeight = function(frame) {
-  const height = $(window).height() - frame.offset().top;
-  frame.css('height', height);
-  if (frame.outerHeight() > frame.height()) {
-    frame.css('height', height - (frame.outerHeight() - frame.height()));
+  const height = window.innerHeight - frame.getBoundingClientRect().top;
+  frame.style.height = height + 'px';
+  const outerDelta = frame.getBoundingClientRect().height - frame.clientHeight;
+  if (outerDelta) {
+    frame.style.height = (height - outerDelta) + 'px';
   }
 };
 
 /**
  * Fills width of window (more precise than width: 100%;)
  *
- * @param {jQuery} frame The frame to be resized.
+ * @param {object} frame The frame to be resized.
  */
 const fillWidth = function(frame) {
-  const width = $(window).width() - frame.offset().left;
-  frame.css('width', width);
-  if (frame.outerWidth() > frame.width()) {
-    frame.css('width', width - (frame.outerWidth() - frame.width()));
+  const width = window.innerWidth - frame.getBoundingClientRect().left;
+  frame.style.width = width + 'px';
+  const outerDelta = frame.getBoundingClientRect().width - frame.clientWidth;
+  if (outerDelta > 0) {
+    frame.style.width = (width - outerDelta) + 'px';
   }
 };
 
@@ -96,26 +94,21 @@ const fillWidth = function(frame) {
  * @param {object} frame TBD.
  */
 const resizeIframe = function(frame) {
-  const $frame = $(frame);
-  if ($frame.length === 0) {
+  if (!frame) {
     return;
   }
-  fillHeight($frame);
-  fillWidth($frame);
+  fillHeight(frame);
+  fillWidth(frame);
 };
 
 /**
  * @param {object} frame TBD.
  */
 const loadHandler = function(frame) {
-  const $frame = $(frame);
   if (!initialState.showTopline) {
-    hideTopLine($frame);
+    hideTopLine(frame);
   }
-  resizeIframe($frame);
-
-  // Fade in roundcube nice to let iframe load
-  $('#' + appName + 'LoaderContainer').fadeOut('slow');
+  resizeIframe(frame);
 };
 
 export { loadHandler, resizeIframe as resizeHandler };
