@@ -39,19 +39,37 @@ class Config
 {
   use \OCA\RotDrop\Toolkit\Traits\LoggerTrait;
 
-  const EMAIL_ADDRESS = [
-    'userIdEmail',
-    'userPreferencesEmail',
-    'userChosenEmail',
+  public const EXTERNAL_LOCATION = 'externalLocation';
+  public const EXTERNAL_LOCATION_DEFAULT = null;
+  public const EMAIL_DEFAULT_DOMAIN = 'emailDefaultDomain';
+  public const EMAIL_DEFAULT_DOMAIN_DEFAULT = null;
+  public const EMAIL_ADDRESS_CHOICE = 'emailAddressChoice';
+  public const EMAIL_ADDRESS_CHOICE_USER_ID = 'userIdEmail';
+  public const EMAIL_ADDRESS_CHOICE_USER_PREFERENCES = 'userPreferencesEmail';
+  public const EMAIL_ADDRESS_CHOICE_USER_CHOSEN = 'userChosenEmail';
+  public const EMAIL_ADDRESS_CHOICE_DEFAULT = self::EMAIL_ADDRESS_CHOICE_USER_CHOSEN;
+  public const EMAIL_ADDRESS_CHOICES = [
+    self::EMAIL_ADDRESS_CHOICE_USER_ID,
+    self::EMAIL_ADDRESS_CHOICE_USER_PREFERENCES,
+    self::EMAIL_ADDRESS_CHOICE_USER_CHOSEN,
   ];
+  public const FORCE_SSO = 'forceSSO';
+  public const FORCE_SSO_DEFAULT = false;
+  public const SHOW_TOP_LINE = 'showTopLine';
+  public const SHOW_TOP_LINE_DEFAULT = false;
+  public const ENABLE_SSL_VERIFY = 'enableSSLVerify';
+  public const ENABLE_SSL_VERIFY_DEFAULT = true;
+  public const PERSONAL_ENCRYPTION = 'personalEncryption';
+  public const PERSONAL_ENCRYPTION_DEFAULT = false;
+
   const SETTINGS = [
-    'externalLocation' => '',
-    'emailDefaultDomain' => '',
-    'emailAddressChoice' => 'userPreferencesEmail',
-    'forceSSO' => false,
-    'showTopLine' => false,
-    'enableSSLVerify' => true,
-    'personalEncryption' => true,
+    self::EXTERNAL_LOCATION => self::EXTERNAL_LOCATION_DEFAULT,
+    self::EMAIL_DEFAULT_DOMAIN => self::EMAIL_DEFAULT_DOMAIN_DEFAULT,
+    self::EMAIL_ADDRESS_CHOICE => self::EMAIL_ADDRESS_CHOICE_DEFAULT,
+    self::FORCE_SSO => self::FORCE_SSO_DEFAULT,
+    self::SHOW_TOP_LINE => self::SHOW_TOP_LINE_DEFAULT,
+    self::ENABLE_SSL_VERIFY => self::ENABLE_SSL_VERIFY_DEFAULT,
+    self::PERSONAL_ENCRYPTION => self::PERSONAL_ENCRYPTION_DEFAULT,
   ];
 
   /** @var \OCP\IUser */
@@ -125,6 +143,16 @@ class Config
       $default = self::SETTINGS[$key];
     }
     return $this->config->getAppValue($this->appName, $key, $default);
+  }
+
+  /**
+   * @param string $key
+   *
+   * @return void
+   */
+  public function deleteAppValue(string $key):void
+  {
+    $this->config->deleteAppValue($this->appName, $key);
   }
 
   /**
@@ -216,6 +244,13 @@ class Config
     $value = $this->crypto->encrypt($value, $password);
     $this->config->setUserValue($userId, $this->appName, $key, $value);
   }
+
+  public function deletePersonalValue(string $key, ?string $userId = null)
+  {
+    $this->config->deleteUserValue($userId, $appName, $key);
+
+  }
+
 
   /**
    * @param null|string $newPassword

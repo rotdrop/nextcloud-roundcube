@@ -1,22 +1,22 @@
 <?php return array(
     'root' => array(
+        'name' => 'rotdrop/nextcloud-app-roundcube',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
+        'reference' => '31007dca9b48d2b874a0c723a931f2f21a518938',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'de3dcc837e21ad255abc20842a5e7c022f6ce5cd',
-        'name' => 'rotdrop/nextcloud-app-roundcube',
         'dev' => false,
     ),
     'versions' => array(
         'rotdrop/nextcloud-app-roundcube' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
+            'reference' => '31007dca9b48d2b874a0c723a931f2f21a518938',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'de3dcc837e21ad255abc20842a5e7c022f6ce5cd',
             'dev_requirement' => false,
         ),
     ),

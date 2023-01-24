@@ -19,86 +19,22 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-import { webPrefix } from './config.js';
-import ajaxFailData from './ajax.js';
-import generateUrl from './generate-url.js';
+import { appName } from './config.js';
+import { generateFilePath } from '@nextcloud/router';
 
-require('style/settings.scss');
+import Vue from 'vue';
+import AdminSettings from './AdminSettings.vue';
 
-const jQuery = require('jquery');
-const $ = jQuery;
+import { Tooltip } from '@nextcloud/vue';
 
-const storeSettings = function(event, id) {
-  const msg = $('#' + webPrefix + 'settings .msg');
-  const msgStatus = $('#' + webPrefix + 'settings .msg.status');
-  const msgSuccess = $('#' + webPrefix + 'settings .msg.success');
-  const msgError = $('#' + webPrefix + 'settings .msg.error');
-  msg.hide();
-  msgStatus.show();
-  const input = $(id);
-  let post = input.serialize();
-  const cbSelector = 'input:checkbox:not(:checked)';
-  input.find(cbSelector).addBack(cbSelector).each(function(index) {
-    console.info('unchecked?', index, $(this));
-    if (post !== '') {
-      post += '&';
-    }
-    post += $(this).attr('name') + '=' + 'off';
-  });
-  console.info(post);
-  $.post(generateUrl('settings/admin/set'), post)
-    .done(function(data) {
-      msgStatus.hide();
-      console.info('Got response data', data);
-      if (data.message) {
-        msgSuccess.html(data.message).show();
-      }
-    })
-    .fail(function(xhr, status, errorThrown) {
-      msgStatus.hide();
-      const response = ajaxFailData(xhr, status, errorThrown);
-      console.error(response);
-      if (response.message) {
-        msgError.html(response.message).show();
-      }
-    });
-  return false;
-};
+Vue.directive('tooltip', Tooltip);
 
-$(function() {
-  const formId = webPrefix + 'settings';
-  const inputs = {
-    externalLocation: 'blur',
-    userIdEmail: 'change',
-    emailDefaultDomain: 'blur',
-    userPreferencesEmail: 'change',
-    userChosenEmail: 'change',
-    forceSSO: 'change',
-    showTopLine: 'change',
-    enableSSLVerify: 'change',
-    personalEncryption: 'change',
-  };
-  inputs[formId] = 'submit';
+// eslint-disable-next-line
+__webpack_public_path__ = generateFilePath(appName, '', 'js/');
 
-  for (const input in inputs) {
-    const id = '#' + input;
-    const event = inputs[input];
+Vue.mixin({ data() { return { appName }; }, methods: { t, n } });
 
-    console.info(id, event);
-
-    $(id).on(event, function(event) {
-      event.preventDefault();
-      storeSettings(event, id);
-      return false;
-    });
-  }
-
-  $('input[name="emailAddressChoice"]').on('change', function(event) {
-    if ($('#userIdEmail').is(':checked')) {
-      $('.emailDefaultDomain').removeClass('disabled').prop('disabled', false);
-    } else {
-      $('.emailDefaultDomain').addClass('disabled').prop('disabled', true);
-    }
-    return false;
-  });
+export default new Vue({
+  el: '#' + appName + '-admin-settings',
+  render: h => h(AdminSettings),
 });

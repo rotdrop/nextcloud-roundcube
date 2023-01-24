@@ -2,6 +2,13 @@ module.exports = {
   extends: [
     '@nextcloud',
   ],
+  // some unused toolgit files
+  ignorePatterns: [
+    'src/toolkit/util/file-download.js',
+    'src/toolkit/util/dialogs.js',
+    'src/toolkit/util/ajax.js',
+    'src/toolkit/util/jquery.js',
+  ],
   rules: {
     'no-tabs': ['error', { allowIndentationTabs: false }],
     indent: ['error', 2],
