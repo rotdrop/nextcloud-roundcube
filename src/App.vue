@@ -62,7 +62,7 @@ export default {
     }
   },
   mixins: [
-    settingsSync,
+    // settingsSync,
   ],
   computed: {
     frameId() {
@@ -108,7 +108,8 @@ export default {
       }
     },
     loadHandlerWrapper() {
-      gotLoadEvent = true
+      this.gotLoadEvent = true
+      console.info('ROUNDCUBD: GOT LOAD EVENT');
       loadHandler(this.frameElement)
     },
     resizeHandlerWrapper() {
@@ -119,9 +120,9 @@ export default {
         return
       }
       this.timerCount++
-      cosnt rcfContents = this.frameElement.contentDocument || this.frameElement.contentWindow.document
+      const rcfContents = this.frameElement.contentDocument || this.frameElement.contentWindow.document
       if (rcfContents.querySelector('#layout')) {
-        console.info('LOAD EVENT FROM TIMER AFTER ' + (loadTimeout * timerCount) + ' ms')
+        console.info('ROUNDCUBE: LOAD EVENT FROM TIMER AFTER ' + (loadTimeout * this.timerCount) + ' ms')
         this.frameElement.dispatchEvent(new Event('load'))
       } else {
         setTimeout(this.loadTimerHandler, loadTimeout)
