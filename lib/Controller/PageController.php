@@ -30,12 +30,14 @@ use OCP\IRequest;
 use OCP\AppFramework\Http\ContentSecurityPolicy;
 use OCP\AppFramework\Http\JSONResponse;
 use OCP\AppFramework\Http\TemplateResponse;
+use OCP\AppFramework\Services\IInitialState;
 use OCP\Util;
 use OCP\IURLGenerator;
 use Psr\Log\LoggerInterface as ILogger;
 use OCP\IL10N;
 
 use OCA\RoundCube\Constants;
+use OCA\RoundCube\Controller\SettingsController;
 use OCA\RoundCube\Service\AssetService;
 use OCA\RoundCube\Service\Config;
 use OCA\RoundCube\Service\AuthRoundCube as Authenticator;
@@ -47,9 +49,10 @@ class PageController extends Controller
 
   const MAIN_TEMPLATE = 'app';
   const MAIN_ASSET = self::MAIN_TEMPLATE;
-  const ERROR_NOEMAIL_TEMPLATE = 'error/noemail';
-  const ERROR_LOGIN_TEMPLATE = 'error/login';
-  const ERROR_ASSET = 'error';
+  const SUCCESS_STATE = 'success';
+  const ERROR_STATE = 'error';
+  const ERROR_NOEMAIL_REASON = 'noemail';
+  const ERROR_LOGIN_REASON = 'login';
 
   /** @var string */
   private $userId;
@@ -57,11 +60,14 @@ class PageController extends Controller
   /** @var \OCA\RoundCube\Service\AuthRoundCube */
   private $authenticator;
 
-  /** @var \OCP\IConfig */
+  /** @var Config */
   private $config;
 
   /** @var AssetService */
   private $assetService;
+
+  /** @var IInitialState */
+  private $initialState;
 
   /** @var \OCP\IURLGenerator */
   private $urlGenerator;
@@ -74,6 +80,7 @@ class PageController extends Controller
     Authenticator $authenticator,
     Config $config,
     AssetService $assetService,
+    IInitialState $initialState,
     IURLGenerator $urlGenerator,
     ILogger $logger,
     IL10N $l10n,
@@ -83,6 +90,7 @@ class PageController extends Controller
     $this->authenticator = $authenticator;
     $this->config = $config;
     $this->assetService = $assetService;
+    $this->initialState = $initialState;
     $this->urlGenerator = $urlGenerator;
     $this->logger = $logger;
     $this->l = $l10n;
@@ -97,42 +105,30 @@ class PageController extends Controller
    */
   public function index()
   {
+    $state = self::SUCCESS_STATE;
+    $reason = null;
+
     $credentials = $this->config->emailCredentials();
     if (empty($credentials)) {
-      return new TemplateResponse(
-        $this->appName,
-        self::ERROR_NOEMAIL_TEMPLATE, [
-          'appName' => $this->appName,
-          'user' => $this->userId,
-          'assets' => [
-            Constants::JS => $this->assetService->getJSAsset(self::ERROR_ASSET),
-            Constants::CSS => $this->assetService->getCSSAsset(self::ERROR_ASSET),
-          ],
-        ],
-      );
+      $state = self::ERROR_STATE;
+      $reason = self::ERROR_NOEMAIL_REASON;
+    } elseif (!$this->authenticator->login($credentials['userId'], $credentials['password'])) {
+      $state = self::ERROR_STATE;
+      $reason = self::ERROR_LOGIN_REASON;
     }
 
-    if (!$this->authenticator->login($credentials['userId'], $credentials['password'])) {
-      return new TemplateResponse(
-        $this->appName,
-        self::ERROR_LOGIN_TEMPLATE, [
-          'appName' => $this->appName,
-          'user' => $this->userId,
-          'assets' => [
-            Constants::JS => $this->assetService->getJSAsset(self::ERROR_ASSET),
-            Constants::CSS => $this->assetService->getCSSAsset(self::ERROR_ASSET),
-          ],
-        ],
-      );
-    }
+    $this->initialState->provideInitialState('config', [
+      'state' => $state,
+      'reason' => $reason,
+      'emailUserId' => $credentials['userId'] ?? null,
+      Config::EXTERNAL_LOCATION => $this->authenticator->externalURL(),
+      Config::SHOW_TOP_LINE => $this->config->getAppValue(Config::SHOW_TOP_LINE),
+    ]);
+
     $url = $this->authenticator->externalURL();
     $this->logInfo($url);
     $tplParams = [
-      'appName'      => $this->appName,
-      'webPrefix'    => $this->appName,
-      'url'          => $url,
-      'loadingImage' => $this->urlGenerator->imagePath($this->appName, 'loader.gif'),
-      'showTopLine'  => $this->config->getAppValue($this->appName, 'showTopLine', false),
+      'appName' => $this->appName,
       'assets' => [
         Constants::JS => $this->assetService->getJSAsset(self::MAIN_ASSET),
         Constants::CSS => $this->assetService->getCSSAsset(self::MAIN_ASSET),

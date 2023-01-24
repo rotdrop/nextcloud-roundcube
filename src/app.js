@@ -20,55 +20,18 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-import { webPrefix } from './config.js';
-import { loadHandler, resizeHandler } from './roundcube.js';
+import { appName } from './config.js';
+import { generateFilePath } from '@nextcloud/router';
 
-require('style/app.scss');
+import Vue from 'vue';
+import App from './App.vue';
 
-const jQuery = require('jquery');
-const $ = jQuery;
+// eslint-disable-next-line
+__webpack_public_path__ = generateFilePath(appName, '', 'js/');
 
-const rcFrameId = '#' + webPrefix + 'Frame';
+Vue.mixin({ data() { return { appName }; }, methods: { t, n } });
 
-let gotLoadEvent = false;
-const loadTimeout = 100;
-let timerCount = 0;
-
-const loadTimerHandler = function($frame) {
-
-  if (gotLoadEvent) {
-    return;
-  }
-
-  ++timerCount;
-  const rcfContents = $frame.contents();
-
-  if (rcfContents.find('#layout').length > 0) {
-    console.info('LOAD EVENT FROM TIMER AFTER ' + (loadTimeout * timerCount) + ' ms');
-    $frame.trigger('load', 'synthesized');
-  } else {
-    setTimeout(() => loadTimerHandler($frame), loadTimeout);
-  }
-};
-
-const loadHandlerWrapper = function($frame, event, origin) {
-  gotLoadEvent = true;
-  loadHandler($frame);
-};
-
-$(function() {
-  const $frame = $(rcFrameId);
-
-  $frame.on('load', (event, origin) => loadHandlerWrapper($frame, event, origin));
-
-  if ($frame.length > 0) {
-
-    $(window).resize(function() {
-      resizeHandler($frame);
-    });
-
-    setTimeout(() => loadTimerHandler($frame), loadTimeout);
-  } else {
-    console.info('ROUNDCUBE IFRAME NOT FOUND');
-  }
+export default new Vue({
+  el: '#' + appName + '-app',
+  render: h => h(App),
 });

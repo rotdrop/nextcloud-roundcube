@@ -4,7 +4,7 @@
  *
  * @author Martin Reinhardt and David Jaedke
  * @author 2019 Leonardo R. Morelli github.com/LeonardoRM
- * @copyright 2012 Martin Reinhardt contact@martinreinhardt-online.de
+ * @copyright 2012, 2023 Martin Reinhardt contact@martinreinhardt-online.de
   *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -37,6 +37,45 @@ return [
       'name' => 'personal_settings#set',
       'url' => '/settings/personal/set',
       'verb' => 'POST',
+    ],
+    // new settings
+    [
+      'name' => 'settings#set_admin',
+      'url' => '/settings/admin/{setting}',
+      'verb' => 'POST',
+    ],
+    [
+      'name' => 'settings#get_admin',
+      'url' => '/settings/admin/{setting}',
+      'verb' => 'GET',
+      'requirements' => [
+        'setting' => '^.+$',
+      ],
+    ],
+    [
+      'name' => 'settings#get_admin',
+      'url' => '/settings/admin',
+      'verb' => 'GET',
+      'postfix' => '.all',
+    ],
+    [
+      'name' => 'settings#set_personal',
+      'url' => '/settings/personal/{setting}',
+      'verb' => 'POST',
+    ],
+    [
+      'name' => 'settings#get_personal',
+      'url' => '/settings/personal/{setting}',
+      'verb' => 'GET',
+      'requirements' => [
+        'setting' => '^.+$',
+      ],
+    ],
+    [
+      'name' => 'settings#get_personal',
+      'url' => '/settings/personal',
+      'verb' => 'GET',
+      'postfix' => '.all',
     ],
   ]
 ];

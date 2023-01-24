@@ -19,91 +19,22 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-import { webPrefix } from './config.js';
-import ajaxFailData from './ajax.js';
-import generateUrl from './generate-url.js';
+import { appName } from './config.js';
+import { generateFilePath } from '@nextcloud/router';
 
-require('style/settings.scss');
+import Vue from 'vue';
+import PersonalSettings from './PersonalSettings.vue';
 
-const jQuery = require('jquery');
-const $ = jQuery;
-require('./nextcloud/jquery/showpassword.js');
+import { Tooltip } from '@nextcloud/vue';
 
-const storeSettings = function(event, id) {
-  const msg = $('#' + webPrefix + 'settings .msg');
-  const msgStatus = $('#' + webPrefix + 'settings .msg.status');
-  const msgSuccess = $('#' + webPrefix + 'settings .msg.success');
-  const msgError = $('#' + webPrefix + 'settings .msg.error');
-  msg.hide();
-  msgStatus.show();
-  const input = $(id);
-  let post = input.serialize();
-  const cbSelector = 'input:checkbox:not(:checked)';
-  input.find(cbSelector).addBack(cbSelector).each(function(index) {
-    console.info('unchecked?', index, $(this));
-    if (post !== '') {
-      post += '&';
-    }
-    post += $(this).attr('name') + '=' + 'off';
-  });
-  console.info(post);
-  $.post(generateUrl('settings/personal/set'), post)
-    .done(function(data) {
-      msgStatus.hide();
-      console.info('Got response data', data);
-      if (data.message) {
-        msgSuccess.html(data.message).show();
-      }
-    })
-    .fail(function(xhr, status, errorThrown) {
-      msgStatus.hide();
-      const response = ajaxFailData(xhr, status, errorThrown);
-      console.error(response);
-      if (response.message) {
-        msgError.html(response.message).show();
-      }
-    });
-  return false;
-};
+Vue.directive('tooltip', Tooltip);
 
-$(function() {
+// eslint-disable-next-line
+__webpack_public_path__ = generateFilePath(appName, '', 'js/');
 
-  let id;
+Vue.mixin({ data() { return { appName }; }, methods: { t, n } });
 
-  id = '#emailAddress';
-  $(id).on('blur', function(event) {
-    return storeSettings(event, id);
-  });
-
-  id = '#emailPassword';
-  const password = $(id);
-  password.on('blur', function(event) {
-    return storeSettings(event, id);
-  });
-
-  const tmp = password.val();
-  let passwordShown;
-  $(id).showPassword(function(args) {
-    passwordShown = args.clone;
-  });
-  password.val(tmp);
-
-  $(passwordShown).on('blur', function(event) {
-    password.trigger('blur');
-    return false;
-  });
-
-  id = '#' + webPrefix + 'settings';
-  $(id).off('submit').on('submit', function(event) {
-    passwordShown.hide();
-    password.show();
-    $('#emailPasswordShow').prop('checked', false);
-    return storeSettings(event, id);
-  });
-
+export default new Vue({
+  el: '#' + appName + '-personal-settings',
+  render: h => h(PersonalSettings),
 });
-
-// Local Variables: ***
-// js-indent-level: 2 ***
-// indent-tabs-mode: nil ***
-// End: ***

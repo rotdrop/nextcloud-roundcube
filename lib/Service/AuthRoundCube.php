@@ -24,12 +24,12 @@
 
 namespace OCA\RoundCube\Service;
 
-use OCP\IConfig;
 use OCP\IURLGenerator;
 use Psr\Log\LoggerInterface as ILogger;
 use OCP\IL10N;
 
 use OCA\RoundCube\AppInfo\Application;
+use OCA\RoundCube\Service\Config;
 
 /**
  * This class provides the login to RC server using curl.
@@ -86,9 +86,9 @@ class AuthRoundCube
     $this->logger = $logger;
     $this->l = $l10n;
 
-    $this->enableSSLVerify = $this->config->getAppValue('enableSSLVerify', true);
+    $this->enableSSLVerify = $this->config->getAppValue(Config::ENABLE_SSL_VERIFY);
 
-    $location = $this->config->getAppValue('externalLocation');
+    $location = $this->config->getAppValue(Config::EXTERNAL_LOCATION);
     if ($location[0] == '/') {
       $url = $this->urlGenerator->getAbsoluteURL($location);
     } else {

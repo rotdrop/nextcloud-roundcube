@@ -1,0 +1,40 @@
+{
+  "name": "@rotdrop/nextcloud-vue-components",
+  "version": "1.0.2",
+  "description": "A loose collection of Vue components that I use in several of my projects.",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint --ext .js,.vue lib",
+    "lint:fix": "eslint --ext .js,.vue lib --fix",
+    "stylelint": "stylelint css/*.css css/*.scss lib/**/*.scss lib/**/*.vue",
+    "stylelint:fix": "stylelint css/*.css css/*.scss lib/**/*.scss lib/**/*.vue --fix",
+    "cs:check": "vendor/bin/php-cs-fixer fix --dry-run --diff",
+    "cs:fix": "vendor/bin/php-cs-fixer fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rotdrop/nextcloud-vue-components.git"
+  },
+  "engines": {
+    "node": "^16.0.0",
+    "npm": "^8.0.0"
+  },
+  "keywords": [
+    "Vue",
+    "Nextcloud",
+    "apps",
+    "library",
+    "javascript"
+  ],
+  "devDependencies": {
+    "@nextcloud/babel-config": "^1.0.0",
+    "@nextcloud/eslint-config": "^6.1.2",
+    "@nextcloud/vue": "^5.3.1"
+  },
+  "author": "Claus-Justus Heine <himself@claus-justus-heine.de>",
+  "license": "AGPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/rotdrop/nextcloud-vue-components/issues"
+  },
+  "homepage": "https://github.com/rotdrop/nextcloud-vue-components#readme"
+}
