@@ -121,8 +121,8 @@ class PageController extends Controller
       'state' => $state,
       'reason' => $reason,
       'emailUserId' => $credentials['userId'] ?? null,
-      SettingsController::EXTERNAL_LOCATION => $this->authenticator->externalURL(),
-      SettingsController::SHOW_TOP_LINE => $this->config->getAppValue(SettingsController::SHOW_TOP_LINE, flase),
+      Config::EXTERNAL_LOCATION => $this->authenticator->externalURL(),
+      Config::SHOW_TOP_LINE => $this->config->getAppValue(Config::SHOW_TOP_LINE),
     ]);
 
     $url = $this->authenticator->externalURL();

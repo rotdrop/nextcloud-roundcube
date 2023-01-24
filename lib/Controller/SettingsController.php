@@ -46,36 +46,19 @@ class SettingsController extends Controller
 
   private const ADMIN_SETTING = 'Admin';
 
-  public const EXTERNAL_LOCATION = 'externalLocation';
-  public const EMAIL_DEFAULT_DOMAIN = 'emailDefaultDomain';
-  public const EMAIL_ADDRESS_CHOICE = 'emailAddressChoice';
-  public const EMAIL_ADDRESS_CHOICE_USER_ID = 'userIdEmail';
-  public const EMAIL_ADDRESS_CHOICE_USER_PREFERENCES = 'userPreferencesEmail';
-  public const EMAIL_ADDRESS_CHOICE_USER_CHOSEN = 'userChosenEmail';
-  public const EMAIL_ADDRESS_CHOICE_DEFAULT = self::EMAIL_ADDRESS_CHOICE_USER_CHOSEN;
-  public const EMAIL_ADDRESS_CHOICES = [
-    self::EMAIL_ADDRESS_CHOICE_USER_ID,
-    self::EMAIL_ADDRESS_CHOICE_USER_PREFERENCES,
-    self::EMAIL_ADDRESS_CHOICE_USER_CHOSEN,
-  ];
-  public const FORCE_SSO = 'forceSSO';
-  public const SHOW_TOP_LINE = 'showTopLine';
-  public const ENABLE_SSL_VERIFY = 'enableSSLVerify';
-  public const PERSONAL_ENCRYPTION = 'personalEncryption';
-
   /**
    * @var array<string, array>
    *
    * Admin settings with r/w flag and default value (booleans)
    */
   const ADMIN_SETTINGS = [
-    self::EXTERNAL_LOCATION => [ 'rw' => true, 'default' => null, ],
-    self::EMAIL_DEFAULT_DOMAIN => [ 'rw' => true, 'default' => null, ],
-    self::EMAIL_ADDRESS_CHOICE => [ 'rw' => true , 'default' => self::EMAIL_ADDRESS_CHOICE_DEFAULT, ],
-    self::FORCE_SSO => [ 'rw' => true, 'default' => false, ],
-    self::SHOW_TOP_LINE => [ 'rw' => true, 'default' => false, ],
-    self::ENABLE_SSL_VERIFY => [ 'rw' => true, 'default' => false, ],
-    self::PERSONAL_ENCRYPTION => [ 'rw' => true, 'default' => false, ],
+    Config::EXTERNAL_LOCATION => [ 'rw' => true, 'default' => Config::EXTERNAL_LOCATION_DEFAULT, ],
+    Config::EMAIL_DEFAULT_DOMAIN => [ 'rw' => true, 'default' => Config::EMAIL_DEFAULT_DOMAIN_DEFAULT, ],
+    Config::EMAIL_ADDRESS_CHOICE => [ 'rw' => true , 'default' => Config::EMAIL_ADDRESS_CHOICE_DEFAULT, ],
+    Config::FORCE_SSO => [ 'rw' => true, 'default' => Config::FORCE_SSO_DEFAULT, ],
+    Config::SHOW_TOP_LINE => [ 'rw' => true, 'default' => Config::SHOW_TOP_LINE_DEFAULT, ],
+    Config::ENABLE_SSL_VERIFY => [ 'rw' => true, 'default' => Config::ENABLE_SSL_VERIFY_DEFAULT, ],
+    Config::PERSONAL_ENCRYPTION => [ 'rw' => true, 'default' => Config::PERSONAL_ENCRYPTION_DEFAULT, ],
   ];
 
   public const EMAIL_ADDRESS = 'emailAddress';
@@ -89,13 +72,10 @@ class SettingsController extends Controller
   const PERSONAL_SETTINGS = [
     self::EMAIL_ADDRESS => [ 'rw' => true, 'default' => null, ],
     self::EMAIL_PASSWORD => [ 'rw' => true, 'default' => null, ],
-    self::EMAIL_ADDRESS_CHOICE . self::ADMIN_SETTING => [ 'rw' => false, 'default' => self::EMAIL_ADDRESS_CHOICE_DEFAULT, ],
-    self::EMAIL_DEFAULT_DOMAIN . self::ADMIN_SETTING => [ 'rw' => false, 'default' => false, ],
-    self::FORCE_SSO . self::ADMIN_SETTING => [ 'rw' => false, 'default' => false, ],
+    Config::EMAIL_ADDRESS_CHOICE . self::ADMIN_SETTING => [ 'rw' => false, 'default' => Config::EMAIL_ADDRESS_CHOICE_DEFAULT, ],
+    Config::EMAIL_DEFAULT_DOMAIN . self::ADMIN_SETTING => [ 'rw' => false, 'default' => false, ],
+    Config::FORCE_SSO . self::ADMIN_SETTING => [ 'rw' => false, 'default' => Config::FORCE_SSO_DEFAULT, ],
   ];
-
-  /** @var IConfig */
-  private $coudConfig;
 
   /** @var Config */
   private $config;
@@ -148,7 +128,7 @@ class SettingsController extends Controller
     );
     $humanValue = null;
     switch ($setting) {
-      case self::EXTERNAL_LOCATION:
+      case Config::EXTERNAL_LOCATION:
         if ($value === '') { // ok, reset
           $newValue = null;
           break;
@@ -177,14 +157,14 @@ class SettingsController extends Controller
         //   return self::grumble($this->l->t("RoundCube instance does not seem to be reachable at %s", [ $value ]));
         // }
         break;
-      case self::EMAIL_DEFAULT_DOMAIN:
-      case self::EMAIL_ADDRESS_CHOICE:
+      case Config::EMAIL_DEFAULT_DOMAIN:
+      case Config::EMAIL_ADDRESS_CHOICE:
         $newValue = $value;
         break;
-      case self::FORCE_SSO:
-      case self::SHOW_TOP_LINE:
-      case self::ENABLE_SSL_VERIFY:
-      case self::PERSONAL_ENCRYPTION:
+      case Config::FORCE_SSO:
+      case Config::SHOW_TOP_LINE:
+      case Config::ENABLE_SSL_VERIFY:
+      case Config::PERSONAL_ENCRYPTION:
         $newValue = filter_var($value, FILTER_VALIDATE_BOOLEAN, ['flags' => FILTER_NULL_ON_FAILURE]);
         if ($newValue === null) {
           return self::grumble($this->l->t(
@@ -250,14 +230,14 @@ class SettingsController extends Controller
         self::ADMIN_SETTINGS[$oneSetting]['default'] ?? null);
       $humanValue = $value;
       switch ($oneSetting) {
-        case self::EXTERNAL_LOCATION:
-        case self::EMAIL_DEFAULT_DOMAIN:
-        case self::EMAIL_ADDRESS_CHOICE:
+        case Config::EXTERNAL_LOCATION:
+        case Config::EMAIL_DEFAULT_DOMAIN:
+        case Config::EMAIL_ADDRESS_CHOICE:
           break;
-        case self::FORCE_SSO:
-        case self::SHOW_TOP_LINE:
-        case self::ENABLE_SSL_VERIFY:
-        case self::PERSONAL_ENCRYPTION:
+        case Config::FORCE_SSO:
+        case Config::SHOW_TOP_LINE:
+        case Config::ENABLE_SSL_VERIFY:
+        case Config::PERSONAL_ENCRYPTION:
           if ($humanValue !== null) {
             $humanValue = $humanValue ? $this->l->t('true') : $this->l->t('false');
           }
@@ -373,10 +353,10 @@ class SettingsController extends Controller
       switch ($oneSetting) {
         case self::EMAIL_ADDRESS:
         case self::EMAIL_PASSWORD:
-        case self::EMAIL_ADDRESS_CHOICE . self::ADMIN_SETTING:
-        case self::EMAIL_DEFAULT_DOMAIN . self::ADMIN_SETTING:
+        case Config::EMAIL_ADDRESS_CHOICE . self::ADMIN_SETTING:
+        case Config::EMAIL_DEFAULT_DOMAIN . self::ADMIN_SETTING:
           break;
-        case self::FORCE_SSO . self::ADMIN_SETTING:
+        case Config::FORCE_SSO . self::ADMIN_SETTING:
           $value = (bool)(int)$value;
           $humanValue = $value === true ? $this->l->t('true') : $this->l->t('false');
           break;
@@ -395,30 +375,5 @@ class SettingsController extends Controller
         'humanValue' => $results['human' . ucfirst($setting)],
       ]);
     }
-  }
-
-  /**
-   * @param string $stringValue
-   *
-   * @return null|string
-   *
-   * @throws InvalidArgumentException
-   */
-  private function parseMemorySize(string $stringValue):?string
-  {
-    if ($stringValue === '') {
-      $stringValue = null;
-    }
-    if ($stringValue === null) {
-      return $stringValue;
-    }
-    $newValue = $this->storageValue($stringValue);
-    if (!is_int($newValue) && !is_float($newValue)) {
-      throw new InvalidArgumentException($this->l->t('Unable to parse memory size limit "%s"', $stringValue));
-    }
-    if (empty($newValue)) {
-      $newValue = null;
-    }
-    return $newValue;
   }
 }
