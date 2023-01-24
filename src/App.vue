@@ -21,13 +21,17 @@
 <template>
   <div class="app-container">
     <div :id="loaderId" />
-    <iframe :id="frameId"
+    <iframe v-if="state !== 'error'"
+            :id="frameId"
             ref="roundCubeFrame"
             :src="externalLocation + '?_task=mail'"
             :class="[{ showTopLine }]"
             :name="appName"
             @load="loadHandlerWrapper"
     />
+    <div v-if="state === 'error'" id="errorMsg">
+      <p>{{ errorMessage }}</p>
+    </div>
   </div>
 </template>
 <script>
@@ -47,6 +51,9 @@ export default {
   data() {
     return {
       loading: 0,
+      state: null,
+      reason: null,
+      emailUserId: null,
       externalLocation: null,
       showTopLine: null,
       gotLoadEvent: false,
@@ -64,6 +71,19 @@ export default {
     loaderId() {
       return appName + 'LoaderContainer'
     },
+    errorMessage() {
+      if (this.state !== 'error') {
+        return null
+      }
+      switch (this.reason) {
+        case 'login':
+          return t(appName, 'Unable to login into roundcube, there are login errors. Please check your personal Roundcube settings. Maybe a re-login to Nextcloud helps. Otherwise contact your system administrator.')
+        case 'noemail':
+          return t(appName, 'Unable to obtain email credentials for "{emailUserId}". Please check your personal Roundcube settings.', this)
+        default:
+          return null
+      }
+    }
   },
   watch: {},
   created() {
@@ -116,5 +136,10 @@ export default {
   background-image: url('../img/loader.gif');
   background-repeat: no-repeat;
   background-position: center;
+}
+#errorMsg {
+  padding:1em 1em;
+  font-weight: bold;
+  font-size:120%;
 }
 </style>

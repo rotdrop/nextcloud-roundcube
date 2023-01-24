@@ -49,9 +49,10 @@ class PageController extends Controller
 
   const MAIN_TEMPLATE = 'app';
   const MAIN_ASSET = self::MAIN_TEMPLATE;
-  const ERROR_NOEMAIL_TEMPLATE = 'error/noemail';
-  const ERROR_LOGIN_TEMPLATE = 'error/login';
-  const ERROR_ASSET = 'error';
+  const SUCCESS_STATE = 'success';
+  const ERROR_STATE = 'error';
+  const ERROR_NOEMAIL_REASON = 'noemail';
+  const ERROR_LOGIN_REASON = 'login';
 
   /** @var string */
   private $userId;
@@ -104,36 +105,22 @@ class PageController extends Controller
    */
   public function index()
   {
+    $state = self::SUCCESS_STATE;
+    $reason = null;
+
     $credentials = $this->config->emailCredentials();
     if (empty($credentials)) {
-      return new TemplateResponse(
-        $this->appName,
-        self::ERROR_NOEMAIL_TEMPLATE, [
-          'appName' => $this->appName,
-          'user' => $this->userId,
-          'assets' => [
-            Constants::JS => $this->assetService->getJSAsset(self::ERROR_ASSET),
-            Constants::CSS => $this->assetService->getCSSAsset(self::ERROR_ASSET),
-          ],
-        ],
-      );
-    }
-
-    if (!$this->authenticator->login($credentials['userId'], $credentials['password'])) {
-      return new TemplateResponse(
-        $this->appName,
-        self::ERROR_LOGIN_TEMPLATE, [
-          'appName' => $this->appName,
-          'user' => $this->userId,
-          'assets' => [
-            Constants::JS => $this->assetService->getJSAsset(self::ERROR_ASSET),
-            Constants::CSS => $this->assetService->getCSSAsset(self::ERROR_ASSET),
-          ],
-        ],
-      );
+      $state = self::ERROR_STATE;
+      $reason = self::ERROR_NOEMAIL_REASON;
+    } elseif (!$this->authenticator->login($credentials['userId'], $credentials['password'])) {
+      $state = self::ERROR_STATE;
+      $reason = self::ERROR_LOGIN_REASON;
     }
 
     $this->initialState->provideInitialState('config', [
+      'state' => $state,
+      'reason' => $reason,
+      'emailUserId' => $credentials['userId'] ?? null,
       SettingsController::EXTERNAL_LOCATION => $this->authenticator->externalURL(),
       SettingsController::SHOW_TOP_LINE => $this->config->getAppValue(SettingsController::SHOW_TOP_LINE, flase),
     ]);
@@ -141,7 +128,7 @@ class PageController extends Controller
     $url = $this->authenticator->externalURL();
     $this->logInfo($url);
     $tplParams = [
-      'appName'      => $this->appName,
+      'appName' => $this->appName,
       'assets' => [
         Constants::JS => $this->assetService->getJSAsset(self::MAIN_ASSET),
         Constants::CSS => $this->assetService->getCSSAsset(self::MAIN_ASSET),
