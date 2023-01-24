@@ -93,22 +93,26 @@ const fillWidth = function(frame) {
  * Fills height and width of RC window.
  * More precise than height/width: 100%.
  *
- * @param {jQuery} frame TBD.
+ * @param {object} frame TBD.
  */
 const resizeIframe = function(frame) {
-  if (frame.length === 0) {
+  const $frame = $(frame);
+  if ($frame.length === 0) {
     return;
   }
-  fillHeight(frame);
-  fillWidth(frame);
+  fillHeight($frame);
+  fillWidth($frame);
 };
 
+/**
+ * @param {object} frame TBD.
+ */
 const loadHandler = function(frame) {
-
+  const $frame = $(frame);
   if (!initialState.showTopline) {
-    hideTopLine(frame);
+    hideTopLine($frame);
   }
-  resizeIframe(frame);
+  resizeIframe($frame);
 
   // Fade in roundcube nice to let iframe load
   $('#' + appName + 'LoaderContainer').fadeOut('slow');

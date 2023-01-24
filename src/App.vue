@@ -58,7 +58,7 @@ export default {
       showTopLine: null,
       gotLoadEvent: false,
       timerCount: 0,
-      $frame: null,
+      frameElement: null,
     }
   },
   mixins: [
@@ -90,7 +90,7 @@ export default {
     this.getData()
   },
   mounted() {
-    this.$frame = jQuery(this.$refs.roundCubeFrame)
+    this.frameElement = this.$refs.roundCubeFrame
     window.addEventListener('resize', this.resizeHandlerWrapper)
     setTimeout(this.loadTimerHandler, loadTimeout);
   },
@@ -109,23 +109,22 @@ export default {
     },
     loadHandlerWrapper() {
       gotLoadEvent = true
-      loadHandler(this.$frame)
+      loadHandler(this.frameElement)
     },
     resizeHandlerWrapper() {
-      resizeHandler(this.$frame)
+      resizeHandler(this.frameElement)
     },
     loadTimerHandler() {
       if (this.gotLoadEvent) {
         return
       }
       this.timerCount++
-      const $rcfContents = this.$frame.contents();
-
-      if ($rcfContents.find('#layout').length > 0) {
-        console.info('LOAD EVENT FROM TIMER AFTER ' + (loadTimeout * timerCount) + ' ms');
-        this.$frame.trigger('load', 'synthesized');
+      cosnt rcfContents = this.frameElement.contentDocument || this.frameElement.contentWindow.document
+      if (rcfContents.querySelector('#layout')) {
+        console.info('LOAD EVENT FROM TIMER AFTER ' + (loadTimeout * timerCount) + ' ms')
+        this.frameElement.dispatchEvent(new Event('load'))
       } else {
-        setTimeout(this.loadTimerHandler, loadTimeout);
+        setTimeout(this.loadTimerHandler, loadTimeout)
       }
     },
   },
