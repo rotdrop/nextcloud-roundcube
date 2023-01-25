@@ -126,6 +126,8 @@ trait LoggerTrait
    * @param mixed $level
    *
    * @return void
+   *
+   * @todo Remove the unused $shift and $showTrace parameters.
    */
   public function logException(
     Throwable $exception,
