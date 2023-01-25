@@ -125,7 +125,7 @@ class Config
       $this->credentials = $credentialsStore->getLoginCredentials();
       $this->userPassword = $this->credentials->getPassword();
     } catch (\Throwable $t) {
-      $this->logException($t, 'Unable to get credentials from credentials-store.', LogLevel::DEBUG);
+      $this->logException($t, 'Unable to get credentials from credentials-store.', level: LogLevel::DEBUG);
     }
   }
   // phpcs:enable Squiz.Commenting.FunctionComment.Missing
