@@ -1,0 +1,6 @@
+{ "translations": {
+    "No Response (Nginx)" : "Keine Antwort (Nginx)",
+    "Variant Also Negotiates (Experimental)" : "Variante handelt außerdem aus (Experimenmtell)",
+    "unknown error" : "unbekannter Fehler"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}

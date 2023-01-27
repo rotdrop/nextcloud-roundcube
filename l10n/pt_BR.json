@@ -1,0 +1,27 @@
+{ "translations": {
+    "Choose a prefix-folder" : "Escolha a pasta-prefixo",
+    "Advanced Settings" : "Configurações avançadas ",
+    "reason unknown" : "razão desconhecida",
+    "Unable to query the initial value of {settingsKey}: {message}" : "Não é possível consultar o valor inicial de {settingsKey}: {message}",
+    "Unconfirmed, reverting to old value." : "Não confirmado, revertendo para valor anterior.",
+    "Setting \"{setting}\" has been unset successfully." : "A configuração \"{setting}\" foi desativada com sucesso.",
+    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Não foi possível definir o valor de \"{settingsKey}\" para \"{value}\": {message}",
+    "Accepted" : "Aceito",
+    "Partial Content" : "Conteúdo parcial",
+    "IM Used" : "IM Usado",
+    "Temporary Redirect" : "Redirecionamento Temporário",
+    "Permanent Redirect (experimental)" : "Redirecionamento Permanente (experimental)",
+    "Payment Required" : "Pagamento obrigatório",
+    "Not Acceptable" : "Não aceito",
+    "Proxy Authentication Required" : "Autenticação no proxy é necessária",
+    "Enhance Your Calm (Twitter)" : "Melhore Sua Calma (Twitter)",
+    "Unprocessable Entity (WebDAV)" : "Entidade Não Processável (WebDAV)",
+    "No Response (Nginx)" : "Sem resposta (Nginx)",
+    "Not Implemented" : "Não implementado",
+    "Gateway Timeout" : "Tempo limite do gateway",
+    "Variant Also Negotiates (Experimental)" : "Variante também negocia (Experimental)",
+    "Error" : "Erro",
+    "Unrecoverable unknown internal error, no details available" : "Erro interno desconhecido irrecuperável, nenhum detalhe disponível",
+    "unknown error" : "erro desconhecido"
+},"pluralForm" :"nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
+}

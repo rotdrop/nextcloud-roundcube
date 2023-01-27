@@ -1,0 +1,9 @@
+{ "translations": {
+    "Advanced Settings" : "Geavanceerde instellingen",
+    "Accepted" : "Geaccepteerd",
+    "Payment Required" : "Betaling vereist",
+    "Not Acceptable" : "Niet aanvaardbaar",
+    "Error" : "Fout",
+    "unknown error" : "onbekende fout"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}
