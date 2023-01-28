@@ -189,7 +189,7 @@ class Config
     } elseif (empty($password)) {
       $password = $this->userPassword;
     }
-    $userId = $userId?:$this->userId;
+    $userId = $userId ?? $this->userId;
     $value = $this->config->getUserValue($userId, $this->appName, $key, $default);
     if (!empty($value) && $value !== $default) {
       try {
@@ -240,17 +240,23 @@ class Config
     } elseif (empty($password)) {
       $password = $this->userPassword;
     }
-    $userId = $userId?:$this->userId;
+    $userId = $userId ?? $this->userId;
     $value = $this->crypto->encrypt($value, $password);
     $this->config->setUserValue($userId, $this->appName, $key, $value);
   }
 
-  public function deletePersonalValue(string $key, ?string $userId = null)
+  /**
+   * @param string $key
+   *
+   * @param null|string $userId
+   *
+   * @return void
+   */
+  public function deletePersonalValue(string $key, ?string $userId = null):void
   {
-    $this->config->deleteUserValue($userId, $appName, $key);
-
+    $userId = $userId ?? $this->userId;
+    $this->config->deleteUserValue($userId, $this->appName, $key);
   }
-
 
   /**
    * @param null|string $newPassword

@@ -1,9 +1,10 @@
 <?php
 /**
- * nextCloud - RoundCube mail plugin
+ * NextCloud - RoundCube mail plugin
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
  * @copyright 2020, 2021, 2023 Claus-Justus Heine
+ * @license AGPL-3.0-or-later
  *
  * Nextcloud RoundCube App is free software: you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE

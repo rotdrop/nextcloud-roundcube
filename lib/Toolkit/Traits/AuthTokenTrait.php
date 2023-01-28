@@ -3,7 +3,7 @@
  * A collection of reusable traits classes for Nextcloud apps.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022, 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -61,7 +61,7 @@ trait AuthTokenTrait
    * @param string $tokenName Fancy token name.
    *
    * @param int $tokenExpiry Faked token activity to set in order to prevent
-   * expiry before that time. Unix timestamp.*
+   * expiry before that time. Unix timestamp.
    *
    * @return array The generated or fetched auth token and token-passphrase as
    * ```
