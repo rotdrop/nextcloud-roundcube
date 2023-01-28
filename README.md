@@ -1,36 +1,35 @@
-# RoundCube Web Mail
+RoundCube Web Mail
+==================
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
 **Table of Contents**
 
-- [RoundCube Web Mail](#roundcube-web-mail)
-    - [Intro](#intro)
-    - [Installation](#installation)
-        - [Nextcloud App](#nextcloud-app)
-        - [Roundcube App](#roundcube-app)
-    - [Configuration](#configuration)
-        - [Adminstration, Web-Server Setup](#adminstration-web-server-setup)
-            - [TL;DR](#tldr)
-            - [NC Domain equal RC Domain](#nc-domain-equal-rc-domain)
-            - [Different Domains, but same Web-Server](#different-domains-but-same-web-server)
-                - [Apache](#apache)
-                - [Example for NGINX](#example-for-nginx)
-            - [Different Domains, different Web-Server](#different-domains-different-web-server)
-                - [Necessary Roundcube Setup](#necessary-roundcube-setup)
-                - [Example for Apache](#example-for-apache)
-                - [Example for NGINX](#example-for-nginx-1)
-        - [Personal Settings](#personal-settings)
-    - [More docs to follow ...](#more-docs-to-follow-)
-    - [Screenshots](#screenshots)
-        - [Main Window](#main-window)
-        - [Preferences](#preferences)
-            - [Admin Settings](#admin-settings)
-            - [Personal Settings](#personal-settings-1)
+- [Intro](#intro)
+- [Installation](#installation)
+    - [Nextcloud App](#nextcloud-app)
+    - [Roundcube App](#roundcube-app)
+- [Configuration](#configuration)
+    - [Adminstration, Web-Server Setup](#adminstration-web-server-setup)
+        - [TL;DR](#tldr)
+        - [NC Domain equal RC Domain](#nc-domain-equal-rc-domain)
+        - [Different Domains, but same Web-Server](#different-domains-but-same-web-server)
+            - [Apache](#apache)
+            - [Example for NGINX](#example-for-nginx)
+        - [Different Domains, different Web-Server](#different-domains-different-web-server)
+            - [Necessary Roundcube Setup](#necessary-roundcube-setup)
+            - [Example for Apache](#example-for-apache)
+            - [Example for NGINX](#example-for-nginx-1)
+    - [Personal Settings](#personal-settings)
+- [More docs to follow ...](#more-docs-to-follow-)
+- [Screenshots](#screenshots)
+    - [Main Window](#main-window)
+    - [Preferences](#preferences)
+        - [Admin Settings](#admin-settings)
+        - [Personal Settings](#personal-settings-1)
 
 <!-- markdown-toc end -->
 
-
-## Intro
+# Intro
 
 This is a [Nextcloud app](https://nextcloud.com/) app which embeds an
 separate [Roundcube](https://roundcube.net/) web-mailer installation
@@ -59,9 +58,9 @@ questionable. OTOH, Roundcube is a very mature email web app with many nice plug
 Currently the focus is on Roundcube version v1.6 and Nextcloud version
 25 and on pushing this fork into the Nextcloud app-store.
 
-## Installation
+# Installation
 
-### Nextcloud App
+## Nextcloud App
 
 Hopefully an installation is possible by one of the following alternatives:
 
@@ -70,15 +69,15 @@ Hopefully an installation is possible by one of the following alternatives:
 - the assets are also contained in the git repo, so simply cloning the git-repo into your app folder *maybe* just works. Maybe not ...
 - clone into your app-folder and compile from source, do a `make dev` or `make build`. You need `composer` and `node` (`npm`). `make help` or just `make` will list the available targets.
 
-### Roundcube App
+## Roundcube App
 
 Please refere to the [Roundcube](https://roundcube.net/) documentation for general installation instructions.
 
-## Configuration
+# Configuration
 
-### Adminstration, Web-Server Setup
+## Adminstration, Web-Server Setup
 
-#### TL;DR
+### TL;DR
 
 Due to the technology used -- Roundcube just runs in an
 [iframe](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe) --
@@ -90,18 +89,18 @@ In principle this boils down to the point that the Nextcloud server
 installation and the Roundcube installation must be served in the same
 DNS domain.
 
-#### NC Domain equal RC Domain
+### NC Domain equal RC Domain
 
 In this case nothing special has to be done. The administrator can
 simply enter the location of the Roundcube installation in the
 adminstrator settings of the app.
 
-#### Different Domains, but same Web-Server
+### Different Domains, but same Web-Server
 
 In this case the simplest thing is to just map the Roundcube
 installation a second time by a simple alias directive.
 
-##### Apache
+#### Apache
 
 Example for [Apache mod_alias](https://httpd.apache.org/docs/2.4/mod/mod_alias.html):
 
@@ -116,11 +115,11 @@ the Nextcloud server installation.
 In the administration settings for the NC app you can then enter
 whatever you have chosen for `/SOME_WEB_PATH`.
 
-##### Example for NGINX
+#### Example for NGINX
 
 **Please doc me!**
 
-#### Different Domains, different Web-Server
+### Different Domains, different Web-Server
 
 In this case it is possible to map the existing external Roundcube
 installation into the Nextcloud server domain by means some proxy
@@ -129,7 +128,7 @@ independent from the us of it in this app, i.e. just open the
 proxied-location in you web-browser, log-in manually and check if it
 works.
 
-##### Necessary Roundcube Setup
+#### Necessary Roundcube Setup
 
 Caused by changes in the transition from Roundcube verison 1.5 to
 Roundcube version 1.6 we have now the problem that all web-paths used
@@ -157,7 +156,7 @@ $config['request_path'] = '.';
 proxying will just not work (but please feel free to convince me from
 the opposite by providing a configuration example ;)).
 
-##### Example for Apache
+#### Example for Apache
 
 Place something like the following into the virtual host setup for
 your Nextcloud server:
@@ -175,28 +174,28 @@ SSLProxyEngine on
 Please note that you probably have `ProxyPreserveHost On` in the
 configuration for the push notifications service.
 
-##### Example for NGINX
+#### Example for NGINX
 
 **Please doc me!**
 
-### Personal Settings
+## Personal Settings
 
 **Please doc me!**
 
-## More docs to follow ...
+# More docs to follow ...
 
-## Screenshots
+# Screenshots
 
-### Main Window
+## Main Window
 
 ![file list](contrib/screenshots/main-window.png)
 
-### Preferences
+## Preferences
 
-#### Admin Settings
+### Admin Settings
 
 ![file list](contrib/screenshots/admin-settings.png)
 
-#### Personal Settings
+### Personal Settings
 
 ![file list](contrib/screenshots/personal-settings.png)
