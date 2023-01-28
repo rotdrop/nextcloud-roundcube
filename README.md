@@ -33,7 +33,6 @@ RoundCube Web Mail
     - [Personal Settings](#personal-settings)
         - [Email Login Name](#email-login-name)
         - [Email Password](#email-password)
-- [More docs to follow ...](#more-docs-to-follow-)
 - [Screenshots](#screenshots)
     - [Main Window](#main-window)
     - [Preferences](#preferences)
