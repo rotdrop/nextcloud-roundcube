@@ -29,7 +29,7 @@ use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http\Response;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\IRequest;
-use OCP\IConfig;
+use OCP\IURLGenerator;
 use OCP\IL10N;
 
 use OCA\RoundCube\Service\Config;
@@ -77,6 +77,9 @@ class SettingsController extends Controller
     Config::FORCE_SSO . self::ADMIN_SETTING => [ 'rw' => false, 'default' => Config::FORCE_SSO_DEFAULT, ],
   ];
 
+  /** @var IURLGenerator */
+  private $urlGenerator;
+
   /** @var Config */
   private $config;
 
@@ -89,14 +92,14 @@ class SettingsController extends Controller
     IRequest $request,
     $userId,
     LoggerInterface $logger,
+    IURLGenerator $urlGenerator,
     IL10N $l10n,
-    IConfig $cloudConfig,
     Config $config,
   ) {
     parent::__construct($appName, $request);
     $this->logger = $logger;
+    $this->urlGenerator = $urlGenerator;
     $this->l = $l10n;
-    $this->cloudConfig = $cloudConfig;
     $this->config = $config;
     $this->userId = $userId;
   }
@@ -188,7 +191,7 @@ class SettingsController extends Controller
     }
 
     if ($newValue === null) {
-      $this->cloudConfig->deleteAppValue($this->appName, $setting);
+      $this->config->deleteAppValue($setting);
       $newValue = self::ADMIN_SETTINGS[$setting]['default'] ?? null;
     } else {
       $this->config->setAppValue($setting, $newValue);
@@ -224,8 +227,7 @@ class SettingsController extends Controller
     }
     $results = [];
     foreach (array_keys($allSettings) as $oneSetting) {
-      $value = $this->cloudConfig->getAppValue(
-        $this->appName,
+      $value = $this->config->getAppValue(
         $oneSetting,
         self::ADMIN_SETTINGS[$oneSetting]['default'] ?? null);
       $humanValue = $value;
@@ -296,7 +298,7 @@ class SettingsController extends Controller
     }
 
     if ($newValue === null) {
-      $this->cloudConfig->deleteUserValue($this->userId, $this->appName, $setting);
+      $this->config->deletePersonalValue($setting);
       $newValue = self::PERSONAL_SETTINGS[$setting]['default'] ?? null;
     } else {
       $this->config->setPersonalValue($setting, $newValue);
