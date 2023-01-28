@@ -81,10 +81,10 @@ Please refere to the [Roundcube](https://roundcube.net/) documentation for gener
 #### TL;DR
 
 Due to the technology used -- Roundcube just runs in an
-[iframe](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe)
+[iframe](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe) --
 there are some restrictions caused by the [same origin
 policy](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy)
-which at least nowadays are widely in use.
+which at least nowadays is widely in use.
 
 In principle this boils down to the point that the Nextcloud server
 installation and the Roundcube installation must be served in the same
@@ -103,7 +103,7 @@ installation a second time by a simple alias directive.
 
 ##### Apache
 
-Example for [Apache](https://httpd.apache.org/docs/2.4/mod/mod_alias.html):
+Example for [Apache mod_alias](https://httpd.apache.org/docs/2.4/mod/mod_alias.html):
 
 ```
 Alias /SOME_WEB_PATH PATH_TO_EXISTING_ROUNDCUBE_INSTALLATION
@@ -124,11 +124,14 @@ whatever you have chosen for `/SOME_WEB_PATH`.
 
 In this case it is possible to map the existing external Roundcube
 installation into the Nextcloud server domain by means some proxy
-directives.
+directives. If you try this then please first check the proxy settings
+independent from the us of it in this app, i.e. just open the
+proxied-location in you web-browser, log-in manually and check if it
+works.
 
 ##### Necessary Roundcube Setup
 
-Cause by changes in the transition from Roundcube verison 1.5 to
+Caused by changes in the transition from Roundcube verison 1.5 to
 Roundcube version 1.6 we have now the problem that all web-paths used
 by Roundcube are absolute. And this severely breaks any reverse proxy
 setup unless you have access to the Roundcube installation. The point
@@ -143,7 +146,7 @@ Please have a look at the explanations in
 
 A working setting -- but I suppose it undermines the security
 improvements which were the cause for the new setting -- is the
-following which in essence reestablished the previous behaviour to
+following which in essence restores the previous behaviour to
 have only relative links:
 
 ```
@@ -161,9 +164,8 @@ your Nextcloud server:
 
 ```
 ProxyRequests Off
-gSSLProxyEngine on
+SSLProxyEngine on
 <Location /SOME_WEB_PATH/>
-    # Try to do the same with a proxy configuration
     ProxyPass https://webmail.my-domain.tld/
     ProxyPassReverse https://webmail.my-domain.tld/
     ProxyPreserveHost Off
@@ -171,10 +173,7 @@ gSSLProxyEngine on
 ```
 
 Please note that you probably have `ProxyPreserveHost On` in the
-configuration for the push notifications service. If you try this then
-please first check the proxy settings independent from the us of it in
-this app, i.e. just open the proxied-location in you web-browser,
-log-in manually and check if it works.
+configuration for the push notifications service.
 
 ##### Example for NGINX
 
