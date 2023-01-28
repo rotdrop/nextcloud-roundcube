@@ -104,7 +104,7 @@ In principle this boils down to the point that the Nextcloud server
 installation and the Roundcube installation must be served in the same
 DNS domain.
 
-### NC Domain equal RC Domain
+### NC Domain equals RC Domain
 
 In this case nothing special has to be done. The administrator can
 simply enter the location of the Roundcube installation in the
@@ -113,7 +113,7 @@ adminstrator settings of the app.
 ### Different Domains, but same Web-Server
 
 In this case the simplest thing is to just map the Roundcube
-installation a second time by a simple alias directive.
+installation a second time by a simple `Alias` directive.
 
 #### Apache
 
@@ -137,11 +137,14 @@ whatever you have chosen for `/SOME_WEB_PATH`.
 ### Different Domains, different Web-Server
 
 In this case it is possible to map the existing external Roundcube
-installation into the Nextcloud server domain by means some proxy
-directives. If you try this then please first check the proxy settings
+installation into the Nextcloud server domain by means of a proxy
+configuration mapping a local web-path to the external Roundcube
+server.
+
+*If you try this then please first check the proxy settings
 independent from the us of it in this app, i.e. just open the
 proxied-location in you web-browser, log-in manually and check if it
-works.
+works.*
 
 #### Necessary Roundcube Setup
 
@@ -198,6 +201,10 @@ configuration for the push notifications service.
 Please have also a look at the [screenshot](#admin-settings).
 
 ### Roundcube Installation
+
+This is just a text-box for the web-address of the Roundcube
+installation. **Please read** the [notes about the web-server
+setup](#adminstration-web-server-setup).
 
 ### Email Address Selection
 
