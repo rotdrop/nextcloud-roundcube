@@ -19,7 +19,20 @@ RoundCube Web Mail
             - [Necessary Roundcube Setup](#necessary-roundcube-setup)
             - [Example for Apache](#example-for-apache)
             - [Example for NGINX](#example-for-nginx-1)
+    - [Admistrators Settings](#admistrators-settings)
+        - [Roundcube Installation](#roundcube-installation)
+        - [Email Address Selection](#email-address-selection)
+            - [Cloud Login-Id](#cloud-login-id)
+            - [User's Preferences](#users-preferences)
+            - [User's Choice](#users-choice)
+        - [Advanced Settings](#advanced-settings)
+            - [Force Single Sign On](#force-single-sign-on)
+            - [Show Roundcube Top Bar](#show-roundcube-top-bar)
+            - [Enable SSL Verification](#enable-ssl-verification)
+            - [Per-User Encryption of Config-Values](#per-user-encryption-of-config-values)
     - [Personal Settings](#personal-settings)
+        - [Email Login Name](#email-login-name)
+        - [Email Password](#email-password)
 - [More docs to follow ...](#more-docs-to-follow-)
 - [Screenshots](#screenshots)
     - [Main Window](#main-window)
@@ -66,8 +79,11 @@ Hopefully an installation is possible by one of the following alternatives:
 
 - ~install from the Nextcloud app-store~ (not yet)
 - download a (pre-)release tarball and extract it into you app directory
-- the assets are also contained in the git repo, so simply cloning the git-repo into your app folder *maybe* just works. Maybe not ...
-- clone into your app-folder and compile from source, do a `make dev` or `make build`. You need `composer` and `node` (`npm`). `make help` or just `make` will list the available targets.
+- the assets are also contained in the git repo, so simply cloning the
+  git-repo into your app folder *maybe* just works. Maybe not ...
+- clone into your app-folder and compile from source, do a `make dev`
+  or `make build`. You need `composer` and `node` (`npm`). `make help`
+  or just `make` will list the available targets.
 
 ## Roundcube App
 
@@ -178,11 +194,88 @@ configuration for the push notifications service.
 
 **Please doc me!**
 
+## Admistrators Settings
+
+Please have also a look at the [screenshot](#admin-settings).
+
+### Roundcube Installation
+
+### Email Address Selection
+
+The default is "User's Choice". Please note that the term
+"address-selection" is a bit misleading: here you configure the
+login-id into the email-server which may or may not be an
+email-address.
+
+#### Cloud Login-Id
+
+Use the user-id of the logged-in user and add a to-be-configured
+email-domain to the login-name. The idea here is that in a
+single-sign-on (SSO) scenario the email accounts and cloud login-ids
+more-or-less naturally coincide. Checking this option disables the
+[email address choice](#email-login-name) in the personal preferences
+of this Roundcube-integration app.
+
+#### User's Preferences
+
+Just take the email-address from the Nextcloud user
+preferences. Checking this option disabled the [email address
+choice](#email-login-name) in the personal preferences of this
+Roundcube-integration app.
+
+#### User's Choice
+
+Make the login-id into the email server freely configurable by the
+user through the personal settings page of this app.
+
+### Advanced Settings
+
+#### Force Single Sign On
+
+Checking this option disables the [custom password setting in the
+user's preferences](#email-password) section and enforces it to
+coincide with the cloud password.
+
+#### Show Roundcube Top Bar
+
+Checking this option keeps the information bar -- including the logout
+button -- of the Roundcube web-mailer. Concerning logout: the default
+is to log-out the user out of Roundcube if it logs out of the cloud.
+
+#### Enable SSL Verification
+
+Uncheck to disable SSL certificate verification, e.g. in a setup using
+self-signed certificates.
+
+#### Per-User Encryption of Config-Values
+
+If checked the [user configurable values](#personal-settings) are
+encrypted with the user password. Otherwise they are encrypted with
+the server password. The extra gain in security is questionable as any
+installed app has access to the password of the currently logged in
+user.
+
 ## Personal Settings
 
-**Please doc me!**
+Please have also a look at the [screenshot](#personal-settings).
 
-# More docs to follow ...
+### Email Login Name
+
+Configure the login-id into the email-server, or to be more precise:
+into the Roundcube web-mailer. This setting is not available if the
+administrator has pinned the login-id to the [email-address specified
+in the user-preferences](#users-preferences). Of course, the users may
+be able to change their email addresses there, but the setting in this
+app is not available in this case. Likewise, for a single-sign-on
+(SSO) setup this choice is disabled if the email login-id is [pinned
+to coincide](#cloud-login-id) with the cloud login-id.
+
+### Email Password
+
+Configure the login-password for the email-server. This setting is not
+available if the administrator has configured this app to attempt
+single-sign-on in which case use of the Nextcloud password is enforced
+for the login into the email-server.
 
 # Screenshots
 
