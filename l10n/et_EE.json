@@ -1,0 +1,12 @@
+{ "translations": {
+    "OK" : "OK",
+    "Created" : "Loodud",
+    "Forbidden" : "Keelatud",
+    "Not Found" : "Ei leitud",
+    "Conflict" : "Konflikt",
+    "Internal Server Error" : "Serveri sisemine viga",
+    "Error" : "Viga",
+    "No" : "Ei",
+    "Yes" : "Jah"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}

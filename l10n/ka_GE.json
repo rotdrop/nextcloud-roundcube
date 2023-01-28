@@ -1,0 +1,13 @@
+{ "translations": {
+    "bytes" : "ბაიტები",
+    "OK" : "კარგი",
+    "Created" : "შექმნილია",
+    "Forbidden" : "აკრძალულია",
+    "Not Found" : "არაა ნაპოვნი",
+    "Conflict" : "კონფლიქტი",
+    "Internal Server Error" : "შიდა სერვერის შეცდომა",
+    "Error" : "შეცდომა",
+    "No" : "არა",
+    "Yes" : "კი"
+},"pluralForm" :"nplurals=2; plural=(n!=1);"
+}

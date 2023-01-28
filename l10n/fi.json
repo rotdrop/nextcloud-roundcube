@@ -1,0 +1,15 @@
+{ "translations": {
+    "bytes" : "tavua",
+    "Advanced Settings" : "Lisäasetukset",
+    "OK" : "OK",
+    "Created" : "Luotu",
+    "Unauthorized" : "Ei valtuuksia",
+    "Forbidden" : "Estetty",
+    "Not Found" : "Ei löytynyt",
+    "Conflict" : "Ristiriita",
+    "Internal Server Error" : "Sisäinen palvelinvirhe",
+    "Error" : "Virhe",
+    "No" : "Ei",
+    "Yes" : "Kyllä"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}
