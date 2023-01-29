@@ -138,7 +138,6 @@
 </template>
 <script>
 import { appName } from './config.js'
-import Vue from 'vue'
 import AppSettingsSection from '@nextcloud/vue/dist/Components/AppSettingsSection'
 import SettingsSection from '@nextcloud/vue/dist/Components/SettingsSection'
 import SettingsInputText from '@rotdrop/nextcloud-vue-components/lib/components/SettingsInputText'
