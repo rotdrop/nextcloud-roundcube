@@ -132,15 +132,7 @@ whatever you have chosen for `/SOME_WEB_PATH`.
 
 #### Example for NGINX
 
-```
-location /roundcube/ {
-	proxy_pass https://YOURroundcubeINSTALL.tld/;
-	proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-}
-```
-The "location /roundcube/" folder paramter is used only as example. This is the location you have to enter in Administrator seetings of this nextcloud module.
-The "https://YOURroundcubeINSTALL.tld" domain is used only as example. Point to the domain where your Roundcube is served from.
-
+**Please Doc Me!**
 
 ### Different Domains, different Web-Server
 
@@ -168,6 +160,8 @@ $config['request_path'] = REPLACE_ME_WITH_SOMETHING_WORKING;
 
 Please have a look at the explanations in
 [defaults.inc.php](https://github.com/roundcube/roundcubemail/blob/e2370544907034679d47a8be348a5b2a796fcdf9/config/defaults.inc.php#L821-L829).
+
+**Please note that the configuration directive is only available since Roundcube 1.6.1**. But the proxy setup has been broken before in the progress of moving to 1.6.0.
 
 A working setting -- but I suppose it undermines the security
 improvements which were the cause for the new setting -- is the
@@ -202,7 +196,14 @@ configuration for the push notifications service.
 
 #### Example for NGINX
 
-**Please doc me!**
+```
+location /roundcube/ {
+	proxy_pass https://YOURroundcubeINSTALL.tld/;
+	proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+}
+```
+The "location /roundcube/" folder paramter is used only as example. This is the location you have to enter in Administrator seetings of this nextcloud module.
+The "https://YOURroundcubeINSTALL.tld" domain is used only as example. Point to the domain where your Roundcube is served from.
 
 ## Admistrators Settings
 
