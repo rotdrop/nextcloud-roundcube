@@ -132,7 +132,15 @@ whatever you have chosen for `/SOME_WEB_PATH`.
 
 #### Example for NGINX
 
-**Please doc me!**
+```
+location /roundcube/ {
+	proxy_pass https://YOURroundcubeINSTALL.tld/;
+	proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+}
+```
+The "location /roundcube/" folder paramter is used only as example. This is the location you have to enter in Administrator seetings of this nextcloud module.
+The "https://YOURroundcubeINSTALL.tld" domain is used only as example. Point to the domain where your Roundcube is served from.
+
 
 ### Different Domains, different Web-Server
 
