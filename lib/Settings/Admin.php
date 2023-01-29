@@ -25,7 +25,6 @@ namespace OCA\RoundCube\Settings;
 
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\Settings\IDelegatedSettings;
-use OCP\IURLGenerator;
 use OCP\IConfig;
 use Psr\Log\LoggerInterface as ILogger;
 use OCP\IL10N;
@@ -49,20 +48,15 @@ class Admin implements IDelegatedSettings
   /** @var AssetService */
   private $assetService;
 
-  /** @var \OCP\IURLGenerator */
-  private $urlGenerator;
-
   // phpcs:disable Squiz.Commenting.FunctionComment.Missing
   public function __construct(
     string $appName,
     Config $config,
     AssetService $assetService,
-    IURLGenerator $urlGenerator,
   ) {
     $this->appName = $appName;
     $this->config = $config;
     $this->assetService = $assetService;
-    $this->urlGenerator = $urlGenerator;
   }
   // phpcs:enable Squiz.Commenting.FunctionComment.Missing
 
@@ -72,8 +66,6 @@ class Admin implements IDelegatedSettings
     $templateParameters = [
       'appName' => $this->appName,
       'webPrefix' => $this->appName,
-      'ocServer' => $this->urlGenerator->getAbsoluteURL("/"),
-      'urlGenerator' => $this->urlGenerator,
       'assets' => [
         Constants::JS => $this->assetService->getJSAsset(self::ASSET_NAME),
         Constants::CSS => $this->assetService->getCSSAsset(self::ASSET_NAME),

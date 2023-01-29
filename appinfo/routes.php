@@ -29,17 +29,6 @@ return [
     ],
     //settings
     [
-      'name' => 'admin_settings#set',
-      'url' => '/settings/admin/set',
-      'verb' => 'POST',
-    ],
-    [
-      'name' => 'personal_settings#set',
-      'url' => '/settings/personal/set',
-      'verb' => 'POST',
-    ],
-    // new settings
-    [
       'name' => 'settings#set_admin',
       'url' => '/settings/admin/{setting}',
       'verb' => 'POST',

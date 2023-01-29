@@ -33,7 +33,6 @@ use OCP\IURLGenerator;
 use OCP\IL10N;
 
 use OCA\RoundCube\Service\Config;
-use OCA\RoundCube\Constants;
 
 /**
  * Settings-controller for both, personal and admin, settings.
@@ -49,7 +48,7 @@ class SettingsController extends Controller
   /**
    * @var array<string, array>
    *
-   * Admin settings with r/w flag and default value (booleans)
+   * Admin settings with r/w flag and default value.
    */
   const ADMIN_SETTINGS = [
     Config::EXTERNAL_LOCATION => [ 'rw' => true, 'default' => Config::EXTERNAL_LOCATION_DEFAULT, ],
@@ -114,7 +113,7 @@ class SettingsController extends Controller
    *
    * @return DataResponse
    *
-   * @AuthorizedAdminSetting(settings=OCA\FilesArchive\Settings\Admin)
+   * @AuthorizedAdminSetting(settings=OCA\RoundCube\Settings\Admin)
    * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
    */
   public function setAdmin(string $setting, mixed $value, bool $force = false):DataResponse
@@ -213,7 +212,7 @@ class SettingsController extends Controller
    *
    * @return DataResponse
    *
-   * @AuthorizedAdminSetting(settings=OCA\FilesArchive\Settings\Admin)
+   * @AuthorizedAdminSetting(settings=OCA\RoundCube\Settings\Admin)
    */
   public function getAdmin(?string $setting = null):DataResponse
   {
