@@ -113,7 +113,7 @@ webpackConfig.module.rules = [
         options: {
           // Prefer `dart-sass`
           implementation: require('sass'),
-          additionalData: '$appName: ' + appName + '; $cssPrefix: ' + appName + '-;',
+          additionalData: '$appName: ' + appName + ';'
         },
       },
     ],
