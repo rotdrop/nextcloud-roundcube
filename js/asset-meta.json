@@ -1,13 +1,13 @@
 {
   "publicPath": "",
   "js": [
-    "js/admin-settings-a0043b0ecc1e95695e5f.js",
+    "js/admin-settings-90bd091cd7b01f6e5c9a.js",
     "js/personal-settings-497151501d39bc9bd518.js",
-    "js/app-97dd550b241cc5612d55.js"
+    "js/app-3aa12a815d3de2e133c0.js"
   ],
   "css": [
-    "css/admin-settings-9249500302d0d891220f.css",
+    "css/admin-settings-3c40130574f9ab656919.css",
     "css/personal-settings-c8888ceeed53390e7c77.css",
-    "css/app-212b529bebe43d21174b.css"
+    "css/app-f9e871859e4c263adb90.css"
   ]
 }

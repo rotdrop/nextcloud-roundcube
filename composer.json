@@ -16,7 +16,6 @@
     "phpmd/phpmd": "@stable",
     "squizlabs/php_codesniffer": "3.*",
     "zebra-north/phpcs-short-types": "^1.0",
-    "doctrine/deprecations": "v0.5.3",
     "doctrine/lexer": "1.2.3",
     "nikic/php-parser": "v4.10.5",
     "psr/container": "1.1.1",
