@@ -2,16 +2,25 @@ OC.L10N.register(
     "mail_roundcube",
     {
     "bytes" : "tavua",
+    "Invalid path selected: \"{dir}\"." : "Virheellinen polku valittu: \"{dir}\".",
+    "Selected path: \"{dir}/{base}/\"." : "Valittu polku: \"{dir}/{base}/\".",
     "Advanced Settings" : "Lisäasetukset",
+    "reason unknown" : "tuntematon syy",
+    "Confirmation Required" : "Vahvistus vaaditaan",
     "OK" : "OK",
     "Created" : "Luotu",
+    "Accepted" : "Hyväksytty",
+    "No Content" : "Ei sisältöä",
     "Unauthorized" : "Ei valtuuksia",
     "Forbidden" : "Estetty",
     "Not Found" : "Ei löytynyt",
     "Conflict" : "Ristiriita",
     "Internal Server Error" : "Sisäinen palvelinvirhe",
     "Error" : "Virhe",
+    "Something went wrong." : "Jokin meni pieleen.",
+    "Internal Error" : "Sisäinen virhe",
     "No" : "Ei",
-    "Yes" : "Kyllä"
+    "Yes" : "Kyllä",
+    "unknown error" : "tuntematon virhe"
 },
 "nplurals=2; plural=(n != 1);");

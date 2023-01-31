@@ -4,6 +4,7 @@ OC.L10N.register(
     "Host-part of external URL seems to be empty" : "Ta část externí URL, která se týká hostitele, se zdá být prázdná",
     "RoundCube instance does not seem to be reachable at %s" : "Na %s se nezdá být dosažitelná instance RoundCube",
     "Value \"%1$s\" for set \"%2$s\" is not convertible to boolean." : "Hodnota „%1$s“ pro sadu „%2$s“ není převoditelná na  typ boolean.",
+    "Parameter %s set to \"%s\"" : "Parametr %s nastaven na „%s“",
     "Unknown Request" : "Neznámý požadavek",
     "Parameter \"%s\" set to \"%s\"" : "Parametr „%s“ nastaven na „%s“",
     "Parameter \"%s\" set to given value" : "Parametr „%s“ nastaven na danou hodnotu",

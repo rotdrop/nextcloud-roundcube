@@ -18,7 +18,7 @@ OC.L10N.register(
     "Choose a prefix-folder" : "Wähle den \"Eltern\"-Ordner",
     "Invalid path selected: \"{dir}\"." : "Es wurde ein ungültiger Pfad ausgewählt: {dir}.",
     "Selected path: \"{dir}/{base}/\"." : "Ausgewählter Datei-Pfad: \"{dir}/{base}/\"",
-    "Advanced Settings" : "Benötigt keine Übersetzung. Hier wird nur die formelle Übersetzung verwendet (de_DE).",
+    "Advanced Settings" : "Erweiterte Einstellungen",
     "reason unknown" : "Grund unbekannt",
     "Unable to query the initial value of all settings: {message}" : "Kann die anfänglichen Werte der Einstellungen nicht abrufen: {message}",
     "Unable to query the initial value of {settingsKey}: {message}" : "Kann die anfänglichen Wert der Einstellung {settingsKey} nicht abrufen: {message}",
