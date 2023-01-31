@@ -106,7 +106,7 @@ export default {
       console.info('ROUNDCUBD: GOT LOAD EVENT');
       loadHandler(this.frameElement)
       if (!this.gotLoadEvent) {
-        this.$refs.loaderContainer.classList.toggle('fading');
+        this.$refs.loaderContainer.classList.add('fading');
       }
       this.gotLoadEvent = true
     },
