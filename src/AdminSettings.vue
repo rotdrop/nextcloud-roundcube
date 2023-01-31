@@ -23,7 +23,6 @@
     <AppSettingsSection :title="t(appName, 'Roundcube Installation')">
       <SettingsInputText v-model="externalLocation"
                          :label="t(appName, 'RoundCube Installation Path')"
-                         :title=""
                          :hint="t(appName, 'RoundCube path can be enterered relative to the Nextcloud server')"
                          :disabled="loading > 0"
                          @update="saveTextInput(...arguments, 'externalLocation')"
