@@ -1,4 +1,6 @@
 { "translations": {
+    "Scheme of external URL must be one of \"http\" or \"https\", but nothing was specified." : "Schema van externe URL moet een van \"http\" of \"https\" zijn, maar er is niets opgegeven.",
+    "Scheme of external URL must be one of \"http\" or \"https\", \"%s\" given." : "Schema van externe URL moet een van \"http\" of \"https\", \"1%s\" zijn.",
     "bytes" : "bytes",
     "Advanced Settings" : "Geavanceerde instellingen",
     "OK" : "OK",
