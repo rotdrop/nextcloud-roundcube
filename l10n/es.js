@@ -2,7 +2,7 @@ OC.L10N.register(
     "mail_roundcube",
     {
     "Scheme of external URL must be one of \"http\" or \"https\", but nothing was specified." : "El protocolo de la URL externa deber ser \"http\" ó \"https\", pero no se especificó nada.",
-    "Scheme of external URL must be one of \"http\" or \"https\", \"%s\" given." : "El protocolo de la URL externa deber ser \"http\" ó \"https\", se especificó \"%s\"",
+    "Scheme of external URL must be one of \"http\" or \"https\", \"%s\" given." : "El protocolo de la URL externa deber ser \"http\" o \"https\", se especificó \"%s\"",
     "Host-part of external URL seems to be empty" : "El componente de host de la URL externa parece estar vacío",
     "RoundCube instance does not seem to be reachable at %s" : "La instancia de RoundCube no parece ser accesible en %s",
     "Value \"%1$s\" for set \"%2$s\" is not convertible to boolean." : "El valor \"%1$s\" para el conjunto \"%2$s\" no se puede convertir a booleano.",
