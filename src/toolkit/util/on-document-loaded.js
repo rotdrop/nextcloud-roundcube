@@ -17,17 +17,15 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 
-import { appName } from '../../config.js';
-
-import { loadState } from '@nextcloud/initial-state';
-
-export const getInitialState = (section) => {
-  section = section || 'config';
-  try {
-    return loadState(appName, section);
-  } catch (err) {
-    return console.error('error in loadState("' + section + '"): ', err);
+const onDocumentLoaded = (callback) => {
+  if (document.readyState !== 'loading') {
+    callback();
+  } else {
+    document.addEventListener('DOMContentLoaded', callback);
   }
 };
+
+export default onDocumentLoaded;
