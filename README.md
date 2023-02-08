@@ -76,7 +76,7 @@ Currently the focus is on Roundcube version v1.6 and Nextcloud version
 
 Hopefully an installation is possible by one of the following alternatives:
 
-- ~install from the Nextcloud app-store~ (not yet)
+- install from the Nextcloud app-store
 - download a (pre-)release tarball and extract it into you app directory
 - the assets are also contained in the git repo, so simply cloning the
   git-repo into your app folder *maybe* just works. Maybe not ...
