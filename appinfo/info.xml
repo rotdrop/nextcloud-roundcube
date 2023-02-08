@@ -7,7 +7,7 @@
   <description>
     Integrates an existing RoundCube standalone email-webapp into NextCloud, with optional SSO.
   </description>
-  <version>1.0.0-rc7</version>
+  <version>1.0.0</version>
   <licence>agpl</licence>
   <author mail="himself@claus-justus-heine.de">Claus-Justus Heine</author>
   <author>Martin Reinhardt</author>
