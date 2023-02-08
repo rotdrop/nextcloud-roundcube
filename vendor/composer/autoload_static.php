@@ -44,6 +44,7 @@ class ComposerStaticInitd2bffaf3f56fd95a4f853df85ff0d784
         'OCA\\RotDrop\\Toolkit\\Traits\\CloudAdminTrait' => __DIR__ . '/../..' . '/lib/Toolkit/Traits/CloudAdminTrait.php',
         'OCA\\RotDrop\\Toolkit\\Traits\\Constants' => __DIR__ . '/../..' . '/lib/Toolkit/Traits/Constants.php',
         'OCA\\RotDrop\\Toolkit\\Traits\\DateTimeTrait' => __DIR__ . '/../..' . '/lib/Toolkit/Traits/DateTimeTrait.php',
+        'OCA\\RotDrop\\Toolkit\\Traits\\EnumValuesTrait' => __DIR__ . '/../..' . '/lib/Toolkit/Traits/EnumValuesTrait.php',
         'OCA\\RotDrop\\Toolkit\\Traits\\FakeTranslationTrait' => __DIR__ . '/../..' . '/lib/Toolkit/Traits/FakeTranslationTrait.php',
         'OCA\\RotDrop\\Toolkit\\Traits\\IncludeExcludeTrait' => __DIR__ . '/../..' . '/lib/Toolkit/Traits/IncludeExcludeTrait.php',
         'OCA\\RotDrop\\Toolkit\\Traits\\LoggerTrait' => __DIR__ . '/../..' . '/lib/Toolkit/Traits/LoggerTrait.php',

@@ -29,6 +29,7 @@ return array(
     'OCA\\RotDrop\\Toolkit\\Traits\\CloudAdminTrait' => $baseDir . '/lib/Toolkit/Traits/CloudAdminTrait.php',
     'OCA\\RotDrop\\Toolkit\\Traits\\Constants' => $baseDir . '/lib/Toolkit/Traits/Constants.php',
     'OCA\\RotDrop\\Toolkit\\Traits\\DateTimeTrait' => $baseDir . '/lib/Toolkit/Traits/DateTimeTrait.php',
+    'OCA\\RotDrop\\Toolkit\\Traits\\EnumValuesTrait' => $baseDir . '/lib/Toolkit/Traits/EnumValuesTrait.php',
     'OCA\\RotDrop\\Toolkit\\Traits\\FakeTranslationTrait' => $baseDir . '/lib/Toolkit/Traits/FakeTranslationTrait.php',
     'OCA\\RotDrop\\Toolkit\\Traits\\IncludeExcludeTrait' => $baseDir . '/lib/Toolkit/Traits/IncludeExcludeTrait.php',
     'OCA\\RotDrop\\Toolkit\\Traits\\LoggerTrait' => $baseDir . '/lib/Toolkit/Traits/LoggerTrait.php',
