@@ -11,6 +11,7 @@ OC.L10N.register(
     "Conflict" : "Конфликт",
     "Internal Server Error" : "Интерна грешка на серверу",
     "Error" : "Грешка",
+    "Missing data" : "Подаци недостају",
     "No" : "Не",
     "Yes" : "Да"
 },
