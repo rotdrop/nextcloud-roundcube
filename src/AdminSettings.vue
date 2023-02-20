@@ -44,7 +44,7 @@
         <label for="user-id-email">
           {{ t(appName, 'Cloud Login-Id') }}
         </label>
-        <span :class="['user-id-email-placeholder', { disabled: loading > 0 || (emailAddressChoice !== 'userIdEmail')}]">{{ t(appName, 'USER-ID') }}@</span>
+        <span :class="['user-id-email-placeholder', { disabled: loading > 0 || (emailAddressChoice !== 'userIdEmail')}]">{{ t(appName, 'User ID') }}@</span>
         <SettingsInputText v-model="emailDefaultDomain"
                            label=""
                            :disabled="loading > 0 || (emailAddressChoice !== 'userIdEmail')"
