@@ -96,7 +96,7 @@ export default {
     },
     emailPasswordHint() {
       return this.forceSSOAdmin
-           ? t(appName, 'Single-sign-on is globally forced "on".')
+           ? t(appName, 'Single sign-on is globally forced "on".')
            : t(appName, 'Email password for RoundCube, if needed.')
     },
   },
