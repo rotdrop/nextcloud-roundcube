@@ -247,7 +247,7 @@ class RequestService
       }
     }
 
-    $this->logInfo('CALL ROUTE ' . $route . ' ' . print_r($routeParams, true) . ' ' . print_r($requestData, true));
+    // $this->logInfo('CALL ROUTE ' . $route . ' ' . print_r($routeParams, true) . ' ' . print_r($requestData, true));
 
     $headers = [];
 

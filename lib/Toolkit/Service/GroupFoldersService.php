@@ -157,9 +157,9 @@ class GroupFoldersService
    *
    * @param string $topic
    *
-   * @return bool
+   * @return array
    */
-  public function searchFolders(string $regexp, string $topic = self::SEARCH_TOPIC_MOUNT):bool
+  public function searchFolders(string $regexp, string $topic = self::SEARCH_TOPIC_MOUNT):array
   {
     if ($this->sharedFolders === null) {
       $this->fetchFolders();
