@@ -58,10 +58,6 @@ class ComposerStaticInitd2bffaf3f56fd95a4f853df85ff0d784
             'PhpCsFixer\\' => 11,
             'PDepend\\' => 8,
         ),
-        'O' => 
-        array (
-            'OCA\\RotDrop\\Toolkit\\' => 20,
-        ),
         'N' => 
         array (
             'Nextcloud\\CodingStandard\\' => 25,
@@ -85,8 +81,8 @@ class ComposerStaticInitd2bffaf3f56fd95a4f853df85ff0d784
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
-            1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
-            2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
         ),
         'Webmozart\\Assert\\' => 
         array (
@@ -191,10 +187,6 @@ class ComposerStaticInitd2bffaf3f56fd95a4f853df85ff0d784
         'PDepend\\' => 
         array (
             0 => __DIR__ . '/..' . '/pdepend/pdepend/src/main/php/PDepend',
-        ),
-        'OCA\\RotDrop\\Toolkit\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/lib/Toolkit',
         ),
         'Nextcloud\\CodingStandard\\' => 
         array (
@@ -322,35 +314,6 @@ class ComposerStaticInitd2bffaf3f56fd95a4f853df85ff0d784
         'Doctrine\\Instantiator\\InstantiatorInterface' => __DIR__ . '/..' . '/doctrine/instantiator/src/Doctrine/Instantiator/InstantiatorInterface.php',
         'JsonException' => __DIR__ . '/..' . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
         'Nextcloud\\CodingStandard\\Config' => __DIR__ . '/..' . '/nextcloud/coding-standard/src/Config.php',
-        'OCA\\RotDrop\\Toolkit\\Backend\\ArchiveBackend' => __DIR__ . '/../..' . '/lib/Toolkit/Backend/ArchiveBackend.php',
-        'OCA\\RotDrop\\Toolkit\\Backend\\ArchiveFormats' => __DIR__ . '/../..' . '/lib/Toolkit/Backend/ArchiveFormats.php',
-        'OCA\\RotDrop\\Toolkit\\Exceptions\\ArchiveCannotOpenException' => __DIR__ . '/../..' . '/lib/Toolkit/Exceptions/ArchiveCannotOpenException.php',
-        'OCA\\RotDrop\\Toolkit\\Exceptions\\ArchiveException' => __DIR__ . '/../..' . '/lib/Toolkit/Exceptions/ArchiveException.php',
-        'OCA\\RotDrop\\Toolkit\\Exceptions\\ArchiveNotOpenException' => __DIR__ . '/../..' . '/lib/Toolkit/Exceptions/ArchiveNotOpenException.php',
-        'OCA\\RotDrop\\Toolkit\\Exceptions\\ArchiveTooLargeException' => __DIR__ . '/../..' . '/lib/Toolkit/Exceptions/ArchiveTooLargeException.php',
-        'OCA\\RotDrop\\Toolkit\\Exceptions\\AuthorizationException' => __DIR__ . '/../..' . '/lib/Toolkit/Exceptions/AuthorizationException.php',
-        'OCA\\RotDrop\\Toolkit\\Exceptions\\EnduserNotificationException' => __DIR__ . '/../..' . '/lib/Toolkit/Exceptions/EnduserNotificationException.php',
-        'OCA\\RotDrop\\Toolkit\\Exceptions\\Exception' => __DIR__ . '/../..' . '/lib/Toolkit/Exceptions/Exception.php',
-        'OCA\\RotDrop\\Toolkit\\Exceptions\\PhpSessionException' => __DIR__ . '/../..' . '/lib/Toolkit/Exceptions/PhpSessionException.php',
-        'OCA\\RotDrop\\Toolkit\\Exceptions\\SessionStillOpenException' => __DIR__ . '/../..' . '/lib/Toolkit/Exceptions/SessionStillOpenException.php',
-        'OCA\\RotDrop\\Toolkit\\Service\\ArchiveService' => __DIR__ . '/../..' . '/lib/Toolkit/Service/ArchiveService.php',
-        'OCA\\RotDrop\\Toolkit\\Service\\GroupFoldersService' => __DIR__ . '/../..' . '/lib/Toolkit/Service/GroupFoldersService.php',
-        'OCA\\RotDrop\\Toolkit\\Service\\MimeTypeService' => __DIR__ . '/../..' . '/lib/Toolkit/Service/MimeTypeService.php',
-        'OCA\\RotDrop\\Toolkit\\Service\\RequestService' => __DIR__ . '/../..' . '/lib/Toolkit/Service/RequestService.php',
-        'OCA\\RotDrop\\Toolkit\\Service\\UserScopeService' => __DIR__ . '/../..' . '/lib/Toolkit/Service/UserScopeService.php',
-        'OCA\\RotDrop\\Toolkit\\Traits\\AppNameTrait' => __DIR__ . '/../..' . '/lib/Toolkit/Traits/AppNameTrait.php',
-        'OCA\\RotDrop\\Toolkit\\Traits\\AssetTrait' => __DIR__ . '/../..' . '/lib/Toolkit/Traits/AssetTrait.php',
-        'OCA\\RotDrop\\Toolkit\\Traits\\AuthTokenTrait' => __DIR__ . '/../..' . '/lib/Toolkit/Traits/AuthTokenTrait.php',
-        'OCA\\RotDrop\\Toolkit\\Traits\\CloudAdminTrait' => __DIR__ . '/../..' . '/lib/Toolkit/Traits/CloudAdminTrait.php',
-        'OCA\\RotDrop\\Toolkit\\Traits\\Constants' => __DIR__ . '/../..' . '/lib/Toolkit/Traits/Constants.php',
-        'OCA\\RotDrop\\Toolkit\\Traits\\DateTimeTrait' => __DIR__ . '/../..' . '/lib/Toolkit/Traits/DateTimeTrait.php',
-        'OCA\\RotDrop\\Toolkit\\Traits\\EnumValuesTrait' => __DIR__ . '/../..' . '/lib/Toolkit/Traits/EnumValuesTrait.php',
-        'OCA\\RotDrop\\Toolkit\\Traits\\FakeTranslationTrait' => __DIR__ . '/../..' . '/lib/Toolkit/Traits/FakeTranslationTrait.php',
-        'OCA\\RotDrop\\Toolkit\\Traits\\IncludeExcludeTrait' => __DIR__ . '/../..' . '/lib/Toolkit/Traits/IncludeExcludeTrait.php',
-        'OCA\\RotDrop\\Toolkit\\Traits\\LoggerTrait' => __DIR__ . '/../..' . '/lib/Toolkit/Traits/LoggerTrait.php',
-        'OCA\\RotDrop\\Toolkit\\Traits\\ResponseTrait' => __DIR__ . '/../..' . '/lib/Toolkit/Traits/ResponseTrait.php',
-        'OCA\\RotDrop\\Toolkit\\Traits\\UserRootFolderTrait' => __DIR__ . '/../..' . '/lib/Toolkit/Traits/UserRootFolderTrait.php',
-        'OCA\\RotDrop\\Toolkit\\Traits\\UtilTrait' => __DIR__ . '/../..' . '/lib/Toolkit/Traits/UtilTrait.php',
         'PDepend\\Application' => __DIR__ . '/..' . '/pdepend/pdepend/src/main/php/PDepend/Application.php',
         'PDepend\\DbusUI\\ResultPrinter' => __DIR__ . '/..' . '/pdepend/pdepend/src/main/php/PDepend/DbusUI/ResultPrinter.php',
         'PDepend\\DependencyInjection\\Compiler\\ProcessListenerPass' => __DIR__ . '/..' . '/pdepend/pdepend/src/main/php/PDepend/DependencyInjection/Compiler/ProcessListenerPass.php',
@@ -1879,6 +1842,7 @@ class ComposerStaticInitd2bffaf3f56fd95a4f853df85ff0d784
         'Prophecy\\Call\\CallCenter' => __DIR__ . '/..' . '/phpspec/prophecy/src/Prophecy/Call/CallCenter.php',
         'Prophecy\\Comparator\\ClosureComparator' => __DIR__ . '/..' . '/phpspec/prophecy/src/Prophecy/Comparator/ClosureComparator.php',
         'Prophecy\\Comparator\\Factory' => __DIR__ . '/..' . '/phpspec/prophecy/src/Prophecy/Comparator/Factory.php',
+        'Prophecy\\Comparator\\FactoryProvider' => __DIR__ . '/..' . '/phpspec/prophecy/src/Prophecy/Comparator/FactoryProvider.php',
         'Prophecy\\Comparator\\ProphecyComparator' => __DIR__ . '/..' . '/phpspec/prophecy/src/Prophecy/Comparator/ProphecyComparator.php',
         'Prophecy\\Doubler\\CachedDoubler' => __DIR__ . '/..' . '/phpspec/prophecy/src/Prophecy/Doubler/CachedDoubler.php',
         'Prophecy\\Doubler\\ClassPatch\\ClassPatchInterface' => __DIR__ . '/..' . '/phpspec/prophecy/src/Prophecy/Doubler/ClassPatch/ClassPatchInterface.php',
@@ -1928,7 +1892,6 @@ class ComposerStaticInitd2bffaf3f56fd95a4f853df85ff0d784
         'Prophecy\\Exception\\Prophecy\\ProphecyException' => __DIR__ . '/..' . '/phpspec/prophecy/src/Prophecy/Exception/Prophecy/ProphecyException.php',
         'Prophecy\\PhpDocumentor\\ClassAndInterfaceTagRetriever' => __DIR__ . '/..' . '/phpspec/prophecy/src/Prophecy/PhpDocumentor/ClassAndInterfaceTagRetriever.php',
         'Prophecy\\PhpDocumentor\\ClassTagRetriever' => __DIR__ . '/..' . '/phpspec/prophecy/src/Prophecy/PhpDocumentor/ClassTagRetriever.php',
-        'Prophecy\\PhpDocumentor\\LegacyClassTagRetriever' => __DIR__ . '/..' . '/phpspec/prophecy/src/Prophecy/PhpDocumentor/LegacyClassTagRetriever.php',
         'Prophecy\\PhpDocumentor\\MethodTagRetrieverInterface' => __DIR__ . '/..' . '/phpspec/prophecy/src/Prophecy/PhpDocumentor/MethodTagRetrieverInterface.php',
         'Prophecy\\Prediction\\CallPrediction' => __DIR__ . '/..' . '/phpspec/prophecy/src/Prophecy/Prediction/CallPrediction.php',
         'Prophecy\\Prediction\\CallTimesPrediction' => __DIR__ . '/..' . '/phpspec/prophecy/src/Prophecy/Prediction/CallTimesPrediction.php',
