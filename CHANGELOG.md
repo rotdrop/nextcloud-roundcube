@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [1.0.1] - unreleaseed
+
+### Fixed
+
+- spelling errors
+
+### Added
+
+- PHP NC app-tookit moved into the app-namespace in order to avoid
+  collission with confliciting versions of the toolkit in other apps.
+
 ## [1.0.0] - 2022-02-23
 
 Nothing changed, just re-label rc7 as "final".
