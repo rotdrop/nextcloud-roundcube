@@ -40,8 +40,8 @@ use OCA\RoundCube\Service\AuthRoundCube as Authenticator;
 /** AJAX endpoints for personal settings. */
 class PersonalSettingsController extends Controller
 {
-  use \OCA\RotDrop\Toolkit\Traits\LoggerTrait;
-  use \OCA\RotDrop\Toolkit\Traits\ResponseTrait;
+  use \OCA\RoundCube\Toolkit\Traits\LoggerTrait;
+  use \OCA\RoundCube\Toolkit\Traits\ResponseTrait;
 
   /** @var \OCP\IUser */
   private $user;

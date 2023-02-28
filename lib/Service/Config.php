@@ -37,7 +37,7 @@ use OCP\Authentication\LoginCredentials\ICredentials;
 /** Helper class for handling config values. */
 class Config
 {
-  use \OCA\RotDrop\Toolkit\Traits\LoggerTrait;
+  use \OCA\RoundCube\Toolkit\Traits\LoggerTrait;
 
   public const EXTERNAL_LOCATION = 'externalLocation';
   public const EXTERNAL_LOCATION_DEFAULT = null;

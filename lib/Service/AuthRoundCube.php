@@ -36,7 +36,7 @@ use OCA\RoundCube\Service\Config;
  */
 class AuthRoundCube
 {
-  use \OCA\RotDrop\Toolkit\Traits\LoggerTrait;
+  use \OCA\RoundCube\Toolkit\Traits\LoggerTrait;
 
   const COOKIE_RC_SESSID    = 'roundcube_sessid';
   const COOKIE_RC_SESSAUTH  = 'roundcube_sessauth';

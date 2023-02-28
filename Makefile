@@ -118,6 +118,12 @@ composer-suggest:
 	$(COMPOSER) suggest --all
 .PHONY: composer-suggest
 
+APP_TOOLKIT_DIR = $(ABSSRCDIR)/php-toolkit
+APP_TOOLKIT_DEST = $(ABSSRCDIR)/lib/Toolkit
+APP_TOOLKIT_NS = RoundCube
+
+include $(APP_TOOLKIT_DIR)/tools/scopeme.mk
+
 JS_FILES = $(shell find $(ABSSRCDIR)/src -name "*.js" -o -name "*.vue")
 
 NPM_INIT_DEPS =\
@@ -269,6 +275,7 @@ clean: ## Tidy up local environment
 distclean: clean ## Clean even more, calls clean
 	rm -rf vendor*
 	rm -rf node_modules
+	rm -rf lib/Toolkit/*
 .PHONY: distclean
 
 #@@ Almost everything but downloads

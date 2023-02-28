@@ -38,7 +38,7 @@ use OCP\Security\ISecureRandom;
  */
 class Crypto
 {
-  use \OCA\RotDrop\Toolkit\Traits\LoggerTrait;
+  use \OCA\RoundCube\Toolkit\Traits\LoggerTrait;
 
   /** @var \OCP\Security\ISecureRandom */
   private $secureRandom;

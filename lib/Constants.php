@@ -20,7 +20,7 @@
 
 namespace OCA\RoundCube;
 
-use OCA\RotDrop\Toolkit\Traits\Constants as TraitsConstants;
+use OCA\RoundCube\Toolkit\Traits\Constants as TraitsConstants;
 
 /** General constants for the app. */
 class Constants extends TraitsConstants

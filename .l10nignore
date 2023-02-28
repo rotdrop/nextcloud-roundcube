@@ -2,7 +2,8 @@ vendor/
 build/
 doc/
 js/
-lib/Toolkit/Service/
+lib/Toolkit/
+php-toolkit/Service/
 statistics/
 src/services/
 src/util/

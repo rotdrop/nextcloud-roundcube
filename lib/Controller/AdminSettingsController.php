@@ -40,8 +40,8 @@ use OCA\RoundCube\Service\Config;
 /** AJAX endpoints for admin settings. */
 class AdminSettingsController extends Controller
 {
-  use \OCA\RotDrop\Toolkit\Traits\LoggerTrait;
-  use \OCA\RotDrop\Toolkit\Traits\ResponseTrait;
+  use \OCA\RoundCube\Toolkit\Traits\LoggerTrait;
+  use \OCA\RoundCube\Toolkit\Traits\ResponseTrait;
 
   private $userId;
 

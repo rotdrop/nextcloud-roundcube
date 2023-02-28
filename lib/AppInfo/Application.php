@@ -60,7 +60,7 @@ include_once __DIR__ . '/../../vendor/autoload.php';
  */
 class Application extends App implements IBootstrap
 {
-  use \OCA\RotDrop\Toolkit\Traits\AppNameTrait;
+  use \OCA\RoundCube\Toolkit\Traits\AppNameTrait;
 
   // phpcs:disable Squiz.Commenting.FunctionComment.Missing
   public function __construct(array $urlParams = [])

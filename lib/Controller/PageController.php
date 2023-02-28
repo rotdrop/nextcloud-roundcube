@@ -45,7 +45,7 @@ use OCA\RoundCube\Service\AuthRoundCube as Authenticator;
 /** Main page entry point. */
 class PageController extends Controller
 {
-  use \OCA\RotDrop\Toolkit\Traits\LoggerTrait;
+  use \OCA\RoundCube\Toolkit\Traits\LoggerTrait;
 
   const MAIN_TEMPLATE = 'app';
   const MAIN_ASSET = self::MAIN_TEMPLATE;

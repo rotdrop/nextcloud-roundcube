@@ -13,3 +13,4 @@ build-flavour
 #composer.json
 #composer.lock
 stamp.composer-core-versions
+lib/Toolkit/[A-Z]*

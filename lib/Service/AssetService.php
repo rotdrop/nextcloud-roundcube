@@ -31,7 +31,7 @@ use OCA\RoundCube\Constants;
  */
 class AssetService
 {
-  use \OCA\RotDrop\Toolkit\Traits\AssetTrait {
+  use \OCA\RoundCube\Toolkit\Traits\AssetTrait {
     getAsset as public;
     getJSAsset as public;
     getCSSAsset as public;
