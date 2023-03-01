@@ -78,8 +78,12 @@ Hopefully an installation is possible by one of the following alternatives:
 
 - install from the Nextcloud app-store
 - download a (pre-)release tarball and extract it into you app directory
-- the assets are also contained in the git repo, so simply cloning the
-  git-repo into your app folder *maybe* just works. Maybe not ...
+
+- pre-compiled assets are also contained in the git repository, but
+  only on the release branches. The master branch typically does not
+  contain any files which could be generated. So simply cloning the
+  git-repo into your app folder and checking out an appropriate
+  release branch like `stable25` *maybe* just works. Maybe not ...
 - clone into your app-folder and compile from source, do a `make dev`
   or `make build`. You need `composer` and `node` (`npm`). `make help`
   or just `make` will list the available targets.
