@@ -22,15 +22,15 @@
   <SettingsSection :class="[...cloudVersionClasses, appName]" :title="t(appName, 'Embedded RoundCube, Personal Settings')">
     <SettingsInputText v-model="emailAddress"
                        :label="t(appName, 'Email Login Name')"
-                       :title="t(appName, 'Email-User for Roundcube')"
+                       :title="t(appName, 'Email user for Roundcube')"
                        :hint="emailAddressHint"
                        :disabled="emailAddressDisabled"
                        @update="saveTextInput(...arguments, 'emailAddress')"
     />
     <SettingsInputText v-model="emailPassword"
                        type="password"
-                       :label="t(appName, 'Email-Password')"
-                       :title="t(appName, 'Email-Password for Roundcube ')"
+                       :label="t(appName, 'Email Password')"
+                       :title="t(appName, 'Email password for Roundcube ')"
                        :hint="emailPasswordHint"
                        :disabled="emailPasswordDisabled"
                        @update="saveTextInput(...arguments, 'emailPassword')"
@@ -96,7 +96,7 @@ export default {
     },
     emailPasswordHint() {
       return this.forceSSOAdmin
-           ? t(appName, 'Single-sign-on is globally forced "on".')
+           ? t(appName, 'Single sign-on is globally forced "on".')
            : t(appName, 'Email password for RoundCube, if needed.')
     },
   },

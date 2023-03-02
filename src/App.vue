@@ -72,7 +72,7 @@ export default {
       }
       switch (this.reason) {
         case 'login':
-          return t(appName, 'Unable to login into roundcube, there are login errors. Please check your personal Roundcube settings. Maybe a re-login to Nextcloud helps. Otherwise contact your system administrator.')
+          return t(appName, 'Unable to login into Roundcube, there are login errors. Please check your personal Roundcube settings. Maybe a re-login to Nextcloud helps. Otherwise contact your system administrator.')
         case 'noemail':
           return t(appName, 'Unable to obtain email credentials for "{emailUserId}". Please check your personal Roundcube settings.', this)
         default:
