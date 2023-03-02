@@ -43,15 +43,21 @@ class Config
   public const EXTERNAL_LOCATION_DEFAULT = null;
   public const EMAIL_DEFAULT_DOMAIN = 'emailDefaultDomain';
   public const EMAIL_DEFAULT_DOMAIN_DEFAULT = null;
+  public const FIXED_SINGLE_EMAIL_ADDRESS = 'fixedSingleEmailAddress';
+  public const FIXED_SINGLE_EMAIL_ADDRESS_DEFAULT = null;
+  public const FIXED_SINGLE_EMAIL_PASSWORD = 'fixedSingleEmailPassword';
+  public const FIXED_SINGLE_EMAIL_PASSWORD_DEFAULT = null;
   public const EMAIL_ADDRESS_CHOICE = 'emailAddressChoice';
   public const EMAIL_ADDRESS_CHOICE_USER_ID = 'userIdEmail';
   public const EMAIL_ADDRESS_CHOICE_USER_PREFERENCES = 'userPreferencesEmail';
   public const EMAIL_ADDRESS_CHOICE_USER_CHOSEN = 'userChosenEmail';
+  public const EMAIL_ADDRESS_CHOICE_FIXED_SINGLE_ADDRESS = 'fixedSingleAddress';
   public const EMAIL_ADDRESS_CHOICE_DEFAULT = self::EMAIL_ADDRESS_CHOICE_USER_CHOSEN;
   public const EMAIL_ADDRESS_CHOICES = [
     self::EMAIL_ADDRESS_CHOICE_USER_ID,
     self::EMAIL_ADDRESS_CHOICE_USER_PREFERENCES,
     self::EMAIL_ADDRESS_CHOICE_USER_CHOSEN,
+    self::EMAIL_ADDRESS_CHOICE_FIXED_SINGLE_ADDRESS,
   ];
   public const FORCE_SSO = 'forceSSO';
   public const FORCE_SSO_DEFAULT = false;
@@ -75,17 +81,19 @@ class Config
   /** @var \OCP\IUser */
   private $user;
 
+  /** @var string */
   private $userId;
 
+  /** @var string */
   private $userPassword;
 
-  /** @var \OCP\IConfig */
+  /** @var IConfig */
   private $config;
 
-  /** @var \OCP\Authentication\LoginCredentials\ICredentials */
+  /** @var ICredentials */
   private $credentials;
 
-  /** @var \OCP\ICrypto */
+  /** @var ICrypto */
   private $crypto;
 
   /**
@@ -130,19 +138,25 @@ class Config
   }
   // phpcs:enable Squiz.Commenting.FunctionComment.Missing
 
-  /**
+/**
    * @param string $key
    *
    * @param mixed $default
    *
+   * @param bool $encrypted
+   *
    * @return mixed
    */
-  public function getAppValue(string $key, mixed $default = null):mixed
+  public function getAppValue(string $key, mixed $default = null, bool $encrypted = false):mixed
   {
     if (empty($default) && isset(self::SETTINGS[$key])) {
       $default = self::SETTINGS[$key];
     }
-    return $this->config->getAppValue($this->appName, $key, $default);
+    $value = $this->config->getAppValue($this->appName, $key, $default);
+    if ($value !== $default && $encrypted) {
+      $value = $this->crypto->decrypt($value);
+    }
+    return $value;
   }
 
   /**
@@ -160,10 +174,15 @@ class Config
    *
    * @param mixed $value
    *
+   * @param bool $encrypted
+   *
    * @return void
    */
-  public function setAppValue(string $key, mixed $value):void
+  public function setAppValue(string $key, mixed $value, bool $encrypted = false):void
   {
+    if ($encrypted) {
+      $value = $this->crypto->encrypt($value);
+    }
     $this->config->setAppValue($this->appName, $key, $value);
   }
 
@@ -296,31 +315,39 @@ class Config
    */
   public function emailCredentials()
   {
+    $userEmail = null;
+    $userPassword = null;
     $emailAddressChoice = $this->getAppValue('emailAddressChoice', 'userPreferencesEmail');
     switch ($emailAddressChoice) {
-      case 'userIdEmail':
+      case self::EMAIL_ADDRESS_CHOICE_USER_ID:
         $userEmail = $this->user->getUID();
         if (strpos($userEmail, '@') === false) {
           $emailDefaultDomain = $this->getAppValue('emailDefaultDomain', '');
           $userEmail .= '@'.$emailDefaultDomain;
         }
         break;
-      case 'userPreferencesEmail':
+      case self::EMAIL_ADDRESS_CHOICE_USER_PREFERENCES:
         $userEmail = $this->user->getEMailAddress();
         break;
-      case 'userChosenEmail':
+      case self::EMAIL_ADDRESS_CHOICE_USER_CHOSEN:
         $userEmail = $this->getPersonalValue('emailAddress', '');
+        break;
+      case self::EMAIL_ADDRESS_CHOICE_FIXED_SINGLE_ADDRESS:
+        $userEmail = $this->getAppValue(self::FIXED_SINGLE_EMAIL_ADDRESS, self::FIXED_SINGLE_EMAIL_ADDRESS_DEFAULT);
+        $userPassword = $this->getAppValue(self::FIXED_SINGLE_EMAIL_PASSWORD, self::FIXED_SINGLE_EMAIL_PASSWORD_DEFAULT, encrypted: true);
         break;
     }
     if (empty($userEmail)) {
-      $this->logError('Unable to obtain email credentials for user '.$this->userId);
+      $this->logError('Unable to obtain email credentials for user ' . $this->userId);
       return false;
     }
-    $forceSSO = $this->getAppValue('forceSSO', false);
-    if (!$forceSSO) {
-      $userPassword = $this->getPersonalValue('emailPassword');
-    } else {
-      $userPassword = $this->userPassword;
+    if (empty($userPassword)) {
+      $forceSSO = $this->getAppValue('forceSSO', false);
+      if (!$forceSSO) {
+        $userPassword = $this->getPersonalValue('emailPassword');
+      } else {
+        $userPassword = $this->userPassword;
+      }
     }
     if (empty($userPassword)) {
       $this->logError('Unable to obtain email credentials for user '.$this->userId);

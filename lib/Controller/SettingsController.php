@@ -53,6 +53,8 @@ class SettingsController extends Controller
   const ADMIN_SETTINGS = [
     Config::EXTERNAL_LOCATION => [ 'rw' => true, 'default' => Config::EXTERNAL_LOCATION_DEFAULT, ],
     Config::EMAIL_DEFAULT_DOMAIN => [ 'rw' => true, 'default' => Config::EMAIL_DEFAULT_DOMAIN_DEFAULT, ],
+    Config::FIXED_SINGLE_EMAIL_ADDRESS => [ 'rw' => true, 'default' => Config::FIXED_SINGLE_EMAIL_ADDRESS_DEFAULT, ],
+    Config::FIXED_SINGLE_EMAIL_PASSWORD => [ 'rw' => true, 'default' => Config::FIXED_SINGLE_EMAIL_PASSWORD_DEFAULT, ],
     Config::EMAIL_ADDRESS_CHOICE => [ 'rw' => true , 'default' => Config::EMAIL_ADDRESS_CHOICE_DEFAULT, ],
     Config::FORCE_SSO => [ 'rw' => true, 'default' => Config::FORCE_SSO_DEFAULT, ],
     Config::SHOW_TOP_LINE => [ 'rw' => true, 'default' => Config::SHOW_TOP_LINE_DEFAULT, ],
@@ -74,6 +76,7 @@ class SettingsController extends Controller
     Config::EMAIL_ADDRESS_CHOICE . self::ADMIN_SETTING => [ 'rw' => false, 'default' => Config::EMAIL_ADDRESS_CHOICE_DEFAULT, ],
     Config::EMAIL_DEFAULT_DOMAIN . self::ADMIN_SETTING => [ 'rw' => false, 'default' => false, ],
     Config::FORCE_SSO . self::ADMIN_SETTING => [ 'rw' => false, 'default' => Config::FORCE_SSO_DEFAULT, ],
+    Config::FIXED_SINGLE_EMAIL_ADDRESS . self::ADMIN_SETTING => [ 'rw' => false, 'default' => Config::FIXED_SINGLE_EMAIL_ADDRESS_DEFAULT, ],
   ];
 
   /** @var IURLGenerator */
@@ -124,10 +127,7 @@ class SettingsController extends Controller
     if (!(self::ADMIN_SETTINGS[$setting]['rw'] ?? false)) {
       return self::grumble($this->l->t('The admin setting "%1$s" is read-only', $setting));
     }
-    $oldValue = $this->config->getAppValue(
-      $setting,
-      self::ADMIN_SETTINGS[$setting]['default'] ?? null,
-    );
+    $encrypted = false;
     $humanValue = null;
     switch ($setting) {
       case Config::EXTERNAL_LOCATION:
@@ -161,7 +161,12 @@ class SettingsController extends Controller
         break;
       case Config::EMAIL_DEFAULT_DOMAIN:
       case Config::EMAIL_ADDRESS_CHOICE:
+      case Config::FIXED_SINGLE_EMAIL_ADDRESS:
         $newValue = $value;
+        break;
+      case Config::FIXED_SINGLE_EMAIL_PASSWORD:
+        $newValue = $value;
+        $encrypted = true;
         break;
       case Config::FORCE_SSO:
       case Config::SHOW_TOP_LINE:
@@ -193,12 +198,18 @@ class SettingsController extends Controller
       $this->config->deleteAppValue($setting);
       $newValue = self::ADMIN_SETTINGS[$setting]['default'] ?? null;
     } else {
-      $this->config->setAppValue($setting, $newValue);
+      $this->config->setAppValue($setting, $newValue, encrypted: $encrypted);
     }
 
     if ($humanValue === null) {
       $humanValue = $newValue;
     }
+
+    $oldValue = $this->config->getAppValue(
+      $setting,
+      self::ADMIN_SETTINGS[$setting]['default'] ?? null,
+      encrypted: $encrypted,
+    );
 
     return new DataResponse([
       'newValue' => $newValue,
@@ -226,14 +237,19 @@ class SettingsController extends Controller
     }
     $results = [];
     foreach (array_keys($allSettings) as $oneSetting) {
+      $encrypted = $oneSetting == Config::FIXED_SINGLE_EMAIL_PASSWORD;
       $value = $this->config->getAppValue(
         $oneSetting,
-        self::ADMIN_SETTINGS[$oneSetting]['default'] ?? null);
+        self::ADMIN_SETTINGS[$oneSetting]['default'] ?? null,
+        encrypted: $encrypted,
+      );
       $humanValue = $value;
       switch ($oneSetting) {
         case Config::EXTERNAL_LOCATION:
         case Config::EMAIL_DEFAULT_DOMAIN:
         case Config::EMAIL_ADDRESS_CHOICE:
+        case Config::FIXED_SINGLE_EMAIL_ADDRESS:
+        case Config::FIXED_SINGLE_EMAIL_PASSWORD:
           break;
         case Config::FORCE_SSO:
         case Config::SHOW_TOP_LINE:
@@ -356,6 +372,7 @@ class SettingsController extends Controller
         case self::EMAIL_PASSWORD:
         case Config::EMAIL_ADDRESS_CHOICE . self::ADMIN_SETTING:
         case Config::EMAIL_DEFAULT_DOMAIN . self::ADMIN_SETTING:
+        case Config::FIXED_SINGLE_EMAIL_ADDRESS . self::ADMIN_SETTING:
           break;
         case Config::FORCE_SSO . self::ADMIN_SETTING:
           $value = (bool)(int)$value;

@@ -30,7 +30,7 @@
     <SettingsInputText v-model="emailPassword"
                        type="password"
                        :label="t(appName, 'Email Password')"
-                       :title="t(appName, 'Email password for Roundcube ')"
+                       :title="t(appName, 'Email password for Roundcube')"
                        :hint="emailPasswordHint"
                        :disabled="emailPasswordDisabled"
                        @update="saveTextInput(...arguments, 'emailPassword')"
@@ -59,6 +59,7 @@ export default {
       emailPassword: null,
       emailAddressChoiceAdmin: null,
       emailDefaultDomainAdmin: null,
+      fixedSingleEmailAddressAdmin: null,
       forceSSOAdmin: null
     }
   },
@@ -77,6 +78,8 @@ export default {
           return true
         case 'userChosenEmail':
           return false
+        case 'fixedSingleAddress':
+          return true
       }
       return false
     },
@@ -86,6 +89,8 @@ export default {
           return t(appName, 'Globally configured as USERID@{emailDefaultDomainAdmin}', this)
         case 'userPreferencesEmail':
           return t(appName, 'Globally configured as user\'s email address, see user\'s personal settings.')
+        case 'fixedSingleAddress':
+          return t(appName, 'Globally configured as {fixedSingleEmailAddressAdmin}', this)
         case 'userChosenEmail':
         default:
           return t(appName, 'Please specify an email address to use with RoundCube.')
@@ -95,6 +100,9 @@ export default {
       return this.emailAddressDisabled || this.forceSSOAdmin
     },
     emailPasswordHint() {
+      if (this.emailAddressChoiceAdmin === 'fixedSingleAddress') {
+        return t(appName, 'Globally configured by the administrator')
+      }
       return this.forceSSOAdmin
            ? t(appName, 'Single sign-on is globally forced "on".')
            : t(appName, 'Email password for RoundCube, if needed.')

@@ -28,31 +28,34 @@
   >
     <div class="input-wrapper">
       <label :for="id" :class="{ empty: !label || label === '' }">{{ label }}</label>
-      <input v-bind="$attrs"
-             :id="id"
-             :type="inputType"
-             :value="inputVal"
-             :disabled="disabled"
-             :placeholder="placeholder"
-             @input="$emit('input', $event.target.value); inputVal = $event.target.value;"
-      >
-      <input type="submit"
-             class="icon-confirm"
-             value=""
-             :disabled="disabled"
-             @click="$emit('update', inputVal)"
-      >
-      <input v-if="type === 'password'"
-             :id="id + '-visibility-toggle'"
-             v-model="inputIsVisible"
-             class="visibility-toggle"
-             type="checkbox"
-             :disabled="disabled"
-      >
-      <label v-if="type === 'password'"
-             :for="id + '-visibility-toggle'"
-             class="visibility-toggle"
-      />
+      <div class="inner-input-wrapper">
+        <input v-bind="$attrs"
+               :id="id"
+               class="principal-input"
+               :type="inputType"
+               :value="inputVal"
+               :disabled="disabled"
+               :placeholder="placeholder"
+               @input="$emit('input', $event.target.value); inputVal = $event.target.value;"
+        >
+        <input type="submit"
+               class="icon-confirm"
+               value=""
+               :disabled="disabled"
+               @click="$emit('update', inputVal)"
+        >
+        <input v-if="type === 'password'"
+               :id="id + '-visibility-toggle'"
+               v-model="inputIsVisible"
+               class="visibility-toggle"
+               type="checkbox"
+               :disabled="disabled"
+        >
+        <label v-if="type === 'password'"
+               :for="id + '-visibility-toggle'"
+               class="visibility-toggle"
+        />
+      </div>
       <p v-if="hint !== '' || !!$slots.hint" class="hint">
         {{ hint }}
         <slot name="hint" />
@@ -153,8 +156,16 @@ export default {
     width: 100%;
   }
 
+  .inner-input-wrapper {
+    position:relative;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 400px;
+  }
+
   // let the main input grow
-  label + input {
+  input.principal-input {
     flex-grow: 1;
     &[type='number'] {
       direction:rtl;

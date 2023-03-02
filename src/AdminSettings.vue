@@ -31,7 +31,7 @@
     <AppSettingsSection :title="t(appName, 'Email Address Selection')"
                         class="flex-container flex-column"
     >
-      <div class="flex-container flex-row flex-center">
+      <div class="flex-container flex-row flex-center email-address-choice">
         <input id="user-id-email"
                v-model="emailAddressChoice"
                class="radio"
@@ -52,30 +52,65 @@
                            @update="saveTextInput(...arguments, 'emailDefaultDomain')"
         />
       </div>
-      <input id="user-preferences-email"
-             v-model="emailAddressChoice"
-             class="radio"
-             type="radio"
-             name="emailAddressChoice"
-             value="userPreferencesEmail"
-             :disabled="loading > 0"
-             @change="saveSetting('emailAddressChoice')"
-      >
-      <label for="user-preferences-email">
-        {{ t(appName, 'User\'s Preferences') }}
-      </label>
-      <input id="user-chosen-email"
-             v-model="emailAddressChoice"
-             class="radio"
-             type="radio"
-             name="emailAddressChoice"
-             value="userChosenEmail"
-             :disabled="loading > 0"
-             @change="saveSetting('emailAddressChoice')"
-      >
-      <label for="user-chosen-email">
-        {{ t(appName, 'User\'s Choice') }}
-      </label>
+      <div class="flex-container flex-row flex-center email-address-choice">
+        <input id="user-preferences-email"
+               v-model="emailAddressChoice"
+               class="radio"
+               type="radio"
+               name="emailAddressChoice"
+               value="userPreferencesEmail"
+               :disabled="loading > 0"
+               @change="saveSetting('emailAddressChoice')"
+        >
+        <label for="user-preferences-email">
+          {{ t(appName, 'User\'s Preferences') }}
+        </label>
+      </div>
+      <div class="flex-container flex-row flex-center email-address-choice">
+        <input id="user-chosen-email"
+               v-model="emailAddressChoice"
+               class="radio"
+               type="radio"
+               name="emailAddressChoice"
+               value="userChosenEmail"
+               :disabled="loading > 0"
+               @change="saveSetting('emailAddressChoice')"
+        >
+        <label for="user-chosen-email">
+          {{ t(appName, 'User\'s Choice') }}
+        </label>
+      </div>
+      <div class="email-address-choice">
+        <input id="fixed-single-address"
+               v-model="emailAddressChoice"
+               class="radio"
+               type="radio"
+               name="emailAddressChoice"
+               value="fixedSingleAddress"
+               :disabled="loading > 0"
+               @change="saveSetting('emailAddressChoice')"
+        >
+        <label for="fixed-single-address">
+          {{ t(appName, 'Fixed Single Address') }}
+        </label>
+        <div v-if="emailAddressChoice === 'fixedSingleAddress'">
+          <SettingsInputText v-model="fixedSingleEmailAddress"
+                             :label="t(appName, 'Global Email Login')"
+                             :title="t(appName, 'Global email user-name for Roundcube for all users')"
+                             :disabled="loading > 0 || (emailAddressChoice !== 'fixedSingleAddress')"
+                             :placeholder="t(appName, 'Email Address')"
+                             @update="saveTextInput(...arguments, 'fixedSingleEmailAddress')"
+          />
+          <SettingsInputText v-model="fixedSingleEmailPassword"
+                             type="password"
+                             :label="t(appName, 'Global Email Password')"
+                             :title="t(appName, 'Global email password for Roundcube for all users')"
+                             :disabled="loading > 0 || (emailAddressChoice !== 'fixedSingleAddress')"
+                             :placeholder="t(appName, 'Email Password')"
+                             @update="saveTextInput(...arguments, 'fixedSingleEmailPassword')"
+          />
+        </div>
+      </div>
     </AppSettingsSection>
     <AppSettingsSection :title="t(appName, 'Advanced Settings')"
                         class="flex-container flex-column"
@@ -86,7 +121,7 @@
              type="checkbox"
              name="forceSSO"
              value="1"
-             :disabled="loading > 0"
+             :disabled="loading > 0 || emailAddressChoice === 'fixedSingleAddress'"
              @change="saveSetting('forceSSO')"
       >
       <label for="force-sso">
@@ -157,6 +192,8 @@ export default {
       externalLocation: null,
       emailAddressChoice: null,
       emailDefaultDomain: null,
+      fixedSingleEmailAddress: null,
+      fixedSingleEmailPassword: null,
       forceSSO: false,
       showTopLine: false,
       enableSSLVerify: true,
