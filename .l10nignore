@@ -1,9 +1,13 @@
+dev-scripts/
 vendor/
+node_modules/
 build/
 doc/
+contrib/
 js/
+css/
+img/
 lib/Toolkit/
 php-toolkit/Service/
 statistics/
-src/services/
-src/util/
+src/toolkit/util/
