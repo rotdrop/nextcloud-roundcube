@@ -97,7 +97,21 @@ export default {
       }
     },
     emailPasswordDisabled() {
-      return this.emailAddressDisabled || this.forceSSOAdmin
+      if (this.forceSSO) {
+        return true
+      }
+      switch (this.emailAddressChoiceAdmin) {
+        case 'userIdEmail':
+          return false
+        case 'userPreferencesEmail':
+          return false
+        case 'userChosenEmail':
+          return false
+        case 'fixedSingleAddress':
+          return true
+        default:
+          return false
+      }
     },
     emailPasswordHint() {
       if (this.emailAddressChoiceAdmin === 'fixedSingleAddress') {
