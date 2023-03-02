@@ -331,35 +331,4 @@ class Config
       'password' => $userPassword,
     ];
   }
-
-  /**
-   * @param string $userId
-   *
-   * @param string $emailUser
-   *
-   * @param string $emailPassword
-   *
-   * @return void
-   */
-  public function setEmailCredentials(string $userId, string $emailUser, string $emailPassword):void
-  {
-    $emailAddressChoice = $this->getAppValue('emailAddressChoice', 'userPreferencesEmail');
-    switch ($emailAddressChoice) {
-      case 'userIdEmail':
-      case 'userPreferencesEmail':
-        throw new Exception($this->l->t('Cannot set email credentials for chosen address choice "%s".', $emailAddressChoice));
-      case 'userChosenEmail':
-        break;
-    }
-    $forceSSO = $this->getAppValue('forceSSO', false);
-    if ($forceSSO) {
-      throw new Exception($this->l->t('Cannot set email credentials if SSO is enforced.'));
-    }
-    if ($this->personalEncryption) {
-      // @todo replace by asymmetric (public/private key pair) encryption
-      throw new Exception($this->l->t('Cannot set email credentials if personal encryption is required.'));
-    }
-    $this->setPersonalValue('emailAddress', $emailUser, null, $userId);
-    $this->setPersonalValue('emailPassword', $emailPassword, null, $userId);
-  }
 }
