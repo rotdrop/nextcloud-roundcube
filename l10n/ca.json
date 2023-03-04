@@ -14,6 +14,8 @@
     "Choose a prefix-folder" : "Trieu una carpeta-prefix",
     "Invalid path selected: \"{dir}\"." : "El camí seleccionat no és vàlid: \"{dir}\".",
     "Selected path: \"{dir}/{base}/\"." : "Camí seleccionat: \"{dir}/{base}/\".",
+    "User ID" : "ID de l'usuari",
+    "Email Address" : "Adreça de correu electrònic",
     "Advanced Settings" : "Paràmetres avançats",
     "reason unknown" : "motiu desconegut",
     "Unable to query the initial value of all settings: {message}" : "No es pot consultar el valor inicial de totes les opcions de configuració: {message}",
