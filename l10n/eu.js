@@ -36,6 +36,7 @@ OC.L10N.register(
     "User's Preferences" : "Erabiltzailearen hobespenak",
     "User's Choice" : "Erabiltzailearen aukera",
     "Email Address" : "Helbide elektronikoa",
+    "Email Password" : "E-postaren pasahitza",
     "Advanced Settings" : "Ezarpen aurreratuak",
     "Force single sign on (disables custom password)." : "Behartu saio hasiera bateratua (pasahitz pertsonalizatua desgaitzen du).",
     "Show RoundCube top information bar (shows logout button)." : "Erakutsi RoundCube-ren goiko informazio-barra (saioa amaitzeko botoia erakusten du).",
