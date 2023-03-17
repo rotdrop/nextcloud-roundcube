@@ -116,7 +116,7 @@ trait UserRootFolderTrait
    * @param int $depth Internal recursion depth parameters. The $callback
    * receives it as second argument.
    *
-   * @return int The number of plain files found during the walk.
+   * @return int The number of files found during the walk.
    */
   public function folderWalk(mixed $pathOrFolder, ?callable $callback = null, int $depth = 0):int
   {
