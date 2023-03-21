@@ -18,6 +18,7 @@
     "The input color values are invalid." : "Улазне вредности боје су неисправне.",
     "Invalid path selected: \"{dir}\"." : "Изабрана је неисправна путања: „{dir}”.",
     "Selected path: \"{dir}/{base}/\"." : "Изабрана путања: „{dir}/{base}/”.",
+    "User ID" : "Кориснички ID",
     "Email Address" : "И-мејл адреса",
     "Advanced Settings" : "Напредне поставке",
     "Enable SSL verification." : "Укључи SSL потврђивање.",
