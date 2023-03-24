@@ -111,7 +111,9 @@ trait UserRootFolderTrait
    * path then it must be relative to the user folder.
    *
    * @param null|callable $callback The callback receives two arguments, the
-   * current file system node and the recursion depth.
+   * current file system node and the recursion depth. If the current node is
+   * a folder then the callback is invoked before traversing its directory
+   * entries.
    *
    * @param int $depth Internal recursion depth parameters. The $callback
    * receives it as second argument.
@@ -132,7 +134,9 @@ trait UserRootFolderTrait
     }
 
     if (!empty($callback)) {
-      $callback($folder, $depth);
+      if ($callback($folder, $depth) === false) {
+        return 0;
+      }
     }
     ++$depth;
 
