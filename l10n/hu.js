@@ -15,6 +15,7 @@ OC.L10N.register(
     "bytes" : "bájt",
     "User ID" : "Felhasználóazonosító",
     "Email Address" : "E-mail-cím",
-    "Advanced Settings" : "Speciális beállítások"
+    "Advanced Settings" : "Speciális beállítások",
+    "Enable SSL verification." : "SSL-ellenőrzés engedélyezése."
 },
 "nplurals=2; plural=(n != 1);");
