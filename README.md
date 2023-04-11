@@ -6,38 +6,38 @@ RoundCube Web Mail
 
 - [Intro](#intro)
 - [Installation](#installation)
-    - [Nextcloud App](#nextcloud-app)
-    - [Roundcube App](#roundcube-app)
+  - [Nextcloud App](#nextcloud-app)
+  - [Roundcube App](#roundcube-app)
 - [Configuration](#configuration)
-    - [Adminstration, Web-Server Setup](#adminstration-web-server-setup)
-        - [TL;DR](#tldr)
-        - [NC Domain equal RC Domain](#nc-domain-equal-rc-domain)
-        - [Different Domains, but same Web-Server](#different-domains-but-same-web-server)
-            - [Apache](#apache)
-            - [Example for NGINX](#example-for-nginx)
-        - [Different Domains, different Web-Server](#different-domains-different-web-server)
-            - [Necessary Roundcube Setup](#necessary-roundcube-setup)
-            - [Example for Apache](#example-for-apache)
-            - [Example for NGINX](#example-for-nginx-1)
-    - [Admistrators Settings](#admistrators-settings)
-        - [Roundcube Installation](#roundcube-installation)
-        - [Email Address Selection](#email-address-selection)
-            - [Cloud Login-Id](#cloud-login-id)
-            - [User's Preferences](#users-preferences)
-            - [User's Choice](#users-choice)
-        - [Advanced Settings](#advanced-settings)
-            - [Force Single Sign On](#force-single-sign-on)
-            - [Show Roundcube Top Bar](#show-roundcube-top-bar)
-            - [Enable SSL Verification](#enable-ssl-verification)
-            - [Per-User Encryption of Config-Values](#per-user-encryption-of-config-values)
-    - [Personal Settings](#personal-settings)
-        - [Email Login Name](#email-login-name)
-        - [Email Password](#email-password)
+  - [Adminstration, Web-Server Setup](#adminstration-web-server-setup)
+    - [TL;DR](#tldr)
+    - [NC Domain equals RC Domain](#nc-domain-equals-rc-domain)
+    - [Different Domains, but same Web-Server](#different-domains-but-same-web-server)
+      - [Example for Apache](#example-for-apache)
+      - [Example for NGINX](#example-for-nginx)
+    - [Different Domains, different Web-Server](#different-domains-different-web-server)
+      - [Necessary Roundcube Setup](#necessary-roundcube-setup)
+      - [Example for Apache](#example-for-apache-1)
+      - [Example for NGINX](#example-for-nginx-1)
+  - [Admistrators Settings](#admistrators-settings)
+    - [Roundcube Installation](#roundcube-installation)
+    - [Email Address Selection](#email-address-selection)
+      - [Cloud Login-Id](#cloud-login-id)
+      - [User's Preferences](#users-preferences)
+      - [User's Choice](#users-choice)
+    - [Advanced Settings](#advanced-settings)
+      - [Force Single Sign On](#force-single-sign-on)
+      - [Show Roundcube Top Bar](#show-roundcube-top-bar)
+      - [Enable SSL Verification](#enable-ssl-verification)
+      - [Per-User Encryption of Config-Values](#per-user-encryption-of-config-values)
+  - [Personal Settings](#personal-settings)
+    - [Email Login Name](#email-login-name)
+    - [Email Password](#email-password)
 - [Screenshots](#screenshots)
-    - [Main Window](#main-window)
-    - [Preferences](#preferences)
-        - [Admin Settings](#admin-settings)
-        - [Personal Settings](#personal-settings-1)
+  - [Main Window](#main-window)
+  - [Preferences](#preferences)
+    - [Admin Settings](#admin-settings)
+    - [Personal Settings](#personal-settings-1)
 
 <!-- markdown-toc end -->
 
@@ -119,7 +119,7 @@ adminstrator settings of the app.
 In this case the simplest thing is to just map the Roundcube
 installation a second time by a simple `Alias` directive.
 
-#### Apache
+#### Example for Apache
 
 Example for [Apache mod_alias](https://httpd.apache.org/docs/2.4/mod/mod_alias.html):
 
@@ -146,7 +146,7 @@ configuration mapping a local web-path to the external Roundcube
 server.
 
 *If you try this then please first check the proxy settings
-independent from the us of it in this app, i.e. just open the
+independent from the use of it in this app, i.e. just open the
 proxied-location in you web-browser, log-in manually and check if it
 works.*
 
