@@ -9,13 +9,22 @@ OC.L10N.register(
     "Value \"%1$s\" for setting \"%2$s\" is not convertible to boolean." : "A(z) „%2$s” beállítás „%1$s” értéke nem alakítható logikai értékké.",
     "true" : "igaz",
     "false" : "hamis",
+    "Unknown personal setting: \"%1$s\"" : "Ismeretlen személyes beállítás: „%1$s”",
+    "The personal setting \"%1$s\" is read-only" : "A(z) „%1$s” személyes beállítás csak olvasható",
+    "Unknown personal setting: \"%s\"." : "Ismeretlen személyes beállítás: „%s”.",
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Telepítési probléma; a kért „%1$s” „%2$s” típusú erőforrás nincs a kiszolgálóra telepítve, lépjen kapcsolatba a rendszergazdával.",
     "Error, caught an exception." : "Hiba, kivétel történt.",
     "Caused by previous exception" : "Az előző kivétel okozta",
     "bytes" : "bájt",
+    "The supplied color-string \"%s\" seems to be invalid." : "A megadott „%s” színkód érvénytelennek tűnik.",
+    "The input color values are invalid." : "A bemeneti színértékeke érvénytelenek.",
+    "Choose a prefix-folder" : "Előtagmappa kiválasztása",
+    "Invalid path selected: \"{dir}\"." : "Érvénytelen kiválasztott útvonal: „{dir}”.",
+    "Selected path: \"{dir}/{base}/\"." : "Kiválasztott útvonal: „{dir}/{base}/”.",
     "User ID" : "Felhasználóazonosító",
     "Email Address" : "E-mail-cím",
     "Advanced Settings" : "Speciális beállítások",
-    "Enable SSL verification." : "SSL-ellenőrzés engedélyezése."
+    "Enable SSL verification." : "SSL-ellenőrzés engedélyezése.",
+    "reason unknown" : "ismeretlen ok"
 },
 "nplurals=2; plural=(n != 1);");
