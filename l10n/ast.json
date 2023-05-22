@@ -1,0 +1,7 @@
+{ "translations": {
+    "bytes" : "bytes",
+    "RoundCube Mail" : "RoundCube Mail",
+    "RoundCube Web Mail" : "RoundCube Web Mail",
+    "Advanced Settings" : "Configuración avanzada"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}
