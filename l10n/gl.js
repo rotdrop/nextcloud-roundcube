@@ -27,6 +27,7 @@ OC.L10N.register(
     "Invalid path selected: \"{dir}\"." : "Ruta seleccionada non válida: \"{dir}\".",
     "Selected path: \"{dir}/{base}/\"." : "Ruta seleccionada: \"{dir}/{base}/\".",
     "Embedded RoundCube, Admin Settings" : "RoundCube incorporado, configuración de administración",
+    "User ID" : "Identificador do usuario",
     "Email Address" : "Enderezo de Correo Electrónico",
     "Advanced Settings" : "Axustes avanzados"
 },
