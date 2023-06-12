@@ -28,7 +28,7 @@ OC.L10N.register(
     "Selected path: \"{dir}/{base}/\"." : "Ruta seleccionada: \"{dir}/{base}/\".",
     "Embedded RoundCube, Admin Settings" : "RoundCube incorporado, configuración de administración",
     "User ID" : "Identificador do usuario",
-    "Email Address" : "Enderezo de Correo Electrónico",
+    "Email Address" : "Enderezo de correo-e",
     "Advanced Settings" : "Axustes avanzados"
 },
 "nplurals=2; plural=(n != 1);");
