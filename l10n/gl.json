@@ -20,7 +20,7 @@
     "RoundCube Mail" : "Correo RoundCube",
     "RoundCube Web Mail" : "Correo web de RoundCube",
     "Embed an installation of RoundCube into Nextcloud" : "Inserir unha instalación de RoundCube en Nextcloud",
-    "Integrates an existing RoundCube standalone email-webapp into NextCloud, with optional SSO." : "Integra unha aplicación web de correo electrónico autónoma RoundCube existente en NextCloud, con SSO opcional.",
+    "Integrates an existing RoundCube standalone email-webapp into NextCloud, with optional SSO." : "Integra unha aplicación web de correo-e independente RoundCube existente en NextCloud, con SSO opcional.",
     "Choose a prefix-folder" : "Escolla un prefixo de cartafol",
     "Invalid path selected: \"{dir}\"." : "Ruta seleccionada non válida: \"{dir}\".",
     "Selected path: \"{dir}/{base}/\"." : "Ruta seleccionada: \"{dir}/{base}/\".",
