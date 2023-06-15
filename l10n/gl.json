@@ -27,6 +27,8 @@
     "Embedded RoundCube, Admin Settings" : "RoundCube incorporado, configuración de administración",
     "User ID" : "Identificador do usuario",
     "Email Address" : "Enderezo de correo-e",
-    "Advanced Settings" : "Axustes avanzados"
+    "Advanced Settings" : "Axustes avanzados",
+    "Force single sign on (disables custom password)." : "Forzar a autenticación única (SSO) (desactiva o contrasinal personalizado).",
+    "Single sign-on is globally forced \"on\"." : "A autenticación única (SSO) está forzado globalmente a «activado»"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
