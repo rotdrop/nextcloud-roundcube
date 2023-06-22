@@ -172,8 +172,8 @@
 </template>
 <script>
 import { appName } from './config.js'
-import AppSettingsSection from '@nextcloud/vue/dist/Components/AppSettingsSection'
-import SettingsSection from '@nextcloud/vue/dist/Components/SettingsSection'
+import AppSettingsSection from '@nextcloud/vue/dist/Components/NcAppSettingsSection'
+import SettingsSection from '@nextcloud/vue/dist/Components/NcSettingsSection'
 import SettingsInputText from '@rotdrop/nextcloud-vue-components/lib/components/SettingsInputText'
 import settingsSync from './toolkit/mixins/settings-sync'
 import cloudVersionClasses from './toolkit/util/cloud-version-classes.js'
@@ -244,15 +244,15 @@ export default {
 </script>
 <style lang="scss" scoped>
 .cloud-version {
-  --cloud-icon-info: var(--icon-info-000);
-  --cloud-icon-checkmark: var(--icon-checkmark-000);
-  --cloud-icon-alert: var(--icon-alert-outline-000);
-  --cloud-theme-filter: none;
-  &.cloud-version-major-25 {
-    --cloud-icon-info: var(--icon-info-dark);
-    --cloud-icon-checkmark: var(--icon-checkmark-dark);
-    --cloud-icon-alert: var(--icon-alert-outline-dark);
-    --cloud-theme-filter: var(--background-invert-if-dark);
+  --cloud-icon-info: var(--icon-info-dark);
+  --cloud-icon-checkmark: var(--icon-checkmark-dark);
+  --cloud-icon-alert: var(--icon-alert-outline-dark);
+  --cloud-theme-filter: var(--background-invert-if-dark);
+  &.cloud-version-major-24 {
+    --cloud-icon-info: var(--icon-info-000);
+    --cloud-icon-checkmark: var(--icon-checkmark-000);
+    --cloud-icon-alert: var(--icon-alert-outline-000);
+    --cloud-theme-filter: none;
   }
 }
 .flex-container {

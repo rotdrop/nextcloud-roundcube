@@ -75,6 +75,14 @@ webpackConfig.plugins = webpackConfig.plugins.concat([
     ],
     exclude: [
       // 'src/toolkit/**',
+      'src/toolkit/util/ajax.js',
+      'src/toolkit/util/dialogs.js',
+      'src/toolkit/util/file-download.js',
+      'src/toolkit/util/generate-url.js',
+      'src/toolkit/util/jquery.js',
+      'src/toolkit/util/on-document-loaded.js',
+      'src/toolkit/util/pangram.js',
+      'src/toolkit/util/print-r.js',
     ],
   }),
   new BundleAnalyzerPlugin({
@@ -139,13 +147,22 @@ webpackConfig.module.rules = [
     test: /\.vue$/,
     loader: 'vue-loader',
   },
+  {
+    test: /\.js$/,
+    loader: 'babel-loader',
+    exclude: /node_modules/,
+  },
 ];
 
 webpackConfig.resolve.modules = [
-  path.resolve(__dirname, 'node_modules'),
   path.resolve(__dirname, 'style'),
   path.resolve(__dirname, 'src'),
   path.resolve(__dirname, '.'),
+  'node_modules',
 ];
+
+webpackConfig.stats = {
+  errorDetails: true,
+};
 
 module.exports = webpackConfig;
