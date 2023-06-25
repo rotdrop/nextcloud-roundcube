@@ -1,14 +1,14 @@
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const CssoWebpackPlugin = require('csso-webpack-plugin').default;
+const DeadCodePlugin = require('webpack-deadcode-plugin');
+const ESLintPlugin = require('eslint-webpack-plugin');
+const fs = require('fs');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 const webpack = require('webpack');
 const webpackConfig = require('@nextcloud/webpack-vue-config');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CssoWebpackPlugin = require('csso-webpack-plugin').default;
-const ESLintPlugin = require('eslint-webpack-plugin');
-const DeadCodePlugin = require('webpack-deadcode-plugin');
 const Visualizer = require('webpack-visualizer-plugin2');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const fs = require('fs');
 const xml2js = require('xml2js');
 
 const infoFile = path.join(__dirname, 'appinfo/info.xml');
