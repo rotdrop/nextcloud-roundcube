@@ -1,4 +1,8 @@
 { "translations": {
+    "Unknown admin setting: \"%1$s\"" : "Невідомі налаштування адміна: \"%1$s\"",
+    "The admin setting \"%1$s\" is read-only" : "Налаштування адміністратора \"%1$s\" тільки для перегляду",
+    "Scheme of external URL must be one of \"http\" or \"https\", but nothing was specified." : "Схема для зовнішнього URL має бути одна з",
+    "Scheme of external URL must be one of \"http\" or \"https\", \"%s\" given." : "Схема для зовнішнього URL має бути з \"http\" або \"https\", \"%s\" дано.",
     "bytes" : "байтів",
     "User ID" : "ID користувача",
     "Email Address" : "Адреса електронної пошти",
