@@ -50,7 +50,7 @@
     "Per-user encryption of config values." : "Cifrado por usuario dos valores de configuración.",
     "Unable to login into Roundcube, there are login errors. Please check your personal Roundcube settings. Maybe a re-login to Nextcloud helps. Otherwise contact your system administrator." : "Non é posíbel acceder a Roundcube, hai erros de acceso. Comprobe os seus axustes persoais de Roundcube. Quizais volver acceder a Nextcloud axude. En caso contrario, póñase en contacto coa administración do sistema.",
     "Unable to obtain email credentials for \"{emailUserId}\". Please check your personal Roundcube settings." : "Non é posíbel obter as credenciais de correo para «{emailUserId}». Comprobe os seus axustes persoais de Roundcube.",
-    "Embedded RoundCube, Personal Settings" : "RoundCube integrado, configuración persoal",
+    "Embedded RoundCube, Personal Settings" : "RoundCube integrado, axustes persoais",
     "Email Login Name" : "Nome de acceso ao correo",
     "Email user for Roundcube" : "Usuario de correo para Roundcube",
     "Email password for Roundcube" : "Contrasinal de correo para Roundcube",
