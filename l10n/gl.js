@@ -68,12 +68,12 @@ OC.L10N.register(
     "Unable to query the initial value of {settingsKey}: {message}" : "Non é posíbel consultar o valor inicial de {settingsKey}: {message}",
     "Successfully set \"{settingsKey}\" to {value}." : "Estabeleceuse correctamente «{settingsKey}» a {value}.",
     "Setting \"{settingsKey}\" has been unset successfully." : "O axuste «{settingsKey}» foi desactivado correctamente.",
-    "Unable to set \"{settingsKey}\" to {value}: {message}." : "Non é posíbel establecer «{settingsKey}» a {value}: {message}.",
+    "Unable to set \"{settingsKey}\" to {value}: {message}." : "Non é posíbel estabelecer «{settingsKey}» a {value}: {message}.",
     "Unable to unset \"{settingsKey}\": {message}" : "Non é posíbel desactivar «{settingsKey}»: {message}",
     "Confirmation Required" : "É necesaria a confirmación",
     "Unconfirmed, reverting to old value." : "Sen confirmar, revertendo ao valor anterior.",
-    "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Estableceuse correctamente o valor para «{settingsKey}» a «{displayValue}»",
+    "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Estabeleceuse correctamente o valor para «{settingsKey}» a «{displayValue}»",
     "Setting \"{setting}\" has been unset successfully." : "O axuste «{setting}» foi desactivado correctamente.",
-    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Non foi posíbel establecer o valor para «{settingsKey}» a {value}: {message}"
+    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Non foi posíbel estabelecer o valor para «{settingsKey}» a {value}: {message}"
 },
 "nplurals=2; plural=(n != 1);");
