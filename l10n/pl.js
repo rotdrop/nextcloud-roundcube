@@ -1,6 +1,7 @@
 OC.L10N.register(
     "mail_roundcube",
     {
+    "Unknown admin setting: \"%1$s\"" : "Nieznane ustawienie administracyjne: \"%1$s\"",
     "Scheme of external URL must be one of \"http\" or \"https\", but nothing was specified." : "Zewnętrzny URL musi zawierać „http” lub „https”, lecz nic nie podano.",
     "Scheme of external URL must be one of \"http\" or \"https\", \"%s\" given." : "Zewnętrzny URL musi zawierać „http” lub „https”, lecz podano „%s”.",
     "Host-part of external URL seems to be empty" : "Host zewnętrznego URL wygląda na pusty",
