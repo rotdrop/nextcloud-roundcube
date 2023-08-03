@@ -94,14 +94,16 @@ trait UserRootFolderTrait
   }
 
   /**
-   * @return string Just the name of the user folder without recurse to the
+   * @param null|string $userId The user-id. If null then $this->userId is used.
+   *
+   * @return string Just the name of the user folder without recursing to the
    * file system. Thus the returned folder-name does not neccessarily point to
-   * an existing folder. The returned path is relative to the root-folder,
-   * e.g. "jane.doe/files".
+   * an existing folder. The returned path is relative to the root-folder
+   * without a leading slash, e.g. "jane.doe/files".
    */
-  public function getUserFolderPath():string
+  public function getUserFolderPath(?string $userId = null):string
   {
-    return $this->userId . Constants::PATH_SEPARATOR . Constants::USER_FOLDER_PREFIX;
+    return ($userId ?? $this->userId) . Constants::PATH_SEPARATOR . Constants::USER_FOLDER_PREFIX;
   }
 
   /**

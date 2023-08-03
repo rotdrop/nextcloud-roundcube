@@ -27,7 +27,6 @@ use RuntimeException;
 
 use OCP\IRequest;
 use OCP\IURLGenerator;
-use OCP\ISession;
 use Psr\Log\LoggerInterface;
 use OCP\IL10N;
 
@@ -53,36 +52,20 @@ class RequestService
   /** @var IURLGenerator */
   protected $urlGenerator;
 
-  /** @var ISession */
-  protected $session;
-
   /** @var IL10N */
   protected $l;
-
-  /**
-   * @var bool
-   *
-   * Close the php-session if it is still open, just before actually
-   * posting to a route on the same server. The default is to close
-   * the session automatically if needed.
-   */
-  protected $closeSession;
 
   // phpcs:disable Squiz.Commenting.FunctionComment.Missing
   public function __construct(
     IRequest $request,
     IURLGenerator $urlGenerator,
-    ISession $session,
     LoggerInterface $logger,
     ?IL10N $l10n = null,
-    bool $closeSession = true,
   ) {
     $this->request = $request;
     $this->urlGenerator = $urlGenerator;
-    $this->session = $session;
     $this->logger = $logger;
     $this->l = $l10n;
-    $this->closeSession = $closeSession;
   }
   // phpcs:enable Squiz.Commenting.FunctionComment.Missing
 
@@ -101,21 +84,6 @@ class RequestService
   }
 
   /**
-   * Set the close-session-behaviour.
-   *
-   * @param bool $value If true close the session just before actually
-   * calling out to a route on the same server.
-   *
-   * @return RequestService $this
-   */
-  public function setCloseSession(bool $value):RequestService
-  {
-    $this->closeSession = $value;
-
-    return $this;
-  }
-
-  /**
    * Post to to a Cloud route.
    *
    * @param string $route Route name (i.e.: not the URL).
@@ -129,8 +97,6 @@ class RequestService
    * 'urlencoded'. Default is 'json'.
    *
    * @return array
-   *
-   * @throws Exceptions\SessionStillOpenException
    */
   public function postToRoute(
     string $route,
@@ -152,8 +118,6 @@ class RequestService
    * @param array $requestData Stuff passed by the POST method.
    *
    * @return array
-   *
-   * @throws Exceptions\SessionStillOpenException
    */
   public function getFromRoute(
     string $route,
@@ -172,8 +136,6 @@ class RequestService
    * @param array $requestData Stuff passed by the GET method.
    *
    * @return array
-   *
-   * @throws Exceptions\SessionStillOpenException
    */
   public function getFromURL(
     string $url,
@@ -194,8 +156,6 @@ class RequestService
    * @param array $requestData Stuff passed by the POST method.
    *
    * @return array
-   *
-   * @throws Exceptions\SessionStillOpenException
    */
   public function postToURL(
     string $url,
@@ -226,8 +186,6 @@ class RequestService
    * 'urlencoded'. Default is 'json'.
    *
    * @return array
-   *
-   * @throws Exceptions\SessionStillOpenException
    */
   public function callInternalRoute(
     string $route,
@@ -236,17 +194,6 @@ class RequestService
     array $requestData = [],
     string $postType = self::JSON,
   ):array {
-    if (!$this->session->isClosed()) {
-      if ($this->closeSession) {
-        $this->session->close();
-      } else {
-        throw new Exceptions\SessionStillOpenException(
-          $this->l->t('Cannot call internal route while the session is open.'),
-          session: $this->session
-        );
-      }
-    }
-
     // $this->logInfo('CALL ROUTE ' . $route . ' ' . print_r($routeParams, true) . ' ' . print_r($requestData, true));
 
     $headers = [];

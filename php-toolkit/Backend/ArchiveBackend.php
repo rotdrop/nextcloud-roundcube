@@ -24,7 +24,7 @@ namespace OCA\RotDrop\Toolkit\Backend;
 
 use InvalidArgumentException;
 use wapmorgan\UnifiedArchive;
-use wapmorgan\UnifiedArchive\Drivers\Basic\BasicDriver;
+use wapmorgan\UnifiedArchive\Abilities;
 
 use OCA\RotDrop\Toolkit\Backend\ArchiveFormats as Formats;
 
@@ -62,13 +62,6 @@ class ArchiveBackend extends UnifiedArchive\UnifiedArchive
       throw new InvalidArgumentException('Could not open file: ' . $fileName.' is not readable');
     }
 
-    // @todo This is here because of
-    // https://github.com/wapmorgan/UnifiedArchive/issues/40#issue-1482748064
-    // and must be removed after that issue has been resolved.
-    if ($fileName !== strtolower($fileName)) {
-      $contentCheck = false;
-    }
-
     $format = Formats::detectArchiveFormat($fileName, contentCheck: $contentCheck);
     if ($format === false) {
       return null;
@@ -80,13 +73,13 @@ class ArchiveBackend extends UnifiedArchive\UnifiedArchive
     }
 
     if (empty($abilities)) {
-      $abilities = [BasicDriver::OPEN];
+      $abilities = [Abilities::OPEN];
       if (!empty($password)) {
-        $abilities[] = BasicDriver::OPEN_ENCRYPTED;
+        $abilities[] = Abilities::OPEN_ENCRYPTED;
       }
     }
 
-    $formatDrivers = Formats::getFormatDrivers($format, $abilities);
+    $formatDrivers = Formats::getFormatDrivers(format: $format, abilities: $abilities);
     if (empty($formatDrivers)) {
       return null;
     }
@@ -95,6 +88,6 @@ class ArchiveBackend extends UnifiedArchive\UnifiedArchive
 
     $driver = $formatDrivers[0];
 
-    return new static($fileName, $format, $driver, $password);
+    return new static(fileName: $fileName, format: $format, driver: $driver, password: $password);
   }
 }

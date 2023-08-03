@@ -26,6 +26,7 @@ use ReflectionClass;
 use Throwable;
 
 use OCP\AppFramework\Http;
+use OCP\AppFramework\Http\Response;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Http\ContentSecurityPolicy;
@@ -81,7 +82,7 @@ trait ResponseTrait
     Throwable $throwable,
     string $renderAs,
     ?string $method = null,
-  ):TemplateResponse {
+  ):Response {
     if (empty($method)) {
       $method = __METHOD__;
     }

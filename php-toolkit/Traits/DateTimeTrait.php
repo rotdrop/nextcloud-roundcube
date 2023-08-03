@@ -3,7 +3,7 @@
  * A collection of reusable traits classes for Nextcloud apps.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022, 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -81,14 +81,17 @@ trait DateTimeTrait
    *
    * @param DateTimeInterface $date
    *
-   * @param DateTimeZone $timeZone
+   * @param null|DateTimeZone $timeZone
    *
    * @return DateTimeImmutable
    *
    * @todo Rework time-zone stuff.
    */
-  public static function convertToTimezoneDate(DateTimeInterface $date, DateTimeZone $timeZone):DateTimeImmutable
+  public static function convertToTimezoneDate(DateTimeInterface $date, ?DateTimeZone $timeZone = null):DateTimeImmutable
   {
+    if ($timeZone === null) {
+      $timeZone = $date->getTimezone();
+    }
     return DateTimeImmutable::createFromFormat('Y-m-d|', $date->format('Y-m-d'), $timeZone);
   }
 }
