@@ -72,9 +72,9 @@
 </template>
 <script>
 import Vue from 'vue'
-import Actions from '@nextcloud/vue/dist/Components/Actions'
-import ActionButton from '@nextcloud/vue/dist/Components/ActionButton'
-import ColorPicker from '@nextcloud/vue/dist/Components/ColorPicker'
+import Actions from '@nextcloud/vue/dist/Components/NcActions'
+import ActionButton from '@nextcloud/vue/dist/Components/NcActionButton'
+import ColorPicker from '@nextcloud/vue/dist/Components/NcColorPicker'
 import { nextTick } from 'vue'
 
 export default {

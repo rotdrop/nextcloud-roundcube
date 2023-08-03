@@ -119,8 +119,8 @@
 </template>
 
 <script>
-import Actions from '@nextcloud/vue/dist/Components/Actions'
-import CounterBubble from '@nextcloud/vue/dist/Components/CounterBubble'
+import Actions from '@nextcloud/vue/dist/Components/NcActions'
+import CounterBubble from '@nextcloud/vue/dist/Components/NcCounterBubble'
 
 export default {
   name: 'ListItem',

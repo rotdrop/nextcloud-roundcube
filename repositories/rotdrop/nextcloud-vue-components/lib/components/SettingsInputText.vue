@@ -1,4 +1,4 @@
- <!--
+<!--
   - @copyright Copyright (c) 2019, 2022, 2023 Julius Härtl <jus@bitgrid.net>
   - @copyright Copyright (c) 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
   -
@@ -28,39 +28,36 @@
   >
     <div class="input-wrapper">
       <label :for="id" :class="{ empty: !label || label === '' }">{{ label }}</label>
-      <div class="inner-input-wrapper">
-        <input v-bind="$attrs"
-               :id="id"
-               class="principal-input"
-               :type="inputType"
-               :value="inputVal"
-               :disabled="disabled"
-               :placeholder="placeholder"
-               @input="$emit('input', $event.target.value); inputVal = $event.target.value;"
-        >
-        <input type="submit"
-               class="icon-confirm"
-               value=""
-               :disabled="disabled"
-               @click="$emit('update', inputVal)"
-        >
-        <input v-if="type === 'password'"
-               :id="id + '-visibility-toggle'"
-               v-model="inputIsVisible"
-               class="visibility-toggle"
-               type="checkbox"
-               :disabled="disabled"
-        >
-        <label v-if="type === 'password'"
-               :for="id + '-visibility-toggle'"
-               class="visibility-toggle"
-        />
-      </div>
-      <p v-if="hint !== '' || !!$slots.hint" class="hint">
-        {{ hint }}
-        <slot name="hint" />
-      </p>
+      <input v-bind="$attrs"
+             :id="id"
+             :type="inputType"
+             :value="inputVal"
+             :disabled="disabled"
+             :placeholder="placeholder"
+             @input="$emit('input', $event.target.value); inputVal = $event.target.value;"
+      >
+      <input type="submit"
+             class="icon-confirm"
+             value=""
+             :disabled="disabled"
+             @click="$emit('update', inputVal)"
+      >
+      <input v-if="type === 'password'"
+             :id="id + '-visibility-toggle'"
+             v-model="inputIsVisible"
+             class="visibility-toggle"
+             type="checkbox"
+             :disabled="disabled"
+      >
+      <label v-if="type === 'password'"
+             :for="id + '-visibility-toggle'"
+             class="visibility-toggle"
+      />
     </div>
+    <p v-if="hint !== '' || !!$slots.hint" class="hint">
+      {{ hint }}
+      <slot name="hint" />
+    </p>
   </form>
 </template>
 
@@ -126,17 +123,21 @@ export default {
 </script>
 <style lang="scss" scoped>
 .cloud-version {
-  --cloud-border-radius: var(--border-radius);
-  --cloud-confirm-size: 34px;
-  --cloud-confirm-left-margin: -8px;
-  --cloud-input-border-width: 1px;
-  --cloud-input-border-color: var(--color-border-dark);
-  &.cloud-version-major-25 {
-    --cloud-border-radius: var(--border-radius-large);
-    --cloud-confirm-size: 36px;
-    --cloud-confirm-left-margin: -13px;
-    --cloud-input-border-width: 2px;
-    --cloud-input-border-color: var(--color-border-maxcontrast);
+  --cloud-border-radius: var(--border-radius-large);
+  --cloud-confirm-size: 36px;
+  --cloud-confirm-left-margin: -13px;
+  --cloud-input-border-width: 2px;
+  --cloud-input-border-color: var(--color-border-maxcontrast);
+  --cloud-icon-confirm: var(--icon-confirm-dark);
+  --cloud-icon-confirm-fade: var(--icon-confirm-fade-dark);
+  &.cloud-version-major-24 {
+    --cloud-border-radius: var(--border-radius);
+    --cloud-confirm-size: 34px;
+    --cloud-confirm-left-margin: -8px;
+    --cloud-input-border-width: 1px;
+    --cloud-input-border-color: var(--color-border-dark);
+    --cloud-icon-confirm: var(--icon-confirm-000);
+    --cloud-icon-confirm-fade: var(--icon-confirm-fade-000);
   }
 }
 .component-wrapper {
@@ -204,27 +205,22 @@ export default {
 
   // Fixup for Nextcloud v25 not setting confirm button border
   input[type='text'], input[type='password'], input[type='number'], input[type='email'] {
-    &:not(:active):not(:hover):not(:focus), & {
-      + .icon-confirm {
-        border-width: var(--cloud-input-border-width);
-        border-color: var(--cloud-input-border-color);
-        &:disabled {
-          &, &:hover, &:active, &:focus {
-            background-color: var(--color-background-dark) !important;
-            border-color: var(--cloud-input-border-color) !important;
-            border-left-color: transparent !important;
-            border-radius: 0 var(--cloud-border-radius) var(--cloud-border-radius) 0 !important;
-            color: var(--color-text-maxcontrast) !important;
-            cursor: default;
-            opacity: 1;
-          }
-        }
+    + .icon-confirm {
+      border-width: var(--cloud-input-border-width);
+      border-color: var(--cloud-input-border-color);
+    }
+    &:not(:active):not(:hover):not(:focus):read-only, &:read-only {
+      + :deep(.icon-confirm), :deep(.icon-confirm:hover) {
+        background-color: var(--color-background-dark) !important;
+        border-color: var(--cloud-input-border-color) !important;
+        border-left-color: transparent !important;
+        border-radius: 0 var(--cloud-border-radius) var(--cloud-border-radius) 0 !important;
       }
     }
   }
 
   // Fixup for Nextcloud not styling confirm after number input
-  input[type='number'] {
+  input[type='password'], input[type='number'], input[type='email'] {
     + .icon-confirm {
       margin-left: var(--cloud-confirm-left-margin) !important;
       border-left-color: transparent !important;
@@ -242,13 +238,13 @@ export default {
       margin-right: 0;
       &:disabled {
         cursor: default;
-        background-image: var(--icon-confirm-fade-000);
+        background-image: var(--cloud-icon-confirm-fade);
       }
     }
     &:not(:active):not(:hover):not(:focus):invalid + .icon-confirm {
       border-color: var(--color-error);
     }
-    &:not(:active):not(:hover):not(:focus) + .icon-confirm {
+    &:not(:active):not(:hover):not(:focus):not(:read-only) + .icon-confirm {
       &:active, &:hover, &:focus {
         border-color: var(--color-primary-element) !important;
         border-radius: var(--border-radius) !important;
@@ -258,11 +254,13 @@ export default {
       }
     }
     &:active, &:hover, &:focus {
-      + .icon-confirm {
-        border-color: var(--color-primary-element) !important;
-        border-left-color: transparent !important;
-        /* above previous input */
-        z-index: 2;
+      &:not(:read-only) {
+        + .icon-confirm {
+          border-color: var(--color-primary-element) !important;
+          border-left-color: transparent !important;
+          /* above previous input */
+          z-index: 2;
+        }
       }
     }
   }
