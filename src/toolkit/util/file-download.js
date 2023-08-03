@@ -1,5 +1,5 @@
 /**
- * @copyright Copyright (c) 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright Copyright (c) 2022, 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
  *
@@ -131,7 +131,7 @@ const download = function(url, post, options) {
       if (isIE) {
         window.navigator.msSaveBlob(blob, fileName);
       } else {
-        // eslint-disable-next-line node/no-unsupported-features/node-builtins
+        // eslint-disable-next-line n/no-unsupported-features/node-builtins
         const url = window.URL || window.webkitURL;
         const link = url.createObjectURL(blob);
         const a = $('<a />');
