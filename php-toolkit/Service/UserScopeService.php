@@ -3,7 +3,7 @@
  * Some PHP utility functions for Nextcloud apps.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022, 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -46,7 +46,7 @@ class UserScopeService
     getAuthToken as private getAuthTokenInternal;
     getAuthCookie as private getAuthCookieInternal;
     deleteAuthCookie as private deleteAuthCookieInternal;
-    deleteAuthToken as private deleteAuthTokenInternal;
+    deleteAuthToken as public;
     getLoginCredentialsFromToken as public;
   }
 
@@ -114,13 +114,13 @@ class UserScopeService
    *
    * @return void
    */
-  public function deleteAuthToken():void
+  public function deleteAuthCookie():void
   {
     $passphrase = $this->request->getCookie($this->cookieName);
     if (empty($passphrase)) {
       return;
     }
-    $this->deleteAuthTokenInternal($passphrase);
+    $this->deleteAuthToken($passphrase);
     $this->deleteAuthCookieInternal($this->cookieName);
   }
 
