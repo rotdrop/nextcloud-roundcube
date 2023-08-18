@@ -51,7 +51,11 @@ const generateUrl = function(url, urlParams, urlOptions) {
   }
   const queryArray = [];
   for (const [key, value] of Object.entries(queryParams)) {
-    queryArray.push(key + '=' + encodeURIComponent(value.toString()));
+    try {
+      queryArray.push(key + '=' + encodeURIComponent(value.toString()));
+    } catch (e) {
+      console.debug('STRING CONVERSION ERROR', e);
+    }
   }
   if (queryArray.length > 0) {
     generated += '?' + queryArray.join('&');

@@ -173,7 +173,6 @@ async function saveSimpleSetting(settingsKey, settingsSection, onSuccess) {
         timeout: TOAST_PERMANENT_TIMEOUT,
       });
     }
-    this[settingsKey] = this.old[settingsKey];
     return false;
   }
 }
