@@ -4,6 +4,7 @@ OC.L10N.register(
     "Error, caught an exception." : "Chyba, vyskytla sa výnimka.",
     "Caused by previous exception" : "Spôsobené predchádzajúcou výnimkou",
     "bytes" : "bajty",
+    "Email Address Selection" : "Výber e-mailovej adresy",
     "User ID" : "ID užívateľa",
     "Email Address" : "E-mailová adresa",
     "Advanced Settings" : "Rozšírené nastavenia",
