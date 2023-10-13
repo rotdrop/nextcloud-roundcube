@@ -6,6 +6,7 @@ OC.L10N.register(
     "Scheme of external URL must be one of \"http\" or \"https\", but nothing was specified." : "Схема для зовнішнього URL має бути одна з",
     "Scheme of external URL must be one of \"http\" or \"https\", \"%s\" given." : "Схема для зовнішнього URL має бути з \"http\" або \"https\", \"%s\" дано.",
     "bytes" : "байтів",
+    "Choose a prefix-folder" : "Виберіть префікс каталогу",
     "User ID" : "ID користувача",
     "Email Address" : "Адреса електронної пошти",
     "Advanced Settings" : "Розширені"
