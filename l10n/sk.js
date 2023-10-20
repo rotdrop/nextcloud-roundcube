@@ -8,6 +8,7 @@ OC.L10N.register(
     "User ID" : "ID užívateľa",
     "Email Address" : "E-mailová adresa",
     "Advanced Settings" : "Rozšírené nastavenia",
+    "reason unknown" : "dôvod neznámy",
     "Confirmation Required" : "Vyžaduje sa potvrdenie",
     "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Nebolo možné nastaviť hodnotu \"{settingsKey}\" na \"{value}\": {message}"
 },
