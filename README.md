@@ -85,7 +85,7 @@ Hopefully an installation is possible by one of the following alternatives:
   git-repo into your app folder and checking out an appropriate
   release branch like `stable25` *maybe* just works. Maybe not ...
 - clone into your app-folder and compile from source, do a `make dev`
-  or `make build`. You need `composer` and `node` (`npm`). `make help`
+  or `make build`. You need `composer`, `node` (`npm`), `jq` and `python-tabulate`. `make help`
   or just `make` will list the available targets.
 
 ### Roundcube App
