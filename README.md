@@ -9,6 +9,7 @@ RoundCube Web Mail
   - [Nextcloud App](#nextcloud-app)
   - [Roundcube App](#roundcube-app)
 - [Configuration](#configuration)
+  - [Roundcube IMAP/SMTP setup](#roundcube-imap-smtp-setup)
   - [Adminstration, Web-Server Setup](#adminstration-web-server-setup)
     - [TL;DR](#tldr)
     - [NC Domain equals RC Domain](#nc-domain-equals-rc-domain)
@@ -93,6 +94,22 @@ Hopefully an installation is possible by one of the following alternatives:
 Please refere to the [Roundcube](https://roundcube.net/) documentation for general installation instructions.
 
 # Configuration
+
+## Roundcube IMAP/SMTP Setup
+
+In `roundcube/config/config.inc.php`:
+
+### IMAP setup
+$config['imap_host'] = array(
+    'ssl://imap.example.com' => 'example.com',
+    'ssl://imap.example2.com' => 'example2.com'
+);
+
+### SMTP setup
+$config['smtp_host'] = array(
+    'imap.example.com' => 'ssl://smtp.example.com',
+    'imap.example2.com' => 'ssl://smtp.example2.com'
+);
 
 ## Adminstration, Web-Server Setup
 
