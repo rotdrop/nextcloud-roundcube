@@ -129,7 +129,6 @@ Example for [Apache mod_alias](https://httpd.apache.org/docs/2.4/mod/mod_alias.h
 
 ```
 Alias /SOME_WEB_PATH PATH_TO_EXISTING_ROUNDCUBE_INSTALLATION
-
 ```
 
 This directive should be placed in the virtual host definition of
@@ -140,7 +139,43 @@ whatever you have chosen for `/SOME_WEB_PATH`.
 
 ##### Example for NGINX
 
-**Please Doc Me!**
+As part of your Nextcloud nginx configuration:
+
+Disable this line:
+```
+    #add_header X-Content-Type-Options            "nosniff"           always;
+```
+
+And add:
+```
+    location /roundcube/ {
+        alias /srv/http/mail.example.com/;
+        index index.php;
+
+        location ~ \.php$ {
+           fastcgi_split_path_info ^(.+\.php)(/.+)$;
+           set $path_info $fastcgi_path_info;
+
+           try_files $fastcgi_script_name =404;
+           fastcgi_param SCRIPT_FILENAME $request_filename;
+           include fastcgi_params;
+           fastcgi_param PATH_INFO $path_info;
+           fastcgi_param HTTPS on;
+           fastcgi_pass php-handler;
+
+           # The following lines might be optional depending on your setup:
+           fastcgi_param modHeadersAvailable true;         # Avoid sending the security headers twice
+           fastcgi_param front_controller_active true;     # Enable pretty urls
+           fastcgi_intercept_errors on;
+           fastcgi_request_buffering off;
+        }
+
+        # Handle static assets
+        location ~ ^/roundcube/(.+)$ {
+            try_files /$1 =404;
+        }
+    }
+```
 
 #### Different Domains, different Web-Server
 
