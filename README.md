@@ -1,4 +1,4 @@
-RoundCube Web Mail
+Roundcube Webmail
 ==================
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
