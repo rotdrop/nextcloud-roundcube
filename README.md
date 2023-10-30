@@ -9,7 +9,7 @@ RoundCube Web Mail
   - [Nextcloud App](#nextcloud-app)
   - [Roundcube App](#roundcube-app)
 - [Configuration](#configuration)
-  - [Roundcube IMAP/SMTP setup](#roundcube-imap-smtp-setup)
+  - [Roundcube IMAP/SMTP setup](#roundcube-imapsmtp-setup)
   - [Adminstration, Web-Server Setup](#adminstration-web-server-setup)
     - [TL;DR](#tldr)
     - [NC Domain equals RC Domain](#nc-domain-equals-rc-domain)
