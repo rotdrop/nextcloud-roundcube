@@ -1,6 +1,6 @@
 { "translations": {
-    "Unknown admin setting: \"%1$s\"" : "Unbekannte Verwaltungs-Einstellung: \"%1$s\"",
-    "The admin setting \"%1$s\" is read-only" : "Die Verwaltungs-Einstellungen \"%1$s\" kann nur gelesen werden.",
+    "Unknown admin setting: \"%1$s\"" : "Unbekannte Verwaltungseinstellung: \"%1$s\"",
+    "The admin setting \"%1$s\" is read-only" : "Die Verwaltungseinstellung \"%1$s\" kann nur gelesen werden.",
     "Scheme of external URL must be one of \"http\" or \"https\", but nothing was specified." : "Das Schema der externen URL muss \"http\" oder \"https\" enthalten, aber es wurde keins von beiden angegeben.",
     "Scheme of external URL must be one of \"http\" or \"https\", \"%s\" given." : "Das Schema der externen URL muss \"http\" oder \"https\", \"%s\" wurde angegeben.",
     "Host-part of external URL seems to be empty" : "Der Host-Teil der externen URL scheint leer zu sein",
