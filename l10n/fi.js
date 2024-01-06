@@ -4,6 +4,7 @@ OC.L10N.register(
     "bytes" : "tavua",
     "Invalid path selected: \"{dir}\"." : "Virheellinen polku valittu: \"{dir}\".",
     "Selected path: \"{dir}/{base}/\"." : "Valittu polku: \"{dir}/{base}/\".",
+    "User ID" : "Käyttäjätunniste",
     "Email Address" : "Sähköpostiosoite",
     "Advanced Settings" : "Lisäasetukset",
     "reason unknown" : "tuntematon syy",

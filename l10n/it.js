@@ -18,6 +18,7 @@ OC.L10N.register(
     "Choose a prefix-folder" : "Scegli una cartella predefinita",
     "Invalid path selected: \"{dir}\"." : "Selezionato percorso non valido: \"{dir}\".",
     "Selected path: \"{dir}/{base}/\"." : "Percorso selezionato: \"{dir}/{base}/\".",
+    "User ID" : "ID Utente",
     "Email Address" : "Indirizzo email",
     "Advanced Settings" : "Impostazioni avanzate",
     "reason unknown" : "motivo sconosciuto",
