@@ -31,7 +31,7 @@ const alert = function(text, title, callback, modal, allowHtml) {
     OC.dialogs.OK_BUTTON,
     callback,
     modal,
-    allowHtml
+    allowHtml,
   );
 };
 
@@ -43,7 +43,7 @@ const info = function(text, title, callback, modal, allowHtml) {
     OC.dialogs.OK_BUTTON,
     callback,
     modal,
-    allowHtml
+    allowHtml,
   );
 };
 
@@ -82,7 +82,7 @@ const confirm = function(text, title, options, modal, allowHtml) {
     buttons,
     options.callback,
     options.modal,
-    options.allowHtml
+    options.allowHtml,
   );
 };
 
