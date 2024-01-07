@@ -21,7 +21,6 @@
     "RoundCube Web Mail" : "Уеб поща на RoundCube",
     "Embed an installation of RoundCube into Nextcloud" : "Вграждане на инсталация на RoundCube в Nextcloud",
     "Integrates an existing RoundCube standalone email-webapp into NextCloud, with optional SSO." : "Интегрира съществуваща самостоятелна електронна поща RoundCube-уеб приложение в NextCloud, с опционално SSO.",
-    "Choose a prefix-folder" : "Избор на префикс-папка",
     "Invalid path selected: \"{dir}\"." : "Избран е невалиден път: \"{dir}\".",
     "Selected path: \"{dir}/{base}/\"." : "Избран път: \"{dir}/{base}/\".",
     "Embedded RoundCube, Admin Settings" : "Вграден RoundCube, настройки на администратора",

@@ -3,8 +3,11 @@
     "The admin setting \"%1$s\" is read-only" : "Налаштування адміністратора \"%1$s\" тільки для перегляду",
     "Scheme of external URL must be one of \"http\" or \"https\", but nothing was specified." : "Схема для зовнішнього URL має бути одна з",
     "Scheme of external URL must be one of \"http\" or \"https\", \"%s\" given." : "Схема для зовнішнього URL має бути з \"http\" або \"https\", \"%s\" дано.",
+    "User" : "Користувач",
+    "Password" : "Пароль",
+    "Login succeeded." : "Успішно авторизовано.",
+    "Login failed." : "Не вдалося авторизуватися.",
     "bytes" : "байтів",
-    "Choose a prefix-folder" : "Виберіть префікс каталогу",
     "User ID" : "ID користувача",
     "Email Address" : "Адреса електронної пошти",
     "Advanced Settings" : "Розширені"

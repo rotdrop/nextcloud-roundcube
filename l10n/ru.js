@@ -13,6 +13,7 @@ OC.L10N.register(
     "The personal setting \"%1$s\" is read-only" : "Личная настройка \"%1$s\" в режиме для чтения",
     "Unknown personal setting: \"%s\"." : "Неизвестная личная настройка: \"%s\".",
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Проблема с установкой; требуемый ресурс \"%1$s\" типа \"%2$s\" не установлен на сервере, пожалуйста, свяжитесь с системным администратором!",
+    "Password" : "Пароль",
     "Error, caught an exception." : "Ошибка, обнаружено исключение.",
     "Caused by previous exception" : "Вызвано предыдущим исключением",
     "bytes" : "байты",

@@ -21,7 +21,6 @@
     "RoundCube Web Mail" : "بريد وب RoundCude",
     "Embed an installation of RoundCube into Nextcloud" : "ضمّن تنصيبة لـ RoundCude في نكست كلاود",
     "Integrates an existing RoundCube standalone email-webapp into NextCloud, with optional SSO." : "قم بُمكاملة تطبيق RoudCude للبريد الالكتروني قائم بذاته مع نكست كلاود و خيار النفاذ المُوحّد SSO.",
-    "Choose a prefix-folder" : "إختر مُجلّداً بادئاً",
     "Invalid path selected: \"{dir}\"." : "المسار المختار غير صحيح: \"{dir}\"",
     "Selected path: \"{dir}/{base}/\"." : "المسار المختار: \"{dir}/{base}/\".",
     "Embedded RoundCube, Admin Settings" : "تطبيق RoundCude مُضمّن، إعدادات المُشرف",

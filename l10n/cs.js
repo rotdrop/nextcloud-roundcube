@@ -23,7 +23,6 @@ OC.L10N.register(
     "RoundCube Web Mail" : "Webový e-mail RoundCube",
     "Embed an installation of RoundCube into Nextcloud" : "Včlenění instalace RoundCube do Nextcloud",
     "Integrates an existing RoundCube standalone email-webapp into NextCloud, with optional SSO." : "Napojí existující samostatného webového e-mailového klienta RoundCube do Nextcloud s volitelným sjednoceným přihlašováním (SSO).",
-    "Choose a prefix-folder" : "Zvolte složku-předponu",
     "Invalid path selected: \"{dir}\"." : "Vybrán neplatný popis umístění: „{dir}“.",
     "Selected path: \"{dir}/{base}/\"." : "Vyberte popis umístění: „{dir}/{base}/“.",
     "Embedded RoundCube, Admin Settings" : "Vestavěné RoundCube – nastavení správy",

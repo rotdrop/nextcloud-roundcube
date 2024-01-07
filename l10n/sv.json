@@ -1,4 +1,5 @@
 { "translations": {
+    "Password" : "Lösenord",
     "bytes" : "byte",
     "User ID" : "Användar-ID",
     "Email Address" : "E-postadress",
