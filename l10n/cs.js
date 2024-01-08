@@ -14,6 +14,8 @@ OC.L10N.register(
     "Unknown personal setting: \"%s\"." : "Neznámo osobní nastavení: „%s“.",
     "RoundCube Integration" : "Napojení na RoundCube",
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Problém s instalací: potřebný prostředek „%1$s“ typu „%2$s“ není na serveru nainstalovaný – obraťte se na jeho správce!",
+    "User" : "Uživatel",
+    "Password" : "Heslo",
     "Error, caught an exception." : "Chyba: zachycena výjimka",
     "Caused by previous exception" : "Způsobeno předchozí výjimkou",
     "bytes" : "bajtů",

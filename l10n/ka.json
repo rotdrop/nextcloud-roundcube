@@ -1,0 +1,7 @@
+{ "translations": {
+    "User" : "User",
+    "Password" : "Password",
+    "Email Address" : "Email Address",
+    "Advanced Settings" : "Advanced Settings"
+},"pluralForm" :"nplurals=2; plural=(n!=1);"
+}
