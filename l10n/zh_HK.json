@@ -12,7 +12,7 @@
     "Unknown personal setting: \"%s\"." : "不詳的個人設定：「%s」。",
     "RoundCube Integration" : "RoundCube 整合",
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "安裝問題； 伺服器上沒有安裝所需的類型為「%2$s」的資源「%1$s」，請聯繫系統管理員！",
-    "User" : "用户",
+    "User" : "用戶",
     "Password" : "密碼",
     "Login succeeded." : "登入成功。",
     "Login failed." : "登入失敗。",
