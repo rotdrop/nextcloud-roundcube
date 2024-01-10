@@ -16,6 +16,8 @@ OC.L10N.register(
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Problema de instalación; el recurso requerido \"%1$s\" de tipo \"%2$s\" no está instalado en el servidor, ¡por favor, contacte al administrador del sistema!",
     "User" : "Usuario",
     "Password" : "Contraseña",
+    "Login succeeded." : "Inicio de sesión exitoso.",
+    "Login failed." : "Falló el inicio de sesión.",
     "Error, caught an exception." : "Error, se encontró una excepción.",
     "Caused by previous exception" : "Causado por la excepción anterior",
     "bytes" : "bytes",
