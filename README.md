@@ -100,16 +100,20 @@ Please refere to the [Roundcube](https://roundcube.net/) documentation for gener
 In `roundcube/config/config.inc.php`:
 
 ### IMAP setup
+```php
 $config['imap_host'] = array(
     'ssl://imap.example.com' => 'example.com',
     'ssl://imap.example2.com' => 'example2.com'
 );
+```
 
 ### SMTP setup
+```php
 $config['smtp_host'] = array(
     'imap.example.com' => 'ssl://smtp.example.com',
     'imap.example2.com' => 'ssl://smtp.example2.com'
 );
+```
 
 ## Adminstration, Web-Server Setup
 
