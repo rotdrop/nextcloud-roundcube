@@ -73,6 +73,12 @@ class PageController extends Controller
   /** @var \OCP\IURLGenerator */
   private $urlGenerator;
 
+  /**
+   * Explicitly declare the properties.
+   */
+  private $l; // Assuming $l is for localization (IL10N)
+
+
   // phpcs:disable Squiz.Commenting.FunctionComment.Missing
   public function __construct(
     string $appName,
