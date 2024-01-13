@@ -75,6 +75,12 @@ class AuthRoundCube
   private $rcSessionId;
   private $rcSessionAuth;
 
+  /**
+   * Explicitly declare the properties.
+   */
+  private $userId;
+  private $l; // Assuming $l is for localization (IL10N)
+
   // phpcs:disable Squiz.Commenting.FunctionComment.Missing
   public function __construct(
     Application $app,
