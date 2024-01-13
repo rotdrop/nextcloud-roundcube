@@ -10,6 +10,7 @@ OC.L10N.register(
     "The personal setting \"%1$s\" is read-only" : "个人设置“%1$s”是只读的",
     "Unknown personal setting: \"%s\"." : "未知的个人设置：“%s”。",
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "安装问题：所需的“%2$s”类型的资源文件“%1$s”并未在服务器上安装，请联系系统管理员！",
+    "Password" : "密码",
     "Error, caught an exception." : "错误，捕获到异常",
     "Caused by previous exception" : "由之前的异常造成",
     "bytes" : "字节",

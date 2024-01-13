@@ -1,7 +1,7 @@
 OC.L10N.register(
     "mail_roundcube",
     {
-    "Unknown admin setting: \"%1$s\"" : "Unbekannte Administrations-Einstellung: \"%1$s\"",
+    "Unknown admin setting: \"%1$s\"" : "Unbekannte Administrationseinstellung: \"%1$s\"",
     "The admin setting \"%1$s\" is read-only" : "Die Administrationseinstellung \"%1$s\" kann nur gelesen werden",
     "Scheme of external URL must be one of \"http\" or \"https\", but nothing was specified." : "Das Schema der externen URL muss \"http\" oder \"https\" enthalten, es wurde jedoch keins von beiden angegeben.",
     "Scheme of external URL must be one of \"http\" or \"https\", \"%s\" given." : "Das Schema der externen URL muss \"http\" oder \"https\" sein, \"%s\" wurde angegeben.",
@@ -14,6 +14,10 @@ OC.L10N.register(
     "Unknown personal setting: \"%s\"." : "Unbekannte persönliche Einstellung: \"%s\"",
     "RoundCube Integration" : "RoundCube-Einbindung",
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Installationsproblem; die benötigte Ressource \"%1$s\" vom Typ \"%2$s\" ist auf dem Server nicht installiert, bitte die Systemadministration kontaktieren!",
+    "User" : "Benutzer",
+    "Password" : "Passwort",
+    "Login succeeded." : "Anmeldung erfolgreich.",
+    "Login failed." : "Anmeldung fehlgeschlagen.",
     "Error, caught an exception." : "Fehler, Ausnahme abgefangen.",
     "Caused by previous exception" : "Verursacht durch eine vorangegangene Ausnahme",
     "bytes" : "Bytes",
@@ -23,7 +27,6 @@ OC.L10N.register(
     "RoundCube Web Mail" : "RoundCube Web Mail",
     "Embed an installation of RoundCube into Nextcloud" : "Bettet eine Installation von RoundCube in Nextcloud ein",
     "Integrates an existing RoundCube standalone email-webapp into NextCloud, with optional SSO." : "Integriert eine bestehende RoundCube Standalone E-Mail-Webapp in NextCloud, mit optionalem SSO.",
-    "Choose a prefix-folder" : "Wähle den \"Eltern\"-Ordner",
     "Invalid path selected: \"{dir}\"." : "Es wurde ein ungültiger Pfad gewählt: \"{dir}\".",
     "Selected path: \"{dir}/{base}/\"." : "Ausgewählter Pfad: \"{dir}/{base}\".",
     "Embedded RoundCube, Admin Settings" : "Eingebettetes RoundCube, Admin-Einstellungen",

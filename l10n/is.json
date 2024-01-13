@@ -1,0 +1,8 @@
+{ "translations": {
+    "User" : "Notandi",
+    "Password" : "Lykilorð",
+    "bytes" : "bæti",
+    "Email Address" : "Tölvupóstfang",
+    "Advanced Settings" : "Ítarlegar stillingar"
+},"pluralForm" :"nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);"
+}

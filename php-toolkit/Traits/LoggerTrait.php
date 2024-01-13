@@ -35,7 +35,7 @@ use OCP\ILogger;
 trait LoggerTrait
 {
   /** @var LoggerInterface */
-  protected $logger;
+  protected LoggerInterface $logger;
 
   /**
    * Return the stored logger class

@@ -9,6 +9,7 @@ OC.L10N.register(
     "Unknown personal setting: \"%1$s\"" : "Onbekende persoonlijke instelling: \"%1$s\"",
     "The personal setting \"%1$s\" is read-only" : "De persoonlijke instelling \"%1$s\" is niet aanpasbaar",
     "Unknown personal setting: \"%s\"." : "Onbekende persoonlijke instelling: \"%s\"",
+    "Password" : "Wachtwoord",
     "bytes" : "bytes",
     "User ID" : "Gebruiker-ID",
     "Email Address" : "E-mailadres",

@@ -356,11 +356,11 @@ trait UtilTrait
   /**
    * Replace braced placeholders in a template string.
    *
-   * The general syntax of a replacement is {[C[N]|]KEY[|M[D]][@FILTER]} where
+   * The general syntax of a replacement is {[C[N]|]KEY[|M[D]][@FILTER]}
    * where anything in square brackets is optional.
    *
    * - 'C' is any character used for optional padding to the left.
-   * - 'N' is th1e padding length. If ommitted, the value of 1 is assumed.
+   * - 'N' is the padding length. If ommitted, the value of 1 is assumed.
    * - 'KEY' is the replacement key
    * - 'FILTER' can be either
    *   - a single character which is used to replace occurences of '/' in the

@@ -1,6 +1,7 @@
 OC.L10N.register(
     "mail_roundcube",
     {
+    "Password" : "Salasana",
     "bytes" : "tavua",
     "Invalid path selected: \"{dir}\"." : "Virheellinen polku valittu: \"{dir}\".",
     "Selected path: \"{dir}/{base}/\"." : "Valittu polku: \"{dir}/{base}/\".",

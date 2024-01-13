@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "true" : "idetti",
     "false" : "ucciḍ",
+    "User" : "Aseqdac",
     "Advanced Settings" : "Iɣewwaren leqqayen",
     "Confirmation Required" : "Asentem ilaq"
 },
