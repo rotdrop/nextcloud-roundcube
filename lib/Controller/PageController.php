@@ -150,7 +150,6 @@ class PageController extends Controller
       $csp = new ContentSecurityPolicy();
       $csp->addAllowedFrameDomain($rcServer);
       // $csp->addAllowedScriptDomain($rcServer);
-      $csp->allowInlineScript(true)->allowEvalScript(true);
       // $this->logDebug('Added CSP frame: ' . $rcServer);
       $tpl->setContentSecurityPolicy($csp);
     }
