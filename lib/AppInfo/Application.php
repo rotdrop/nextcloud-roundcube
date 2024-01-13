@@ -62,6 +62,11 @@ class Application extends App implements IBootstrap
 {
   use \OCA\RoundCube\Toolkit\Traits\AppNameTrait;
 
+  /**
+   * Explicitly declare the appName property.
+   */
+  protected $appName;
+
   // phpcs:disable Squiz.Commenting.FunctionComment.Missing
   public function __construct(array $urlParams = [])
   {
