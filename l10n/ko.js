@@ -23,6 +23,7 @@ OC.L10N.register(
     "Selected path: \"{dir}/{base}/\"." : "지정한 경로: \"{dir}/{base}/\"",
     "Email Address" : "이메일 주소",
     "Advanced Settings" : "고급 설정",
+    "Disable when debugging with self-signed certificates." : "자기-서명 인증서로 디버깅할 시 비활성화",
     "reason unknown" : "알 수 없는 이유",
     "Successfully set \"{settingsKey}\" to {value}." : "\"{settingsKey}\"을(를) {value}로 설정함",
     "Setting \"{settingsKey}\" has been unset successfully." : "설정 \"{settingsKey}\"를 해제함",
