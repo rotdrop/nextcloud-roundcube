@@ -28,7 +28,7 @@ OC.L10N.register(
     "Setting \"{settingsKey}\" has been unset successfully." : "L'impostazione \"{settingsKey}\" è stata rimossa correttamente.",
     "Unable to set \"{settingsKey}\" to {value}: {message}." : "Impossibile impostare \"{settingsKey}\" su {value}: {message}.",
     "Unable to unset \"{settingsKey}\": {message}" : "Impossibile annullare l'impostazione di \"{settingsKey}\": {message}",
-    "Confirmation Required" : "Conferma Obbligatoria",
+    "Confirmation Required" : "Conferma obbligatoria",
     "Unconfirmed, reverting to old value." : "Non confermato, ripristino al precedente valore.",
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Valore impostato correttamente per \"{settingsKey}\" su \"{displayValue}\"",
     "Setting \"{setting}\" has been unset successfully." : "L'impostazione \"{setting}\" è stata annullata correttamente.",
