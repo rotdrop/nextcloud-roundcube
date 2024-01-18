@@ -1,5 +1,5 @@
 OC.L10N.register(
-    "mail_roundcube",
+    "roundcube",
     {
     "User" : "@string/user_icon",
     "Password" : "Zaporka",

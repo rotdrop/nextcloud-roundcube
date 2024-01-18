@@ -1,18 +1,18 @@
 {
-  "name": "mail_roundcube",
-  "version": "1.0.3",
+  "name": "roundcube",
+  "version": "1.0.4",
   "private": true,
-  "description": "RoundCube Mail NextCloud Plugin",
-  "homepage": "https://github.com/rotdrop/nextcloud-roundcube.git",
+  "description": "Roundcube Webmail Nextcloud plugin",
+  "homepage": "https://github.com/HLFH/roundcube",
   "bugs": {
-    "url": "https://github.com/rotdrop/nextcloud-app-pdf-downloader.git"
+    "url": "https://github.com/HLFH/roundcube/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/rotdrop/nextcloud-roundcube.git"
+    "url": "https://github.com/HLFH/roundcube.git"
   },
   "license": "agpl",
-  "author": "Claus-Justus Heine <himself@claus-justus-heine.de>",
+  "author": "Gaspard d'Hautefeuille <nextcloud@dhautefeuille.eu>",
   "scripts": {
     "build": "webpack --node-env production --progress",
     "cs:check": "vendor/bin/php-cs-fixer fix --dry-run --diff",

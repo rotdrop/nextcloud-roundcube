@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <info xmlns:xsi= "http://www.w3.org/2001/XMLSchema-instance"
       xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
-  <id>mail_roundcube</id>
+  <id>roundcube</id>
   <name>RoundCube Mail</name>
   <summary>Embed an installation of RoundCube into Nextcloud</summary>
   <description>
     Integrates an existing RoundCube standalone email-webapp into NextCloud, with optional SSO.
   </description>
-  <version>1.0.3</version>
+  <version>1.0.4</version>
   <licence>agpl</licence>
   <author mail="himself@claus-justus-heine.de">Claus-Justus Heine</author>
   <author>Martin Reinhardt</author>
@@ -25,7 +25,7 @@
   <navigations>
     <navigation>
       <name>RoundCube Web Mail</name>
-      <route>mail_roundcube.page.index</route>
+      <route>roundcube.page.index</route>
     </navigation>
   </navigations>
   <settings>

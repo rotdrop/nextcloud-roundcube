@@ -104,7 +104,7 @@ composer-download:
 	mkdir -p $(BUILD_TOOLS_DIR)
 	curl -sS https://getcomposer.org/installer | php
 	mv composer.phar $(BUILD_TOOLS_DIR)
-.PHONY: comoser-download
+.PHONY: composer-download
 
 #@@ Installs and updates the composer dependencies. If composer is not installed
 #@@ a copy is fetched from the web

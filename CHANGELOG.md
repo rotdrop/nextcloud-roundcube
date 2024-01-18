@@ -4,6 +4,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [1.0.4] - 2023-01-18
+
+### Fixed
+
+- fix support for Nextcloud v28 regarding removed method https://github.com/nextcloud/server/pull/38642
+- avoid warnings with PHP 8.2: explicitly declare some properties
+
+### Added
+
+- Nginx conf for "Different Domains, but same Web-Server" setup
+- Roundcube IMAP/SMTP Setup
+
+### Changed
+
+- Required dependencies (jq, python-tabulate have been added)
+- Rename app from mail_roundcube to roundcube
+
 ## [1.0.3] - unreleased
 
 ### Added

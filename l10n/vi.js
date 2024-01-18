@@ -1,5 +1,5 @@
 OC.L10N.register(
-    "mail_roundcube",
+    "roundcube",
     {
     "User" : "Người dùng",
     "Password" : "Mật khẩu",

@@ -1,5 +1,5 @@
 OC.L10N.register(
-    "mail_roundcube",
+    "roundcube",
     {
     "Unknown admin setting: \"%1$s\"" : "未知的管理设置：”%1$s“",
     "The admin setting \"%1$s\" is read-only" : "管理员设置“%1$s“是只读的",
