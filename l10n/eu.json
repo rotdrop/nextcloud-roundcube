@@ -12,6 +12,7 @@
     "Unknown personal setting: \"%s\"." : "Ezarpen pertsonal ezezaguna: \"%s\".",
     "RoundCube Integration" : "RoundCube integrazioa",
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Instalazio arazoa; \"%2$s\" motako \"%1$s\" beharrezko baliabidea ez dago zerbitzarian instalatuta, jarri harremanetan sistemaren administratzailearekin!",
+    "User" : "Erabiltzailea",
     "Password" : "Pasahitza",
     "Error, caught an exception." : "Errorea, salbuespen bat aurkitu da.",
     "Caused by previous exception" : "Aurreko salbuespen batek sortua",
