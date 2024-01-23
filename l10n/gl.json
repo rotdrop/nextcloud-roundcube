@@ -5,7 +5,7 @@
     "Scheme of external URL must be one of \"http\" or \"https\", \"%s\" given." : "O esquema do URL externo debe ser un de «http» ou «https», «%s» indicado.",
     "Host-part of external URL seems to be empty" : "A parte do servidor do URL externo semella estar baleira",
     "Value \"%1$s\" for setting \"%2$s\" is not convertible to boolean." : "O valor «%1$s» para o axuste «%2$s» non é posíbel convertelo a booleano.",
-    "true" : "certo",
+    "true" : "verdadeiro",
     "false" : "falso",
     "Unknown personal setting: \"%1$s\"" : "Axuste persoal descoñecido: «%1$s»",
     "The personal setting \"%1$s\" is read-only" : "O axuste persoal «%1$s» é só de lectura",
