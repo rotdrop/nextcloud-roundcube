@@ -14,6 +14,7 @@ OC.L10N.register(
     "Unknown personal setting: \"%s\"." : "Unknown personal setting: \"%s\".",
     "RoundCube Integration" : "RoundCube Integration",
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!",
+    "User" : "User",
     "Password" : "Password",
     "Login succeeded." : "Login succeeded.",
     "Login failed." : "Login failed.",
