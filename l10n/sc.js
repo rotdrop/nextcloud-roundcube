@@ -5,6 +5,6 @@ OC.L10N.register(
     "Password" : "Crae",
     "bytes" : "bytes",
     "Email Address" : "Indiritzu de posta eletrònica",
-    "Advanced Settings" : "Impostatziones avantzadas"
+    "Advanced Settings" : "Cunfiguratzione avantzada"
 },
 "nplurals=2; plural=(n != 1);");
