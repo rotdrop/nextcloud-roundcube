@@ -3,6 +3,7 @@
     "bytes" : "bytes",
     "RoundCube Mail" : "RoundCube Mail",
     "RoundCube Web Mail" : "RoundCube Web Mail",
+    "Email Address" : "Direición de corréu electrónicu",
     "Advanced Settings" : "Configuración avanzada"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
