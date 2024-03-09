@@ -40,7 +40,7 @@ use OC\Authentication\Token\IToken;
  */
 class AppPasswordService
 {
-  use \OCA\RotDrop\Traits\LoggerTrait;
+  use \OCA\RotDrop\Toolkit\Traits\LoggerTrait;
 
   /**
    * @param IUserSession $userSession
