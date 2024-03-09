@@ -3,7 +3,7 @@
  * Nextcloud RoundCube App.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2023, 2024 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -60,6 +60,7 @@ class SettingsController extends Controller
     Config::SHOW_TOP_LINE => [ 'rw' => true, 'default' => Config::SHOW_TOP_LINE_DEFAULT, ],
     Config::ENABLE_SSL_VERIFY => [ 'rw' => true, 'default' => Config::ENABLE_SSL_VERIFY_DEFAULT, ],
     Config::PERSONAL_ENCRYPTION => [ 'rw' => true, 'default' => Config::PERSONAL_ENCRYPTION_DEFAULT, ],
+    Config::CARDDAV_PROVISIONG_TAG => [ 'rw' => true, 'default' => Config::CARDDAV_PROVISIONG_TAG_DEFAULT, ],
   ];
 
   public const EMAIL_ADDRESS = 'emailAddress';
@@ -162,6 +163,7 @@ class SettingsController extends Controller
       case Config::EMAIL_DEFAULT_DOMAIN:
       case Config::EMAIL_ADDRESS_CHOICE:
       case Config::FIXED_SINGLE_EMAIL_ADDRESS:
+      case Config::CARDDAV_PROVISIONG_TAG:
         $newValue = $value;
         break;
       case Config::FIXED_SINGLE_EMAIL_PASSWORD:
@@ -250,6 +252,7 @@ class SettingsController extends Controller
         case Config::EMAIL_ADDRESS_CHOICE:
         case Config::FIXED_SINGLE_EMAIL_ADDRESS:
         case Config::FIXED_SINGLE_EMAIL_PASSWORD:
+        case Config::CARDDAV_PROVISIONG_TAG:
           break;
         case Config::FORCE_SSO:
         case Config::SHOW_TOP_LINE:

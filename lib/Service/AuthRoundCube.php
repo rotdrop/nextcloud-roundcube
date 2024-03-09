@@ -4,7 +4,7 @@
  *
  * @author 2019 Leonardo R. Morelli github.com/LeonardoRM
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2020, 2021, 2023 Claus-Justus Heine
+ * @copyright 2020 - 2024 Claus-Justus Heine
  * @license AGPL-3.0-or-later
  *
  * Nextcloud RoundCube App is free software: you can redistribute it and/or
@@ -24,12 +24,17 @@
 
 namespace OCA\RoundCube\Service;
 
+use DOMDocument;
+use DOMXPath;
+use DOMAttr;
+
 use OCP\IURLGenerator;
 use Psr\Log\LoggerInterface as ILogger;
 use OCP\IL10N;
 
 use OCA\RoundCube\AppInfo\Application;
 use OCA\RoundCube\Service\Config;
+use OCA\RoundCube\Toolkit\Service\AppPasswordService;
 
 /**
  * This class provides the login to RC server using curl.
@@ -78,6 +83,7 @@ class AuthRoundCube
     ?string $userId,
     ILogger $logger,
     IL10N $l10n,
+    protected AppPasswordService $appPasswordService,
   ) {
     $this->appName = $app->getAppName();
     $this->userId = $userId;
@@ -175,6 +181,7 @@ class AuthRoundCube
     // Get input values from login form and prepare data to send.
     $inputs = self::parseInputs($loginPageObj['html']);
     $this->rcRequestToken = $inputs['_token']['value'];
+    // $this->logInfo('REQUEST TOKEN UPDATE ' . $this->rcRequestToken);
     $data = [
       "_token"    => $inputs["_token"]["value"],
       "_task"     => "login",
@@ -184,6 +191,7 @@ class AuthRoundCube
       "_user"     => $username,
       "_pass"     => $password
     ];
+
     // Post login form.
     $loginAnswerObj = $this->sendRequest("?_task=login&_action=login", "POST", $data);
     if ($loginAnswerObj === false) {
@@ -192,8 +200,23 @@ class AuthRoundCube
     }
     // Set cookies sessauth and sessid.
     $cookiesLogin = self::parseCookies($loginAnswerObj['headers']['set-cookie'] ?? null);
-    $inputsLogin = self::parseInputs($loginAnswerObj['html'] ?? null);
-    $this->rcRequestToken = $inputs['_token']['value'];
+
+    // there should be a location header with updated request token ...
+    $location = $loginAnswerObj['headers']['location'] ?? null;
+    if ($location === null || !is_array($location)) {
+      $this->logError("Could not get login redirect header.");
+      return false;
+    }
+    $location = reset($location);
+    $locationParams = [];
+    parse_str(parse_url($location, PHP_URL_QUERY), $locationParams);
+    /// $this->logInfo('REDIRECT HEADER ' . print_r($locationParams, true));
+    if (empty($locationParams['_token'])) {
+      $this->logError('Could not update request token after login.');
+      return false;
+    }
+    $this->rcRequestToken = $locationParams['_token'];
+
     if (isset($cookiesLogin[self::COOKIE_RC_SESSID]) &&
         $cookiesLogin[self::COOKIE_RC_SESSID] !== "-del-") {
       $this->rcSessionId = $cookiesLogin[self::COOKIE_RC_SESSID];
@@ -217,6 +240,63 @@ class AuthRoundCube
     } else {
       $this->logError("Could not login.");
       return false;
+    }
+  }
+
+  public function cardDavConfig()
+  {
+    $tag = $this->config->getAppValue(Config::CARDDAV_PROVISIONG_TAG, null);
+    if (empty($tag)) {
+      return; // unconfigured
+    }
+
+    $result = $this->sendRequest('?_task=settings&_action=plugin.carddav', 'GET');
+    $domDoc = new DOMDocument('1.0', 'UTF-8');
+    $domDoc->encoding = 'UTF-8';
+    $domDoc->loadHTML($result['html']);
+    $xpath = new DOMXPath($domDoc);
+    /** @var DOMAttr $item */
+    foreach ($xpath->query('//li[contains(@id, "rcmli_acc") and contains(@class, "account") and contains(@class, "preset")]/@id') as $item) {
+      $accountId = (int)substr($item->value, strlen('rcmli_acc'));
+      // if we allow to change the display name, then the only chance is to
+      // recurse into all preconfigured accounts and see if we hit the
+      // preconfigured cloud CardDAV account.
+      // https://dev3.home.claus-justus-heine.de/roundcube/?_task=settings&_framed=1&_action=plugin.carddav.AccDetails&accountid=1
+      $accountConfig = $this->sendRequest('?_task=settings&_action=plugin.carddav.AccDetails&accountid=' . $accountId, 'GET');
+      $accountDoc = new DOMDocument('1.0', 'UTF-8');
+      $accountDoc->encoding = 'UTF-8';
+      $accountDoc->loadHTML($accountConfig['html']);
+      $accountXPath = new DOMXPath($accountDoc);
+      // search for id="rcmcrd_plain_presetname"
+      $template = $accountXPath->query('//span[@id="rcmcrd_plain_presetname"]/text()');
+      if (count($template) == 0) {
+        continue;
+      }
+      $template = $template->item(0)->data;
+      if ($template != $tag) {
+        continue;
+      }
+      // Ok, found it. Fetch all values into an associative array
+      $formInputs = $accountXPath->query('//input');
+      $formData = [];
+      /** @var DOMElement $input */
+      foreach ($formInputs as $input) {
+        $name = $input->getAttribute('name');
+        $value = $input->getAttribute('value');
+        $formData[$name] = $value;
+      }
+      // c-pnok, tweak loginname and replace the password by an app-password -- on
+      // every login. Anyhow, loading the RC app is quite an effort, so theses
+      // tweaks probably will not hurt too much. Only -- it is unstable as
+      // this hack depends on the UI of the embedded RC app.
+      $appPassword = $this->appPasswordService->generateAppPassword('z-app-generated-roundcube');
+      $formData['password'] = $appPassword['token'];
+      $formData['username'] = $appPassword['loginName']; // why should this differ from the user-id ????
+      $formData['_token'] = $this->rcRequestToken;
+      // https://dev3.home.claus-justus-heine.de/roundcube/?_task=settings&_framed=1&_action=plugin.carddav.AccSave
+      // $this->logInfo('FORM DATA ' . print_r($formData, true));
+      $result = $this->sendRequest('?_task=settings&_action=plugin.carddav.AccSave&accountid=' . $accountId, 'POST', $formData);
+      // $this->logInfo('TWEAK RESULT ' . print_r($result, true));
     }
   }
 
@@ -295,7 +375,7 @@ class AuthRoundCube
       $rcQuery = '/'.$rcQuery;
     }
     $rcQuery = $this->externalURL().$rcQuery;
-    $this->logDebug("URL: '$rcQuery'.");
+    // $this->logInfo("URL: '$rcQuery'.");
     try {
       $curl = curl_init();
       // general settings
@@ -351,7 +431,7 @@ class AuthRoundCube
         if ($respHttpCode >= 400) {
           $this->logWarn("Got the following HTTP Status Code: $respHttpCode.");
         }
-        $response = self::splitResponse($rawResponse, $headerSize);
+        $response = $this->splitResponse($rawResponse, $headerSize);
       } else {
         $this->logWarn("Opening url '$rcQuery' failed with the following HTTP Status Code: '$respHttpCode'. Curl status: '$curlError' ($curlErrorNum).");
       }
@@ -371,7 +451,7 @@ class AuthRoundCube
    *
    * @return array ['headers' => [headers], 'html' => html]
    */
-  private static function splitResponse(string $response, int $headerSize):array
+  private function splitResponse(string $response, int $headerSize):array
   {
     $headers = $html = "";
     if ($headerSize) {
@@ -381,6 +461,7 @@ class AuthRoundCube
       list($headers, $html) = explode("\r\n\r\n", $response, 2);
     }
     $headersArray = self::parseResponseHeaders($headers);
+    // $this->logInfo('HEADERS ' . print_r($headersArray, true));
     return [
       'headers' => $headersArray,
       'html'    => $html
