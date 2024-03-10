@@ -1,5 +1,5 @@
 /**
- * @copyright Copyright (c) 2022, 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright Copyright (c) 2022, 2023, 2024 Claus-Justus Heine <himself@claus-justus-heine.de>
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
  *
@@ -32,7 +32,7 @@ import { generateUrl as nextcloudGenerateUrl } from '@nextcloud/router';
  * contains parameters. "Excess" parameters will be appended as query
  * parameters to the URL.
  *
- * @param {object} urlOptions Object with processing options
+ * @param {object} [urlOptions] Object with query parameters
  * ```
  * {
  *   escape: BOOL,
