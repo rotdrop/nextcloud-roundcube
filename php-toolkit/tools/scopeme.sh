@@ -18,5 +18,5 @@ EOF
 fi
 
 rsync -a --delete $SRC_DIR/[A-Z]* $DST_DIR/.
-find $DST_DIR -name '*.php' -exec sed -i 's/OCA\\RotDrop\\Toolkit/OCA\\'$NS_PREFIX'\\Toolkit/g'  {} \;
+find $DST_DIR -name '*.php' -exec sed -Ei 's/([\]?)OCA\\RotDrop\\Toolkit/\1OCA\\'$NS_PREFIX'\\Toolkit/g'  {} \;
 find $DST_DIR -exec touch {} \;

@@ -3,7 +3,7 @@
  * Some PHP utility functions for Nextcloud apps.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022, 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022, 2023, 2024 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -46,26 +46,13 @@ class RequestService
   const URL_ENCODED = 'urlencoded';
   const DATA = 'data';
 
-  /** @var IRequest */
-  protected $request;
-
-  /** @var IURLGenerator */
-  protected $urlGenerator;
-
-  /** @var IL10N */
-  protected $l;
-
   // phpcs:disable Squiz.Commenting.FunctionComment.Missing
   public function __construct(
-    IRequest $request,
-    IURLGenerator $urlGenerator,
-    LoggerInterface $logger,
-    ?IL10N $l10n = null,
+    protected IRequest $request,
+    protected IURLGenerator $urlGenerator,
+    protected LoggerInterface $logger,
+    protected ?IL10N $l = null,
   ) {
-    $this->request = $request;
-    $this->urlGenerator = $urlGenerator;
-    $this->logger = $logger;
-    $this->l = $l10n;
   }
   // phpcs:enable Squiz.Commenting.FunctionComment.Missing
 
