@@ -115,6 +115,8 @@ class PageController extends Controller
     } elseif (!$this->authenticator->login($credentials['userId'], $credentials['password'])) {
       $state = self::ERROR_STATE;
       $reason = self::ERROR_LOGIN_REASON;
+    } else {
+      $this->authenticator->cardDavConfig();
     }
 
     $this->initialState->provideInitialState('config', [

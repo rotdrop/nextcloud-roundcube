@@ -67,6 +67,8 @@ class Config
   public const ENABLE_SSL_VERIFY_DEFAULT = true;
   public const PERSONAL_ENCRYPTION = 'personalEncryption';
   public const PERSONAL_ENCRYPTION_DEFAULT = false;
+  public const CARDDAV_PROVISIONG_TAG = 'cardDavProvisioningTag';
+  public const CARDDAV_PROVISIONG_TAG_DEFAULT = '';
 
   const SETTINGS = [
     self::EXTERNAL_LOCATION => self::EXTERNAL_LOCATION_DEFAULT,
@@ -76,6 +78,7 @@ class Config
     self::SHOW_TOP_LINE => self::SHOW_TOP_LINE_DEFAULT,
     self::ENABLE_SSL_VERIFY => self::ENABLE_SSL_VERIFY_DEFAULT,
     self::PERSONAL_ENCRYPTION => self::PERSONAL_ENCRYPTION_DEFAULT,
+    self::CARDDAV_PROVISIONG_TAG => self::CARDDAV_PROVISIONG_TAG_DEFAULT,
   ];
 
   /** @var \OCP\IUser */

@@ -1,6 +1,6 @@
 <script>
 /**
- * @copyright Copyright (c) 2022, 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright Copyright (c) 2022-2024 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
@@ -19,17 +19,17 @@
  */
 </script>
 <template>
-  <SettingsSection :class="[...cloudVersionClasses, appName]" :title="t(appName, 'Embedded RoundCube, Admin Settings')">
-    <AppSettingsSection :title="t(appName, 'Roundcube Installation')">
+  <NcSettingsSection :class="[...cloudVersionClasses, appName]" :title="t(appName, 'Embedded RoundCube, Admin Settings')">
+    <NcAppSettingsSection :title="t(appName, 'Roundcube Installation')">
       <SettingsInputText v-model="externalLocation"
                          :label="t(appName, 'RoundCube Installation Path')"
                          :hint="t(appName, 'RoundCube path can be entered relative to the Nextcloud server')"
                          :disabled="loading > 0"
                          @update="saveTextInput(...arguments, 'externalLocation')"
       />
-    </AppSettingsSection>
-    <AppSettingsSection :title="t(appName, 'Email Address Selection')"
-                        class="flex-container flex-column"
+    </NcAppSettingsSection>
+    <NcAppSettingsSection :title="t(appName, 'Email Address Selection')"
+                          class="flex-container flex-column"
     >
       <div class="flex-container flex-row flex-center email-address-choice">
         <input id="user-id-email"
@@ -111,9 +111,9 @@
           />
         </div>
       </div>
-    </AppSettingsSection>
-    <AppSettingsSection :title="t(appName, 'Advanced Settings')"
-                        class="flex-container flex-column"
+    </NcAppSettingsSection>
+    <NcAppSettingsSection :title="t(appName, 'Advanced Settings')"
+                          class="flex-container flex-column"
     >
       <input id="force-sso"
              v-model="forceSSO"
@@ -167,13 +167,61 @@
       >
         {{ t(appName, 'Per-user encryption of config values.') }}
       </label>
-    </AppSettingsSection>
-  </SettingsSection>
+      <SettingsInputText v-model="cardDavProvisioningTag"
+                         :label="t(appName, 'RoundCube CardDAV Tag')"
+                         :hint="t(appName, 'Tag of a preconfigured CardDAV account pointing to the cloud addressbook. See the documentation of the RCMCardDAV plugin.')"
+                         :disabled="loading > 0"
+                         @update="saveTextInput(...arguments, 'cardDavProvisioningTag')"
+      />
+      <div v-if="cardDavProvisioningTag">
+        <div class="hint">
+          {{ t(appName, `Below is a configuration snippet which may or may not work with the
+current version of the RoundCube CardDAV plugin. The configuration
+shown below is just a suggestion and will not automatically be
+registered with the RoundCube app. It is your responsibility to
+configure the RoundCube CardDAV plugin correctly.`) }}
+          {{ t(appName, `Please note that the password-setting "%p" will not work if 2FA is
+enabled. If this app detects that this is the case, it will try to
+generate a suitable app-token automatically and register it with the
+RoundCube CardDAV plugin -- which may work or not.`) }}
+          {{ t(appName, `In order to have auto-configuration working it is vital to NOT include
+"username" and "password" into the "fixed" array. The simple choice of
+"%l" for the username and "%p" for the password will only work without
+2Fa and if the local part of the email address is the same as the
+cloud user-id.`) }}
+        </div>
+        <ul>
+          <NcListItem title="RCMCardDAV Plugin Configuration">
+            <template #subtitle>
+              <pre>
+                {{ cardDavTemplate }}
+              </pre>
+            </template>
+            <template #actions>
+              <NcActionButton @click="copyCardDavConfig">
+                <template #icon>
+                  <ClipBoard :size="20" />
+                </template>
+                {{ t(appName, 'ClipBoard') }}
+              </NcActionButton>
+            </template>
+          </NcListItem>
+        </ul>
+      </div>
+    </NcAppSettingsSection>
+  </NcSettingsSection>
 </template>
 <script>
 import { appName } from './config.js'
-import AppSettingsSection from '@nextcloud/vue/dist/Components/NcAppSettingsSection'
-import SettingsSection from '@nextcloud/vue/dist/Components/NcSettingsSection'
+import { generateRemoteUrl } from '@nextcloud/router'
+import {
+  NcActionButton,
+  NcAppSettingsSection,
+  NcListItem,
+  NcSettingsSection,
+} from '@nextcloud/vue'
+import { showSuccess, showError } from '@nextcloud/dialogs'
+import ClipBoard from 'vue-material-design-icons/Clipboard.vue'
 import SettingsInputText from '@rotdrop/nextcloud-vue-components/lib/components/SettingsInputText'
 import settingsSync from './toolkit/mixins/settings-sync'
 import cloudVersionClasses from './toolkit/util/cloud-version-classes.js'
@@ -181,8 +229,11 @@ import cloudVersionClasses from './toolkit/util/cloud-version-classes.js'
 export default {
   name: 'AdminSettings',
   components: {
-    AppSettingsSection,
-    SettingsSection,
+    ClipBoard,
+    NcActionButton,
+    NcAppSettingsSection,
+    NcListItem,
+    NcSettingsSection,
     SettingsInputText,
   },
   data() {
@@ -198,12 +249,33 @@ export default {
       showTopLine: false,
       enableSSLVerify: true,
       personalEncryption: false,
+      cardDavProvisioningTag: '',
     }
   },
   mixins: [
     settingsSync,
   ],
   computed: {
+    cardDavTemplate() {
+      return `
+$prefs['${this.cardDavProvisioningTag}'] = [
+  'accountname'    => '${this.cardDavProvisioningTag}',
+  'discovery_url'  => '${this.addressBookUrl}',
+  'username'       => '%l',
+  'password'       => '%p',
+  'name'           => '%N (%a)',
+  'active'         =>  true,
+  'readonly'       =>  false,
+  'refresh_time'   => '00:15:00',
+  'fixed'          => ['discovery_url',],
+  'hide'           =>  false,
+  'use_categories' => true,
+];
+      `
+    },
+    addressBookUrl() {
+      return generateRemoteUrl('dav') + '/addressbooks/users/%l'
+    },
   },
   watch: {},
   created() {
@@ -238,6 +310,13 @@ export default {
         return
       }
       this.saveSimpleSetting(setting, 'admin')
+    },
+    copyCardDavConfig() {
+      navigator.clipboard.writeText(this.cardDavTemplate).then(function() {
+        showSuccess(t(appName, 'Config template has been copied to the clipboard.'));
+      }, function(reason) {
+        showError(t(appName, 'Failed copying the config template to the clipboard: {reason}.', { reason }));
+      });
     },
   },
 }
@@ -290,6 +369,9 @@ export default {
       filter: var(--cloud-theme-filter);
     }
   }
+  :deep(.list-item-content__wrapper) {
+    height:fit-content;
+  }
   .user-id-email-placeholder {
     font-family:mono-space;
     font-weight:bold;
@@ -299,6 +381,15 @@ export default {
       content: '—';
       margin-right:0.5em;
     }
+  }
+  .hint {
+    color: var(--color-text-lighter);
+    font-style: italic;
+  }
+  pre {
+    font-size: 80%;
+    line-height: 16px;
+    font-family: monospace;
   }
 }
 </style>
