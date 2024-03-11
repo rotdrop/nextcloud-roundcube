@@ -12,9 +12,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - CardDAV integration with Nextcloud, needs RCMCardDav plugin. See README.md.
 
+- Nginx conf for "Different Domains, but same Web-Server" setup (courtesy @HLFH)
+
 ### Changed
 
 - drop support for Nextcloud <= v26
+
+- Required dependencies (jq, python-tabulate have been added) (courtesy @HLFH)
+
+### Fixed
+
+- avoid warnings with PHP 8.2: explicitly declare some properties (courtesy @HLFH)
 
 ## [1.0.2] - 2023-03-24
 
