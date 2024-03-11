@@ -211,20 +211,8 @@
 current version of the RoundCube CardDAV plugin. The configuration
 shown below is just a suggestion and will not automatically be
 registered with the RoundCube app. It is your responsibility to
-configure the RoundCube CardDAV plugin correctly.`) }}
-        </p>
-        <p class="hint">
-          {{ t(appName, `Please note that the password-setting "%p" will not work if 2FA is
-enabled. If this app detects that this is the case, it will try to
-generate a suitable app-token automatically and register it with the
-RoundCube CardDAV plugin -- which may work or not.`) }}
-        </p>
-        <p class="hint">
-          {{ t(appName, `In order to have auto-configuration working it is vital to NOT include
-"username" and "password" into the "fixed" array. The simple choice of
-"%l" for the username and "%p" for the password will only work without
-2Fa and if the local part of the email address is the same as the
-cloud user-id.`) }}
+configure the RoundCube CardDAV plugin correctly. Please have a look
+at the explanations in the README.md file.`) }}
         </p>
         <ul class="card-dav-template">
           <NcListItem :name="t(appName, 'RCMCardDAV Plugin Configuration')">
