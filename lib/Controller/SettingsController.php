@@ -156,6 +156,7 @@ class SettingsController extends Controller
       case Config::FIXED_SINGLE_EMAIL_PASSWORD:
         $newValue = $value;
         $encrypted = true;
+        $humanValue = '●●●●●●●●';
         break;
       case Config::FORCE_SSO:
       case Config::SHOW_TOP_LINE:
@@ -238,9 +239,12 @@ class SettingsController extends Controller
         case Config::EMAIL_DEFAULT_DOMAIN:
         case Config::EMAIL_ADDRESS_CHOICE:
         case Config::FIXED_SINGLE_EMAIL_ADDRESS:
-        case Config::FIXED_SINGLE_EMAIL_PASSWORD:
         case Config::CARDDAV_PROVISIONG_TAG:
           break;
+        case Config::FIXED_SINGLE_EMAIL_PASSWORD:
+          $humanValue = '●●●●●●●●';
+          break;
+        break;
         case Config::FORCE_SSO:
         case Config::SHOW_TOP_LINE:
         case Config::ENABLE_SSL_VERIFY:
@@ -310,6 +314,9 @@ class SettingsController extends Controller
     }
 
     switch ($setting) {
+      case self::EMAIL_PASSWORD:
+        $humanValue = '●●●●●●●●';
+        break;
       default:
         $humanValue = $newValue;
         break;
@@ -358,8 +365,10 @@ class SettingsController extends Controller
       }
       $humanValue = $value;
       switch ($oneSetting) {
-        case self::EMAIL_ADDRESS:
         case self::EMAIL_PASSWORD:
+          $humanValue = '●●●●●●●●';
+          break;
+        case self::EMAIL_ADDRESS:
         case Config::EMAIL_ADDRESS_CHOICE . self::ADMIN_SETTING:
         case Config::EMAIL_DEFAULT_DOMAIN . self::ADMIN_SETTING:
         case Config::FIXED_SINGLE_EMAIL_ADDRESS . self::ADMIN_SETTING:
