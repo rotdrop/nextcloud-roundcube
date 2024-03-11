@@ -51,6 +51,7 @@ class PageController extends Controller
   const MAIN_ASSET = self::MAIN_TEMPLATE;
   const SUCCESS_STATE = 'success';
   const ERROR_STATE = 'error';
+  const ERROR_NORCURL_REASON = 'norcurl';
   const ERROR_NOEMAIL_REASON = 'noemail';
   const ERROR_LOGIN_REASON = 'login';
   const ERROR_CARDDAV_REASON = 'carddav';
@@ -82,23 +83,29 @@ class PageController extends Controller
     $state = self::SUCCESS_STATE;
     $reason = null;
 
-    $credentials = $this->config->emailCredentials();
-    if (empty($credentials)) {
+    $roundCubeUrl = $this->authenticator->externalURL();
+    if (empty($roundCubeUrl)) {
       $state = self::ERROR_STATE;
-      $reason = self::ERROR_NOEMAIL_REASON;
-    } elseif (!$this->authenticator->login($credentials['userId'], $credentials['password'])) {
-      $state = self::ERROR_STATE;
-      $reason = self::ERROR_LOGIN_REASON;
-    } elseif ($this->authenticator->cardDavConfig() === false) {
-      $state = self::ERROR_STATE;
-      $reason = self::ERROR_CARDDAV_REASON;
+      $reason = self::ERROR_NORCURL_REASON;
+    } else {
+      $credentials = $this->config->emailCredentials();
+      if (empty($credentials)) {
+        $state = self::ERROR_STATE;
+        $reason = self::ERROR_NOEMAIL_REASON;
+      } elseif (!$this->authenticator->login($credentials['userId'], $credentials['password'])) {
+        $state = self::ERROR_STATE;
+        $reason = self::ERROR_LOGIN_REASON;
+      } elseif ($this->authenticator->cardDavConfig() === false) {
+        $state = self::ERROR_STATE;
+        $reason = self::ERROR_CARDDAV_REASON;
+      }
     }
 
     $this->initialState->provideInitialState('config', [
       'state' => $state,
       'reason' => $reason,
       'emailUserId' => $credentials['userId'] ?? null,
-      Config::EXTERNAL_LOCATION => $this->authenticator->externalURL(),
+$this->authenticator->externalURL(),      Config::EXTERNAL_LOCATION => $roundCubeUrl,
       Config::SHOW_TOP_LINE => $this->config->getAppValue(Config::SHOW_TOP_LINE),
     ]);
 
