@@ -53,6 +53,7 @@ class PageController extends Controller
   const ERROR_STATE = 'error';
   const ERROR_NOEMAIL_REASON = 'noemail';
   const ERROR_LOGIN_REASON = 'login';
+  const ERROR_CARDDAV_REASON = 'carddav';
 
   /** @var string */
   private $userId;
@@ -115,8 +116,9 @@ class PageController extends Controller
     } elseif (!$this->authenticator->login($credentials['userId'], $credentials['password'])) {
       $state = self::ERROR_STATE;
       $reason = self::ERROR_LOGIN_REASON;
-    } else {
-      $this->authenticator->cardDavConfig();
+    } elseif ($this->authenticator->cardDavConfig() === false) {
+      $state = self::ERROR_STATE;
+      $reason = self::ERROR_CARDDAV_REASON;
     }
 
     $this->initialState->provideInitialState('config', [
@@ -128,7 +130,7 @@ class PageController extends Controller
     ]);
 
     $url = $this->authenticator->externalURL();
-    $this->logInfo($url);
+
     $tplParams = [
       'appName' => $this->appName,
       'assets' => [

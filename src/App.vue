@@ -1,6 +1,6 @@
 <script>
 /**
- * @copyright Copyright (c) 2022, 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright Copyright (c) 2022, 2023, 2024 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
@@ -72,7 +72,11 @@ export default {
       }
       switch (this.reason) {
         case 'login':
-          return t(appName, 'Unable to login into Roundcube, there are login errors. Please check your personal Roundcube settings. Maybe a re-login to Nextcloud helps. Otherwise contact your system administrator.')
+          return t(appName, `Unable to login into Roundcube, there are login errors. Please check
+your personal Roundcube settings. Maybe a re-login to Nextcloud
+helps. Otherwise contact your system administrator.`)
+        case 'carddav':
+          return t(appName, 'Unable to configure the CardDAV integration for "{emailuserId}".', this)
         case 'noemail':
           return t(appName, 'Unable to obtain email credentials for "{emailUserId}". Please check your personal Roundcube settings.', this)
         default:

@@ -243,14 +243,26 @@ class AuthRoundCube
     }
   }
 
-  public function cardDavConfig()
+  /**
+   * For the case were the email account differs from the cloud account we try
+   * to configure the RCM CardDAV plugin with an automatically generated app
+   * password.
+   *
+   * @return null|bool \false on error, \null if unconfigured, \true on
+   * success.
+   */
+  public function cardDavConfig():?bool
   {
-    $tag = $this->config->getAppValue(Config::CARDDAV_PROVISIONG_TAG, null);
-    if (empty($tag)) {
-      return; // unconfigured
+    $configTag = $this->config->getAppValue(Config::CARDDAV_PROVISIONG_TAG, null);
+    if (empty($configTag)) {
+      return null; // unconfigured
     }
 
     $result = $this->sendRequest('?_task=settings&_action=plugin.carddav', 'GET');
+    if ($result === null) {
+      $this->logError('Unable load RoundCube CardDAV.');
+      return false;
+    }
     $domDoc = new DOMDocument('1.0', 'UTF-8');
     $domDoc->encoding = 'UTF-8';
     $domDoc->loadHTML($result['html']);
@@ -273,7 +285,7 @@ class AuthRoundCube
         continue;
       }
       $template = $template->item(0)->data;
-      if ($template != $tag) {
+      if ($template != $configTag) {
         continue;
       }
       // Ok, found it. Fetch all values into an associative array
@@ -297,7 +309,14 @@ class AuthRoundCube
       // $this->logInfo('FORM DATA ' . print_r($formData, true));
       $result = $this->sendRequest('?_task=settings&_action=plugin.carddav.AccSave&accountid=' . $accountId, 'POST', $formData);
       // $this->logInfo('TWEAK RESULT ' . print_r($result, true));
+      if ($result === null) {
+        $this->logError('Unable to patch CardDAV configuration "' . $configTag . '".');
+        return false;
+      }
+      return true; // tag should be unique
     }
+    $this->logError('Unable to find pre-configured CardDAV configuration with name "' . $configTag . '".');
+    return false;
   }
 
   /**
