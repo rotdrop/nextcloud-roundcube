@@ -20,6 +20,9 @@
 </script>
 <template>
   <div :class="['templateroot', appName, ...cloudVersionClasses]">
+    <h1 class="title">
+      {{ t(appName, 'Embedded RoundCube, Admin Settings') }}
+    </h1>
     <NcSettingsSection :name="t(appName, 'Roundcube Installation')"
                        class="flex-container flex-column"
     >
@@ -125,6 +128,7 @@
                            :label="t(appName, 'Global Email Password')"
                            :disabled="loading || (emailAddressChoice !== 'fixedSingleAddress')"
                            :placeholder="t(appName, 'Email Password')"
+                           class="password"
                            @update="info(fixedSingleEmailPassword, ...arguments)"
                            @update:value="info(fixedSingleEmailPassword, ...arguments)"
           />
@@ -380,23 +384,25 @@ $prefs['${this.cardDavProvisioningTag}'] = [
     --cloud-theme-filter: none;
   }
 }
-.flex-container {
-  display:flex !important;
-  &.flex-column {
-    flex-direction:column;
+.templateroot {
+  display:flex;
+  flex-direction:column;
+  .flex-container {
+    display:flex !important;
+    &.flex-column {
+      flex-direction:column;
+    }
+    &.flex-row {
+      flex-direction:row;
+    }
+    &.flex-center {
+      align-items:center;
+    }
   }
-  &.flex-row {
-    flex-direction:row;
-  }
-  &.flex-center {
-    align-items:center;
-  }
-}
-.settings-section {
-  :deep(.app-settings-section) {
-    margin-bottom: 40px;
-  }
-  :deep(.settings-section__title) {
+  h1.title {
+    margin: 30px 30px 0px;
+    font-size:revert;
+    font-weight:revert;
     position: relative;
     padding-left:48px;
     height:32px;
@@ -415,55 +421,59 @@ $prefs['${this.cardDavProvisioningTag}'] = [
       filter: var(--cloud-theme-filter);
     }
   }
-  :deep(.list-item-content__wrapper) {
-    height:fit-content;
-  }
-  .user-id-email-placeholder {
-    font-family:mono-space;
-    font-weight:bold;
-    margin-left:0.5em;
-    margin-right:0.5em;
-    &::before {
-      content: '—';
-      margin-right:0.5em;
-    }
-  }
-  .hint {
-    color: var(--color-text-lighter);
-    font-style: italic;
-  }
-  .card-dav-template {
-    :deep(.list-item__anchor) {
+  .settings-section {
+    :deep(.list-item-content__wrapper) {
       height:fit-content;
     }
-    pre {
-      font-size: 80%;
-      line-height: 16px;
-      font-family: monospace;
+    .user-id-email-placeholder {
+      font-family:mono-space;
+      font-weight:bold;
+      margin-left:0.5em;
+      margin-right:0.5em;
+      &::before {
+        content: '—';
+        margin-right:0.5em;
+      }
     }
-  }
-  // Tweak the submit button of the NcTextField
-  .input-field::v-deep {
-    &.email-default-domain {
-      width:unset !important;
+    .hint {
+      color: var(--color-text-lighter);
+      font-style: italic;
     }
-    input.input-field__input--trailing-icon:not([type="password"]) {
-    // the following is just the button ...
-      ~ .input-field__trailing-button.button-vue--vue-tertiary-no-background {
-        max-height: var(--default-clickable-area);
-        max-width: var(--default-clickable-area);
-        // FIXME: instead we probably should switch to material design icons for everything else ...
-        background-image: var(--icon-confirm-dark);
-        background-position: center;
-        background-repeat: no-repeat;
-        .button-vue__icon {
-          opacity: 0;
-        }
-        &:hover, &:focus {
-          &:not(:disabled) {
-            border: 2px solid var(--color-primary-element);
-            border-radius: var(--border-radius-large);
-            outline: 2px solid var(--color-main-background);
+    .card-dav-template {
+      :deep(.list-item__anchor) {
+        height:fit-content;
+      }
+      pre {
+        font-size: 80%;
+        line-height: 16px;
+        font-family: monospace;
+      }
+    }
+    // Tweak the submit button of the NcTextField
+    .input-field::v-deep {
+      &.email-default-domain {
+        width:unset !important;
+      }
+      &:not(.password) {
+        input.input-field__input--trailing-icon:not([type="password"]) {
+          // the following is just the button ...
+          ~ .input-field__trailing-button.button-vue--vue-tertiary-no-background {
+            max-height: var(--default-clickable-area);
+            max-width: var(--default-clickable-area);
+            // FIXME: instead we probably should switch to material design icons for everything else ...
+            background-image: var(--icon-confirm-dark);
+            background-position: center;
+            background-repeat: no-repeat;
+            .button-vue__icon {
+              opacity: 0;
+            }
+            &:hover, &:focus {
+              &:not(:disabled) {
+                border: 2px solid var(--color-primary-element);
+                border-radius: var(--border-radius-large);
+                outline: 2px solid var(--color-main-background);
+              }
+            }
           }
         }
       }
