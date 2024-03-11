@@ -20,13 +20,16 @@
 </script>
 <template>
   <div :class="['templateroot', appName, ...cloudVersionClasses]">
+    <h1 class="title">
+      {{ t(appName, 'Embedded RoundCube, Admin Settings') }}
+    </h1>
     <NcSettingsSection :name="t(appName, 'Roundcube Installation')"
                        class="flex-container flex-column"
     >
-      <NcTextField :value.sync="externalLocation"
+      <NcTextField :value.sync="protectedExternalLocation"
                    type="text"
                    :label="t(appName, 'RoundCube Installation Path')"
-                   :disabled="loading > 0"
+                   :disabled="loading"
                    :show-trailing-button="true"
                    trailing-button-icon="arrowRight"
                    @trailing-button-click="saveTextInput('externalLocation')"
@@ -47,16 +50,16 @@
                type="radio"
                name="emailAddressChoice"
                value="userIdEmail"
-               :disabled="loading > 0"
+               :disabled="loading"
                @change="saveSetting('emailAddressChoice')"
         >
         <label for="user-id-email">
           {{ t(appName, 'Cloud Login-Id') }}
         </label>
-        <span :class="['user-id-email-placeholder', { disabled: loading > 0 || (emailAddressChoice !== 'userIdEmail')}]">{{ t(appName, 'User ID') }}@</span>
-        <NcTextField :value.sync="emailDefaultDomain"
+        <span :class="['user-id-email-placeholder', { disabled: loading || (emailAddressChoice !== 'userIdEmail')}]">{{ t(appName, 'User ID') }}@</span>
+        <NcTextField :value.sync="protectedEmailDefaultDomain"
                      class="email-default-domain"
-                     :disabled="loading > 0 || (emailAddressChoice !== 'userIdEmail')"
+                     :disabled="loading || (emailAddressChoice !== 'userIdEmail')"
                      :placeholder="t(appName, 'Email Domain')"
                      :show-trailing-button="true"
                      trailing-button-icon="arrowRight"
@@ -72,7 +75,7 @@
                type="radio"
                name="emailAddressChoice"
                value="userPreferencesEmail"
-               :disabled="loading > 0"
+               :disabled="loading"
                @change="saveSetting('emailAddressChoice')"
         >
         <label for="user-preferences-email">
@@ -86,7 +89,7 @@
                type="radio"
                name="emailAddressChoice"
                value="userChosenEmail"
-               :disabled="loading > 0"
+               :disabled="loading"
                @change="saveSetting('emailAddressChoice')"
         >
         <label for="user-chosen-email">
@@ -100,17 +103,17 @@
                type="radio"
                name="emailAddressChoice"
                value="fixedSingleAddress"
-               :disabled="loading > 0"
+               :disabled="loading"
                @change="saveSetting('emailAddressChoice')"
         >
         <label for="fixed-single-address">
           {{ t(appName, 'Fixed Single Address') }}
         </label>
         <div v-if="emailAddressChoice === 'fixedSingleAddress'">
-          <NcTextField :value.sync="fixedSingleEmailAddress"
+          <NcTextField :value.sync="protectedFixedSingleEmailAddress"
                        type="text"
                        :label="t(appName, 'Global Email Login')"
-                       :disabled="loading > 0 || (emailAddressChoice !== 'fixedSingleAddress')"
+                       :disabled="loading || (emailAddressChoice !== 'fixedSingleAddress')"
                        :placeholder="t(appName, 'Email Address')"
                        :show-trailing-button="true"
                        trailing-button-icon="arrowRight"
@@ -121,10 +124,11 @@
           <p class="hint">
             {{ t(appName, 'Global email user-name for Roundcube for all users') }}
           </p>
-          <NcPasswordField :value.sync="fixedSingleEmailPassword"
+          <NcPasswordField :value.sync="protectedFixedSingleEmailPassword"
                            :label="t(appName, 'Global Email Password')"
-                           :disabled="loading > 0 || (emailAddressChoice !== 'fixedSingleAddress')"
+                           :disabled="loading || (emailAddressChoice !== 'fixedSingleAddress')"
                            :placeholder="t(appName, 'Email Password')"
+                           class="password"
                            @update="info(fixedSingleEmailPassword, ...arguments)"
                            @update:value="info(fixedSingleEmailPassword, ...arguments)"
           />
@@ -146,7 +150,7 @@
              type="checkbox"
              name="forceSSO"
              value="1"
-             :disabled="loading > 0 || emailAddressChoice === 'fixedSingleAddress'"
+             :disabled="loading || emailAddressChoice === 'fixedSingleAddress'"
              @change="saveSetting('forceSSO')"
       >
       <label for="force-sso">
@@ -158,7 +162,7 @@
              type="checkbox"
              name="showTopLine"
              value="1"
-             :disabled="loading > 0"
+             :disabled="loading"
              @change="saveSetting('showTopLine')"
       >
       <label for="show-top-line">
@@ -170,7 +174,7 @@
              type="checkbox"
              name="enableSSLVerify"
              value="1"
-             :disabled="loading > 0"
+             :disabled="loading"
              @change="saveSetting('enableSSLVerify')"
       >
       <label for="enable-ssl-verify"
@@ -184,7 +188,7 @@
              type="checkbox"
              name="personalEncryption"
              value="1"
-             :disabled="loading > 0"
+             :disabled="loading"
              @change="saveSetting('personalEncryption')"
       >
       <label for="personal-encryption"
@@ -192,9 +196,9 @@
       >
         {{ t(appName, 'Per-user encryption of config values.') }}
       </label>
-      <NcTextField :value.sync="cardDavProvisioningTag"
+      <NcTextField :value.sync="protectedCardDavProvisioningTag"
                    :label="t(appName, 'RoundCube CardDAV Tag')"
-                   :disabled="loading > 0"
+                   :disabled="loading"
                    :placeholder="t(appName, 'Email Password')"
                    :show-trailing-button="true"
                    trailing-button-icon="arrowRight"
@@ -262,10 +266,10 @@ export default {
   },
   data() {
     return {
-      loading: 1,
+      loading: true,
       cloudVersionClasses,
       externalLocation: '',
-      emailAddressChoice: '',
+      emailAddressChoice: null,
       emailDefaultDomain: '',
       fixedSingleEmailAddress: '',
       fixedSingleEmailPassword: '',
@@ -300,6 +304,27 @@ $prefs['${this.cardDavProvisioningTag}'] = [
     addressBookUrl() {
       return generateRemoteUrl('dav') + '/addressbooks/users/%l'
     },
+    // NcTextField does not like null values
+    protectedExternalLocation: {
+      get() { return this.externalLocation || '' },
+      set(newValue) {  return this.externalLocation = newValue },
+    },
+    protectedEmailDefaultDomain: {
+      get() { return this.emailDefaultDomain || '' },
+      set(newValue) {  return this.emailDefaultDomain = newValue },
+    },
+    protectedFixedSingleEmailAddress: {
+      get() { return this.fixedSingleEmailAddress || '' },
+      set(newValue) {  return this.fixedSingleEmailAddress = newValue },
+    },
+    protectedFixedSingleEmailPassword: {
+      get() { return this.fixedSingleEmailPassword || '' },
+      set(newValue) {  return this.fixedSingleEmailPassword = newValue },
+    },
+    protectedCardDavProvisioningTag: {
+      get() { return this.cardDavProvisioningTag || '' },
+      set(newValue) {  return this.cardDavProvisioningTag = newValue },
+    },
   },
   watch: {},
   created() {
@@ -313,22 +338,15 @@ $prefs['${this.cardDavProvisioningTag}'] = [
     },
     async getData() {
       // slurp in all personal settings
-      // ++this.loading
       this.fetchSettings('admin').finally(() => {
-        console.info('THIS', this)
-        this.externalLocation = this.externalLocation || ''
-        this.emailAddressChoice = this.emailAddressChoice || ''
-        this.emailDefaultDomain = this.emailDefaultDomain || ''
-        this.fixedSingleEmailAddress = this.fixedSingleEmailAddress || ''
-        this.fixedSingleEmailPassword = this.fixedSingleEmailPassword || ''
-        --this.loading
+        this.loading = false
       })
     },
     async saveTextInput(settingsKey, value, force) {
       if (value === undefined) {
         value = this[settingsKey] || ''
       }
-      if (this.loading > 0) {
+      if (this.loading) {
         // avoid ping-pong by reactivity
         console.info('SKIPPING SETTINGS-SAVE DURING LOAD', settingsKey, value)
         return
@@ -336,7 +354,7 @@ $prefs['${this.cardDavProvisioningTag}'] = [
       this.saveConfirmedSetting(value, 'admin', settingsKey, force);
     },
     async saveSetting(setting) {
-      if (this.loading > 0) {
+      if (this.loading) {
         // avoid ping-pong by reactivity
         console.info('SKIPPING SETTINGS-SAVE DURING LOAD', setting)
         return
@@ -366,23 +384,25 @@ $prefs['${this.cardDavProvisioningTag}'] = [
     --cloud-theme-filter: none;
   }
 }
-.flex-container {
-  display:flex !important;
-  &.flex-column {
-    flex-direction:column;
+.templateroot {
+  display:flex;
+  flex-direction:column;
+  .flex-container {
+    display:flex !important;
+    &.flex-column {
+      flex-direction:column;
+    }
+    &.flex-row {
+      flex-direction:row;
+    }
+    &.flex-center {
+      align-items:center;
+    }
   }
-  &.flex-row {
-    flex-direction:row;
-  }
-  &.flex-center {
-    align-items:center;
-  }
-}
-.settings-section {
-  :deep(.app-settings-section) {
-    margin-bottom: 40px;
-  }
-  :deep(.settings-section__title) {
+  h1.title {
+    margin: 30px 30px 0px;
+    font-size:revert;
+    font-weight:revert;
     position: relative;
     padding-left:48px;
     height:32px;
@@ -401,55 +421,59 @@ $prefs['${this.cardDavProvisioningTag}'] = [
       filter: var(--cloud-theme-filter);
     }
   }
-  :deep(.list-item-content__wrapper) {
-    height:fit-content;
-  }
-  .user-id-email-placeholder {
-    font-family:mono-space;
-    font-weight:bold;
-    margin-left:0.5em;
-    margin-right:0.5em;
-    &::before {
-      content: '—';
-      margin-right:0.5em;
-    }
-  }
-  .hint {
-    color: var(--color-text-lighter);
-    font-style: italic;
-  }
-  .card-dav-template {
-    :deep(.list-item__anchor) {
+  .settings-section {
+    :deep(.list-item-content__wrapper) {
       height:fit-content;
     }
-    pre {
-      font-size: 80%;
-      line-height: 16px;
-      font-family: monospace;
+    .user-id-email-placeholder {
+      font-family:mono-space;
+      font-weight:bold;
+      margin-left:0.5em;
+      margin-right:0.5em;
+      &::before {
+        content: '—';
+        margin-right:0.5em;
+      }
     }
-  }
-  // Tweak the submit button of the NcTextField
-  .input-field::v-deep {
-    &.email-default-domain {
-      width:unset !important;
+    .hint {
+      color: var(--color-text-lighter);
+      font-style: italic;
     }
-    input.input-field__input--trailing-icon:not([type="password"]) {
-    // the following is just the button ...
-      ~ .input-field__trailing-button.button-vue--vue-tertiary-no-background {
-        max-height: var(--default-clickable-area);
-        max-width: var(--default-clickable-area);
-        // FIXME: instead we probably should switch to material design icons for everything else ...
-        background-image: var(--icon-confirm-dark);
-        background-position: center;
-        background-repeat: no-repeat;
-        .button-vue__icon {
-          opacity: 0;
-        }
-        &:hover, &:focus {
-          &:not(:disabled) {
-            border: 2px solid var(--color-primary-element);
-            border-radius: var(--border-radius-large);
-            outline: 2px solid var(--color-main-background);
+    .card-dav-template {
+      :deep(.list-item__anchor) {
+        height:fit-content;
+      }
+      pre {
+        font-size: 80%;
+        line-height: 16px;
+        font-family: monospace;
+      }
+    }
+    // Tweak the submit button of the NcTextField
+    .input-field::v-deep {
+      &.email-default-domain {
+        width:unset !important;
+      }
+      &:not(.password) {
+        input.input-field__input--trailing-icon:not([type="password"]) {
+          // the following is just the button ...
+          ~ .input-field__trailing-button.button-vue--vue-tertiary-no-background {
+            max-height: var(--default-clickable-area);
+            max-width: var(--default-clickable-area);
+            // FIXME: instead we probably should switch to material design icons for everything else ...
+            background-image: var(--icon-confirm-dark);
+            background-position: center;
+            background-repeat: no-repeat;
+            .button-vue__icon {
+              opacity: 0;
+            }
+            &:hover, &:focus {
+              &:not(:disabled) {
+                border: 2px solid var(--color-primary-element);
+                border-radius: var(--border-radius-large);
+                outline: 2px solid var(--color-main-background);
+              }
+            }
           }
         }
       }

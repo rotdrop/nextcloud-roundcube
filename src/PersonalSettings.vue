@@ -22,7 +22,7 @@
   <NcSettingsSection :name="t(appName, 'Embedded RoundCube, Personal Settings')"
                      :class="[...cloudVersionClasses, appName]"
   >
-    <NcTextField :value.sync="emailAddress"
+    <NcTextField :value.sync="protectedEmailAddress"
                  :label="t(appName, 'Email Login Name')"
                  :placeholder="t(appName, 'Email Address')"
                  :disabled="emailAddressDisabled"
@@ -35,10 +35,11 @@
     <p class="hint">
       {{ emailAddressHint }}
     </p>
-    <NcPasswordField :value.sync="emailPassword"
+    <NcPasswordField :value.sync="protectedEmailPassword"
                      :label="t(appName, 'Email Password')"
                      :disabled="emailPasswordDisabled"
                      :placeholder="t(appName, 'Email Password')"
+                     class="password"
                      @update="info(emailPassword, ...arguments)"
                      @update:value="info(emailPassword, ...arguments)"
     />
@@ -67,7 +68,7 @@ export default {
   },
   data() {
     return {
-      loading: 0,
+      loading: true,
       cloudVersionClasses,
       emailAddress: '',
       emailPassword: '',
@@ -81,6 +82,14 @@ export default {
     settingsSync,
   ],
   computed: {
+    protectedEmailAddress: {
+      get() { return this.emailAddress || '' },
+      set(newValue) { this.emailAddress = newValue },
+    },
+    protectedEmailPassword: {
+      get() { return this.emailPassword || '' },
+      set(newValue) { this.emailPassword = newValue },
+    },
     emailAddressDisabled() {
       if (this.loading > 0) {
         return true
@@ -143,15 +152,13 @@ export default {
   mounted() {
   },
   methods: {
-    info() {
-      console.info(...arguments)
+    info(...args) {
+      console.info(this.$options.name, ...args)
     },
     async getData() {
       // slurp in all personal settings
-      ++this.loading
       this.fetchSettings('personal').finally(() => {
-        console.info('THIS', this)
-        --this.loading
+        this.loading = false
       })
     },
     async saveTextInput(settingsKey, value, force) {
@@ -190,10 +197,7 @@ export default {
   }
 }
 .settings-section {
-  :deep(.app-settings-section) {
-    margin-bottom: 40px;
-  }
-  :deep(.settings-section__title) {
+  :deep(.settings-section__name) {
     position: relative;
     padding-left:48px;
     height:32px;
@@ -217,23 +221,25 @@ export default {
     &.email-default-domain {
       width:unset !important;
     }
-    input.input-field__input--trailing-icon:not([type="password"]) {
-    // the following is just the button ...
-      ~ .input-field__trailing-button.button-vue--vue-tertiary-no-background {
-        max-height: var(--default-clickable-area);
-        max-width: var(--default-clickable-area);
-        // FIXME: instead we probably should switch to material design icons for everything else ...
-        background-image: var(--icon-confirm-dark);
-        background-position: center;
-        background-repeat: no-repeat;
-        .button-vue__icon {
-          opacity: 0;
-        }
-        &:hover, &:focus {
-          &:not(:disabled) {
-            border: 2px solid var(--color-primary-element);
-            border-radius: var(--border-radius-large);
-            outline: 2px solid var(--color-main-background);
+    &:not(.password) {
+      input.input-field__input--trailing-icon:not([type="password"], .password) {
+        // the following is just the button ...
+        ~ .input-field__trailing-button.button-vue--vue-tertiary-no-background {
+          max-height: var(--default-clickable-area);
+          max-width: var(--default-clickable-area);
+          // FIXME: instead we probably should switch to material design icons for everything else ...
+          background-image: var(--icon-confirm-dark);
+          background-position: center;
+          background-repeat: no-repeat;
+          .button-vue__icon {
+            opacity: 0;
+          }
+          &:hover, &:focus {
+            &:not(:disabled) {
+              border: 2px solid var(--color-primary-element);
+              border-radius: var(--border-radius-large);
+              outline: 2px solid var(--color-main-background);
+            }
           }
         }
       }
