@@ -305,13 +305,9 @@ $prefs['cloud'] = [
 Please note that the password-setting "%p" will not work if 2FA is
 enabled. If this app detects that this is the case, it will try to
 generate a suitable app-token automatically and register it with the
-RoundCube CardDAV plugin -- which may work or not.
-
-In order to have auto-configuration working it is vital to NOT include
-"username" and "password" into the "fixed" array. The simple choice of
-"%l" for the username and "%p" for the password will only work without
-2Fa and if the local part of the email address is the same as the
-cloud user-id.
+RoundCube CardDAV plugin -- which may work or not. In order to have
+auto-configuration working it is vital to NOT include "username" and
+"password" into the "fixed" array.
 
 ### Personal Settings
 
