@@ -24,6 +24,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - avoid warnings with PHP 8.2: explicitly declare some properties (courtesy @HLFH)
 
+- improve error message when not configured properly, in particular
+  when the Roundcube location has not been set.
+
 ## [1.0.2] - 2023-03-24
 
 ### Added
