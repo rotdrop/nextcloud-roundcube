@@ -21,7 +21,7 @@
 <template>
   <div :class="['app-container', state]">
     <div ref="loaderContainer" class="loader-container" />
-    <iframe v-if="state !== 'error'"
+    <iframe v-show="state !== 'error'"
             :id="frameId"
             ref="roundCubeFrame"
             :src="externalLocation + '?_task=mail'"
@@ -105,7 +105,7 @@ helps. Otherwise contact your system administrator.`)
     info() {
       console.info(...arguments)
     },
-    async getData() {
+    getData() {
       const initialState = getInitialState()
       for (const [key, value] of Object.entries(initialState)) {
         vueSet(this, key, value)
