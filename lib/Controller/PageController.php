@@ -24,23 +24,23 @@
 
 namespace OCA\RoundCube\Controller;
 
-use OCP\AppFramework\Controller;
-use OCP\IRequest;
+use Psr\Log\LoggerInterface as ILogger;
 
+use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http\ContentSecurityPolicy;
 use OCP\AppFramework\Http\JSONResponse;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Services\IInitialState;
-use OCP\Util;
-use OCP\IURLGenerator;
-use Psr\Log\LoggerInterface as ILogger;
 use OCP\IL10N;
+use OCP\IRequest;
+use OCP\IURLGenerator;
+use OCP\Util;
 
 use OCA\RoundCube\Constants;
 use OCA\RoundCube\Controller\SettingsController;
 use OCA\RoundCube\Service\AssetService;
-use OCA\RoundCube\Service\Config;
 use OCA\RoundCube\Service\AuthRoundCube as Authenticator;
+use OCA\RoundCube\Service\Config;
 
 /** Main page entry point. */
 class PageController extends Controller
@@ -55,52 +55,19 @@ class PageController extends Controller
   const ERROR_LOGIN_REASON = 'login';
   const ERROR_CARDDAV_REASON = 'carddav';
 
-  /** @var string */
-  private $userId;
-
-  /** @var \OCA\RoundCube\Service\AuthRoundCube */
-  private $authenticator;
-
-  /** @var Config */
-  private $config;
-
-  /** @var AssetService */
-  private $assetService;
-
-  /** @var IInitialState */
-  private $initialState;
-
-  /** @var \OCP\IURLGenerator */
-  private $urlGenerator;
-
-  /**
-   * Explicitly declare the properties.
-   */
-  private $l; // Assuming $l is for localization (IL10N)
-
-
   // phpcs:disable Squiz.Commenting.FunctionComment.Missing
   public function __construct(
     string $appName,
     IRequest $request,
-    ?string $userId,
-    Authenticator $authenticator,
-    Config $config,
-    AssetService $assetService,
-    IInitialState $initialState,
-    IURLGenerator $urlGenerator,
-    ILogger $logger,
-    IL10N $l10n,
+    private ?string $userId,
+    private Authenticator $authenticator,
+    private Config $config,
+    private AssetService $assetService,
+    private IInitialState $initialState,
+    private IURLGenerator $urlGenerator,
+    protected ILogger $logger,
   ) {
     parent::__construct($appName, $request);
-    $this->userId = $userId;
-    $this->authenticator = $authenticator;
-    $this->config = $config;
-    $this->assetService = $assetService;
-    $this->initialState = $initialState;
-    $this->urlGenerator = $urlGenerator;
-    $this->logger = $logger;
-    $this->l = $l10n;
   }
   // phpcs:enable Squiz.Commenting.FunctionComment.Missing
 

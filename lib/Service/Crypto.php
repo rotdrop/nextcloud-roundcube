@@ -4,7 +4,7 @@
  *
  * @author 2019 Leonardo R. Morelli github.com/LeonardoRM
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2020, 2021, 2023 Claus-Justus Heine
+ * @copyright 2020, 2021, 2023, 2024 Claus-Justus Heine
  * @license AGPL-3.0-or-later
  *
  * Nextcloud RoundCube App is free software: you can redistribute it and/or
@@ -24,12 +24,13 @@
 
 namespace OCA\RoundCube\Service;
 
-use openssl_pkey_new;
 use openssl_pkey_get_details;
 use openssl_pkey_get_private;
+use openssl_pkey_new;
 use openssl_public_encrypt;
 
 use Psr\Log\LoggerInterface as ILogger;
+
 use OCP\IL10N;
 use OCP\Security\ISecureRandom;
 
@@ -40,18 +41,11 @@ class Crypto
 {
   use \OCA\RoundCube\Toolkit\Traits\LoggerTrait;
 
-  /** @var \OCP\Security\ISecureRandom */
-  private $secureRandom;
-
   // phpcs:disable Squiz.Commenting.FunctionComment.Missing
   public function __construct(
-    ISecureRandom $secureRandom,
-    ILogger $logger,
-    IL10N $l10n,
+    private ISecureRandom $secureRandom,
+    protected ILogger $logger,
   ) {
-    $this->secureRandom = $secureRandom;
-    $this->logger = $logger;
-    $this->l = $l10n;
   }
   // phpcs:enable Squiz.Commenting.FunctionComment.Missing
 

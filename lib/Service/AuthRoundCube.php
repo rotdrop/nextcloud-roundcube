@@ -24,13 +24,14 @@
 
 namespace OCA\RoundCube\Service;
 
+use DOMAttr;
 use DOMDocument;
 use DOMXPath;
-use DOMAttr;
 
-use OCP\IURLGenerator;
 use Psr\Log\LoggerInterface as ILogger;
+
 use OCP\IL10N;
+use OCP\IURLGenerator;
 
 use OCA\RoundCube\AppInfo\Application;
 use OCA\RoundCube\Service\Config;
@@ -55,12 +56,6 @@ class AuthRoundCube
   /** @var string */
   private $appName;
 
-  /** @var \OCP\IConfig */
-  private $config;
-
-  /** @var \OCP\IURLGenerator */
-  private $urlGenerator;
-
   /** @var bool */
   private $enableSSLVerify;
 
@@ -75,29 +70,15 @@ class AuthRoundCube
   private $rcSessionId;
   private $rcSessionAuth;
 
-  /**
-   * Explicitly declare the properties.
-   */
-  private $userId;
-  private $l; // Assuming $l is for localization (IL10N)
-
   // phpcs:disable Squiz.Commenting.FunctionComment.Missing
   public function __construct(
     Application $app,
-    Config $config,
-    IURLGenerator $urlGenerator,
-    ?string $userId,
-    ILogger $logger,
-    IL10N $l10n,
+    private Config $config,
+    private IURLGenerator $urlGenerator,
+    private ?string $userId,
+    protected ILogger $logger,
     protected AppPasswordService $appPasswordService,
   ) {
-    $this->appName = $app->getAppName();
-    $this->userId = $userId;
-    $this->config = $config;
-    $this->urlGenerator = $urlGenerator;
-    $this->logger = $logger;
-    $this->l = $l10n;
-
     $this->enableSSLVerify = $this->config->getAppValue(Config::ENABLE_SSL_VERIFY);
 
     $location = $this->config->getAppValue(Config::EXTERNAL_LOCATION);
@@ -135,9 +116,9 @@ class AuthRoundCube
    *
    * @param null|string $url
    *
-   * @return string
+   * @return null|string
    */
-  public function externalURL(?string $url = null):string
+  public function externalURL(?string $url = null):?string
   {
     if (!empty($url)) {
       if ($url[0] == '/') {

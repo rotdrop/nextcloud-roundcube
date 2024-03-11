@@ -25,12 +25,13 @@ namespace OCA\RoundCube\Controller;
 use InvalidArgumentException;
 
 use Psr\Log\LoggerInterface;
+
 use OCP\AppFramework\Controller;
-use OCP\AppFramework\Http\Response;
 use OCP\AppFramework\Http\DataResponse;
+use OCP\AppFramework\Http\Response;
+use OCP\IL10N;
 use OCP\IRequest;
 use OCP\IURLGenerator;
-use OCP\IL10N;
 
 use OCA\RoundCube\Service\Config;
 
@@ -80,31 +81,17 @@ class SettingsController extends Controller
     Config::FIXED_SINGLE_EMAIL_ADDRESS . self::ADMIN_SETTING => [ 'rw' => false, 'default' => Config::FIXED_SINGLE_EMAIL_ADDRESS_DEFAULT, ],
   ];
 
-  /** @var IURLGenerator */
-  private $urlGenerator;
-
-  /** @var Config */
-  private $config;
-
-  /** @var string */
-  private $userId;
-
   // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
   public function __construct(
     string $appName,
     IRequest $request,
-    $userId,
-    LoggerInterface $logger,
-    IURLGenerator $urlGenerator,
-    IL10N $l10n,
-    Config $config,
+    private ?string $userId,
+    protected LoggerInterface $logger,
+    private IURLGenerator $urlGenerator,
+    protected IL10N $l,
+    private Config $config,
   ) {
     parent::__construct($appName, $request);
-    $this->logger = $logger;
-    $this->urlGenerator = $urlGenerator;
-    $this->l = $l10n;
-    $this->config = $config;
-    $this->userId = $userId;
   }
   // phpcs:enable
 

@@ -3,7 +3,7 @@
  * Nextcloud RoundCube App.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2020, 2021, 2022, 2023 Claus-Justus Heine
+ * @copyright 2020-2024 Claus-Justus Heine
  * @license AGPL-3.0-or-later
  *
  * Nextcloud RoundCube App is free software: you can redistribute it and/or
@@ -25,11 +25,12 @@ namespace OCA\RoundCube\Listener;
 
 use Throwable;
 
-use OCP\User\Events\BeforeUserLoggedOutEvent as HandledEvent;
+use Psr\Log\LoggerInterface as ILogger;
+
+use OCP\AppFramework\IAppContainer;
 use OCP\EventDispatcher\Event;
 use OCP\EventDispatcher\IEventListener;
-use OCP\AppFramework\IAppContainer;
-use Psr\Log\LoggerInterface as ILogger;
+use OCP\User\Events\BeforeUserLoggedOutEvent as HandledEvent;
 
 use OCA\RoundCube\Service\AuthRoundCube;
 
@@ -40,13 +41,9 @@ class BeforeUserLoggedOutEventListener implements IEventListener
 
   const EVENT = HandledEvent::class;
 
-  /** @var IAppContainer */
-  private $appContainer;
-
   // phpcs:disable Squiz.Commenting.FunctionComment.Missing
-  public function __construct(IAppContainer $appContainer)
+  public function __construct(private IAppContainer $appContainer)
   {
-    $this->appContainer = $appContainer;
   }
   // phpcs:enable Squiz.Commenting.FunctionComment.Missing
 

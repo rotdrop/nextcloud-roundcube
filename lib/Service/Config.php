@@ -3,7 +3,7 @@
  * Nextcloud RoundCube App.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2020, 2021, 2022, 2023 Claus-Justus Heine
+ * @copyright 2020-2024 Claus-Justus Heine
  * @license AGPL-3.0-or-later
  *
  * Nextcloud RoundCube App is free software: you can redistribute it and/or
@@ -25,14 +25,15 @@ namespace OCA\RoundCube\Service;
 
 use Exception;
 
-use OCP\IConfig;
-use OCP\IUserSession;
 use Psr\Log\LoggerInterface as ILogger;
 use Psr\Log\LogLevel;
-use OCP\IL10N;
-use OCP\Security\ICrypto;
-use OCP\Authentication\LoginCredentials\IStore as ICredentialsStore;
+
 use OCP\Authentication\LoginCredentials\ICredentials;
+use OCP\Authentication\LoginCredentials\IStore as ICredentialsStore;
+use OCP\IConfig;
+use OCP\IL10N;
+use OCP\IUserSession;
+use OCP\Security\ICrypto;
 
 /** Helper class for handling config values. */
 class Config
@@ -90,14 +91,8 @@ class Config
   /** @var string */
   private $userPassword;
 
-  /** @var IConfig */
-  private $config;
-
   /** @var ICredentials */
   private $credentials;
-
-  /** @var ICrypto */
-  private $crypto;
 
   /**
    * @var bool
@@ -106,27 +101,15 @@ class Config
    */
   private $personalEncryption;
 
-  /**
-   * Explicitly declare the properties.
-   */
-  private $appName;
-  private $l; // Assuming $l is for localization (IL10N)
-
   // phpcs:disable Squiz.Commenting.FunctionComment.Missing
   public function __construct(
-    string $appName,
     IUserSession $userSession,
-    IConfig $config,
     ICredentialsStore $credentialsStore,
-    ICrypto $crypto,
-    ILogger $logger,
-    IL10N $l10n,
+    private string $appName,
+    private IConfig $config,
+    private ICrypto $crypto,
+    protected ILogger $logger,
   ) {
-    $this->appName = $appName;
-    $this->config = $config;
-    $this->crypto = $crypto;
-    $this->logger = $logger;
-    $this->l = $l10n;
     $this->personalEncryption = $this->getAppValue('personalEncryption');
     try {
       $this->user = $userSession->getUser();

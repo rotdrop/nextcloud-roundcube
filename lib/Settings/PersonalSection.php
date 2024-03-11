@@ -3,7 +3,7 @@
  * Nextcloud RoundCube App.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2020, 2021, 2023, 2023 Claus-Justus Heine
+ * @copyright 2020-2024 Claus-Justus Heine
  * @license AGPL-3.0-or-later
  *
  * Nextcloud RoundCube App is free software: you can redistribute it and/or
@@ -23,31 +23,19 @@
 
 namespace OCA\RoundCube\Settings;
 
-use OCP\Settings\IIconSection;
-use OCP\IURLGenerator;
 use OCP\IL10N;
+use OCP\IURLGenerator;
+use OCP\Settings\IIconSection;
 
 /** Settings section in left side-bar. */
 class PersonalSection implements IIconSection
 {
-  /** @var string */
-  private $appName;
-
-  /** @var \OCP\IURLGenerator */
-  private $urlGenerator;
-
-  /** @var \OCP\IL10N */
-  private $l;
-
   // phpcs:disable Squiz.Commenting.FunctionComment.Missing
   public function __construct(
-    string $appName,
-    IURLGenerator $urlGenerator,
-    IL10N $l10n,
+    private string $appName,
+    private IURLGenerator $urlGenerator,
+    private IL10N $l,
   ) {
-    $this->appName = $appName;
-    $this->urlGenerator = $urlGenerator;
-    $this->l = $l10n;
   }
   // phpcs:enable Squiz.Commenting.FunctionComment.Missing
 
