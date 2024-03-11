@@ -22,7 +22,7 @@
   <NcSettingsSection :name="t(appName, 'Embedded RoundCube, Personal Settings')"
                      :class="[...cloudVersionClasses, appName]"
   >
-    <NcTextField :value.sync="emailAddress"
+    <NcTextField :value.sync="protectedEmailAddress"
                  :label="t(appName, 'Email Login Name')"
                  :placeholder="t(appName, 'Email Address')"
                  :disabled="emailAddressDisabled"
@@ -35,7 +35,7 @@
     <p class="hint">
       {{ emailAddressHint }}
     </p>
-    <NcPasswordField :value.sync="emailPassword"
+    <NcPasswordField :value.sync="protectedEmailPassword"
                      :label="t(appName, 'Email Password')"
                      :disabled="emailPasswordDisabled"
                      :placeholder="t(appName, 'Email Password')"
@@ -67,7 +67,7 @@ export default {
   },
   data() {
     return {
-      loading: 0,
+      loading: true,
       cloudVersionClasses,
       emailAddress: '',
       emailPassword: '',
@@ -81,6 +81,14 @@ export default {
     settingsSync,
   ],
   computed: {
+    protectedEmailAddress: {
+      get() { return this.emailAddress || '' },
+      set(newValue) { this.emailAddress = newValue },
+    },
+    protectedEmailPassword: {
+      get() { return this.emailPassword || '' },
+      set(newValue) { this.emailPassword = newValue },
+    },
     emailAddressDisabled() {
       if (this.loading > 0) {
         return true
@@ -143,15 +151,13 @@ export default {
   mounted() {
   },
   methods: {
-    info() {
-      console.info(...arguments)
+    info(...args) {
+      console.info(this.$options.name, ...args)
     },
     async getData() {
       // slurp in all personal settings
-      ++this.loading
       this.fetchSettings('personal').finally(() => {
-        console.info('THIS', this)
-        --this.loading
+        this.loading = false
       })
     },
     async saveTextInput(settingsKey, value, force) {
