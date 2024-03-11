@@ -274,9 +274,49 @@ the server password. The extra gain in security is questionable as any
 installed app has access to the password of the currently logged in
 user.
 
+#### CardDAV Integration
+
+If you install the [RCM CardDAV
+plugin](https://github.com/mstilkerich/rcmcarddav) then it is possible
+to autoconfigure the plugin such that the Nextcloud contacts are
+accessible from inside Roundcube. In order to do so, you have to
+define a "RoundCube CardDAV Tag" in the respective text-input of this
+app and copy the configuration snippet shown there to the RCM CardDAV
+plugin config. This should be
+``` shell
+PATH_TO_ROUNDCUBE/plugins/carddav/config.inc.php
+```
+The configuration snippet looks similar to this one:
+``` php
+$prefs['cloud'] = [
+  'accountname'    => 'cloud',
+  'discovery_url'  => 'https://nextcloud.example.com/remote.php/dav/addressbooks/users/%l',
+  'username'       => '%l',
+  'password'       => '%p',
+  'name'           => '%N (%a)',
+  'active'         =>  true,
+  'readonly'       =>  false,
+  'refresh_time'   => '00:15:00',
+  'fixed'          => ['discovery_url',],
+  'hide'           =>  false,
+  'use_categories' => true,
+]
+```
+Please note that the password-setting "%p" will not work if 2FA is
+enabled. If this app detects that this is the case, it will try to
+generate a suitable app-token automatically and register it with the
+RoundCube CardDAV plugin -- which may work or not.
+
+In order to have auto-configuration working it is vital to NOT include
+"username" and "password" into the "fixed" array. The simple choice of
+"%l" for the username and "%p" for the password will only work without
+2Fa and if the local part of the email address is the same as the
+cloud user-id.
+
 ## Personal Settings
 
-Please have also a look at the [screenshot](#personal-settings).
+Please have also a look at the
+[screenshot](#personal-settings).
 
 ### Email Login Name
 
