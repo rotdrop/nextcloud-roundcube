@@ -3,7 +3,7 @@
         'name' => 'rotdrop/nextcloud-app-roundcube',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '44a3fa81bbed6171f2d2317f0f7aee0e0b8addc3',
+        'reference' => 'e461b8c07f7a9c3b2b777492f835aef370885496',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'rotdrop/nextcloud-app-roundcube' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '44a3fa81bbed6171f2d2317f0f7aee0e0b8addc3',
+            'reference' => 'e461b8c07f7a9c3b2b777492f835aef370885496',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
