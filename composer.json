@@ -1,0 +1,38 @@
+{
+  "name": "rotdrop/nextcloud-app-roundcube",
+  "description": "Embed an external Roundcube Web-Mailer into a Nextcloud instance",
+  "type": "project",
+  "license": "AGPL",
+  "authors": [
+    {
+      "name": "Claus-Justus Heine",
+      "email": "himself@claus-justus-heine.de"
+    }
+  ],
+  "require": {},
+  "require-dev": {
+    "phpunit/phpunit": "*",
+    "nextcloud/coding-standard": "*",
+    "phpmd/phpmd": "@stable",
+    "squizlabs/php_codesniffer": "3.*",
+    "zebra-north/phpcs-short-types": "^1.0",
+    "psr/log": "1.1.4",
+    "symfony/deprecation-contracts": "v2.5.2",
+    "symfony/polyfill-ctype": "v1.23.0",
+    "symfony/polyfill-mbstring": "v1.27.0",
+    "symfony/service-contracts": "v3.0.2"
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "classmap-authoritative": true,
+    "platform": {
+      "php": "8.1.0"
+    }
+  },
+  "repositories": [],
+  "scripts": {
+    "lint": "find . -name \\*.php -not -path './vendor/*' -not -path './build/*' -print0 | xargs -0 -n1 php -l",
+    "cs:check": "php-cs-fixer fix --dry-run --diff",
+    "cs:fix": "php-cs-fixer fix"
+  }
+}
