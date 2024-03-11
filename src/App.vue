@@ -1,6 +1,6 @@
 <script>
 /**
- * @copyright Copyright (c) 2022, 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright Copyright (c) 2022, 2023, 2024 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
@@ -19,7 +19,7 @@
  */
 </script>
 <template>
-  <div class="app-container">
+  <div :class="['app-container', state]">
     <div ref="loaderContainer" class="loader-container" />
     <iframe v-if="state !== 'error'"
             :id="frameId"
@@ -71,8 +71,17 @@ export default {
         return null
       }
       switch (this.reason) {
+        case 'norcurl':
+          return t(appName, `You did not tell me where to find your configured Roundcube
+instance. Please head over to the admin-settings and configure this
+app, thank you! I might also be a good idea to have a look at the
+README.md file which is distributed together with this app.`)
         case 'login':
-          return t(appName, 'Unable to login into Roundcube, there are login errors. Please check your personal Roundcube settings. Maybe a re-login to Nextcloud helps. Otherwise contact your system administrator.')
+          return t(appName, `Unable to login into Roundcube, there are login errors. Please check
+your personal Roundcube settings. Maybe a re-login to Nextcloud
+helps. Otherwise contact your system administrator.`)
+        case 'carddav':
+          return t(appName, 'Unable to configure the CardDAV integration for "{emailuserId}".', this)
         case 'noemail':
           return t(appName, 'Unable to obtain email credentials for "{emailUserId}". Please check your personal Roundcube settings.', this)
         default:
@@ -130,23 +139,44 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.loader-container {
-  background-image: url('../img/loader.gif');
-  background-repeat: no-repeat;
-  background-position: center;
-  z-index:10;
-  width:100%;
-  height:100%;
-  position:fixed;
-  transition: visibility 1s, opacity 1s;
-  &.fading {
-    opacity: 0;
-    visibility: hidden;
+.app-container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+  align-content: stretch;
+  &.error {
+    .loader-container {
+      display:none; // do not further annoy the user
+    }
   }
-}
-#errorMsg {
-  padding:1em 1em;
-  font-weight: bold;
-  font-size:120%;
+  .loader-container {
+    background-image: url('../img/loader.gif');
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index:10;
+    width:100%;
+    height:100%;
+    position:fixed;
+    transition: visibility 1s, opacity 1s;
+    &.fading {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+  #errorMsg {
+    align-self: center;
+    padding:2em 2em;
+    font-weight: bold;
+    font-size:120%;
+    max-width: 80%;
+    border: 2px solid var(--color-border-maxcontrast);
+    border-radius: var(--border-radius-pill);
+    background-color: var(--color-background-dark);
+  }
+  iframe {
+    flex-grow: 10;
+  }
 }
 </style>

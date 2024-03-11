@@ -3,7 +3,7 @@
  * Nextcloud RoundCube App.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2020, 2021, 2022, 2023 Claus-Justus Heine
+ * @copyright 2020-2024 Claus-Justus Heine
  * @license AGPL-3.0-or-later
  *
  * Nextcloud RoundCube App is free software: you can redistribute it and/or
@@ -25,14 +25,15 @@ namespace OCA\RoundCube\Service;
 
 use Exception;
 
-use OCP\IConfig;
-use OCP\IUserSession;
 use Psr\Log\LoggerInterface as ILogger;
 use Psr\Log\LogLevel;
-use OCP\IL10N;
-use OCP\Security\ICrypto;
-use OCP\Authentication\LoginCredentials\IStore as ICredentialsStore;
+
 use OCP\Authentication\LoginCredentials\ICredentials;
+use OCP\Authentication\LoginCredentials\IStore as ICredentialsStore;
+use OCP\IConfig;
+use OCP\IL10N;
+use OCP\IUserSession;
+use OCP\Security\ICrypto;
 
 /** Helper class for handling config values. */
 class Config
@@ -67,6 +68,8 @@ class Config
   public const ENABLE_SSL_VERIFY_DEFAULT = true;
   public const PERSONAL_ENCRYPTION = 'personalEncryption';
   public const PERSONAL_ENCRYPTION_DEFAULT = false;
+  public const CARDDAV_PROVISIONG_TAG = 'cardDavProvisioningTag';
+  public const CARDDAV_PROVISIONG_TAG_DEFAULT = '';
 
   const SETTINGS = [
     self::EXTERNAL_LOCATION => self::EXTERNAL_LOCATION_DEFAULT,
@@ -76,6 +79,7 @@ class Config
     self::SHOW_TOP_LINE => self::SHOW_TOP_LINE_DEFAULT,
     self::ENABLE_SSL_VERIFY => self::ENABLE_SSL_VERIFY_DEFAULT,
     self::PERSONAL_ENCRYPTION => self::PERSONAL_ENCRYPTION_DEFAULT,
+    self::CARDDAV_PROVISIONG_TAG => self::CARDDAV_PROVISIONG_TAG_DEFAULT,
   ];
 
   /** @var \OCP\IUser */
@@ -87,14 +91,8 @@ class Config
   /** @var string */
   private $userPassword;
 
-  /** @var IConfig */
-  private $config;
-
   /** @var ICredentials */
   private $credentials;
-
-  /** @var ICrypto */
-  private $crypto;
 
   /**
    * @var bool
@@ -105,19 +103,13 @@ class Config
 
   // phpcs:disable Squiz.Commenting.FunctionComment.Missing
   public function __construct(
-    string $appName,
     IUserSession $userSession,
-    IConfig $config,
     ICredentialsStore $credentialsStore,
-    ICrypto $crypto,
-    ILogger $logger,
-    IL10N $l10n,
+    private string $appName,
+    private IConfig $config,
+    private ICrypto $crypto,
+    protected ILogger $logger,
   ) {
-    $this->appName = $appName;
-    $this->config = $config;
-    $this->crypto = $crypto;
-    $this->logger = $logger;
-    $this->l = $l10n;
     $this->personalEncryption = $this->getAppValue('personalEncryption');
     try {
       $this->user = $userSession->getUser();

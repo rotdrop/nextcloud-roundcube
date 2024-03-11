@@ -8,6 +8,7 @@ OC.L10N.register(
     "true" : "prawda",
     "false" : "nieprawda",
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Problem z instalacją: wymagany zasób „%1$s” typu „%2$s” nie jest zainstalowany na serwerze, skontaktuj się z administratorem!",
+    "Password" : "Hasło",
     "Error, caught an exception." : "Błąd, złapano wyjątek.",
     "Caused by previous exception" : "Spowodowane przez poprzedni wyjątek",
     "bytes" : "bajtów",

@@ -3,7 +3,7 @@
  * Some PHP utility functions for Nextcloud apps.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022, 2024 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -27,13 +27,13 @@ namespace OCA\RotDrop\Toolkit\Exceptions;
  */
 class ArchiveTooLargeException extends ArchiveException
 {
-  private int $limit;
-
-  private int $actualSize;
-
   // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
-  public function __construct(string $message, int $limit, int $actualSize, ?\Throwable $previous = null)
-  {
+  public function __construct(
+    string $message,
+    private int $limit,
+    private int $actualSize,
+    ?\Throwable $previous = null,
+  ) {
     parent::__construct($message, 0, $previous);
   }
 

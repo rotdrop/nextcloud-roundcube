@@ -1,6 +1,7 @@
 { "translations": {
     "true" : "idetti",
     "false" : "ucciḍ",
+    "User" : "Aseqdac",
     "Advanced Settings" : "Iɣewwaren leqqayen",
     "Confirmation Required" : "Asentem ilaq"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"

@@ -1,6 +1,6 @@
 <script>
 /**
- * @copyright Copyright (c) 2022, 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright Copyright (c) 2022-2024 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
@@ -19,44 +19,58 @@
  */
 </script>
 <template>
-  <SettingsSection :class="[...cloudVersionClasses, appName]" :title="t(appName, 'Embedded RoundCube, Personal Settings')">
-    <SettingsInputText v-model="emailAddress"
-                       :label="t(appName, 'Email Login Name')"
-                       :title="t(appName, 'Email user for Roundcube')"
-                       :hint="emailAddressHint"
-                       :disabled="emailAddressDisabled"
-                       @update="saveTextInput(...arguments, 'emailAddress')"
+  <NcSettingsSection :name="t(appName, 'Embedded RoundCube, Personal Settings')"
+                     :class="[...cloudVersionClasses, appName]"
+  >
+    <NcTextField :value.sync="emailAddress"
+                 :label="t(appName, 'Email Login Name')"
+                 :placeholder="t(appName, 'Email Address')"
+                 :disabled="emailAddressDisabled"
+                 :show-trailing-button="true"
+                 trailing-button-icon="arrowRight"
+                 @trailing-button-click="saveTextInput('emailAddress'); saveTextInput('emailPassword')"
+                 @update="info(emailAddress, ...arguments)"
+                 @update:value="info(emailAddress, ...arguments)"
     />
-    <SettingsInputText v-model="emailPassword"
-                       type="password"
-                       :label="t(appName, 'Email Password')"
-                       :title="t(appName, 'Email password for Roundcube')"
-                       :hint="emailPasswordHint"
-                       :disabled="emailPasswordDisabled"
-                       @update="saveTextInput(...arguments, 'emailPassword')"
+    <p class="hint">
+      {{ emailAddressHint }}
+    </p>
+    <NcPasswordField :value.sync="emailPassword"
+                     :label="t(appName, 'Email Password')"
+                     :disabled="emailPasswordDisabled"
+                     :placeholder="t(appName, 'Email Password')"
+                     @update="info(emailPassword, ...arguments)"
+                     @update:value="info(emailPassword, ...arguments)"
     />
-  </SettingsSection>
+    <p class="hint">
+      {{ emailPasswordHint }}
+    </p>
+  </NcSettingsSection>
 </template>
 <script>
 import { appName } from './config.js'
 import Vue from 'vue'
-import SettingsSection from '@nextcloud/vue/dist/Components/NcSettingsSection'
-import SettingsInputText from '@rotdrop/nextcloud-vue-components/lib/components/SettingsInputText'
+import {
+  NcPasswordField,
+  NcSettingsSection,
+  NcTextField,
+} from '@nextcloud/vue'
 import settingsSync from './toolkit/mixins/settings-sync'
 import cloudVersionClasses from './toolkit/util/cloud-version-classes.js'
 
 export default {
   name: 'PersonalSettings',
   components: {
-    SettingsSection,
-    SettingsInputText,
+    NcPasswordField,
+    NcSettingsSection,
+    NcTextField,
   },
   data() {
     return {
       loading: 0,
       cloudVersionClasses,
-      emailAddress: null,
-      emailPassword: null,
+      emailAddress: '',
+      emailPassword: '',
       emailAddressChoiceAdmin: null,
       emailDefaultDomainAdmin: null,
       fixedSingleEmailAddressAdmin: null,
@@ -140,7 +154,10 @@ export default {
         --this.loading
       })
     },
-    async saveTextInput(value, settingsKey, force) {
+    async saveTextInput(settingsKey, value, force) {
+      if (value === undefined) {
+        value = this[settingsKey] || ''
+      }
       if (this.loading > 0) {
         // avoid ping-pong by reactivity
         console.info('SKIPPING SETTINGS-SAVE DURING LOAD', settingsKey, value)
@@ -193,6 +210,33 @@ export default {
       background-origin:border-box;
       background-position:left center;
       filter: var(--cloud-theme-filter);
+    }
+  }
+  // Tweak the submit button of the NcTextField
+  .input-field::v-deep {
+    &.email-default-domain {
+      width:unset !important;
+    }
+    input.input-field__input--trailing-icon:not([type="password"]) {
+    // the following is just the button ...
+      ~ .input-field__trailing-button.button-vue--vue-tertiary-no-background {
+        max-height: var(--default-clickable-area);
+        max-width: var(--default-clickable-area);
+        // FIXME: instead we probably should switch to material design icons for everything else ...
+        background-image: var(--icon-confirm-dark);
+        background-position: center;
+        background-repeat: no-repeat;
+        .button-vue__icon {
+          opacity: 0;
+        }
+        &:hover, &:focus {
+          &:not(:disabled) {
+            border: 2px solid var(--color-primary-element);
+            border-radius: var(--border-radius-large);
+            outline: 2px solid var(--color-main-background);
+          }
+        }
+      }
     }
   }
 }

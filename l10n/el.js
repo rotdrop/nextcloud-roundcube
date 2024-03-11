@@ -3,6 +3,8 @@ OC.L10N.register(
     {
     "true" : "αληθές",
     "false" : "ψευδές",
+    "User" : "Χρήστης",
+    "Password" : "Συνθηματικό",
     "bytes" : "bytes",
     "User's Preferences" : "Προτιμήσεις του χρήστη",
     "User's Choice" : "Επιλογή του χρήστη",

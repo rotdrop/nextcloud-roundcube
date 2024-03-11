@@ -3,7 +3,7 @@
  * Some PHP utility functions for Nextcloud apps.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022, 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022, 2023, 2024 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -54,12 +54,6 @@ class UserScopeService
   public const DEFAULT_TOKEN_NAME = 'oc_rotdrop';
   public const DEFAULT_LIFETIME = 1800;
 
-  /** @var IUserSession */
-  protected $userSession;
-
-  /** @var IUserManager */
-  protected $userManager;
-
   /** @var string */
   protected $cookieName = self::DEFAULT_COOKIE_NAME;
 
@@ -71,21 +65,14 @@ class UserScopeService
 
   // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
   public function __construct(
-    LoggerInterface $logger,
-    IRequest $request,
-    CredentialsStore $credentialsStorage,
-    TokenProvider $tokenProvider,
-    ISecureRandom $secureRandom,
-    IUserSession $userSession,
-    IUserManager $userManager,
+    protected LoggerInterface $logger,
+    protected IRequest $request,
+    protected CredentialsStore $credentialsStorage,
+    protected TokenProvider $tokenProvider,
+    protected ISecureRandom $secureRandom,
+    protected IUserSession $userSession,
+    protected IUserManager $userManager,
   ) {
-    $this->logger = $logger;
-    $this->request = $request;
-    $this->credentialsStore = $credentialsStorage;
-    $this->tokenProvider = $tokenProvider;
-    $this->secureRandom = $secureRandom;
-    $this->userSession = $userSession;
-    $this->userManager = $userManager;
   }
   // phpcs:enable
 

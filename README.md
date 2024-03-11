@@ -1,5 +1,4 @@
-RoundCube Web Mail
-==================
+# RoundCube Webmail
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
 **Table of Contents**
@@ -30,6 +29,7 @@ RoundCube Web Mail
       - [Show Roundcube Top Bar](#show-roundcube-top-bar)
       - [Enable SSL Verification](#enable-ssl-verification)
       - [Per-User Encryption of Config-Values](#per-user-encryption-of-config-values)
+      - [CardDAV Integration](#carddav-integration)
   - [Personal Settings](#personal-settings)
     - [Email Login Name](#email-login-name)
     - [Email Password](#email-password)
@@ -41,7 +41,7 @@ RoundCube Web Mail
 
 <!-- markdown-toc end -->
 
-# Intro
+## Intro
 
 This is a [Nextcloud app](https://nextcloud.com/) app which embeds an
 separate [Roundcube](https://roundcube.net/) web-mailer installation
@@ -70,9 +70,9 @@ questionable. OTOH, Roundcube is a very mature email web app with many nice plug
 Currently the focus is on Roundcube version v1.6 and Nextcloud version
 25 and on pushing this fork into the Nextcloud app-store.
 
-# Installation
+## Installation
 
-## Nextcloud App
+### Nextcloud App
 
 Hopefully an installation is possible by one of the following alternatives:
 
@@ -85,18 +85,22 @@ Hopefully an installation is possible by one of the following alternatives:
   git-repo into your app folder and checking out an appropriate
   release branch like `stable25` *maybe* just works. Maybe not ...
 - clone into your app-folder and compile from source, do a `make dev`
-  or `make build`. You need `composer` and `node` (`npm`). `make help`
+  or `make build`. You need `composer`, `node` (`npm`), `jq` and `python-tabulate`. `make help`
   or just `make` will list the available targets.
 
-## Roundcube App
+### Roundcube App
 
 Please refere to the [Roundcube](https://roundcube.net/) documentation for general installation instructions.
 
-# Configuration
+## Configuration
 
-## Adminstration, Web-Server Setup
+### Roundcube App
 
-### TL;DR
+Please refere to the [Roundcube](https://roundcube.net/) documentation for configuration instructions.
+
+### Adminstration, Web-Server Setup
+
+#### TL;DR
 
 Due to the technology used -- Roundcube just runs in an
 [iframe](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe) --
@@ -108,24 +112,23 @@ In principle this boils down to the point that the Nextcloud server
 installation and the Roundcube installation must be served in the same
 DNS domain.
 
-### NC Domain equals RC Domain
+#### NC Domain equals RC Domain
 
 In this case nothing special has to be done. The administrator can
 simply enter the location of the Roundcube installation in the
 adminstrator settings of the app.
 
-### Different Domains, but same Web-Server
+#### Different Domains, but same Web-Server
 
 In this case the simplest thing is to just map the Roundcube
 installation a second time by a simple `Alias` directive.
 
-#### Example for Apache
+##### Example for Apache
 
 Example for [Apache mod_alias](https://httpd.apache.org/docs/2.4/mod/mod_alias.html):
 
 ```
 Alias /SOME_WEB_PATH PATH_TO_EXISTING_ROUNDCUBE_INSTALLATION
-
 ```
 
 This directive should be placed in the virtual host definition of
@@ -134,11 +137,47 @@ the Nextcloud server installation.
 In the administration settings for the NC app you can then enter
 whatever you have chosen for `/SOME_WEB_PATH`.
 
-#### Example for NGINX
+##### Example for NGINX
 
-**Please Doc Me!**
+As part of your Nextcloud nginx configuration:
 
-### Different Domains, different Web-Server
+Disable this line:
+```
+    #add_header X-Content-Type-Options            "nosniff"           always;
+```
+
+And add:
+```
+    location /roundcube/ {
+        alias /srv/http/mail.example.com/;
+        index index.php;
+
+        location ~ \.php$ {
+           fastcgi_split_path_info ^(.+\.php)(/.+)$;
+           set $path_info $fastcgi_path_info;
+
+           try_files $fastcgi_script_name =404;
+           fastcgi_param SCRIPT_FILENAME $request_filename;
+           include fastcgi_params;
+           fastcgi_param PATH_INFO $path_info;
+           fastcgi_param HTTPS on;
+           fastcgi_pass php-handler;
+
+           # The following lines might be optional depending on your setup:
+           fastcgi_param modHeadersAvailable true;         # Avoid sending the security headers twice
+           fastcgi_param front_controller_active true;     # Enable pretty urls
+           fastcgi_intercept_errors on;
+           fastcgi_request_buffering off;
+        }
+
+        # Handle static assets
+        location ~ ^/roundcube/(.+)$ {
+            try_files /$1 =404;
+        }
+    }
+```
+
+#### Different Domains, different Web-Server
 
 In this case it is possible to map the existing external Roundcube
 installation into the Nextcloud server domain by means of a proxy
@@ -150,7 +189,7 @@ independent from the use of it in this app, i.e. just open the
 proxied-location in you web-browser, log-in manually and check if it
 works.*
 
-#### Necessary Roundcube Setup
+##### Necessary Roundcube Setup
 
 Caused by changes in the transition from Roundcube verison 1.5 to
 Roundcube version 1.6 we have now the problem that all web-paths used
@@ -180,7 +219,7 @@ $config['request_path'] = '.';
 proxying will just not work (but please feel free to convince me from
 the opposite by providing a configuration example ;)).
 
-#### Example for Apache
+##### Example for Apache
 
 Place something like the following into the virtual host setup for
 your Nextcloud server:
@@ -198,7 +237,7 @@ SSLProxyEngine on
 Please note that you probably have `ProxyPreserveHost On` in the
 configuration for the push notifications service.
 
-#### Example for NGINX
+##### Example for NGINX
 
 ```
 location /roundcube/ {
@@ -209,24 +248,24 @@ location /roundcube/ {
 The "location /roundcube/" folder paramter is used only as example. This is the location you have to enter in Administrator seetings of this nextcloud module.
 The "https://YOURroundcubeINSTALL.tld" domain is used only as example. Point to the domain where your Roundcube is served from.
 
-## Admistrators Settings
+### Admistrators Settings
 
 Please have also a look at the [screenshot](#admin-settings).
 
-### Roundcube Installation
+#### Roundcube Installation
 
 This is just a text-box for the web-address of the Roundcube
 installation. **Please read** the [notes about the web-server
 setup](#adminstration-web-server-setup).
 
-### Email Address Selection
+#### Email Address Selection
 
 The default is "User's Choice". Please note that the term
 "address-selection" is a bit misleading: here you configure the
 login-id into the email-server which may or may not be an
 email-address.
 
-#### Cloud Login-Id
+##### Cloud Login-Id
 
 Use the user-id of the logged-in user and add a to-be-configured
 email-domain to the login-name. The idea here is that in a
@@ -235,38 +274,38 @@ more-or-less naturally coincide. Checking this option disables the
 [email address choice](#email-login-name) in the personal preferences
 of this Roundcube-integration app.
 
-#### User's Preferences
+##### User's Preferences
 
 Just take the email-address from the Nextcloud user
 preferences. Checking this option disabled the [email address
 choice](#email-login-name) in the personal preferences of this
 Roundcube-integration app.
 
-#### User's Choice
+##### User's Choice
 
 Make the login-id into the email server freely configurable by the
 user through the personal settings page of this app.
 
-### Advanced Settings
+#### Advanced Settings
 
-#### Force Single Sign On
+##### Force Single Sign On
 
 Checking this option disables the [custom password setting in the
 user's preferences](#email-password) section and enforces it to
 coincide with the cloud password.
 
-#### Show Roundcube Top Bar
+##### Show Roundcube Top Bar
 
 Checking this option keeps the information bar -- including the logout
 button -- of the Roundcube web-mailer. Concerning logout: the default
 is to log-out the user out of Roundcube if it logs out of the cloud.
 
-#### Enable SSL Verification
+##### Enable SSL Verification
 
 Uncheck to disable SSL certificate verification, e.g. in a setup using
 self-signed certificates.
 
-#### Per-User Encryption of Config-Values
+##### Per-User Encryption of Config-Values
 
 If checked the [user configurable values](#personal-settings) are
 encrypted with the user password. Otherwise they are encrypted with
@@ -274,11 +313,47 @@ the server password. The extra gain in security is questionable as any
 installed app has access to the password of the currently logged in
 user.
 
-## Personal Settings
+##### CardDAV Integration
 
-Please have also a look at the [screenshot](#personal-settings).
+If you install the [RCM CardDAV
+plugin](https://github.com/mstilkerich/rcmcarddav) then it is possible
+to autoconfigure the plugin such that the Nextcloud contacts are
+accessible from inside Roundcube. In order to do so, you have to
+define a "RoundCube CardDAV Tag" in the respective text-input of this
+app and copy the configuration snippet shown there to the RCM CardDAV
+plugin config. This should be
+``` shell
+PATH_TO_ROUNDCUBE/plugins/carddav/config.inc.php
+```
+The configuration snippet looks similar to this one:
+``` php
+$prefs['cloud'] = [
+  'accountname'    => 'cloud',
+  'discovery_url'  => 'https://nextcloud.example.com/remote.php/dav/addressbooks/users/%l',
+  'username'       => '%l',
+  'password'       => '%p',
+  'name'           => '%N (%a)',
+  'active'         =>  true,
+  'readonly'       =>  false,
+  'refresh_time'   => '00:15:00',
+  'fixed'          => ['discovery_url',],
+  'hide'           =>  false,
+  'use_categories' => true,
+]
+```
+Please note that the password-setting "%p" will not work if 2FA is
+enabled. If this app detects that this is the case, it will try to
+generate a suitable app-token automatically and register it with the
+RoundCube CardDAV plugin -- which may work or not. In order to have
+auto-configuration working it is vital to **not** include "username" and
+"password" into the "fixed" array.
 
-### Email Login Name
+### Personal Settings
+
+Please have also a look at the
+[screenshot](#personal-settings).
+
+#### Email Login Name
 
 Configure the login-id into the email-server, or to be more precise:
 into the Roundcube web-mailer. This setting is not available if the
@@ -289,25 +364,25 @@ app is not available in this case. Likewise, for a single-sign-on
 (SSO) setup this choice is disabled if the email login-id is [pinned
 to coincide](#cloud-login-id) with the cloud login-id.
 
-### Email Password
+#### Email Password
 
 Configure the login-password for the email-server. This setting is not
 available if the administrator has configured this app to attempt
 single-sign-on in which case use of the Nextcloud password is enforced
 for the login into the email-server.
 
-# Screenshots
+## Screenshots
 
-## Main Window
+### Main Window
 
 ![file list](contrib/screenshots/main-window.png)
 
-## Preferences
+### Preferences
 
-### Admin Settings
+#### Admin Settings
 
 ![file list](contrib/screenshots/admin-settings.png)
 
-### Personal Settings
+#### Personal Settings
 
 ![file list](contrib/screenshots/personal-settings.png)

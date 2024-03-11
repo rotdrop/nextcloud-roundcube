@@ -1,7 +1,7 @@
 <script>
 /**
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022, 2023 Claus-Justus Heine
+ * @copyright 2022, 2023, 2024 Claus-Justus Heine
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -24,7 +24,8 @@
       {{ hint }}
     </div>
     <div class="flex flex-center flex-wrap">
-      <div class="dirname">
+      <div v-tooltip="unclippedPopup(pathInfo.dirName)"
+           class="dirname">
         <a href="#"
            class="file-picker button icon-folder"
            @click.prevent.stop="!disabled && openFilePicker(...arguments)"
@@ -34,6 +35,7 @@
       </div>
       <SettingsInputText v-if="!onlyDirName"
                          v-model="pathInfo.baseName"
+                         v-tooltip="unclippedPopup(pathInfo.baseName)"
                          label=""
                          class="flex-grow"
                          :placeholder="placeholder"
@@ -50,6 +52,7 @@
 import Vue from 'vue'
 import { getFilePickerBuilder, /* showError, showInfo, TOAST_PERMANENT_TIMEOUT, */ } from '@nextcloud/dialogs'
 import SettingsInputText from '../components/SettingsInputText'
+import '@nextcloud/dialogs/style.css'
 
 export default {
   name: 'FilePrefixPicker',
@@ -163,9 +166,26 @@ export default {
         }
       }
     },
+    unclippedPopup(content, html) {
+      return {
+        content,
+        preventOverflow: true,
+        html: true,
+        // shown: true,
+        // triggers: [],
+        csstag: ['vue-tooltip-unclipped-popup'],
+      };
+    },
   },
 }
 </script>
+<style lang="scss">
+[csstag="vue-tooltip-unclipped-popup"].v-popper--theme-tooltip {
+  .v-popper__inner {
+    max-width:unset!important;
+  }
+}
+</style>
 <style lang="scss" scoped>
 .input-wrapper {
   .dirname {

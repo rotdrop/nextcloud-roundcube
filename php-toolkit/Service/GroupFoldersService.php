@@ -3,7 +3,7 @@
  * Some PHP utility functions for Nextcloud apps.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022, 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022, 2023, 2024 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -55,18 +55,6 @@ class GroupFoldersService
   const MANAGER_TYPE_GROUP = 'group';
   const MANAGER_TYPE_USER = 'user';
 
-  /** @var IL10N */
-  private $l;
-
-  /** @var IRootFolder */
-  private $rootFolder;
-
-  /** @var FolderManager */
-  private $folderManager;
-
-  /** @var MountProvider */
-  private $mountProvider;
-
   /**
    * @var array
    *
@@ -96,17 +84,12 @@ class GroupFoldersService
 
   // phpcs:disable Squiz.Commenting.FunctionComment.Missing
   public function __construct(
-    LoggerInterface $logger,
-    IRootFolder $rootFolder,
-    FolderManager $folderManager,
-    MountProvider $mountProvider,
-    ?IL10N $l10n = null,
+    protected LoggerInterface $logger,
+    private IRootFolder $rootFolder,
+    private FolderManager $folderManager,
+    private MountProvider $mountProvider,
+    private ?IL10N $l = null,
   ) {
-    $this->logger = $logger;
-    $this->rootFolder = $rootFolder;
-    $this->folderManager = $folderManager;
-    $this->mountProvider = $mountProvider;
-    $this->l = $l10n;
   }
   // phpcs:enable Squiz.Commenting.FunctionComment.Missing
 

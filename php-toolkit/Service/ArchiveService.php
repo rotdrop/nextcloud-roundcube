@@ -3,7 +3,7 @@
  * Some PHP utility functions for Nextcloud apps.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022, 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022, 2023, 2024 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -145,11 +145,9 @@ class ArchiveService
 
   // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
   public function __construct(
-    ILogger $logger,
-    ?IL10N $l = null,
+    protected ILogger $logger,
+    protected IL10N $l,
   ) {
-    $this->logger = $logger;
-    $this->l = $l;
     $this->archiver = null;
     $this->fileNode = null;
   }
@@ -234,6 +232,16 @@ class ArchiveService
   public function canOpen(File $fileNode):bool
   {
     return ArchiveBackend::canOpen(self::getLocalPath($fileNode));
+  }
+
+  /**
+   * Return the "opened" status.
+   *
+   * @return true
+   */
+  public function isOpen():bool
+  {
+    return $this->archiver !== null;
   }
 
   /**

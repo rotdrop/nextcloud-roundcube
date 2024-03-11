@@ -33,7 +33,7 @@ use OCP\IL10N;
 trait UtilTrait
 {
   /** @var IL10N */
-  protected $l;
+  protected IL10N $l;
 
   /**
    * Take any dashed or "underscored" lower-case string and convert to

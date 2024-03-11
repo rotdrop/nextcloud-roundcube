@@ -4,15 +4,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [1.0.3] - unreleased
+## [1.1.0-rc1] - unreleased
 
 ### Added
 
 - support Nextcloud v28
 
+- CardDAV integration with Nextcloud, needs RCMCardDav plugin. See README.md.
+
+- Nginx conf for "Different Domains, but same Web-Server" setup (courtesy @HLFH)
+
 ### Changed
 
-- drop support for Nextcloud <= v25
+- drop support for Nextcloud <= v26
+
+- Required dependencies (jq, python-tabulate have been added) (courtesy @HLFH)
+
+### Fixed
+
+- avoid warnings with PHP 8.2: explicitly declare some properties (courtesy @HLFH)
+
+- improve error message when not configured properly, in particular
+  when the Roundcube location has not been set.
 
 ## [1.0.2] - 2023-03-24
 

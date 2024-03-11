@@ -3,7 +3,7 @@
  * Some PHP utility functions for Nextcloud apps.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022, 2024 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -39,9 +39,6 @@ class MimeTypeService
   const MIME_TYPE_MAPPING_DATA_FILE = 'config/nextcloud/mimetypemapping.json';
   const MIME_TYPE_ALIASES_DATA_FILE = 'config/nextcloud/mimetypealiases.json';
 
-  /** @var MimeTypeDetector */
-  private $mimeTypeDetector;
-
   /** @var array */
   private $supportedMimeTypes = null;
 
@@ -53,11 +50,9 @@ class MimeTypeService
 
   // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
   public function __construct(
-    IMimeTypeDetector $mimeTypeDetector,
-    LoggerInterface $logger,
+    private IMimeTypeDetector $mimeTypeDetector,
+    protected LoggerInterface $logger,
   ) {
-    $this->mimeTypeDetector = $mimeTypeDetector;
-    $this->logger = $logger;
   }
   // phpcs:enable
 
@@ -73,7 +68,7 @@ class MimeTypeService
   public function setAppPath(string $appPath):MimeTypeService
   {
     $this->appPath = $appPath;
-    if (str_ends_with($this->appPath, Constants::PATH_SEPARATOR)) {
+    if (!str_ends_with($this->appPath, Constants::PATH_SEPARATOR)) {
       $this->appPath .= Constants::PATH_SEPARATOR;
     }
     return $this;
@@ -103,10 +98,12 @@ class MimeTypeService
   }
 
   /**
-   * @return array A flat array of supported MIME-types as determined by the
-   * current backend configuration.
+   * @return array<string, string> An array EXT => MIME of the supported
+   * archive MIME-types. That is, the cloud must know the mime type and the
+   * archive backend must support it in order to have an extension and
+   * mime-type added to the list.
    */
-  public function getSupportedMimeTypes():array
+  public function getSupportedArchiveMimeTypes():array
   {
     if ($this->supportedMimeTypes !== null) {
       return $this->supportedMimeTypes;
@@ -114,17 +111,21 @@ class MimeTypeService
     $mimeTypeMapping = $this->getMimeTypeMapping();
     $supportedFormats = ArchiveFormats::getSupportedDriverFormats();
     $this->supportedMimeTypes = [];
-    foreach ($mimeTypeMapping as $extension => $mimeType) {
+    foreach ($mimeTypeMapping as $extension => $mimeTypes) {
+      if (count($mimeTypes) == 0) {
+        $this->logError('Buggy config file, no mime-types for extension ' . $extension);
+      } elseif (count($mimeTypes) > 1) {
+        $this->logWarn('More than one mime-type for extension "' . $extension . '": ' . print_r($mimeTypes, true));
+      }
+      $mimeType = $mimeTypes[0];
       if ($mimeType == 'application/x-gtar') {
         $this->logInfo('MIME TYPE ' . $mimeType);
       }
       $format = ArchiveFormats::detectArchiveFormat('FOO.' . $extension);
       if (!empty($supportedFormats[$format])) {
-        $this->supportedMimeTypes[] = $mimeType[0];
+        $this->supportedMimeTypes[$extension] = $mimeType;
       }
     }
-    $this->supportedMimeTypes = array_values(array_unique($this->supportedMimeTypes));
-
     // $this->logInfo('SUPPORTED MIME TYPES ' . print_r($this->supportedMimeTypes, true));
 
     return $this->supportedMimeTypes;

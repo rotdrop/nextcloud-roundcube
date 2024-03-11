@@ -3,7 +3,7 @@
  * A collection of reusable traits classes for Nextcloud apps.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022, 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022, 2023, 2024 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -40,16 +40,16 @@ trait AuthTokenTrait
   use LoggerTrait;
 
   /** @var TokenProvider */
-  protected $tokenProvider;
+  protected TokenProvider $tokenProvider;
 
   /** @var CredentialsStore */
-  protected $credentialsStore;
+  protected CredentialsStore $credentialsStore;
 
   /** @var IRequest */
-  protected $request;
+  protected IRequest $request;
 
   /** @var ISecureRandom */
-  protected $secureRandom;
+  protected ISecureRandom $secureRandom;
 
   /**
    * Fetch the login credentials from the credentials store and generate a

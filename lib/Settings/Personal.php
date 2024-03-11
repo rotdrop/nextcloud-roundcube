@@ -3,7 +3,7 @@
  * Nextcloud RoundCube App.
  *
  * @author Claus-Justus Heine
- * @copyright 2020, 2021, 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2020-2024 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * Nextcloud RoundCube App is free software: you can redistribute it and/or
@@ -23,20 +23,20 @@
 
 namespace OCA\RoundCube\Settings;
 
-use OCP\AppFramework\Http\TemplateResponse;
-use OCP\Settings\ISettings;
-use OCP\IURLGenerator;
-use OCP\IUserSession;
-use OCP\IConfig;
 use Psr\Log\LoggerInterface as ILogger;
-use OCP\IL10N;
+
+use OCP\AppFramework\Http\TemplateResponse;
+use OCP\Authentication\LoginCredentials\IStore as ICredentialsStore;
+use OCP\IConfig;
+use OCP\IURLGenerator;
+use OCP\IUser;
+use OCP\IUserSession;
+use OCP\Security\ICrypto;
+use OCP\Settings\ISettings;
 
 use OCA\RoundCube\Constants;
 use OCA\RoundCube\Service\AssetService;
 use OCA\RoundCube\Service\Config;
-
-use OCP\Security\ICrypto;
-use OCP\Authentication\LoginCredentials\IStore as ICredentialsStore;
 
 /** Personal settings. */
 class Personal implements ISettings
@@ -48,35 +48,18 @@ class Personal implements ISettings
     'emailPassword',
   ];
 
-  /** @var \OCP\IUser */
+  /** @var IUser */
   private $user;
-
-  /** @var string */
-  private $appName;
-
-  /** @var \OCA\RoundCube\Service\Config */
-  private $config;
-
-  /** @var AssetService */
-  private $assetService;
-
-  /** @var \OCP\IURLGenerator */
-  private $urlGenerator;
 
   // phpcs:disable Squiz.Commenting.FunctionComment.Missing
   public function __construct(
-    string $appName,
     IUserSession $userSession,
-    Config $config,
-    AssetService $assetService,
-    IURLGenerator $urlGenerator,
-    IL10N $l10n,
+    private string $appName,
+    private Config $config,
+    private AssetService $assetService,
+    private IURLGenerator $urlGenerator,
   ) {
-    $this->appName = $appName;
     $this->user = $userSession->getUser();
-    $this->config = $config;
-    $this->assetService = $assetService;
-    $this->urlGenerator = $urlGenerator;
   }
   // phpcs:enable Squiz.Commenting.FunctionComment.Missing
 

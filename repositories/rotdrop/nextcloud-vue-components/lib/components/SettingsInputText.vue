@@ -1,6 +1,6 @@
 <script>
 /**
- * @copyright Copyright (c) 2019, 2022, 2023 Julius Härtl <jus@bitgrid.net>
+ * @copyright Copyright (c) 2019, 2022, 2023, 2024 Julius Härtl <jus@bitgrid.net>
  * @copyright Copyright (c) 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
  *
  * @author Julius Härtl <jus@bitgrid.net>
@@ -200,9 +200,9 @@ export default {
         border-width: var(--cloud-input-border-width);
         border-color: var(--cloud-input-border-color);
       }
-      &:not(:active):not(:hover):not(:focus):read-only, &:read-only {
-        &:disabled {
-          + :deep(.icon-confirm), :deep(.icon-confirm:hover) {
+      &:not(:active):not(:hover):not(:focus):read-only, &:read-only, & {
+        &:disabled + {
+          .icon-confirm, .icon-confirm:hover {
             background-color: var(--color-background-dark) !important;
             border-color: var(--cloud-input-border-color) !important;
             border-left-color: transparent !important;
@@ -231,7 +231,9 @@ export default {
         margin-right: 0;
         &:disabled {
           cursor: default;
+          opacity: 1;
           background-image: var(--cloud-icon-confirm-fade);
+          background-color: var(--color-background-dark);
         }
       }
       &:not(:active):not(:hover):not(:focus):invalid + .icon-confirm {

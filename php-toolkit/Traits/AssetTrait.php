@@ -51,7 +51,7 @@ trait AssetTrait
   use LoggerTrait;
 
   /** @var IL10N */
-  protected $l;
+  protected IL10N $l;
 
   /** @var array */
   protected $assets = [];
