@@ -94,6 +94,10 @@ Please refere to the [Roundcube](https://roundcube.net/) documentation for gener
 
 ## Configuration
 
+### Roundcube App
+
+Please refere to the [Roundcube](https://roundcube.net/) documentation for configuration instructions.
+
 ### Adminstration, Web-Server Setup
 
 #### TL;DR
