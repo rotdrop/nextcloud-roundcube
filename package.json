@@ -1,6 +1,6 @@
 {
   "name": "mail_roundcube",
-  "version": "1.0.3",
+  "version": "1.1.0-rc1",
   "private": true,
   "description": "RoundCube Mail NextCloud Plugin",
   "homepage": "https://github.com/rotdrop/nextcloud-roundcube.git",
