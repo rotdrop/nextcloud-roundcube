@@ -29,6 +29,7 @@ OC.L10N.register(
     "Integrates an existing RoundCube standalone email-webapp into NextCloud, with optional SSO." : "Lehendik dagoen RoundCube posta elektronikoko web-aplikazio autonomo bat integratzen du NextCloud-en, aukerako saio hasiera bateratuarekin.",
     "Invalid path selected: \"{dir}\"." : "Bide-izen baliogabea hautatu da: \"{dir}\".",
     "Selected path: \"{dir}/{base}/\"." : "Hautatutako bide-izena: \"{dir}/{base}/\".",
+    "Embedded RoundCube, Admin Settings" : "RoundCube txertatua, Administratzailearen ezarpenak",
     "Roundcube Installation" : "Roundcube-ren instalazioa",
     "RoundCube Installation Path" : "RoundCube-ren instalazio-bidea",
     "Email Address Selection" : "Helbide elektronikoa hautatzea",
