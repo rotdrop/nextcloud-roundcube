@@ -28,9 +28,10 @@
   ],
   "devDependencies": {
     "@nextcloud/babel-config": "^1.0.0",
-    "@nextcloud/eslint-config": "^8.2.1",
-    "@nextcloud/vue": "^7.0.0",
-    "@nextcloud/dialogs": "^4.1.0"
+    "@nextcloud/eslint-config": "^v8.3.0-beta.2",
+    "@nextcloud/vue": "^8.8.1",
+    "@nextcloud/dialogs": "^5.1.1",
+    "vue": "^2.7.14"
   },
   "author": "Claus-Justus Heine <himself@claus-justus-heine.de>",
   "license": "AGPL-3.0-or-later",

@@ -2,6 +2,9 @@ module.exports = {
   extends: [
     '@nextcloud',
   ],
+  globals: {
+    APP_NAME: true,
+  },
   rules: {
     'no-tabs': ['error', { allowIndentationTabs: false }],
     indent: ['error', 2],
@@ -10,26 +13,18 @@ module.exports = {
     semi: ['error', 'always'],
     'node/no-unpublished-import': 'off',
     'node/no-unpublished-require': 'off',
+    'n/no-unpublished-import': 'off',
+    'n/no-unpublished-require': 'off',
     'no-console': 'off',
-    'node/no-missing-require': [
+    'n/no-missing-require': [
       'error', {
-        // 'allowModules': [],
         resolvePaths: [
           './src',
           './style',
           './',
+          '../img',
         ],
-        tryExtensions: ['.js', '.json', '.node', '.css', '.scss', '.xml', '.vue'],
-      },
-    ],
-    'node/no-missing-import': [
-      'error', {
-        // 'allowModules': [],
-        resolvePaths: [
-          './src',
-          './',
-        ],
-        tryExtensions: ['.js', '.vue'],
+        tryExtensions: ['.js', '.ts', '.json', '.node', '.css', '.scss', '.xml', '.vue'],
       },
     ],
     // Do allow line-break before closing brackets
