@@ -26,6 +26,7 @@ OC.L10N.register(
     "Integrates an existing RoundCube standalone email-webapp into NextCloud, with optional SSO." : "Egy meglévő önálló RoundCube email webalkalmazás integrálása a NextCloud  opcionális SSO-val.",
     "Invalid path selected: \"{dir}\"." : "Érvénytelen kiválasztott útvonal: „{dir}”.",
     "Selected path: \"{dir}/{base}/\"." : "Kiválasztott útvonal: „{dir}/{base}/”.",
+    "Embedded RoundCube, Admin Settings" : "Beágyazott RoundCube, Rendszergazda Beállítások",
     "Roundcube Installation" : "RoundCube telepítés",
     "RoundCube Installation Path" : "RoundCube telepítési útvonal",
     "RoundCube path can be entered relative to the Nextcloud server" : "RoundCube relatív elérési útvonalának megadása a Nextcloud servernek",
