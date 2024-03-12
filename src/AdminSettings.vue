@@ -1,23 +1,21 @@
-<script>
-/**
- * @copyright Copyright (c) 2022-2024 Claus-Justus Heine <himself@claus-justus-heine.de>
- * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @license AGPL-3.0-or-later
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
-</script>
+<!--
+ - @copyright Copyright (c) 2022-2024 Claus-Justus Heine <himself@claus-justus-heine.de>
+ - @author Claus-Justus Heine <himself@claus-justus-heine.de>
+ - @license AGPL-3.0-or-later
+ -
+ - This program is free software: you can redistribute it and/or modify
+ - it under the terms of the GNU Affero General Public License as
+ - published by the Free Software Foundation, either version 3 of the
+ - License, or (at your option) any later version.
+ -
+ - This program is distributed in the hope that it will be useful,
+ - but WITHOUT ANY WARRANTY; without even the implied warranty of
+ - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ - GNU Affero General Public License for more details.
+ -
+ - You should have received a copy of the GNU Affero General Public License
+ - along with this program. If not, see <http://www.gnu.org/licenses/>.
+ -->
 <template>
   <div :class="['templateroot', appName, ...cloudVersionClasses]">
     <h1 class="title">
@@ -26,19 +24,13 @@
     <NcSettingsSection :name="t(appName, 'Roundcube Installation')"
                        class="flex-container flex-column"
     >
-      <NcTextField :value.sync="protectedExternalLocation"
-                   type="text"
-                   :label="t(appName, 'RoundCube Installation Path')"
-                   :disabled="loading"
-                   :show-trailing-button="true"
-                   trailing-button-icon="arrowRight"
-                   @trailing-button-click="saveTextInput('externalLocation')"
-                   @update="info(externalLocation, ...arguments)"
-                   @update:value="info(externalLocation, ...arguments)"
+      <TextField :value.sync="externalLocation"
+                 type="text"
+                 :label="t(appName, 'RoundCube Installation Path')"
+                 :hint="t(appName, 'RoundCube path can be entered relative to the Nextcloud server')"
+                 :disabled="loading"
+                 @submit="saveTextInput('externalLocation')"
       />
-      <p class="hint">
-        {{ t(appName, 'RoundCube path can be entered relative to the Nextcloud server') }}
-      </p>
     </NcSettingsSection>
     <NcSettingsSection :name="t(appName, 'Email Address Selection')"
                        class="flex-container flex-column"
@@ -57,15 +49,11 @@
           {{ t(appName, 'Cloud Login-Id') }}
         </label>
         <span :class="['user-id-email-placeholder', { disabled: loading || (emailAddressChoice !== 'userIdEmail')}]">{{ t(appName, 'User ID') }}@</span>
-        <NcTextField :value.sync="protectedEmailDefaultDomain"
-                     class="email-default-domain"
-                     :disabled="loading || (emailAddressChoice !== 'userIdEmail')"
-                     :placeholder="t(appName, 'Email Domain')"
-                     :show-trailing-button="true"
-                     trailing-button-icon="arrowRight"
-                     @trailing-button-click="saveTextInput('emailDefaultDomain')"
-                     @update="info(emailDefaultDomain, ...arguments)"
-                     @update:value="info(emailDefaultDomain, ...arguments)"
+        <TextField :value.sync="emailDefaultDomain"
+                   class="email-default-domain"
+                   :disabled="loading || (emailAddressChoice !== 'userIdEmail')"
+                   :placeholder="t(appName, 'Email Domain')"
+                   @submit="saveTextInput('emailDefaultDomain')"
         />
       </div>
       <div class="flex-container flex-row flex-center email-address-choice">
@@ -110,20 +98,14 @@
           {{ t(appName, 'Fixed Single Address') }}
         </label>
         <div v-if="emailAddressChoice === 'fixedSingleAddress'">
-          <NcTextField :value.sync="protectedFixedSingleEmailAddress"
-                       type="text"
-                       :label="t(appName, 'Global Email Login')"
-                       :disabled="loading || (emailAddressChoice !== 'fixedSingleAddress')"
-                       :placeholder="t(appName, 'Email Address')"
-                       :show-trailing-button="true"
-                       trailing-button-icon="arrowRight"
-                       @trailing-button-click="saveTextInput('fixedSingleEmailAddress'); saveTextInput('fixedSingleEmailPassword')"
-                       @update="info(fixedSingleEmailAddress, ...arguments)"
-                       @update:value="info(fixedSingleEmailAddress, ...arguments)"
+          <TextField :value.sync="fixedSingleEmailAddress"
+                     type="text"
+                     :label="t(appName, 'Global Email Login')"
+                     :hint="t(appName, 'Global email user-name for Roundcube for all users')"
+                     :disabled="loading || (emailAddressChoice !== 'fixedSingleAddress')"
+                     :placeholder="t(appName, 'Email Address')"
+                     @submit="saveTextInput('fixedSingleEmailAddress'); saveTextInput('fixedSingleEmailPassword')"
           />
-          <p class="hint">
-            {{ t(appName, 'Global email user-name for Roundcube for all users') }}
-          </p>
           <NcPasswordField :value.sync="protectedFixedSingleEmailPassword"
                            :label="t(appName, 'Global Email Password')"
                            :disabled="loading || (emailAddressChoice !== 'fixedSingleAddress')"
@@ -196,19 +178,13 @@
       >
         {{ t(appName, 'Per-user encryption of config values.') }}
       </label>
-      <NcTextField :value.sync="protectedCardDavProvisioningTag"
-                   :label="t(appName, 'RoundCube CardDAV Tag')"
-                   :disabled="loading"
-                   :placeholder="t(appName, 'Email Password')"
-                   :show-trailing-button="true"
-                   trailing-button-icon="arrowRight"
-                   @trailing-button-click="saveTextInput('cardDavProvisioningTag')"
-                   @update="info(cardDavProvisioningTag, ...arguments)"
-                   @update:value="info(cardDavProvisioningTag, ...arguments)"
+      <TextField :value.sync="cardDavProvisioningTag"
+                 :label="t(appName, 'RoundCube CardDAV Tag')"
+                 :hint="t(appName, 'Tag of a preconfigured CardDAV account pointing to the cloud addressbook. See the documentation of the RCMCardDAV plugin.')"
+                 :disabled="loading"
+                 :placeholder="t(appName, 'Email Password')"
+                 @submit="saveTextInput('cardDavProvisioningTag')"
       />
-      <p class="hint">
-        {{ t(appName, 'Tag of a preconfigured CardDAV account pointing to the cloud addressbook. See the documentation of the RCMCardDAV plugin.') }}
-      </p>
       <div v-if="cardDavProvisioningTag">
         <p class="hint">
           {{ t(appName, `Below is a configuration snippet which may or may not work with the
@@ -247,11 +223,11 @@ import {
   NcListItem,
   NcPasswordField,
   NcSettingsSection,
-  NcTextField,
 } from '@nextcloud/vue'
+import TextField from '@rotdrop/nextcloud-vue-components/lib/components/TextFieldWithSubmitButton.vue'
 import { showSuccess, showError } from '@nextcloud/dialogs'
 import ClipBoard from 'vue-material-design-icons/Clipboard.vue'
-import settingsSync from './toolkit/mixins/settings-sync'
+import settingsSync from './toolkit/mixins/settings-sync.js'
 import cloudVersionClasses from './toolkit/util/cloud-version-classes.js'
 
 export default {
@@ -262,8 +238,11 @@ export default {
     NcListItem,
     NcPasswordField,
     NcSettingsSection,
-    NcTextField,
+    TextField,
   },
+  mixins: [
+    settingsSync,
+  ],
   data() {
     return {
       loading: true,
@@ -280,9 +259,6 @@ export default {
       cardDavProvisioningTag: '',
     }
   },
-  mixins: [
-    settingsSync,
-  ],
   computed: {
     cardDavTemplate() {
       return `
@@ -305,25 +281,9 @@ $prefs['${this.cardDavProvisioningTag}'] = [
       return generateRemoteUrl('dav') + '/addressbooks/users/%l'
     },
     // NcTextField does not like null values
-    protectedExternalLocation: {
-      get() { return this.externalLocation || '' },
-      set(newValue) {  return this.externalLocation = newValue },
-    },
-    protectedEmailDefaultDomain: {
-      get() { return this.emailDefaultDomain || '' },
-      set(newValue) {  return this.emailDefaultDomain = newValue },
-    },
-    protectedFixedSingleEmailAddress: {
-      get() { return this.fixedSingleEmailAddress || '' },
-      set(newValue) {  return this.fixedSingleEmailAddress = newValue },
-    },
     protectedFixedSingleEmailPassword: {
       get() { return this.fixedSingleEmailPassword || '' },
-      set(newValue) {  return this.fixedSingleEmailPassword = newValue },
-    },
-    protectedCardDavProvisioningTag: {
-      get() { return this.cardDavProvisioningTag || '' },
-      set(newValue) {  return this.cardDavProvisioningTag = newValue },
+      set(newValue) { this.fixedSingleEmailPassword = newValue },
     },
   },
   watch: {},
@@ -351,7 +311,7 @@ $prefs['${this.cardDavProvisioningTag}'] = [
         console.info('SKIPPING SETTINGS-SAVE DURING LOAD', settingsKey, value)
         return
       }
-      this.saveConfirmedSetting(value, 'admin', settingsKey, force);
+      this.saveConfirmedSetting(value, 'admin', settingsKey, force)
     },
     async saveSetting(setting) {
       if (this.loading) {
@@ -363,10 +323,10 @@ $prefs['${this.cardDavProvisioningTag}'] = [
     },
     copyCardDavConfig() {
       navigator.clipboard.writeText(this.cardDavTemplate).then(function() {
-        showSuccess(t(appName, 'Config template has been copied to the clipboard.'));
+        showSuccess(t(appName, 'Config template has been copied to the clipboard.'))
       }, function(reason) {
-        showError(t(appName, 'Failed copying the config template to the clipboard: {reason}.', { reason }));
-      });
+        showError(t(appName, 'Failed copying the config template to the clipboard: {reason}.', { reason }))
+      })
     },
   },
 }
@@ -447,35 +407,6 @@ $prefs['${this.cardDavProvisioningTag}'] = [
         font-size: 80%;
         line-height: 16px;
         font-family: monospace;
-      }
-    }
-    // Tweak the submit button of the NcTextField
-    .input-field::v-deep {
-      &.email-default-domain {
-        width:unset !important;
-      }
-      &:not(.password) {
-        input.input-field__input--trailing-icon:not([type="password"]) {
-          // the following is just the button ...
-          ~ .input-field__trailing-button.button-vue--vue-tertiary-no-background {
-            max-height: var(--default-clickable-area);
-            max-width: var(--default-clickable-area);
-            // FIXME: instead we probably should switch to material design icons for everything else ...
-            background-image: var(--icon-confirm-dark);
-            background-position: center;
-            background-repeat: no-repeat;
-            .button-vue__icon {
-              opacity: 0;
-            }
-            &:hover, &:focus {
-              &:not(:disabled) {
-                border: 2px solid var(--color-primary-element);
-                border-radius: var(--border-radius-large);
-                outline: 2px solid var(--color-main-background);
-              }
-            }
-          }
-        }
       }
     }
   }

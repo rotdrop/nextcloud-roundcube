@@ -1,47 +1,37 @@
-<script>
-/**
- * @copyright Copyright (c) 2022-2024 Claus-Justus Heine <himself@claus-justus-heine.de>
- * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @license AGPL-3.0-or-later
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
-</script>
+<!--
+ - @copyright Copyright (c) 2022-2024 Claus-Justus Heine <himself@claus-justus-heine.de>
+ - @author Claus-Justus Heine <himself@claus-justus-heine.de>
+ - @license AGPL-3.0-or-later
+ -
+ - This program is free software: you can redistribute it and/or modify
+ - it under the terms of the GNU Affero General Public License as
+ - published by the Free Software Foundation, either version 3 of the
+ - License, or (at your option) any later version.
+ -
+ - This program is distributed in the hope that it will be useful,
+ - but WITHOUT ANY WARRANTY; without even the implied warranty of
+ - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ - GNU Affero General Public License for more details.
+ -
+ - You should have received a copy of the GNU Affero General Public License
+ - along with this program. If not, see <http://www.gnu.org/licenses/>.
+ -->
 <template>
   <NcSettingsSection :name="t(appName, 'Embedded RoundCube, Personal Settings')"
                      :class="[...cloudVersionClasses, appName]"
   >
-    <NcTextField :value.sync="protectedEmailAddress"
-                 :label="t(appName, 'Email Login Name')"
-                 :placeholder="t(appName, 'Email Address')"
-                 :disabled="emailAddressDisabled"
-                 :show-trailing-button="true"
-                 trailing-button-icon="arrowRight"
-                 @trailing-button-click="saveTextInput('emailAddress'); saveTextInput('emailPassword')"
-                 @update="info(emailAddress, ...arguments)"
-                 @update:value="info(emailAddress, ...arguments)"
+    <TextField :value.sync="emailAddress"
+               :label="t(appName, 'Email Login Name')"
+               :hint="emailAddressHint"
+               :placeholder="t(appName, 'Email Address')"
+               :disabled="emailAddressDisabled"
+               @submit="saveTextInput('emailAddress'); saveTextInput('emailPassword')"
     />
-    <p class="hint">
-      {{ emailAddressHint }}
-    </p>
     <NcPasswordField :value.sync="protectedEmailPassword"
                      :label="t(appName, 'Email Password')"
                      :disabled="emailPasswordDisabled"
                      :placeholder="t(appName, 'Email Password')"
                      class="password"
-                     @update="info(emailPassword, ...arguments)"
-                     @update:value="info(emailPassword, ...arguments)"
     />
     <p class="hint">
       {{ emailPasswordHint }}
@@ -50,13 +40,12 @@
 </template>
 <script>
 import { appName } from './config.js'
-import Vue from 'vue'
 import {
   NcPasswordField,
   NcSettingsSection,
-  NcTextField,
 } from '@nextcloud/vue'
-import settingsSync from './toolkit/mixins/settings-sync'
+import TextField from '@rotdrop/nextcloud-vue-components/lib/components/TextFieldWithSubmitButton.vue'
+import settingsSync from './toolkit/mixins/settings-sync.js'
 import cloudVersionClasses from './toolkit/util/cloud-version-classes.js'
 
 export default {
@@ -64,8 +53,11 @@ export default {
   components: {
     NcPasswordField,
     NcSettingsSection,
-    NcTextField,
+    TextField,
   },
+  mixins: [
+    settingsSync,
+  ],
   data() {
     return {
       loading: true,
@@ -75,17 +67,10 @@ export default {
       emailAddressChoiceAdmin: null,
       emailDefaultDomainAdmin: null,
       fixedSingleEmailAddressAdmin: null,
-      forceSSOAdmin: null
+      forceSSOAdmin: null,
     }
   },
-  mixins: [
-    settingsSync,
-  ],
   computed: {
-    protectedEmailAddress: {
-      get() { return this.emailAddress || '' },
-      set(newValue) { this.emailAddress = newValue },
-    },
     protectedEmailPassword: {
       get() { return this.emailPassword || '' },
       set(newValue) { this.emailPassword = newValue },
@@ -95,28 +80,28 @@ export default {
         return true
       }
       switch (this.emailAddressChoiceAdmin) {
-        case 'userIdEmail':
-          return true
-        case 'userPreferencesEmail':
-          return true
-        case 'userChosenEmail':
-          return false
-        case 'fixedSingleAddress':
-          return true
+      case 'userIdEmail':
+        return true
+      case 'userPreferencesEmail':
+        return true
+      case 'userChosenEmail':
+        return false
+      case 'fixedSingleAddress':
+        return true
       }
       return false
     },
     emailAddressHint() {
       switch (this.emailAddressChoiceAdmin) {
-        case 'userIdEmail':
-          return t(appName, 'Globally configured as USERID@{emailDefaultDomainAdmin}', this)
-        case 'userPreferencesEmail':
-          return t(appName, 'Globally configured as user\'s email address, see user\'s personal settings.')
-        case 'fixedSingleAddress':
-          return t(appName, 'Globally configured as {fixedSingleEmailAddressAdmin}', this)
-        case 'userChosenEmail':
-        default:
-          return t(appName, 'Please specify an email address to use with RoundCube.')
+      case 'userIdEmail':
+        return t(appName, 'Globally configured as USERID@{emailDefaultDomainAdmin}', this)
+      case 'userPreferencesEmail':
+        return t(appName, 'Globally configured as user\'s email address, see user\'s personal settings.')
+      case 'fixedSingleAddress':
+        return t(appName, 'Globally configured as {fixedSingleEmailAddressAdmin}', this)
+      case 'userChosenEmail':
+      default:
+        return t(appName, 'Please specify an email address to use with RoundCube.')
       }
     },
     emailPasswordDisabled() {
@@ -124,16 +109,16 @@ export default {
         return true
       }
       switch (this.emailAddressChoiceAdmin) {
-        case 'userIdEmail':
-          return false
-        case 'userPreferencesEmail':
-          return false
-        case 'userChosenEmail':
-          return false
-        case 'fixedSingleAddress':
-          return true
-        default:
-          return false
+      case 'userIdEmail':
+        return false
+      case 'userPreferencesEmail':
+        return false
+      case 'userChosenEmail':
+        return false
+      case 'fixedSingleAddress':
+        return true
+      default:
+        return false
       }
     },
     emailPasswordHint() {
@@ -141,8 +126,8 @@ export default {
         return t(appName, 'Globally configured by the administrator')
       }
       return this.forceSSOAdmin
-           ? t(appName, 'Single sign-on is globally forced "on".')
-           : t(appName, 'Email password for RoundCube, if needed.')
+        ? t(appName, 'Single sign-on is globally forced "on".')
+        : t(appName, 'Email password for RoundCube, if needed.')
     },
   },
   watch: {},
@@ -170,7 +155,7 @@ export default {
         console.info('SKIPPING SETTINGS-SAVE DURING LOAD', settingsKey, value)
         return
       }
-      this.saveConfirmedSetting(value, 'personal', settingsKey, force, this.updatePatternTestResult);
+      this.saveConfirmedSetting(value, 'personal', settingsKey, force, this.updatePatternTestResult)
     },
     async saveSetting(setting) {
       if (this.loading > 0) {
