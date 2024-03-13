@@ -16,6 +16,8 @@ OC.L10N.register(
     "bytes" : "字节",
     "The supplied color-string \"%s\" seems to be invalid." : "提供的颜色字符串“%s”似乎是无效的。",
     "The input color values are invalid." : "输入的颜色值无效。",
+    "submit" : "提交",
+    "Choose a folder" : "选择一个文件夹",
     "Invalid path selected: \"{dir}\"." : "选择了无效路径：“{dir}”。",
     "Selected path: \"{dir}/{base}/\"." : "选择的路径：\"{dir}/{base}/\"。",
     "User ID" : "用户ID",

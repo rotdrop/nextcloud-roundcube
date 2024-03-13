@@ -19,6 +19,7 @@ OC.L10N.register(
     "bytes" : "байты",
     "The supplied color-string \"%s\" seems to be invalid." : "Указанная цветовая строка \"%s\", возможно, недопустима.",
     "The input color values are invalid." : "Введенные значения цвета недопустимы.",
+    "Choose a folder" : "Выберите папку",
     "Invalid path selected: \"{dir}\"." : "Выбран некорректный путь: \"{dir}\".",
     "Selected path: \"{dir}/{base}/\"." : "Выбраный путь: \"{dir}/{base}/\".",
     "User ID" : "ID пользователя",

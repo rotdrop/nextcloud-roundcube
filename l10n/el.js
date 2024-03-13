@@ -6,6 +6,7 @@ OC.L10N.register(
     "User" : "Χρήστης",
     "Password" : "Συνθηματικό",
     "bytes" : "bytes",
+    "submit" : "υποβολή",
     "User's Preferences" : "Προτιμήσεις του χρήστη",
     "User's Choice" : "Επιλογή του χρήστη",
     "Email Address" : "Email διεύθυνση",
