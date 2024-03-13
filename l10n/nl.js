@@ -11,6 +11,7 @@ OC.L10N.register(
     "Unknown personal setting: \"%s\"." : "Onbekende persoonlijke instelling: \"%s\"",
     "Password" : "Wachtwoord",
     "bytes" : "bytes",
+    "submit" : "versturen",
     "User ID" : "Gebruiker-ID",
     "Email Address" : "E-mailadres",
     "Advanced Settings" : "Geavanceerde instellingen"

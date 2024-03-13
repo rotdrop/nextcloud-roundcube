@@ -3,6 +3,8 @@ OC.L10N.register(
     {
     "Password" : "Salasana",
     "bytes" : "tavua",
+    "pick a color" : "valitse väri",
+    "Choose a folder" : "Valitse kansio",
     "Invalid path selected: \"{dir}\"." : "Virheellinen polku valittu: \"{dir}\".",
     "Selected path: \"{dir}/{base}/\"." : "Valittu polku: \"{dir}/{base}/\".",
     "User ID" : "Käyttäjätunniste",

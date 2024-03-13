@@ -10,6 +10,8 @@ OC.L10N.register(
     "Login succeeded." : "Успішно авторизовано.",
     "Login failed." : "Не вдалося авторизуватися.",
     "bytes" : "байтів",
+    "Choose a folder" : "Виберіть каталог",
+    "Choose a prefix-folder" : "Виберіть префікс каталогу",
     "User ID" : "ID користувача",
     "Email Address" : "Адреса електронної пошти",
     "Advanced Settings" : "Розширені"
