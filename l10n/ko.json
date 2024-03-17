@@ -17,6 +17,8 @@
     "bytes" : "바이트",
     "The supplied color-string \"%s\" seems to be invalid." : "제공된 color-string \"%s\"이(가) 잘못된 것 같습니다",
     "The input color values are invalid." : "입력 색상값이 유효하지 않습니다",
+    "Choose a folder" : "폴더 선택",
+    "Choose a prefix-folder" : "접두사 폴더 지정",
     "Invalid path selected: \"{dir}\"." : "잘못된 경로가 지정됨: \"{dir}\"",
     "Selected path: \"{dir}/{base}/\"." : "지정한 경로: \"{dir}/{base}/\"",
     "Email Address" : "이메일 주소",

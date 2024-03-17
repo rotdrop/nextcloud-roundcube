@@ -1,68 +1,68 @@
-<script>
-/**
- * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022 Claus-Justus Heine
- * @license AGPL-3.0-or-later
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
-</script>
+<!--
+ - @author Claus-Justus Heine <himself@claus-justus-heine.de>
+ - @copyright 2022, 2024 Claus-Justus Heine
+ - @license AGPL-3.0-or-later
+ -
+ - This program is free software: you can redistribute it and/or modify
+ - it under the terms of the GNU Affero General Public License as
+ - published by the Free Software Foundation, either version 3 of the
+ - License, or (at your option) any later version.
+ -
+ - This program is distributed in the hope that it will be useful,
+ - but WITHOUT ANY WARRANTY; without even the implied warranty of
+ - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ - GNU Affero General Public License for more details.
+ -
+ - You should have received a copy of the GNU Affero General Public License
+ - along with this program. If not, see <http://www.gnu.org/licenses/>.
+ -->
 <template>
   <div class="color-picker-container flex-container flex-center">
-    <Actions>
-      <ActionButton icon="icon-play"
-                    @click="pickerVisible = true"
+    <NcActions>
+      <NcActionButton icon="icon-play"
+                      @click="pickerVisible = true"
       >
         {{ componentLabels.openColorPicker }}
-      </ActionButton>
-      <ActionButton icon="icon-confirm"
-                    @click="submitColorChoice"
+      </NcActionButton>
+      <NcActionButton icon="icon-confirm"
+                      @click="submitColorChoice"
       >
         {{ componentLabels.submitColorChoice }}
-      </ActionButton>
-      <ActionButton icon="icon-history"
-                    :disabled="savedState.rgbColor === rgbColor"
-                    @click="rgbColor = savedState.rgbColor"
+      </NcActionButton>
+      <NcActionButton icon="icon-history"
+                      :disabled="savedState.rgbColor === rgbColor"
+                      @click="rgbColor = savedState.rgbColor"
       >
         {{ componentLabels.revertColor }}
-      </ActionButton>
-      <ActionButton icon="icon-toggle-background"
-                    :disabled="!colorPaletteHasChanged"
-                    @click="revertColorPalette"
+      </NcActionButton>
+      <NcActionButton icon="icon-toggle-background"
+                      :disabled="!colorPaletteHasChanged"
+                      @click="revertColorPalette"
       >
         {{ componentLabels.revertColorPalette }}
-      </ActionButton>
-      <ActionButton icon="icon-toggle-background"
-                    :disabled="colorPaletteIsDefault"
-                    @click="resetColorPalette"
+      </NcActionButton>
+      <NcActionButton icon="icon-toggle-background"
+                      :disabled="colorPaletteIsDefault"
+                      @click="resetColorPalette"
       >
         {{ componentLabels.resetColorPalette }}
-      </ActionButton>
-    </Actions>
-    <ColorPicker ref="colorPicker"
-                 v-model="rgbColor"
-                 :open.sync="pickerVisible"
-                 @submit="submitCustomColor"
-                 @update:open="handleOpen"
-                 @close="() => false"
+      </NcActionButton>
+    </NcActions>
+    <NcColorPicker ref="colorPicker"
+                   v-model="rgbColor"
+                   :palette="colorPickerPalette"
+                   :shown.sync="pickerVisible"
+                   @submit="submitCustomColor"
+                   @update:open="handleOpen"
+                   @close="() => false"
     >
-      <button :style="{'background-color': rgbColor, color: rgbToGrayScale(rgbColor) > 0.5 ? 'black' : 'white'}"
-              class="trigger-button"
+      <NcButton :style="cssVariables"
+                type="primary"
+                class="trigger-button"
       >
         {{ label }}
-      </button>
-    </ColorPicker>
+      </NcButton>
+    </NcColorPicker>
     <input type="submit"
            class="icon-confirm confirm-button"
            value=""
@@ -71,18 +71,23 @@
   </div>
 </template>
 <script>
-import Vue from 'vue'
-import Actions from '@nextcloud/vue/dist/Components/NcActions'
-import ActionButton from '@nextcloud/vue/dist/Components/NcActionButton'
-import ColorPicker from '@nextcloud/vue/dist/Components/NcColorPicker'
-import { nextTick } from 'vue'
+import {
+  NcActions,
+  NcActionButton,
+  NcButton,
+  NcColorPicker,
+} from '@nextcloud/vue'
+import { nextTick, set as vueSet } from 'vue'
+
+const appName = APP_NAME // e.g. by webpack DefinePlugin
 
 export default {
   name: 'ColorPickerExtension',
   components: {
-    ActionButton,
-    Actions,
-    ColorPicker,
+    NcActionButton,
+    NcActions,
+    NcButton,
+    NcColorPicker,
   },
   inheritAttrs: false,
   props: {
@@ -92,36 +97,45 @@ export default {
     },
     label: {
       type: String,
-      default: 'pick a color',
+      default: t(appName, 'pick a color'),
     },
     componentLabels: {
       type: Object,
       default: () => {
         return {
-          openColorPicker: 'open',
-          submitColorChoice: 'submit',
-          revertColor: 'revert color',
-          revertColorPalette: 'restore palette',
-          resetColorPalette: 'factory reset palette',
+          openColorPicker: t(appName, 'open'),
+          submitColorChoice: t(appName, 'submit'),
+          revertColor: t(appName, 'revert color'),
+          revertColorPalette: t(appName, 'restore palette'),
+          resetColorPalette: t(appName, 'factory reset palette'),
         }
       },
     },
     colorPalette: {
       type: Array,
+      default: () => [],
     },
   },
   data() {
     return {
       pickerVisible: false,
       factoryColorPalette: undefined,
+      colorPickerPalette: undefined,
       savedState: {
         rgbColor: undefined,
         colorPickerPalette: undefined,
       },
       loading: true,
+      id: this._uid,
     }
   },
   computed: {
+    cssVariables() {
+      return {
+        '--button-background-color': this.rgbColor,
+        '--button-foreground-color': this.rgbToGrayScale(this.rgbColor) > 0.5 ? 'black' : 'white',
+      }
+    },
     colorPaletteIsDefault() {
       return this.loading || this.colorPickerPalette.toString() === this.factoryColorPalette.toString()
     },
@@ -143,25 +157,21 @@ export default {
       },
       get() {
         return this.value
-      }
+      },
     },
+  },
+  watch: {
     colorPickerPalette: {
-      set(newValue) {
-        if (this.$refs.colorPicker) {
-          this.$refs.colorPicker.palette = newValue
-        }
+      handler(newValue, oldValue) {
+        this.info('PALETTE', newValue, oldValue)
         if (this.loading) {
           return
         }
         this.colorPaletteHasChanged = true
         this.$emit('update:color-palette', newValue)
       },
-      get() {
-        return this.$refs.colorPicker ? this.$refs.colorPicker.palette : undefined
-      }
+      deep: true,
     },
-  },
-  watch: {
     colorPalette(newValue, oldValue) {
       if (this.loading) {
         return
@@ -179,10 +189,19 @@ export default {
     // console.info('LOADING IN CREATED', this.loading)
   },
   mounted() {
-    this.factoryColorPalette = [...this.colorPickerPalette]
-    if (this.colorPalette && Array.isArray(this.colorPalette)) {
-      this.colorPickerPalette.splice(0, Infinity, ...this.colorPalette)
-    }
+    // This seemingly stupid construct of having
+    // this.colorPickerPalette === undefined at start enables us to peek
+    // the default palette from the NC color picker widget.
+    this.factoryColorPalette = [...this.$refs.colorPicker.palette]
+    this.info('FACTORY PALETTE', this.factoryColorPalette)
+    vueSet(
+      this,
+      'colorPickerPalette',
+      (this.colorPalette && Array.isArray(this.colorPalette) && this.colorPalette.length > 0)
+        ? [...this.colorPalette]
+        : [...this.factoryColorPalette],
+    )
+    this.info('PALETTE IS NOW', this.colorPickerPalette, this.colorPalette, this.factoryColorPalette)
     if (this.rgbColor) {
       this.prependColorToPalette(this.rgbColor)
     }
@@ -192,6 +211,9 @@ export default {
     })
   },
   methods: {
+    info(...args) {
+      console.info(this.$options.name, ...args)
+    },
     submitCustomColor(color) {
       this.prependColorToPalette(color)
     },
@@ -216,7 +238,7 @@ export default {
         const palette = [...destinationStorage.colorPickerPalette]
         palette.pop()
         palette.splice(0, 0, color)
-        Vue.set(destinationStorage, 'colorPickerPalette', palette)
+        vueSet(destinationStorage, 'colorPickerPalette', palette)
       }
     },
     /**
@@ -224,7 +246,7 @@ export default {
      * switch the trigger-button color between black and white,
      * depending on the grey-value of the color.
      *
-     * @param {array} rgb RGB color array.
+     * @param {Array} rgb RGB color array.
      *
      * @return {number} Grey-value corresponding to rgb.
      */
@@ -251,12 +273,19 @@ export default {
     &:not(:focus,:hover) {
       border-right:0;
     }
+    background-color: var(--button-background-color);
+    color: var(--button-foreground-color);
   }
   .confirm-button {
     border-top-left-radius:0;
     border-bottom-left-radius:0;
     &:not(:focus,:hover) {
-      border-left:0;
+      border-left:2px solid var(--color-background-dark);
+    }
+    min-height: 44px; // in order to match NcButton
+    border: 2px solid var(--color-border-dark);
+    &:hover:not(:disabled) {
+      border: 2px solid var(--color-primary-element);
     }
   }
 }

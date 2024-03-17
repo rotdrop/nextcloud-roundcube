@@ -1,5 +1,5 @@
 <!--
-   - @copyright Copyright (c) 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
+   - @copyright Copyright (c) 2022, 2024 Claus-Justus Heine <himself@claus-justus-heine.de>
    - @copyright Copyright (c) 2021 Marco Ambrosini <marcoambrosini@pm.me>
    -
    - @author Marco Ambrosini <marcoambrosini@pm.me>
@@ -72,9 +72,9 @@
 
               <!-- Counter -->
               <span v-if="showCounter" class="line-two__counter">
-                <CounterBubble v-if="counterNumber != 0" :type="counterType">
+                <NcCounterBubble v-if="counterNumber != 0" :type="counterType">
                   {{ counterNumber }}
-                </CounterBubble>
+                </NcCounterBubble>
               </span>
             </div>
           </div>
@@ -84,14 +84,14 @@
                class="list-item-content__actions"
                @click.prevent.stop=""
           >
-            <Actions ref="actions"
-                     menu-align="right"
-                     :aria-label="actionsAriaLabel"
-                     @update:open="handleActionsUpdateOpen"
+            <NcActions ref="actions"
+                       menu-align="right"
+                       :aria-label="actionsAriaLabel"
+                       @update:open="handleActionsUpdateOpen"
             >
               <!-- @slot Provide the actions for the right side quick menu -->
               <slot name="actions" />
-            </Actions>
+            </NcActions>
           </div>
         </div>
         <!-- Actions -->
@@ -99,14 +99,14 @@
              class="list-item-content__actions"
              @click.prevent.stop=""
         >
-          <Actions ref="actions"
-                   menu-align="right"
-                   :aria-label="actionsAriaLabel"
-                   @update:open="handleActionsUpdateOpen"
+          <NcActions ref="actions"
+                     menu-align="right"
+                     :aria-label="actionsAriaLabel"
+                     @update:open="handleActionsUpdateOpen"
           >
             <!-- @slot Provide the actions for the right side quick menu -->
             <slot name="actions" />
-          </Actions>
+          </NcActions>
         </div>
       </div>
 
@@ -119,15 +119,17 @@
 </template>
 
 <script>
-import Actions from '@nextcloud/vue/dist/Components/NcActions'
-import CounterBubble from '@nextcloud/vue/dist/Components/NcCounterBubble'
+import {
+  NcActions,
+  NcCounterBubble,
+} from '@nextcloud/vue'
 
 export default {
   name: 'ListItem',
 
   components: {
-    Actions,
-    CounterBubble,
+    NcActions,
+    NcCounterBubble,
   },
 
   props: {

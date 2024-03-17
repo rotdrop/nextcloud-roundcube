@@ -12,6 +12,7 @@ OC.L10N.register(
     "Error, caught an exception." : "Błąd, złapano wyjątek.",
     "Caused by previous exception" : "Spowodowane przez poprzedni wyjątek",
     "bytes" : "bajtów",
+    "Choose a folder" : "Wybierz katalog",
     "User ID" : "ID użytkownika",
     "Email Address" : "Adres e-mail",
     "Advanced Settings" : "Ustawienia zaawansowane",
