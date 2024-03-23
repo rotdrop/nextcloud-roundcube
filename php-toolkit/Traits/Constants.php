@@ -3,7 +3,7 @@
  * A collection of reusable traits classes for Nextcloud apps.
  *
  * @author    Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022 Claus-Justus Heine
+ * @copyright 2022, 2024 Claus-Justus Heine
  * @license   AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -39,4 +39,12 @@ class Constants
   public const HASH = 'hash';
   public const WEB_ASSET_META = self::JS . self::PATH_SEPARATOR . 'asset-meta.json';
   public const INFO_FILE = 'appinfo' . self::PATH_SEPARATOR . 'info.xml';
+
+  // The following will be moved to the ResponseTrait as soon as >= PHP 8.2 is feasible
+  public const RENDER_AS_GUEST = TemplateResponse::RENDER_AS_GUEST;
+  public const RENDER_AS_BLANK = 'blank';
+  public const RENDER_AS_BASE = TemplateResponse::RENDER_AS_BASE;
+  public const RENDER_AS_USER = TemplateResponse::RENDER_AS_USER;
+  public const RENDER_AS_ERROR = TemplateResponse::RENDER_AS_ERROR;
+  public const RENDER_AS_PUBLIC = TemplateResponse::RENDER_AS_PUBLIC;
 }

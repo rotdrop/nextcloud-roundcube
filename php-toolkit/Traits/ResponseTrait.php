@@ -42,14 +42,16 @@ use OCP\IL10N;
  */
 trait ResponseTrait
 {
-  protected const RENDER_AS_GUEST = TemplateResponse::RENDER_AS_GUEST;
-  protected const RENDER_AS_BLANK = 'blank';
-  protected const RENDER_AS_BASE = TemplateResponse::RENDER_AS_BASE;
-  protected const RENDER_AS_USER = TemplateResponse::RENDER_AS_USER;
-  protected const RENDER_AS_ERROR = TemplateResponse::RENDER_AS_ERROR;
-  protected const RENDER_AS_PUBLIC = TemplateResponse::RENDER_AS_PUBLIC;
+  // In order to restore PHP 8.1 compatibility do not use constants in traits ...
+  //
+  // protected const RENDER_AS_GUEST = TemplateResponse::RENDER_AS_GUEST;
+  // protected const RENDER_AS_BLANK = 'blank';
+  // protected const RENDER_AS_BASE = TemplateResponse::RENDER_AS_BASE;
+  // protected const RENDER_AS_USER = TemplateResponse::RENDER_AS_USER;
+  // protected const RENDER_AS_ERROR = TemplateResponse::RENDER_AS_ERROR;
+  // protected const RENDER_AS_PUBLIC = TemplateResponse::RENDER_AS_PUBLIC;
 
-  protected const APPNAME_PREFIX = 'app-';
+  // protected const APPNAME_PREFIX = 'app-';
 
   /** @var IL10N */
   protected IL10N $l;
@@ -87,7 +89,8 @@ trait ResponseTrait
       array_merge(
         [
           'appName' => $appName,
-          'appNameTag' => self::APPNAME_PREFIX . $appName,
+          // 'appNameTag' => self::APPNAME_PREFIX . $appName,
+          'appNameTag' => 'app-' . $appName,
           'l10n' => $l10n, // do not conflict with core template $l parameter
         ],
         $params,
