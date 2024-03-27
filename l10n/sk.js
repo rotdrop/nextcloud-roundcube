@@ -8,6 +8,7 @@ OC.L10N.register(
     "bytes" : "bajty",
     "pick a color" : "vyberte farbu",
     "restore palette" : "obnoviť paletu",
+    "Choose a folder" : "Vybrať priečinok",
     "Email Address Selection" : "Výber e-mailovej adresy",
     "User ID" : "ID užívateľa",
     "Email Address" : "E-mailová adresa",
