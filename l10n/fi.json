@@ -1,5 +1,8 @@
 { "translations": {
+    "User" : "Käyttäjä",
     "Password" : "Salasana",
+    "Login succeeded." : "Kirjautuminen onnistui.",
+    "Login failed." : "Kirjautuminen epäonnistui.",
     "bytes" : "tavua",
     "pick a color" : "valitse väri",
     "Choose a folder" : "Valitse kansio",
@@ -8,6 +11,7 @@
     "User ID" : "Käyttäjätunniste",
     "Email Address" : "Sähköpostiosoite",
     "Advanced Settings" : "Lisäasetukset",
+    "Enable SSL verification." : "Käytä SSL-vahvistusta.",
     "reason unknown" : "tuntematon syy",
     "Confirmation Required" : "Vahvistus vaaditaan"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"

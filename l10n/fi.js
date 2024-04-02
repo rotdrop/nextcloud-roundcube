@@ -1,7 +1,10 @@
 OC.L10N.register(
     "mail_roundcube",
     {
+    "User" : "Käyttäjä",
     "Password" : "Salasana",
+    "Login succeeded." : "Kirjautuminen onnistui.",
+    "Login failed." : "Kirjautuminen epäonnistui.",
     "bytes" : "tavua",
     "pick a color" : "valitse väri",
     "Choose a folder" : "Valitse kansio",
@@ -10,6 +13,7 @@ OC.L10N.register(
     "User ID" : "Käyttäjätunniste",
     "Email Address" : "Sähköpostiosoite",
     "Advanced Settings" : "Lisäasetukset",
+    "Enable SSL verification." : "Käytä SSL-vahvistusta.",
     "reason unknown" : "tuntematon syy",
     "Confirmation Required" : "Vahvistus vaaditaan"
 },
