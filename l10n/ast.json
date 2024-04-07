@@ -8,6 +8,10 @@
     "bytes" : "bytes",
     "RoundCube Mail" : "RoundCube Mail",
     "RoundCube Web Mail" : "RoundCube Web Mail",
+    "open" : "abrir",
+    "submit" : "unviar",
+    "restore palette" : "restaurar la paleta",
+    "Please select an item!" : "¡Seleiciona un elementu!",
     "Email Address" : "Direición de corréu electrónicu",
     "Advanced Settings" : "Configuración avanzada",
     "Enable SSL verification." : "Activar la verificación SSL."
