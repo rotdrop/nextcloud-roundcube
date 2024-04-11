@@ -42,7 +42,7 @@ OC.L10N.register(
     "Clear Selection" : "Auswahl leeren",
     "Please select an item!" : "Bitte ein Element wählen!",
     "An empty value is not allowed, please make your choice!" : "Ein leerer Wert ist unzulässig, bitte treffen Sie Ihre Wahl!",
-    "Embedded RoundCube, Admin Settings" : "Integriertes RoundCube, Administrations-Einstellungen",
+    "Embedded RoundCube, Admin Settings" : "Integriertes RoundCube, Administrationseinstellungen",
     "Roundcube Installation" : "Roundcube Installation",
     "RoundCube Installation Path" : "RoundCube Installationspfad",
     "RoundCube path can be entered relative to the Nextcloud server" : "Der RoundCube-Pfad kann relativ zum Nextcloud-Server eingegeben werden",
