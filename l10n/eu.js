@@ -32,6 +32,7 @@ OC.L10N.register(
     "submit" : "bidali",
     "revert color" : "Kolorea berrezarri",
     "restore palette" : "berrezarri paleta",
+    "factory reset palette" : "Berrezarri paleta hasierako baliotara",
     "Choose a folder" : "Aukeratu karpeta bat",
     "Choose a prefix-folder" : "Aukeratu karpeta lehenetsi bat",
     "Invalid path selected: \"{dir}\"." : "Bide-izen baliogabea hautatu da: \"{dir}\".",
