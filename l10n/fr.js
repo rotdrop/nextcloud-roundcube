@@ -55,7 +55,7 @@ OC.L10N.register(
     "Fixed Single Address" : "Adresse unique fixe",
     "Global Email Login" : "Identifiant e-mail global",
     "Global email user-name for Roundcube for all users" : "Nom d'utilisateur e-mail global RoundCube pour tous les utilisateurs",
-    "Email Address" : "Adresse électronique",
+    "Email Address" : "Adresse e-mail",
     "Global Email Password" : "Mot de passe e-mail global",
     "Email Password" : "Mot de passe e-mail",
     "Global email password for Roundcube for all users" : "Mot de passe e-mail global RoundCube pour tous les utilisateurs",
