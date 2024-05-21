@@ -74,7 +74,7 @@ export default {
         case 'norcurl':
           return t(appName, `You did not tell me where to find your configured Roundcube
 instance. Please head over to the admin-settings and configure this
-app, thank you! I might also be a good idea to have a look at the
+app, thank you! It might also be a good idea to have a look at the
 README.md file which is distributed together with this app.`)
         case 'login':
           return t(appName, `Unable to login into Roundcube, there are login errors. Please check
