@@ -1,6 +1,7 @@
 OC.L10N.register(
     "mail_roundcube",
     {
+    "User" : "ユーザー",
     "Password" : "パスワード",
     "bytes" : "バイト",
     "Clear Selection" : "セッションクリア",

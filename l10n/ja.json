@@ -1,4 +1,5 @@
 { "translations": {
+    "User" : "ユーザー",
     "Password" : "パスワード",
     "bytes" : "バイト",
     "Clear Selection" : "セッションクリア",
