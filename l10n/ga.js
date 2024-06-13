@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "User" : "Úsáideoir",
     "Password" : "Pasfhocal",
+    "Clear Selection" : "Glan Roghnú",
     "User ID" : "ID Úsáideora",
     "Email Address" : "Seoladh ríomhphoist",
     "Advanced Settings" : "Ardsocruithe"
