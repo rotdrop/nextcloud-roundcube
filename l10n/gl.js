@@ -36,6 +36,7 @@ OC.L10N.register(
     "Choose a prefix-folder" : "Escoller un prefixo de cartafol",
     "Invalid path selected: \"{dir}\"." : "Seleccionou unha ruta incorrecta «{dir}».",
     "Selected path: \"{dir}/{base}/\"." : "Ruta seleccionada: «{dir}/{base}/».",
+    "Clear Selection" : "Limpar a selección",
     "Embedded RoundCube, Admin Settings" : "RoundCube integrado, configuración de administración",
     "Roundcube Installation" : "Instalación de Roundcube",
     "RoundCube Installation Path" : "Ruta de instalación de RoundCube",
