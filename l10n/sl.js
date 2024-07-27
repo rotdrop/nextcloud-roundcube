@@ -21,6 +21,7 @@ OC.L10N.register(
     "Choose a folder" : "Izbor mape",
     "Invalid path selected: \"{dir}\"." : "Neveljavna izbrana pot: »{dir}«.",
     "Selected path: \"{dir}/{base}/\"." : "Izbrana pot: »{dir}/{base}/«.",
+    "Clear Selection" : "Počisti izbor",
     "User ID" : "ID Uporabnika",
     "Email Address" : "Elektronski naslov",
     "Advanced Settings" : "Napredne nastavitve",
