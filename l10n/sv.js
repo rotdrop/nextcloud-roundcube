@@ -1,6 +1,7 @@
 OC.L10N.register(
     "mail_roundcube",
     {
+    "User" : "Användare",
     "Password" : "Lösenord",
     "bytes" : "byte",
     "User ID" : "Användar-ID",
