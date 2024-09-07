@@ -75,7 +75,6 @@ OC.L10N.register(
     "Below is a configuration snippet which may or may not work with the current version of the RoundCube CardDAV plugin. The configuration shown below is just a suggestion and will not automatically be registered with the RoundCube app. It is your responsibility to configure the RoundCube CardDAV plugin correctly. Please have a look at the explanations in the README.md file." : "以下是一個設定片段，可能適用也可能不適用於目前版本的 RoundCube CardDAV 外掛程式。下面顯示的配置僅供參考，並不會自動註冊到 RoundCube 應用程式中。您有責任正確配置 RoundCube CardDAV 插件。請參考 README.md 檔案中的說明進行配置。",
     "Unable to configure the CardDAV integration for \"{emailUserId}\"." : "無法為「{emailUserId}」設定 CardDAV 整合。",
     "Unable to obtain email credentials for \"{emailUserId}\". Please check your personal Roundcube settings." : "無法獲取 “{emailUserId}” 的電子郵件身份驗證。請檢查您的個人 Roundcube 設定。",
-    "You did not tell me where to find your configured Roundcube instance. Please head over to the admin-settings and configure this app, thank you! I might also be a good idea to have a look at the README.md file which is distributed together with this app." : "請前往管理設定並配置您的 Roundcube 實例，謝謝！同時，建議您閱讀隨附的 README.md 檔案以了解更多訊息。",
     "Unable to login into Roundcube, there are login errors. Please check your personal Roundcube settings. Maybe a re-login to Nextcloud helps. Otherwise contact your system administrator." : "由於錯誤無法登錄到 Roundcube。請檢查您的個人 Roundcube 設定。也許重新登錄 Nextcloud 會有所幫助。否則請聯繫您的系統管理員。",
     "Embedded RoundCube, Personal Settings" : "嵌入式 RoundCube，個人設定",
     "Email Login Name" : "電郵登入名稱",
