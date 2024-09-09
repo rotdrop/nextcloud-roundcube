@@ -310,11 +310,11 @@ class Config
     $userEmail = null;
     $userPassword = null;
     $emailAddressChoice = $this->getAppValue('emailAddressChoice', 'userPreferencesEmail');
+    $emailDefaultDomain = $this->getAppValue('emailDefaultDomain', '');
     switch ($emailAddressChoice) {
       case self::EMAIL_ADDRESS_CHOICE_USER_ID:
         $userEmail = $this->user->getUID();
-        if (strpos($userEmail, '@') === false) {
-          $emailDefaultDomain = $this->getAppValue('emailDefaultDomain', '');
+        if (strpos($userEmail, '@') === false && !empty($emailDefaultDomain)) {
           $userEmail .= '@'.$emailDefaultDomain;
         }
         break;
