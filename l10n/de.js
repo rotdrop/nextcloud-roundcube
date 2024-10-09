@@ -37,7 +37,7 @@ OC.L10N.register(
     "Choose a prefix-folder" : "Wähle den \"Eltern\"-Ordner",
     "Invalid path selected: \"{dir}\"." : "Es wurde ein ungültiger Pfad ausgewählt: {dir}.",
     "Selected path: \"{dir}/{base}/\"." : "Ausgewählter Datei-Pfad: \"{dir}/{base}/\"",
-    "Click to submit your changes." : "Klicken, um Ihre Änderungen zu übermitteln",
+    "Click to submit your changes." : "Klicken, um deine Änderungen zu übermitteln",
     "Reset Changes" : "Änderungen zurücksetzen",
     "Clear Selection" : "Auswahl leeren",
     "Please select an item!" : "Bitte ein Element wählen!",
