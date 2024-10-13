@@ -33,7 +33,7 @@ OC.L10N.register(
     "revert color" : "أرجِع اللون",
     "restore palette" : "إستعادة لوحة الألوان",
     "factory reset palette" : "إعادة تعيين لوحة الألوان لإعدادات المصنع",
-    "Choose a folder" : "اختر مجلدًا",
+    "Choose a folder" : "اختر مجلد",
     "Choose a prefix-folder" : "إختر مُجلّداً بادئاً",
     "Invalid path selected: \"{dir}\"." : "المسار المختار غير صحيح: \"{dir}\"",
     "Selected path: \"{dir}/{base}/\"." : "المسار المختار: \"{dir}/{base}/\".",
