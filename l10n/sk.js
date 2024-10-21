@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "User" : "Používateľ",
     "Password" : "Heslo",
+    "Login failed." : "Prihlásenie zlyhalo.",
     "Error, caught an exception." : "Chyba, vyskytla sa výnimka.",
     "Caused by previous exception" : "Spôsobené predchádzajúcou výnimkou",
     "bytes" : "bajty",
