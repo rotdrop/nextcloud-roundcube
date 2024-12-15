@@ -71,7 +71,7 @@ class Personal implements ISettings
     switch ($emailAddressChoice) {
       case 'userIdEmail':
         $userEmail = $this->user->getUID();
-        if (strpos($userEmail, '@') === false) {
+        if (strpos($userEmail, '@') === false && !empty($emailDefaultDomain)) {
           $userEmail .= '@'.$emailDefaultDomain;
         }
         break;
