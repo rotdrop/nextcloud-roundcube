@@ -10,6 +10,7 @@ OC.L10N.register(
     "pick a color" : "vyberte farbu",
     "restore palette" : "obnoviť paletu",
     "Choose a folder" : "Vybrať priečinok",
+    "Clear Selection" : "Zrušiť výber",
     "Email Address Selection" : "Výber e-mailovej adresy",
     "User ID" : "ID užívateľa",
     "Email Address" : "E-mailová adresa",
