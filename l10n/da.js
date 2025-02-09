@@ -7,6 +7,7 @@ OC.L10N.register(
     "bytes" : "bytes",
     "User ID" : "Bruger ID",
     "Email Address" : "Email adresse",
-    "Advanced Settings" : "Avancerede indstillinger"
+    "Advanced Settings" : "Avancerede indstillinger",
+    "Unable to obtain email credentials for \"{emailUserId}\". Please check your personal Roundcube settings." : "Kan ikke hente e-mail legitimationsoplysninger for \"{emailUserId}\". Kontroller venligst dine personlige Roundcube indstillinger."
 },
 "nplurals=2; plural=(n != 1);");
