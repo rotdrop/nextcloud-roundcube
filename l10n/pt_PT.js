@@ -25,7 +25,7 @@ OC.L10N.register(
     "Email Domain" : "Domínio do Correio Eletrónico",
     "User's Preferences" : "Preferências do Utilizador",
     "User's Choice" : "Escolha do Utilizador",
-    "Email Address" : "Endereço de correio electrónico",
+    "Email Address" : "Endereço de correio eletrónico",
     "Advanced Settings" : "Definições Avançadas ",
     "Enable SSL verification." : "Ativa a verificação de SSL."
 },
