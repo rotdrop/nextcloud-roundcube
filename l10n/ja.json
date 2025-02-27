@@ -29,10 +29,10 @@
     "Enable SSL verification." : "SSL検証を有効にする。",
     "Per-user encryption of config values." : "ユーザーごとに設定値を暗号化する。",
     "Unable to configure the CardDAV integration for \"{emailUserId}\"." : "\"{emailUserId}\"のCardDAV統合を設定できません。",
-    "Embedded RoundCube, Personal Settings" : "組み込みRoundCubeの個人設定",
-    "Email Login Name" : "メールログイン名",
     "Please specify an email address to use with RoundCube." : "RoundCubeで使用するメールアドレスを指定してください。",
     "Email password for RoundCube, if needed." : "必要な場合のみ、RoundCubeの電子メールパスワードを設定",
+    "Embedded RoundCube, Personal Settings" : "組み込みRoundCubeの個人設定",
+    "Email Login Name" : "メールログイン名",
     "Confirmation Required" : "確認が必要"
 },"pluralForm" :"nplurals=1; plural=0;"
 }
