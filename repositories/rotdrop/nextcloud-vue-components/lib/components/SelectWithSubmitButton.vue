@@ -1,6 +1,6 @@
 <!--
  - @author Claus-Justus Heine
- - @copyright 2024 Claus-Justus Heine <himself@claus-justus-heine.de>
+ - @copyright 2024, 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
  - @license AGPL-3.0-or-later
  -
  - This program is free software: you can redistribute it and/or modify
@@ -17,7 +17,9 @@
  - along with this program. If not, see <http://www.gnu.org/licenses/>.
  -->
 <template>
-  <div :class="['input-wrapper', { empty, required }, ...actionClasses]">
+  <div v-tooltip="tooltipToShow"
+       :class="['input-wrapper', { empty, required }, ...actionClasses]"
+  >
     <label v-if="!labelOutside && inputLabel" :for="selectId" class="select-with-submit-button-label">
       {{ inputLabel }}
     </label>
@@ -28,13 +30,12 @@
       <div :class="['select-combo-wrapper', { loading }, ...flexItemClasses, ...actionClasses]">
         <NcSelect ref="ncSelect"
                   v-bind="$attrs"
-                  v-tooltip="tooltipToShow"
-                  :value="value"
-                  :multiple="multiple"
+                  v-model="value"
+                  :multiple="props.multiple"
                   :label-outside="true"
-                  :clearable="clearable"
-                  :disabled="disabled"
-                  :required="required"
+                  :clearable="props.clearable"
+                  :disabled="props.disabled"
+                  :required="props.required"
                   :input-id="selectId"
                   v-on="$listeners"
                   @open="active = true"
@@ -92,180 +93,149 @@
     </p>
   </div>
 </template>
-<script>
+<script setup lang="ts">
+import {
+  NcActions,
+  NcActionButton,
+  NcSelect,
+} from '@nextcloud/vue'
+import { appName } from '../config.ts'
+import { translate as t } from '@nextcloud/l10n'
+import {
+  computed,
+  ref,
+  watch,
+} from 'vue'
+import { v4 as uuidv4 } from 'uuid'
 
-import { NcSelect, NcActions, NcActionButton } from '@nextcloud/vue'
+type ItemType = string|number|Record<string, unknown>
+type ValueType = ItemType|ItemType[]
 
-const appName = APP_NAME // e.g. by webpack DefinePlugin
-
-export default {
-  name: 'SelectWithSubmitButton',
-  components: {
-    NcSelect,
-    NcActions,
-    NcActionButton,
-  },
-  inheritAttrs: false,
-  props: {
+const props = withDefaults(
+  defineProps<{
     // show an loading indicator on the wrapper select
-    loading: {
-      type: Boolean,
-      default: false,
-    },
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
+    loading?: boolean,
+    disabled?: boolean,
     // clearable allows deselection of the last item
-    clearable: {
-      type: Boolean,
-      default: true,
-    },
+    clearable?: boolean,
     /**
      * Allow selection of multiple options
      *
      * @see https://vue-select.org/api/props.html#multiple
      */
-    multiple: {
-      type: Boolean,
-      default: false,
-    },
+    multiple?: boolean,
     // required blocks the final submit if no value is selected
-    required: {
-      type: Boolean,
-      default: false,
-    },
-    labelOutside: {
-      type: Boolean,
-      default: false,
-    },
-    inputLabel: {
-      type: String,
-      required: false,
-      default: null,
-    },
-    inputId: {
-      type: String,
-      required: false,
-      default: null,
-    },
-    hint: {
-      type: String,
-      required: false,
-      default: null,
-    },
-    tooltip: {
-      type: [Object, String, Boolean],
-      required: false,
-      default: undefined,
-    },
-    value: {
-      type: [String, Number, Object, Array],
-      default: null,
-    },
-    flexContainerClasses: {
-      type: Array,
-      default: () => ['flex-justify-left', 'flex-align-center'],
-    },
-    flexItemClasses: {
-      type: Array,
-      default: () => ['flex-justify-left', 'flex-align-center'],
-    },
+    required?: boolean,
+    labelOutside?: boolean,
+    inputLabel?: string,
+    inputId?: string,
+    hint?: string,
+    tooltip?: Record<string, string>|string|boolean,
+    value?: ValueType,
+    flexContainerClasses?: string[],
+    flexItemClasses?: string[],
     // configure default button and action additions
-    submitButton: {
-      type: Boolean,
-      default: true,
-    },
-    clearAction: {
-      type: Boolean,
-      default: false,
-    },
-    resetAction: {
-      type: Boolean,
-      default: false,
-    },
-    resetState: {
-      type: [String, Number, Object, Array],
-      default: null,
-    },
+    submitButton?: boolean,
+    clearAction?: boolean,
+    resetAction?: boolean,
+    resetState?: ValueType,
+  }>(), {
+    loading: false,
+    disabled: false,
+    // clearable allows deselection of the last item
+    clearable: true,
+    /**
+     * Allow selection of multiple options
+     *
+     * @see https://vue-select.org/api/props.html#multiple
+     */
+    multiple: false,
+    // required blocks the final submit if no value is selected
+    required: false,
+    labelOutside: false,
+    inputLabel: undefined,
+    inputId: undefined,
+    hint: undefined,
+    tooltip: undefined,
+    value: undefined,
+    flexContainerClasses: () => ['flex-justify-left', 'flex-align-center'],
+    flexItemClasses: () => ['flex-justify-left', 'flex-align-center'],
+    // configure default button and action additions
+    submitButton: true,
+    clearAction: false,
+    resetAction: false,
+    resetState: undefined,
   },
-  data() {
-    return {
-      active: false,
-      id: this._uid,
-      ncSelect: undefined,
-    }
-  },
-  computed: {
-    actionClasses() {
-      const classes = []
-      this.submitButton && classes.push('submit-button')
-      this.clearAction && classes.push('clear-action')
-      this.resetAction && classes.push('reset-action')
+)
 
-      return classes
-    },
-    submitAction() {
-      return this.action.indexOf('submit') !== -1
-    },
-    empty() {
-      return !this.value || (Array.isArray(this.value) && this.value.length === 0)
-    },
-    tooltipToShow() {
-      if (this.active) {
-        return false
-      }
-      if (this.tooltip) {
-        return this.tooltip
-      }
-      if (this.empty && this.required) {
-        return t(appName, 'Please select an item!')
-      }
-      return false
-    },
-    selectId() {
-      return this.inputId || this._uid + '-select-input-id'
-    },
-    listenersToForward() {
-      const listeners = { ...this.$listeners }
-      // delete listeners.input
-      return listeners
-    },
-    attributesToForward() {
-      const attributes = { ...this.$attrs }
-      // delete attributes.value
-      return attributes
-    },
-  },
-  created() {
-    this.id = this._uid
-  },
-  mounted() {
-    this.ncSelect = this.$refs?.ncSelect
-  },
-  methods: {
-    info(...args) {
-      console.info(this.$options.name, ...args)
-    },
-    emitInput(value) {
-      this.$emit('input', value)
-      this.$emit('update:modelValue', value)
-    },
-    emitUpdate() {
-      if (this.required && this.empty) {
-        this.$emit('error', t(appName, 'An empty value is not allowed, please make your choice!'))
-      } else {
-        this.emitInput(this.value)
-        this.$emit('update', this.value)
-      }
-    },
-    resetChanges() {
-      this.emitInput(this.resetState)
-    },
-    clearSelection() {
-      this.emitInput(this.multiple ? [] : null)
-    },
-  },
+const value = ref<undefined|ValueType>(props.value)
+const active = ref(false)
+const ncSelect = ref<null|typeof NcSelect>(null)
+
+const actionClasses = computed(() => {
+  const classes: string[] = []
+  props.submitButton && classes.push('submit-button')
+  props.clearAction && classes.push('clear-action')
+  props.resetAction && classes.push('reset-action')
+  return classes
+})
+
+// const submitAction = computed(() => this.actionClasses.indexOf('submit-button') !== -1)
+const empty = computed(() => !props.value || (Array.isArray(props.value) && props.value.length === 0))
+const tooltipToShow = computed(() => {
+  if (active.value) {
+    return false
+  }
+  if (props.tooltip) {
+    return props.tooltip
+  }
+  if (empty.value && props.required) {
+    return t(appName, 'Please select an item!')
+  }
+  return false
+})
+const selectId = computed(() => props.inputId || uuidv4())
+
+defineExpose({
+  ncSelect,
+})
+
+// receive updates from the parent ...
+watch(() => props.value, (newValue) => { value.value = newValue })
+
+const emit = defineEmits([
+  'error',
+  'input',
+  'update',
+  'update:modelValue',
+])
+
+const emitInput = (value: ValueType|undefined) => {
+  emit('input', value)
+  emit('update:modelValue', value)
+}
+
+const emitUpdate = () => {
+  if (props.required && empty.value) {
+    emit('error', t(appName, 'An empty value is not allowed, please make your choice!'))
+  } else {
+    emitInput(value.value)
+    emit('update', value.value)
+  }
+}
+
+const resetChanges = () => {
+  emitInput(props.resetState)
+}
+
+const clearSelection = () => {
+  emitInput(props.multiple ? [] : undefined)
+}
+</script>
+<script lang="ts">
+export default {
+  name: 'SelectWithSubmitButton',
+  inheritAttrs: false,
 }
 </script>
 <style lang="scss" scoped>
@@ -275,6 +245,7 @@ export default {
   flex-wrap: wrap;
   flex-direction: column;
   width: 100%;
+  margin: 0 0 var(--default-grid-baseline);
   &::v-deep .alignment-wrapper {
     display: flex;
     flex-grow: 1;
@@ -323,6 +294,7 @@ export default {
     .v-select.select {
       flex-grow:1;
       max-width:100%;
+      margin: 0 0 0;
     }
     &.submit-button::v-deep .v-select.select {
       .vs__dropdown-toggle {
@@ -348,6 +320,7 @@ export default {
             border-radius: var(--vs-border-radius);
             outline: 2px solid var(--color-main-background);
             background-color: var(--vs-search-input-bg);
+            padding: calc((var(--default-clickable-area) - 1lh)/2 - var(--vs-border-width)) calc(3*var(--default-grid-baseline));
           }
         }
       }

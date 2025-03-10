@@ -1,6 +1,6 @@
 <!--
  - @author Claus-Justus Heine <himself@claus-justus-heine.de>
- - @copyright 2022, 2024 Claus-Justus Heine
+ - @copyright 2022, 2024, 2025 Claus-Justus Heine
  - @license AGPL-3.0-or-later
  -
  - This program is free software: you can redistribute it and/or modify
@@ -66,226 +66,242 @@
     <input type="submit"
            class="icon-confirm confirm-button"
            value=""
-           @click="$emit('update', rgbColor)"
+           @click="emit('update', rgbColor)"
     >
   </div>
 </template>
-<script>
+<script setup lang="ts">
+import { appName } from '../config.ts'
 import {
   NcActions,
   NcActionButton,
   NcButton,
   NcColorPicker,
 } from '@nextcloud/vue'
-import { nextTick, set as vueSet } from 'vue'
+import {
+  nextTick,
+  computed,
+  ref,
+  watch,
+  onMounted,
+  reactive,
+} from 'vue'
+import { translate as t } from '@nextcloud/l10n'
+import type { Color as RGBColorType } from '@nextcloud/vue'
 
-const appName = APP_NAME // e.g. by webpack DefinePlugin
+type NcColorPickerType = typeof NcColorPicker
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const isRGBColor = (arg: any): arg is RGBColorType =>
+  !!arg && !Array.isArray(arg) && typeof arg === 'object' && (arg.r || arg.g || arg.b || arg.color) !== undefined
+
+const props = withDefaults(
+  defineProps<{
+    value?: RGBColorType|string|number[],
+    label?: string,
+    componentLabels?: {
+      openColorPicker: string,
+      submitColorChoice: string,
+      revertColor: string,
+      revertColorPalette: string,
+      resetColorPalette: string,
+    },
+    colorPalette: RGBColorType[],
+  }>(), {
+    value: undefined,
+    label: () => t(appName, 'pick a color'),
+    componentLabels: () => {
+      return {
+        openColorPicker: t(appName, 'open'),
+        submitColorChoice: t(appName, 'submit'),
+        revertColor: t(appName, 'revert color'),
+        revertColorPalette: t(appName, 'restore palette'),
+        resetColorPalette: t(appName, 'factory reset palette'),
+      }
+    },
+    colorPalette: () => [],
+  },
+)
+
+const rgbColor = ref<undefined|RGBColorType>(undefined)
+const pickerVisible = ref(false)
+const factoryColorPalette = ref<undefined|RGBColorType[]>(undefined)
+const colorPickerPalette = ref<undefined|RGBColorType[]>(undefined)
+const savedState = reactive({
+  rgbColor: undefined as undefined|RGBColorType,
+  colorPickerPalette: undefined as undefined|RGBColorType[],
+})
+const loading = ref(true)
+
+const handleOpen = () => {}
+
+const submitCustomColor = (color: RGBColorType) => {
+  prependColorToPalette(color, colorPickerPalette.value!)
+}
+
+const submitColorChoice = () => {
+  pickerVisible.value = false
+  savedState.rgbColor = rgbColor.value
+}
+
+const revertColorPalette = () => {
+  colorPickerPalette.value!.splice(0, Infinity, ...savedState.colorPickerPalette!)
+}
+
+const resetColorPalette = () => {
+  colorPickerPalette.value!.splice(0, Infinity, ...factoryColorPalette.value!)
+}
+
+const prependColorToPalette = (rgbColor: RGBColorType, palette: RGBColorType []) => {
+  const rgb = rgbColor.color
+  if (palette.findIndex(rgbColor => rgbColor.color === rgb) < 0) {
+    palette.pop()
+    palette.splice(0, 0, rgbColor)
+  }
+}
+
+/**
+ * Convert an RGH color to a grey-scale value. This is used to
+ * switch the trigger-button color between black and white,
+ * depending on the grey-value of the color.
+ *
+ * @param color RGB color
+ *
+ * @return {number} Grey-value corresponding to rgb.
+ */
+const rgbToGrayScale = (color: RGBColorType):number => {
+  // const r = Number('0x' + rgb.substring(1, 3))
+  // const g = Number('0x' + rgb.substring(3, 5))
+  // const b = Number('0x' + rgb.substring(5, 7))
+  return (0.3 * color.r + 0.59 * color.g + 0.11 * color.b) / 255.0
+}
+
+const saveState = () => {
+  savedState.rgbColor = rgbColor.value
+  savedState.colorPickerPalette = [...colorPickerPalette.value!]
+  prependColorToPalette(rgbColor.value!, savedState.colorPickerPalette)
+}
+
+const cssVariables = computed(() => {
+  return {
+    '--button-background-color': rgbColor.value!.color,
+    '--button-foreground-color': rgbToGrayScale(rgbColor.value!) > 0.5 ? 'black' : 'white',
+  }
+})
+const colorPaletteIsDefault = computed(() =>
+  loading.value || ('' + colorPickerPalette.value) === ('' + factoryColorPalette.value))
+
+const colorPaletteHasChanged = computed(() =>
+  !loading.value && ('' + colorPickerPalette.value) !== ('' + savedState.colorPickerPalette))
+
+const emit = defineEmits([
+  'error',
+  'input',
+  'update',
+  'update:value',
+  'update:color-palette',
+])
+
+watch(() => props.value, (newValue) => {
+  if (loading.value) {
+    return
+  }
+  if (newValue === undefined || isRGBColor(newValue)) {
+    rgbColor.value = newValue
+  } else {
+    let r: number, g: number, b: number
+    const name = t(appName, 'Custom Color')
+    if (Array.isArray(newValue)) {
+      r = newValue[0]
+      g = newValue[1]
+      b = newValue[2]
+    } else {
+      const colorString = (newValue.startsWith('#') ? newValue.substring(1) : newValue) + '000000'
+      r = parseInt(colorString.substring(0, 2), 16)
+      g = parseInt(colorString.substring(2, 4), 16)
+      b = parseInt(colorString.substring(4, 6), 16)
+    }
+    const Ctor = factoryColorPalette.value![0].constructor
+    rgbColor.value = new Ctor(r, g, b, name)
+  }
+  emit('update:value', rgbColor.value)
+  emit('input', rgbColor.value)
+})
+
+const colorPicker = ref<null | NcColorPickerType>(null)
+
+watch(
+  colorPickerPalette,
+  (newValue) => {
+    if (loading.value) {
+      return
+    }
+    // colorPaletteHasChanged.value = true ??? computed property
+    emit('update:color-palette', newValue)
+  },
+  { deep: true },
+)
+
+watch(() => props.colorPalette, (newValue, oldValue) => {
+  if (loading.value) {
+    return
+  }
+  if (!!newValue && !!oldValue && newValue.toString() === oldValue.toString()) {
+    return
+  }
+  if (newValue && Array.isArray(newValue) && colorPickerPalette.value) {
+    colorPickerPalette.value.splice(0, Infinity, ...newValue)
+  }
+})
+
+onMounted(() => {
+  // This seemingly stupid construct of having
+  // this.colorPickerPalette === undefined at start enables us to peek
+  // the default palette from the NC color picker widget.
+  factoryColorPalette.value = [...colorPicker.value!.palette]
+  console.info('FACTORY PALETTE', factoryColorPalette.value)
+  colorPickerPalette.value = (props.colorPalette && Array.isArray(props.colorPalette) && props.colorPalette.length > 0)
+    ? [...props.colorPalette]
+    : [...factoryColorPalette.value]
+  console.info('PALETTE IS NOW', colorPickerPalette.value, props.colorPalette, factoryColorPalette.value)
+  if (rgbColor.value) {
+    prependColorToPalette(rgbColor.value, colorPickerPalette.value)
+  }
+  saveState()
+  nextTick(() => {
+    loading.value = false
+  })
+})
+
+</script>
+<script lang="ts">
 export default {
   name: 'ColorPickerExtension',
-  components: {
-    NcActionButton,
-    NcActions,
-    NcButton,
-    NcColorPicker,
-  },
   inheritAttrs: false,
-  props: {
-    value: {
-      type: String,
-      default: '',
-    },
-    label: {
-      type: String,
-      default: t(appName, 'pick a color'),
-    },
-    componentLabels: {
-      type: Object,
-      default: () => {
-        return {
-          openColorPicker: t(appName, 'open'),
-          submitColorChoice: t(appName, 'submit'),
-          revertColor: t(appName, 'revert color'),
-          revertColorPalette: t(appName, 'restore palette'),
-          resetColorPalette: t(appName, 'factory reset palette'),
-        }
-      },
-    },
-    colorPalette: {
-      type: Array,
-      default: () => [],
-    },
-  },
-  data() {
-    return {
-      pickerVisible: false,
-      factoryColorPalette: undefined,
-      colorPickerPalette: undefined,
-      savedState: {
-        rgbColor: undefined,
-        colorPickerPalette: undefined,
-      },
-      loading: true,
-      id: this._uid,
-    }
-  },
-  computed: {
-    cssVariables() {
-      return {
-        '--button-background-color': this.rgbColor,
-        '--button-foreground-color': this.rgbToGrayScale(this.rgbColor) > 0.5 ? 'black' : 'white',
-      }
-    },
-    colorPaletteIsDefault() {
-      return this.loading || this.colorPickerPalette.toString() === this.factoryColorPalette.toString()
-    },
-    colorPaletteHasChanged() {
-      return !this.loading && this.colorPickerPalette.toString() !== this.savedState.colorPickerPalette.toString()
-    },
-    /**
-     * Writable computable property which updates this.value through
-     * sending an event to the parent.
-     */
-    rgbColor: {
-      set(newValue) {
-        if (this.loading) {
-          return
-        }
-        newValue = newValue.toLowerCase()
-        this.$emit('update:value', newValue)
-        this.$emit('input', newValue)
-      },
-      get() {
-        return this.value
-      },
-    },
-  },
-  watch: {
-    colorPickerPalette: {
-      handler(newValue, oldValue) {
-        this.info('PALETTE', newValue, oldValue)
-        if (this.loading) {
-          return
-        }
-        this.colorPaletteHasChanged = true
-        this.$emit('update:color-palette', newValue)
-      },
-      deep: true,
-    },
-    colorPalette(newValue, oldValue) {
-      if (this.loading) {
-        return
-      }
-      if (!!newValue && !!oldValue && newValue.toString() === oldValue.toString()) {
-        return
-      }
-      if (newValue && Array.isArray(newValue) && this.colorPickerPalette) {
-        this.colorPickerPalette.splice(0, Infinity, ...newValue)
-      }
-    },
-  },
-  created() {
-    // console.info('VALUE', this.value, this.rgbColor, this.oldRgbColor)
-    // console.info('LOADING IN CREATED', this.loading)
-  },
-  mounted() {
-    // This seemingly stupid construct of having
-    // this.colorPickerPalette === undefined at start enables us to peek
-    // the default palette from the NC color picker widget.
-    this.factoryColorPalette = [...this.$refs.colorPicker.palette]
-    this.info('FACTORY PALETTE', this.factoryColorPalette)
-    vueSet(
-      this,
-      'colorPickerPalette',
-      (this.colorPalette && Array.isArray(this.colorPalette) && this.colorPalette.length > 0)
-        ? [...this.colorPalette]
-        : [...this.factoryColorPalette],
-    )
-    this.info('PALETTE IS NOW', this.colorPickerPalette, this.colorPalette, this.factoryColorPalette)
-    if (this.rgbColor) {
-      this.prependColorToPalette(this.rgbColor)
-    }
-    this.saveState()
-    nextTick(() => {
-      this.loading = false
-    })
-  },
-  methods: {
-    info(...args) {
-      console.info(this.$options.name, ...args)
-    },
-    submitCustomColor(color) {
-      this.prependColorToPalette(color)
-    },
-    submitColorChoice(color) {
-      this.pickerVisible = false
-      this.oldRgbColor = this.rgbColor
-    },
-    handleOpen() {
-    },
-    revertColorPalette() {
-      this.colorPickerPalette.splice(0, Infinity, ...this.oldColorPalette)
-    },
-    resetColorPalette() {
-      this.colorPickerPalette.splice(0, Infinity, ...this.factoryColorPalette)
-    },
-    prependColorToPalette(color, destinationStorage) {
-      if (destinationStorage === undefined) {
-        destinationStorage = this
-      }
-      color = color.toLowerCase()
-      if (!destinationStorage.colorPickerPalette.includes(color)) {
-        const palette = [...destinationStorage.colorPickerPalette]
-        palette.pop()
-        palette.splice(0, 0, color)
-        vueSet(destinationStorage, 'colorPickerPalette', palette)
-      }
-    },
-    /**
-     * Convert an RGH color to a grey-scale value. This is used to
-     * switch the trigger-button color between black and white,
-     * depending on the grey-value of the color.
-     *
-     * @param {Array} rgb RGB color array.
-     *
-     * @return {number} Grey-value corresponding to rgb.
-     */
-    rgbToGrayScale(rgb) {
-      const r = Number('0x' + rgb.substring(1, 3))
-      const g = Number('0x' + rgb.substring(3, 5))
-      const b = Number('0x' + rgb.substring(5, 7))
-      return (0.3 * r + 0.59 * g + 0.11 * b) / 255.0
-    },
-    saveState() {
-      this.savedState.rgbColor = this.rgbColor
-      this.savedState.colorPickerPalette = [...this.colorPickerPalette]
-      this.prependColorToPalette(this.rgbColor, this.savedState)
-    },
-  },
 }
 </script>
 <style scoped lang="scss">
 .color-picker-container {
   .trigger-button {
+    background-color: var(--button-background-color);
+    color: var(--button-foreground-color);
     margin-right:0;
     border-top-right-radius:0;
     border-bottom-right-radius:0;
     &:not(:focus,:hover) {
       border-right:0;
     }
-    background-color: var(--button-background-color);
-    color: var(--button-foreground-color);
   }
   .confirm-button {
+    min-height: 44px; // in order to match NcButton
     border-top-left-radius:0;
     border-bottom-left-radius:0;
-    &:not(:focus,:hover) {
-      border-left:2px solid var(--color-background-dark);
-    }
-    min-height: 44px; // in order to match NcButton
     border: 2px solid var(--color-border-dark);
     &:hover:not(:disabled) {
       border: 2px solid var(--color-primary-element);
+    }
+    &:not(:focus,:hover) {
+      border-left:2px solid var(--color-background-dark);
     }
   }
 }
