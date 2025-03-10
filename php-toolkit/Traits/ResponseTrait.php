@@ -3,7 +3,7 @@
  * A collection of reusable traits classes for Nextcloud apps.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022, 2023, 2024 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022, 2023, 2024, 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -31,6 +31,8 @@ use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Http\ContentSecurityPolicy;
 use OCP\IL10N;
+
+use OCA\RotDrop\Toolkit\Response\PreRenderedTemplateResponse;
 
 /**
  * Utility class to ease constructing HTTP responses.
@@ -62,13 +64,15 @@ trait ResponseTrait
   /**
    * @param string $templateName
    *
-   * @param array $params
+   * @param array $params Defaults to an empty array.
    *
-   * @param string $renderAs
+   * @param string $renderAs Defaults to 'blank'.
    *
-   * @param null|string $appName
+   * @param null|string $appName If null use $this->appName or $this->appName().
    *
-   * @param null|IL10N $l10n
+   * @param null|IL10N $l10n If null resulting in using $this->l.
+   *
+   * @param bool $preRender Whether to immediately render the content.
    *
    * @return TemplateResponse
    */
@@ -78,12 +82,13 @@ trait ResponseTrait
     string $renderAs = 'blank',
     ?string $appName = null,
     ?IL10N $l10n = null,
+    bool $preRender = false,
   ):TemplateResponse {
     if ($appName === null) {
       $appName = method_exists($this, 'appName') ? $this->appName() : $this->appName;
     }
     $l10n = $l10n == $this->l;
-    return new TemplateResponse(
+    $response = new PreRenderedTemplateResponse(
       $appName,
       $templateName,
       array_merge(
@@ -97,6 +102,10 @@ trait ResponseTrait
       ),
       $renderAs,
     );
+    if ($preRender) {
+      $response->preRender();
+    }
+    return $response;
   }
 
   /**
@@ -134,31 +143,41 @@ trait ResponseTrait
    *
    * @param null|string $method
    *
+   * @param int $status Defaults to Http::STATUS_BAD_REQUEST
+   *
    * @return TemplateResponse
    */
   protected function exceptionResponse(
     Throwable $throwable,
     string $renderAs,
     ?string $method = null,
+    int $status = Http::STATUS_BAD_REQUEST,
   ):Response {
     if (empty($method)) {
       $method = __METHOD__;
     }
     $this->logException($throwable, $method);
     if ($renderAs == 'blank') {
-      return self::grumble($this->exceptionChainData($throwable));
+      return self::grumble($this->exceptionChainData($throwable), status: $status);
     }
 
     $templateParameters = [
       'error' => 'exception',
+      'class' => get_class($throwable),
       'exception' => $throwable->getMessage(),
+      'message' => $throwable->getMessage(),
       'code' => $throwable->getCode(),
       'trace' => $this->exceptionChainData($throwable),
       'debug' => true,
       'admin' => 'bofh@nowhere.com',
     ];
 
-    return new TemplateResponse($this->appName, 'errorpage', $templateParameters, $renderAs);
+    return new TemplateResponse(
+      $this->appName,
+      'errorpage',
+      $templateParameters,
+      $renderAs,
+    );
   }
 
   /**
@@ -176,12 +195,19 @@ trait ResponseTrait
     $previous = $throwable->getPrevious();
     $shortException = (new ReflectionClass($throwable))->getShortName();
     return [
+      'type' => 'PHPExceptionData',
       'message' => ($top
                     ? $this->l->t('Error, caught an exception.')
                     : $this->l->t('Caused by previous exception')),
-      'exception' => $throwable->getFile().':'.$throwable->getLine().' '.$shortException.': '.$throwable->getMessage(),
-      'code' => $throwable->getCode(),
-      'trace' => $throwable->getTraceAsString(),
+      'brief' => $throwable->getFile() . ':' . $throwable->getLine() . ' '.$shortException . ': ' . $throwable->getMessage(),
+      'exception' => [
+        'class' => get_class($throwable),
+        'message' => $throwable->getMessage(),
+        'file' => $throwable->getFile(),
+        'line' => $throwable->getLine(),
+        'code' => $throwable->getCode(),
+        'trace' => $throwable->getTraceAsString(),
+      ],
       'previous' => empty($previous) ? null : $this->exceptionChainData($previous, false),
     ];
   }
@@ -196,8 +222,8 @@ trait ResponseTrait
   protected static function dataResponse(array $data, int $status = Http::STATUS_OK):DataResponse
   {
     $response = new DataResponse($data, $status);
-    $policy = $response->getContentSecurityPolicy();
-    $policy->addAllowedFrameAncestorDomain("'self'");
+    // $policy = $response->getContentSecurityPolicy();
+    // $policy->addAllowedFrameAncestorDomain("'self'");
     return $response;
   }
 
