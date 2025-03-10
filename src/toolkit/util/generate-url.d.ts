@@ -1,5 +1,5 @@
 /**
- * @copyright Copyright (c) 2022, 2023, 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright Copyright (c) 2022, 2023, 2024, 2025, 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
  *
@@ -17,22 +17,10 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 
-import { appName } from '../../config.ts';
+export function generateUrl<T extends string>(url: T, urlParams?: Record<string, string|number|null>, urlOptions?: Record<string, string>):string;
+export function generateOcsUrl<T extends string>(url: T, urlParams?: Record<string, string|number|null>, urlOptions?: Record<stgring, string>):string;
 
-import { loadState } from '@nextcloud/initial-state';
-
-export const getInitialState = (section, defaultValue) => {
-  section = section || 'config';
-  try {
-    return loadState(appName, section);
-  } catch (err) {
-    if (defaultValue === undefined) {
-      console.error('error in loadState("' + section + '"): ', err);
-    }
-    return defaultValue || null;
-  }
-};
-
-export default getInitialState;
+export default generateUrl;

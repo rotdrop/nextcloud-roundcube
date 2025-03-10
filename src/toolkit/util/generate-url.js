@@ -1,5 +1,5 @@
 /**
- * @copyright Copyright (c) 2022, 2023, 2024 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright Copyright (c) 2022-2025 Claus-Justus Heine <himself@claus-justus-heine.de>
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
  *
@@ -20,15 +20,18 @@
  *
  */
 
-import { appName } from '../../config.js';
-import { generateUrl as nextcloudGenerateUrl } from '@nextcloud/router';
+import { appName } from '../../config.ts';
+import {
+  generateUrl as nextcloudGenerateUrl,
+  generateOcsUrl as nextcloudGenerateOcsUrl,
+} from '@nextcloud/router';
 
 /**
  * Generate an absolute URL for this app.
  *
  * @param {string} url The locate URL without app-prefix.
  *
- * @param {object} urlParams Object holding url-parameters if url
+ * @param {object} [urlParams] Object holding url-parameters if url
  * contains parameters. "Excess" parameters will be appended as query
  * parameters to the URL.
  *
@@ -42,9 +45,29 @@ import { generateUrl as nextcloudGenerateUrl } from '@nextcloud/router';
  *
  * @return {string}
  */
-const generateUrl = function(url, urlParams, urlOptions) {
+export const generateUrl = function(url, urlParams, urlOptions) {
   // const str = '/image/{joinTable}/{ownerId}';
   let generated = nextcloudGenerateUrl('/apps/' + appName + '/' + url, urlParams, urlOptions);
+  const queryParams = { ...urlParams };
+  for (const urlParam of url.matchAll(/{([^{}]*)}/g)) {
+    delete queryParams[urlParam[1]];
+  }
+  const queryArray = [];
+  for (const [key, value] of Object.entries(queryParams)) {
+    try {
+      queryArray.push(key + '=' + encodeURIComponent(value.toString()));
+    } catch (e) {
+      console.debug('STRING CONVERSION ERROR', e);
+    }
+  }
+  if (queryArray.length > 0) {
+    generated += '?' + queryArray.join('&');
+  }
+  return generated;
+};
+
+export const generateOcsUrl = function(url, urlParams, urlOptions) {
+  let generated = nextcloudGenerateOcsUrl('/apps/' + appName + '/' + url, urlParams, urlOptions);
   const queryParams = { ...urlParams };
   for (const urlParam of url.matchAll(/{([^{}]*)}/g)) {
     delete queryParams[urlParam[1]];

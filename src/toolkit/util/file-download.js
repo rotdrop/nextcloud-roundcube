@@ -1,5 +1,5 @@
 /**
- * @copyright Copyright (c) 2022, 2023, 2024 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright Copyright (c) 2022, 2023, 2024, 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
  *
@@ -62,7 +62,7 @@ const download = function(url, post, options) {
       },
     };
   }
-  options = $.extend({}, defaultOptions, options);
+  options = { ...defaultOptions, ...options };
   const fail = options.fail;
   options.fail = function(data) {
 
