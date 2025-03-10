@@ -11,8 +11,7 @@
   ],
   "require": {},
   "require-dev": {
-    "phpunit/phpunit": "*",
-    "nextcloud/coding-standard": "*",
+    "bamarni/composer-bin-plugin": "^1.8",
     "phpmd/phpmd" : "@stable",
     "squizlabs/php_codesniffer": "3.*",
     "zebra-north/phpcs-short-types": "^1.0"
@@ -22,6 +21,9 @@
     "classmap-authoritative": true,
     "platform": {
       "php": "8.1.0"
+    },
+    "allow-plugins": {
+      "bamarni/composer-bin-plugin": true
     }
   },
   "repositories": [],
@@ -29,5 +31,12 @@
     "lint": "find . -name \\*.php -not -path './vendor/*' -not -path './build/*' -print0 | xargs -0 -n1 php -l",
     "cs:check": "php-cs-fixer fix --dry-run --diff",
     "cs:fix": "php-cs-fixer fix"
+  },
+  "extra": {
+    "bamarni-bin": {
+      "bin-links": true,
+      "target-directory": "vendor-bin",
+      "forward-command": true
+    }
   }
 }

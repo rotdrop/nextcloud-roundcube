@@ -26,6 +26,7 @@ PHP = $(shell which php 2> /dev/null)
 NPM = $(shell which npm 2> /dev/null)
 WGET = $(shell which wget 2> /dev/null)
 OPENSSL = $(shell which openssl 2> /dev/null)
+PHPUNIT = ./vendor/bin/phpunit
 
 COMPOSER_SYSTEM = $(shell which composer 2> /dev/null)
 ifeq (, $(COMPOSER_SYSTEM))
@@ -272,7 +273,8 @@ clean: ## Tidy up local environment
 
 #@@ Same as clean but also removes dependencies installed by composer, bower and npm
 distclean: clean ## Clean even more, calls clean
-	rm -rf vendor*
+	rm -rf vendor
+	rm -rf vendor-bin/**/vendor
 	rm -rf node_modules
 	rm -rf lib/Toolkit/*
 .PHONY: distclean
@@ -281,6 +283,7 @@ distclean: clean ## Clean even more, calls clean
 mostlyclean: webpack-clean distclean
 	rm -f composer*.lock
 	rm -f composer.json
+	rm -f vendor-bin/**/composer.lock
 	rm -f stamp.composer-core-versions
 	rm -f package-lock.json
 	rm -f *.html
@@ -301,10 +304,10 @@ test: unit-tests integration-tests
 
 #@@ Run the unit tests
 unit-tests:
-	./vendor/phpunit/phpunit/phpunit -c phpunit.xml
+	$(PHPUNIT) -c phpunit.xml
 .PHONY: unit-tests
 
 #@@ Run the integration tests
 integration-tests:
-	./vendor/phpunit/phpunit/phpunit -c phpunit.integration.xml
+	$(PHPUNIT) -c phpunit.integration.xml
 .PHONY: integration-tests
