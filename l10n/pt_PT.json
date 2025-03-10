@@ -23,6 +23,7 @@
     "Email Domain" : "Domínio do Correio Eletrónico",
     "User's Preferences" : "Preferências do Utilizador",
     "User's Choice" : "Escolha do Utilizador",
+    "Email Address" : "Endereço de correio eletrónico",
     "Advanced Settings" : "Definições Avançadas ",
     "Enable SSL verification." : "Ativa a verificação de SSL."
 },"pluralForm" :"nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"

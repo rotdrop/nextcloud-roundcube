@@ -1,6 +1,7 @@
 OC.L10N.register(
     "mail_roundcube",
     {
+    "User" : "Naudotojas",
     "Password" : "Slaptažodis",
     "bytes" : "baitų",
     "User ID" : "Naudotojo ID",

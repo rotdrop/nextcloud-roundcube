@@ -10,6 +10,7 @@ OC.L10N.register(
     "The personal setting \"%1$s\" is read-only" : "L'impostazione personale \"%1$s\" è in sola lettura",
     "Unknown personal setting: \"%s\"." : "Impostazione personale sconosciuta: \"%s\".",
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Problema di installazione; la risorsa richiesta \"%1$s\" di tipo \"%2$s\" non è installata sul server, contatta l'amministratore di sistema!",
+    "User" : "Utente",
     "Password" : "Password",
     "Error, caught an exception." : "Errore, catturata un'eccezione.",
     "Caused by previous exception" : "Causata dalla precedente eccezione",
