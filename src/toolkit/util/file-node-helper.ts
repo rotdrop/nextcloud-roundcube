@@ -1,5 +1,5 @@
 /**
- * @copyright Copyright (c) 2024 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright Copyright (c) 2024, 2025, 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
@@ -20,18 +20,34 @@
 
 import { getCurrentUser } from '@nextcloud/auth';
 import { join } from 'path';
-import { File, Folder } from '@nextcloud/files';
+import { File, Folder, FileType } from '@nextcloud/files';
 import { generateRemoteUrl } from '@nextcloud/router';
 
+export interface FileInfoDTO {
+  fileid: number,
+  path: string,
+  topLevelFolder: string,
+  relativePath: string,
+  basename: string,
+  lastmod: number,
+  mime: string,
+  size: number,
+  type: FileType,
+  hasPreview: boolean,
+  permissions: number,
+  'mount-type': string,
+  etag: string,
+};
+
 /**
- * @param {object} fileInfo File-info object.
+ * @param fileInfo File-info object.
  *
- * @param {undefined|string} [owner] If undefined the current user is used.
+ * @param owner If undefined the current user is used.
  *
- * @return {File|Folder}
+ * @return Result.
  */
-export const fileInfoToNode = function(fileInfo, owner) {
-  owner = owner || getCurrentUser().uid;
+export const fileInfoToNode = (fileInfo: FileInfoDTO, owner?: string) => {
+  owner = owner || getCurrentUser()!.uid;
   const userFrontEndFolder = '/' + owner + '/files';
   if (fileInfo.topLevelFolder !== userFrontEndFolder) {
     throw new Error(`${fileInfo.path} is located outside of the front end user file space ${userFrontEndFolder}.`);

@@ -1,5 +1,5 @@
 /**
- * @copyright Copyright (c) 2024 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright Copyright (c) 2024, 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
@@ -18,7 +18,7 @@
  *
  */
 
-import type { Event } from '@nextcloud/event-bus';
+// import type { Event } from '@nextcloud/event-bus';
 
 /**
  * Define the type used by the notifications app as Event. These are
@@ -46,6 +46,14 @@ export interface Notification {
   index: number;
 }
 
-export interface NotificationEvent extends Event {
+export interface NotificationEvent /* extends Event */ {
   notification: Notification;
 }
+
+declare module '@nextcloud/event-bus' {
+  interface NextcloudEvents {
+    'notifications:notification:received': NotificationEvent,
+  }
+}
+
+export {}

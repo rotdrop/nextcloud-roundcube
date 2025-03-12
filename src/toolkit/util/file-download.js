@@ -21,8 +21,8 @@
  */
 
 import $ from './jquery.js';
-import { appName } from '../../config.js';
-import generateUrl from './generate-url.js';
+import { appName } from '../../config.ts';
+import { generateUrl } from './generate-url.js';
 import * as Ajax from './ajax.js';
 import * as ncRouter from '@nextcloud/router';
 import { showError, TOAST_PERMANENT_TIMEOUT } from '@nextcloud/dialogs';

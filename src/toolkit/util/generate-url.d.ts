@@ -20,7 +20,7 @@
  *
  */
 
-export function generateUrl<T extends string>(url: T, urlParams?: Record<string, string|number|null>, urlOptions?: Record<string, string>):string;
-export function generateOcsUrl<T extends string>(url: T, urlParams?: Record<string, string|number|null>, urlOptions?: Record<stgring, string>):string;
+export function generateUrl<T extends string>(url: T, urlParams?: Record<string, string|number|boolean|null>, urlOptions?: Record<string, string>):string;
+export function generateOcsUrl<T extends string>(url: T, urlParams?: Record<string, string|number|boolean|null>, urlOptions?: Record<stgring, string>):string;
 
 export default generateUrl;

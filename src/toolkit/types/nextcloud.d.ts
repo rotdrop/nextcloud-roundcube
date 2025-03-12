@@ -1,6 +1,6 @@
 /**
- * @copyright Copyright (c) 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
- * @author Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @author Claus-Justus Heine
+ * @copyright 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -17,11 +17,21 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { appName } from '../../config.js';
+declare global {
+  var OC: {
+    config: {
+      versionstring: string,
+    }
+    dialogs: {
+      confirm: (text: string, title: string, callback: (answer: boolean) => any, modal: boolean) => void,
+      alert: (text: string, title: string) => void,
+    },
+  };
+  var OCA: {
+    Files: {
+      [key: string]: any,
+    },
+  }
+}
 
-// TRANSLATORS: This should be a pangram in the target language, please have a look at
-// TRANSLATORS: https://en.wikipedia.org/wiki/Pangram where you can
-// TRANSLATORS: also find examples for some languages.
-const pangram = t(appName, 'The quick brown fox jumps over the lazy dog.');
-
-export default pangram;
+export {}

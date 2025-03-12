@@ -19,7 +19,7 @@
  */
 
 import $ from './jquery.js';
-import { appName } from '../../config.js';
+import { appName } from '../../config.ts';
 // eslint-disable-next-line camelcase
 import print_r from './print-r.js';
 import * as Dialogs from './dialogs.js';

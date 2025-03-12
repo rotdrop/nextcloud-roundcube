@@ -1,8 +1,6 @@
 /**
- * @copyright Copyright (c) 2022, 2023, 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
- *
+ * @copyright Copyright (c) 2022, 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- *
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -17,31 +15,14 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
- *
  */
 
-// jQuery stuff
-
 import { appName } from '../../config.ts';
-import { getRequestToken, onRequestTokenUpdate } from '@nextcloud/auth';
-const jQuery = require('jquery');
+import { translate as t } from '@nextcloud/l10n';
 
-if (window.jQuery && window.jQuery !== jQuery) {
-  console.info(appName + ': JQUERY VERSIONS W / A', window.jQuery.fn.jquery, jQuery.fn.jquery);
-  // if (window.jQuery.fn.jquery === jQuery.fn.jquery) {
-  //   console.info(appName + ': using matching window.jQuery version');
-  //   jQuery = window.jQuery;
-  // }
-}
+// TRANSLATORS: This should be a pangram in the target language, please have a look at
+// TRANSLATORS: https://en.wikipedia.org/wiki/Pangram where you can
+// TRANSLATORS: also find examples for some languages.
+const pangram = t(appName, 'The quick brown fox jumps over the lazy dog.');
 
-let requestToken = getRequestToken() || '';
-
-jQuery.ajaxSetup({
-  beforeSend(xhr) {
-    xhr.setRequestHeader('requesttoken', requestToken);
-  },
-});
-
-onRequestTokenUpdate(token => { requestToken = token; });
-
-export default jQuery;
+export default pangram;
