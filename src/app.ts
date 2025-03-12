@@ -29,8 +29,6 @@ import App from './App.vue';
 // eslint-disable-next-line
 __webpack_public_path__ = generateFilePath(appName, '', 'js/');
 
-Vue.mixin({ data() { return { appName }; }, methods: { t, n } });
-
 export default new Vue({
   el: '#' + appName + '-app',
   render: h => h(App),

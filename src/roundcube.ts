@@ -102,9 +102,6 @@ const fillWidth = function(frame: HTMLIFrameElement) {
  * @param frame TBD.
  */
 const resizeIframe = function(frame: HTMLIFrameElement) {
-  if (!frame) {
-    return;
-  }
   fillHeight(frame);
   fillWidth(frame);
 };

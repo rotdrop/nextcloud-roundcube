@@ -66,7 +66,7 @@ const roundCubeFrame = ref<null|HTMLIFrameElement>(null)
 
 const loadHandlerWrapper = () => {
   console.info('ROUNDCUBD: GOT LOAD EVENT')
-  loadHandler(roundCubeFrame.value)
+  loadHandler(roundCubeFrame.value!)
   if (!gotLoadEvent) {
     loaderContainer.value!.classList.add('fading')
   }
@@ -74,7 +74,7 @@ const loadHandlerWrapper = () => {
 }
 
 const resizeHandlerWrapper = () => {
-  resizeHandler(roundCubeFrame.value)
+  resizeHandler(roundCubeFrame.value!)
 }
 
 const loadTimeout = 1000 // 1 second
