@@ -33,6 +33,7 @@ OC.L10N.register(
     "revert color" : "врати стару боју",
     "restore palette" : "врати палету",
     "factory reset palette" : "фабричка подешавања палете",
+    "Custom Color" : "Произвољна боја",
     "Choose a folder" : "Изаберите фолдер",
     "Choose a prefix-folder" : "Изаберите префикс-фолдер",
     "Invalid path selected: \"{dir}\"." : "Изабрана је неисправна путања: „{dir}”.",

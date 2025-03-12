@@ -33,6 +33,7 @@ OC.L10N.register(
     "revert color" : "dath ar ais",
     "restore palette" : "pailéad a chur ar ais",
     "factory reset palette" : "pailéad athshocrú monarchan",
+    "Custom Color" : "Dath an Chustaim",
     "Choose a folder" : "Roghnaigh fillteán",
     "Choose a prefix-folder" : "Roghnaigh fillteán réimír",
     "Invalid path selected: \"{dir}\"." : "Conair neamhbhailí roghnaithe: \"{dir}\".",
