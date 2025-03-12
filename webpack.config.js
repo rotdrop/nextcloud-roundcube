@@ -1,4 +1,5 @@
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const BabelLoaderExcludeNodeModulesExcept = require('babel-loader-exclude-node-modules-except');
 const CssoWebpackPlugin = require('csso-webpack-plugin').default;
 const DeadCodePlugin = require('webpack-deadcode-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
@@ -23,13 +24,12 @@ const appName = appInfo.info.id[0];
 const productionMode = process.env.NODE_ENV === 'production';
 
 webpackConfig.entry = {
-  'admin-settings': path.join(__dirname, 'src', 'admin-settings.js'),
-  'personal-settings': path.join(__dirname, 'src', 'personal-settings.js'),
-  app: path.join(__dirname, 'src', 'app.js'),
+  'admin-settings': path.join(__dirname, 'src', 'admin-settings.ts'),
+  'personal-settings': path.join(__dirname, 'src', 'personal-settings.ts'),
+  app: path.join(__dirname, 'src', 'app.ts'),
 };
 
 webpackConfig.output = {
-  // path: path.resolve(__dirname, 'js'),
   path: path.resolve(__dirname, '.'),
   publicPath: '',
   filename: 'js/[name]-[contenthash].js',
@@ -147,11 +147,49 @@ webpackConfig.module.rules = [
   {
     test: /\.vue$/,
     loader: 'vue-loader',
+    exclude: BabelLoaderExcludeNodeModulesExcept([
+      'vue-material-design-icons',
+      'emoji-mart-vue-fast',
+      '@rotdrop/nextcloud-vue-components',
+      '@nextcloud/vue',
+    ]),
+  },
+  {
+    test: /\.tsx?$/,
+    use: [
+      'babel-loader',
+      {
+        // Fix TypeScript syntax errors in Vue
+        loader: 'ts-loader',
+        options: {
+          transpileOnly: true,
+        },
+      },
+    ],
+    exclude: BabelLoaderExcludeNodeModulesExcept([
+      '@rotdrop/nextcloud-vue-components',
+    ]),
   },
   {
     test: /\.js$/,
     loader: 'babel-loader',
-    exclude: /node_modules/,
+    exclude: BabelLoaderExcludeNodeModulesExcept([
+      '@nextcloud/dialogs',
+      '@nextcloud/event-bus',
+      'davclient.js',
+      'nextcloud-vue-collections',
+      'p-finally',
+      'p-limit',
+      'p-locate',
+      'p-queue',
+      'p-timeout',
+      'p-try',
+      'semver',
+      'striptags',
+      'toastify-js',
+      'v-tooltip',
+      'yocto-queue',
+    ]),
   },
 ];
 

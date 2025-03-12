@@ -78,8 +78,17 @@ dev: dev-setup npm-dev # test
 .PHONY: dev
 
 #@private
-dev-setup: app-toolkit composer
+dev-setup: app-toolkit composer ts-app-config
 .PHONY: dev-setup
+
+#@private
+ts-app-config: $(BUILDDIR)/ts-types/app-config.ts
+.PHONY: ts-app-config
+
+#@private
+$(BUILDDIR)/ts-types/app-config.ts: Makefile $(APP_INFO) $(ABSSRCDIR)/app-config.ts.in
+	mkdir -p $$(dirname $@)
+	sed 's/@@APP_NAME@@/$(APP_NAME)/g' $(ABSSRCDIR)/app-config.ts.in > $@
 
 #@private
 composer.json: composer.json.in
@@ -134,7 +143,7 @@ WEBPACK_DEPS =\
  $(NPM_INIT_DEPS)\
  $(JS_FILES)
 
-WEBPACK_TARGETS = $(ABSSRCDIR)/js/asset-meta.json
+WEBPACK_TARGETS = $(ABSSRCDIR)/js/asset-meta.json ts-app-config
 
 #@private
 package-lock.json: package.json webpack.config.js Makefile
@@ -148,7 +157,7 @@ PREV_BUILD_FLAVOUR = $(shell cat $(BUILD_FLAVOUR_FILE) 2> /dev/null || echo)
 #@private
 build-flavour-dev:
 ifneq ($(PREV_BUILD_FLAVOUR), dev)
-	make clean
+	make clean ts-app-config
 	echo dev > $(BUILD_FLAVOUR_FILE)
 endif
 .PHONY: build-flavour-dev
@@ -156,7 +165,7 @@ endif
 #@private
 build-flavour-build:
 ifneq ($(PREV_BUILD_FLAVOUR), build)
-	make clean
+	make clean ts-app-config
 	echo build > $(BUILD_FLAVOUR_FILE)
 endif
 .PHONY: build-flavour-build
