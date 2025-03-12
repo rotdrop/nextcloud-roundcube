@@ -109,8 +109,6 @@ class PageController extends Controller
       Config::SHOW_TOP_LINE => $this->config->getAppValue(Config::SHOW_TOP_LINE),
     ]);
 
-    $url = $this->authenticator->externalURL();
-
     $tplParams = [
       'appName' => $this->appName,
       'assets' => [
@@ -121,7 +119,7 @@ class PageController extends Controller
     $tpl = new TemplateResponse($this->appName, self::MAIN_TEMPLATE, $tplParams);
 
     // This is mandatory to embed a different server in an iframe.
-    $urlParts = parse_url($url);
+    $urlParts = parse_url($roundCubeUrl);
     $rcServer = $urlParts['host'];
 
     if ($rcServer !== '') {
