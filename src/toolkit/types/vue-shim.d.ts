@@ -90,6 +90,7 @@ declare module '@nextcloud/vue' {
   const NcCheckboxRadioSwitch: Vue;
   const NcEllipsisedOption: Vue;
   const NcEmptyContent: Vue;
+  const NcPasswordField: Vue;
 
   export {
     NcActionButton,
@@ -116,6 +117,7 @@ declare module '@nextcloud/vue' {
     NcListItem,
     NcListItemIcon,
     NcModal,
+    NcPasswordField,
     NcProgressBar,
     NcRichText,
     NcSelect,

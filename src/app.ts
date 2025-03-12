@@ -1,8 +1,9 @@
 /**
  * Nextcloud RoundCube App.
  *
- * @author Claus-Justus Heine
- * @copyright 2020, 2021, 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @author Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2020, 2021, 2022, 2023, 2023, 2025 Claus-Justus Heine
+ * @license AGPL-3.0-or-later
  *
  * Nextcloud RoundCube App is free software: you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -19,10 +20,18 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-const appInfo = require('../appinfo/info.xml');
-const appName = appInfo.info.id[0];
+import { appName } from './config.ts';
+import { generateFilePath } from '@nextcloud/router';
 
-export {
-  appInfo,
-  appName,
-};
+import Vue from 'vue';
+import App from './App.vue';
+
+// eslint-disable-next-line
+__webpack_public_path__ = generateFilePath(appName, '', 'js/');
+
+Vue.mixin({ data() { return { appName }; }, methods: { t, n } });
+
+export default new Vue({
+  el: '#' + appName + '-app',
+  render: h => h(App),
+});

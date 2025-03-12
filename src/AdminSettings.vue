@@ -1,5 +1,5 @@
 <!--
- - @copyright Copyright (c) 2022-2024 Claus-Justus Heine <himself@claus-justus-heine.de>
+ - @copyright Copyright (c) 2022-2025 Claus-Justus Heine <himself@claus-justus-heine.de>
  - @author Claus-Justus Heine <himself@claus-justus-heine.de>
  - @license AGPL-3.0-or-later
  -
@@ -24,7 +24,7 @@
     <NcSettingsSection :name="t(appName, 'Roundcube Installation')"
                        class="flex-container flex-column"
     >
-      <TextField :value.sync="externalLocation"
+      <TextField :value.sync="settings.externalLocation"
                  type="text"
                  :label="t(appName, 'RoundCube Installation Path')"
                  :hint="t(appName, 'RoundCube path can be entered relative to the Nextcloud server')"
@@ -37,7 +37,7 @@
     >
       <div class="flex-container flex-row flex-center email-address-choice">
         <input id="user-id-email"
-               v-model="emailAddressChoice"
+               v-model="settings.emailAddressChoice"
                class="radio"
                type="radio"
                name="emailAddressChoice"
@@ -48,17 +48,17 @@
         <label for="user-id-email">
           {{ t(appName, 'Cloud Login-Id') }}
         </label>
-        <span :class="['user-id-email-placeholder', { disabled: loading || (emailAddressChoice !== 'userIdEmail')}]">{{ t(appName, 'User ID') }}@</span>
-        <TextField :value.sync="emailDefaultDomain"
+        <span :class="['user-id-email-placeholder', { disabled: loading || (settings.emailAddressChoice !== 'userIdEmail')}]">{{ t(appName, 'User ID') }}@</span>
+        <TextField :value.sync="settings.emailDefaultDomain"
                    class="email-default-domain"
-                   :disabled="loading || (emailAddressChoice !== 'userIdEmail')"
+                   :disabled="loading || (settings.emailAddressChoice !== 'userIdEmail')"
                    :placeholder="t(appName, 'Email Domain')"
                    @submit="saveTextInput('emailDefaultDomain')"
         />
       </div>
       <div class="flex-container flex-row flex-center email-address-choice">
         <input id="user-preferences-email"
-               v-model="emailAddressChoice"
+               v-model="settings.emailAddressChoice"
                class="radio"
                type="radio"
                name="emailAddressChoice"
@@ -72,7 +72,7 @@
       </div>
       <div class="flex-container flex-row flex-center email-address-choice">
         <input id="user-chosen-email"
-               v-model="emailAddressChoice"
+               v-model="settings.emailAddressChoice"
                class="radio"
                type="radio"
                name="emailAddressChoice"
@@ -86,7 +86,7 @@
       </div>
       <div class="email-address-choice">
         <input id="fixed-single-address"
-               v-model="emailAddressChoice"
+               v-model="settings.emailAddressChoice"
                class="radio"
                type="radio"
                name="emailAddressChoice"
@@ -97,22 +97,20 @@
         <label for="fixed-single-address">
           {{ t(appName, 'Fixed Single Address') }}
         </label>
-        <div v-if="emailAddressChoice === 'fixedSingleAddress'">
-          <TextField :value.sync="fixedSingleEmailAddress"
+        <div v-if="settings.emailAddressChoice === 'fixedSingleAddress'">
+          <TextField :value.sync="settings.fixedSingleEmailAddress"
                      type="text"
                      :label="t(appName, 'Global Email Login')"
                      :hint="t(appName, 'Global email user-name for Roundcube for all users')"
-                     :disabled="loading || (emailAddressChoice !== 'fixedSingleAddress')"
+                     :disabled="loading || (settings.emailAddressChoice !== 'fixedSingleAddress')"
                      :placeholder="t(appName, 'Email Address')"
                      @submit="saveTextInput('fixedSingleEmailAddress'); saveTextInput('fixedSingleEmailPassword')"
           />
           <NcPasswordField :value.sync="protectedFixedSingleEmailPassword"
                            :label="t(appName, 'Global Email Password')"
-                           :disabled="loading || (emailAddressChoice !== 'fixedSingleAddress')"
+                           :disabled="loading || (settings.emailAddressChoice !== 'fixedSingleAddress')"
                            :placeholder="t(appName, 'Email Password')"
                            class="password"
-                           @update="info(fixedSingleEmailPassword, ...arguments)"
-                           @update:value="info(fixedSingleEmailPassword, ...arguments)"
           />
           <!-- :show-trailing-button="true"
                trailing-button-icon="arrowRight"
@@ -127,19 +125,19 @@
                        class="flex-container flex-column"
     >
       <input id="force-sso"
-             v-model="forceSSO"
+             v-model="settings.forceSSO"
              class="checkbox"
              type="checkbox"
              name="forceSSO"
              value="1"
-             :disabled="loading || emailAddressChoice === 'fixedSingleAddress'"
+             :disabled="loading || settings.emailAddressChoice === 'fixedSingleAddress'"
              @change="saveSetting('forceSSO')"
       >
       <label for="force-sso">
         {{ t(appName, 'Force single sign on (disables custom password).') }}
       </label>
       <input id="show-top-line"
-             v-model="showTopLine"
+             v-model="settings.showTopLine"
              class="checkbox"
              type="checkbox"
              name="showTopLine"
@@ -151,7 +149,7 @@
         {{ t(appName, 'Show RoundCube top information bar (shows logout button).') }}
       </label>
       <input id="enable-ssl-verify"
-             v-model="enableSSLVerify"
+             v-model="settings.enableSSLVerify"
              class="checkbox"
              type="checkbox"
              name="enableSSLVerify"
@@ -165,7 +163,7 @@
         {{ t(appName, 'Enable SSL verification.') }}
       </label>
       <input id="personal-encryption"
-             v-model="personalEncryption"
+             v-model="settings.personalEncryption"
              class="checkbox"
              type="checkbox"
              name="personalEncryption"
@@ -178,14 +176,14 @@
       >
         {{ t(appName, 'Per-user encryption of config values.') }}
       </label>
-      <TextField :value.sync="cardDavProvisioningTag"
+      <TextField :value.sync="settings.cardDavProvisioningTag"
                  :label="t(appName, 'RoundCube CardDAV Tag')"
                  :hint="t(appName, 'Tag of a preconfigured CardDAV account pointing to the cloud addressbook. See the documentation of the RCMCardDAV plugin.')"
                  :disabled="loading"
                  :placeholder="t(appName, 'Email Password')"
                  @submit="saveTextInput('cardDavProvisioningTag')"
       />
-      <div v-if="cardDavProvisioningTag">
+      <div v-if="settings.cardDavProvisioningTag">
         <p class="hint">
           {{ t(appName, `Below is a configuration snippet which may or may not work with the
 current version of the RoundCube CardDAV plugin. The configuration
@@ -215,9 +213,15 @@ at the explanations in the README.md file.`) }}
     </NcSettingsSection>
   </div>
 </template>
-<script>
-import { appName } from './config.js'
+<script setup lang="ts">
+import { appName } from './config.ts'
 import { generateRemoteUrl } from '@nextcloud/router'
+import {
+  computed,
+  ref,
+  reactive,
+} from 'vue'
+import { translate as t } from '@nextcloud/l10n'
 import {
   NcActionButton,
   NcListItem,
@@ -227,44 +231,38 @@ import {
 import TextField from '@rotdrop/nextcloud-vue-components/lib/components/TextFieldWithSubmitButton.vue'
 import { showSuccess, showError } from '@nextcloud/dialogs'
 import ClipBoard from 'vue-material-design-icons/Clipboard.vue'
-import settingsSync from './toolkit/mixins/settings-sync.js'
-import cloudVersionClasses from './toolkit/util/cloud-version-classes.js'
+import cloudVersionClassesImport from './toolkit/util/cloud-version-classes.js'
+import type { EmailAddressChoice } from './types/settings.d.ts'
+import {
+  fetchSettings,
+  saveConfirmedSetting,
+  saveSimpleSetting,
+} from './toolkit/util/settings-sync.ts'
 
-export default {
-  name: 'AdminSettings',
-  components: {
-    ClipBoard,
-    NcActionButton,
-    NcListItem,
-    NcPasswordField,
-    NcSettingsSection,
-    TextField,
-  },
-  mixins: [
-    settingsSync,
-  ],
-  data() {
-    return {
-      loading: true,
-      cloudVersionClasses,
-      externalLocation: '',
-      emailAddressChoice: null,
-      emailDefaultDomain: '',
-      fixedSingleEmailAddress: '',
-      fixedSingleEmailPassword: '',
-      forceSSO: false,
-      showTopLine: false,
-      enableSSLVerify: true,
-      personalEncryption: false,
-      cardDavProvisioningTag: '',
-    }
-  },
-  computed: {
-    cardDavTemplate() {
-      return `
-$prefs['${this.cardDavProvisioningTag}'] = [
-  'accountname'    => '${this.cardDavProvisioningTag}',
-  'discovery_url'  => '${this.addressBookUrl}',
+const loading = ref(true)
+
+const cloudVersionClasses = computed(() => cloudVersionClassesImport)
+
+const settings = reactive({
+  externalLocation: '',
+  emailAddressChoice: 'userChosenEmail' as EmailAddressChoice,
+  emailDefaultDomain: '',
+  fixedSingleEmailAddress: '',
+  fixedSingleEmailPassword: '',
+  forceSSO: false,
+  showTopLine: false,
+  enableSSLVerify: true,
+  personalEncryption: false,
+  cardDavProvisioningTag: '',
+})
+
+const addressBookUrl = computed(() => generateRemoteUrl('dav') + '/addressbooks/users/%l')
+
+const cardDavTemplate = computed(() =>
+  `
+$prefs['${settings.cardDavProvisioningTag}'] = [
+  'accountname'    => '${settings.cardDavProvisioningTag}',
+  'discovery_url'  => '${addressBookUrl.value}',
   'username'       => '%l',
   'password'       => '%p',
   'name'           => '%N (%a)',
@@ -275,60 +273,48 @@ $prefs['${this.cardDavProvisioningTag}'] = [
   'hide'           =>  false,
   'use_categories' => true,
 ];
-      `
-    },
-    addressBookUrl() {
-      return generateRemoteUrl('dav') + '/addressbooks/users/%l'
-    },
-    // NcTextField does not like null values
-    protectedFixedSingleEmailPassword: {
-      get() { return this.fixedSingleEmailPassword || '' },
-      set(newValue) { this.fixedSingleEmailPassword = newValue },
-    },
-  },
-  watch: {},
-  created() {
-    this.getData()
-  },
-  mounted() {
-  },
-  methods: {
-    info() {
-      console.info(this.$options.name, ...arguments)
-    },
-    async getData() {
-      // slurp in all personal settings
-      this.fetchSettings('admin').finally(() => {
-        this.loading = false
-      })
-    },
-    async saveTextInput(settingsKey, value, force) {
-      if (value === undefined) {
-        value = this[settingsKey] || ''
-      }
-      if (this.loading) {
-        // avoid ping-pong by reactivity
-        console.info('SKIPPING SETTINGS-SAVE DURING LOAD', settingsKey, value)
-        return
-      }
-      this.saveConfirmedSetting(value, 'admin', settingsKey, force)
-    },
-    async saveSetting(setting) {
-      if (this.loading) {
-        // avoid ping-pong by reactivity
-        console.info('SKIPPING SETTINGS-SAVE DURING LOAD', setting)
-        return
-      }
-      this.saveSimpleSetting(setting, 'admin')
-    },
-    copyCardDavConfig() {
-      navigator.clipboard.writeText(this.cardDavTemplate).then(function() {
-        showSuccess(t(appName, 'Config template has been copied to the clipboard.'))
-      }, function(reason) {
-        showError(t(appName, 'Failed copying the config template to the clipboard: {reason}.', { reason }))
-      })
-    },
-  },
+      `)
+
+const protectedFixedSingleEmailPassword = computed({
+  get() { return settings.fixedSingleEmailPassword || '' },
+  set(newValue) { settings.fixedSingleEmailPassword = newValue },
+})
+
+const getData = async () => {
+  // slurp in all personal settings
+  fetchSettings({ section: 'admin', settings }).finally(() => {
+    loading.value = false
+  })
+}
+getData()
+
+const saveTextInput = async (settingsKey: string, value?: string, force?: boolean) => {
+  if (value === undefined) {
+    value = settings[settingsKey] || ''
+  }
+  if (loading.value) {
+    // avoid ping-pong by reactivity
+    console.info('SKIPPING SETTINGS-SAVE DURING LOAD', settingsKey, value)
+    return
+  }
+  saveConfirmedSetting({ value, section: 'admin', settingsKey, force, settings })
+}
+
+const saveSetting = async (settingsKey: string) => {
+  if (loading.value) {
+    // avoid ping-pong by reactivity
+    console.info('SKIPPING SETTINGS-SAVE DURING LOAD', settingsKey)
+    return
+  }
+  saveSimpleSetting({ settingsKey, section: 'admin', settings })
+}
+
+const copyCardDavConfig = () => {
+  navigator.clipboard.writeText(cardDavTemplate.value).then(function() {
+    showSuccess(t(appName, 'Config template has been copied to the clipboard.'))
+  }, function(reason) {
+    showError(t(appName, 'Failed copying the config template to the clipboard: {reason}.', { reason }))
+  })
 }
 </script>
 <style lang="scss" scoped>

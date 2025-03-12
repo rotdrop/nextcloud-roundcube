@@ -2,7 +2,7 @@
  * Nextcloud RoundCube App.
  *
  * @author Claus-Justus Heine
- * @copyright 2020, 2021, 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2020, 2021, 2023, 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
  *
  * Nextcloud RoundCube App is free software: you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -19,22 +19,13 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-import { appName } from './config.js';
-import { generateFilePath } from '@nextcloud/router';
+import type { AppName } from '../build/ts-types/app-config.ts';
+import { appName } from '../build/ts-types/app-config.ts';
 
-import Vue from 'vue';
-import AdminSettings from './AdminSettings.vue';
+export type {
+  AppName,
+};
 
-import { Tooltip } from '@nextcloud/vue';
-
-Vue.directive('tooltip', Tooltip);
-
-// eslint-disable-next-line
-__webpack_public_path__ = generateFilePath(appName, '', 'js/');
-
-Vue.mixin({ data() { return { appName }; }, methods: { t, n } });
-
-export default new Vue({
-  el: '#' + appName + '-admin-settings',
-  render: h => h(AdminSettings),
-});
+export {
+  appName,
+};
