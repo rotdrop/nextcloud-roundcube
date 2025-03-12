@@ -33,6 +33,7 @@ OC.L10N.register(
     "revert color" : "rengi öncekine döndür",
     "restore palette" : "paleti geri yükle",
     "factory reset palette" : "paleti ilk durumuna sıfırla",
+    "Custom Color" : "Özel renk",
     "Choose a folder" : "Bir klasör seçin",
     "Choose a prefix-folder" : "Bir ön ek klasörü seçin",
     "Invalid path selected: \"{dir}\"." : "Seçilmiş yol geçersiz: \"{dir}\".",

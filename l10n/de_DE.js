@@ -33,6 +33,7 @@ OC.L10N.register(
     "revert color" : "Farbe umkehren",
     "restore palette" : "Palette wiederherstellen",
     "factory reset palette" : "Werksreset der Palette",
+    "Custom Color" : "Benutzerdefinierte Farbe",
     "Choose a folder" : "Ordner auswählen",
     "Choose a prefix-folder" : "Präfixordner auswählen",
     "Invalid path selected: \"{dir}\"." : "Es wurde ein ungültiger Pfad gewählt: \"{dir}\".",

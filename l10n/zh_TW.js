@@ -33,6 +33,7 @@ OC.L10N.register(
     "revert color" : "還原顏色",
     "restore palette" : "還原調色盤",
     "factory reset palette" : "將調色盤重設為出廠預設值",
+    "Custom Color" : "自訂顏色",
     "Choose a folder" : "選擇資料夾",
     "Choose a prefix-folder" : "選擇前綴資料夾",
     "Invalid path selected: \"{dir}\"." : "選取了無效路徑：「{dir}」。",
