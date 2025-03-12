@@ -2,7 +2,7 @@
  * Nextcloud RoundCube App.
  *
  * @author Claus-Justus Heine
- * @copyright 2020, 2021, 2022, 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2020, 2021, 2022, 2023, 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
  *
  * Nextcloud RoundCube App is free software: you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -23,14 +23,22 @@ import { getInitialState } from './toolkit/services/InitialStateService.js';
 
 const initialState = getInitialState();
 
+type RoundCubeWindow = Window & {
+  rcmail?: {
+    env: {
+      skin: string,
+    },
+  },
+}
+
 /**
  * @param {object} rcf RoundCubeFrame.
  */
-const hideTopLine = function(rcf) {
-  const frameWindow = rcf.contentWindow;
-  const frameDocument = frameWindow.document;
+const hideTopLine = function(rcf: HTMLIFrameElement) {
+  const frameWindow: RoundCubeWindow = rcf.contentWindow!;
+  const frameDocument = frameWindow.document!;
 
-  const skin = frameWindow.rcmail.env.skin;
+  const skin = frameWindow.rcmail!.env.skin;
   if (skin.includes('classic')) {
     // just remove the logout button
     frameDocument.querySelectorAll('.button-logout').forEach(el => el.remove());
@@ -43,28 +51,28 @@ const hideTopLine = function(rcf) {
     // adjust the top attribute of #mainscreen. Reduce height if no toolbar.
     // 2. Also remove button to show/hide the #topline and adjust the #taskbar.
     // 3. Remove other logout buttons.
-    const mainScreenElement = frameDocument.querySelector('#mainscreen');
-    const toplineHeight = frameDocument.querySelector('#topline').getBoundingClientRect().height;
+    const mainScreenElement: HTMLElement = frameDocument.querySelector('#mainscreen')!;
+    const toplineHeight = frameDocument.querySelector('#topline')!.getBoundingClientRect().height;
     const mainscreenTop = parseInt(mainScreenElement.style.top);
     const toolbarHeight = 40;
     let newMainscreenTop = mainscreenTop - toplineHeight;
-    frameDocument.querySelector('#topline').remove(); // [1]
+    frameDocument.querySelector('#topline')!.remove(); // [1]
     if (!mainScreenElement.querySelector('.toolbar')) {
       newMainscreenTop -= toolbarHeight;
     }
     mainScreenElement.style.top = newMainscreenTop + 'px'; // [1]
-    frameDocument.querySelector(':scope #taskbar .minmodetoggle').remove(); // [2]
-    frameDocument.querySelector('#taskbar').style['padding-right'] = 0; // [2]
-    frameDocument.querySelector('.button-logout').remove(); // [3]
+    frameDocument.querySelector(':scope #taskbar .minmodetoggle')!.remove(); // [2]
+    (frameDocument.querySelector('#taskbar')! as HTMLElement).style['padding-right'] = 0; // [2]
+    frameDocument.querySelector('.button-logout')!.remove(); // [3]
   }
 };
 
 /**
  * Fills height of window (more precise than height: 100%;)
  *
- * @param {object} frame The frame to be  resized.
+ * @param frame The frame to be  resized.
  */
-const fillHeight = function(frame) {
+const fillHeight = function(frame: HTMLIFrameElement) {
   const height = window.innerHeight - frame.getBoundingClientRect().top;
   frame.style.height = height + 'px';
   const outerDelta = frame.getBoundingClientRect().height - frame.clientHeight;
@@ -76,9 +84,9 @@ const fillHeight = function(frame) {
 /**
  * Fills width of window (more precise than width: 100%;)
  *
- * @param {object} frame The frame to be resized.
+ * @param frame The frame to be resized.
  */
-const fillWidth = function(frame) {
+const fillWidth = function(frame: HTMLIFrameElement) {
   const width = window.innerWidth - frame.getBoundingClientRect().left;
   frame.style.width = width + 'px';
   const outerDelta = frame.getBoundingClientRect().width - frame.clientWidth;
@@ -91,9 +99,9 @@ const fillWidth = function(frame) {
  * Fills height and width of RC window.
  * More precise than height/width: 100%.
  *
- * @param {object} frame TBD.
+ * @param frame TBD.
  */
-const resizeIframe = function(frame) {
+const resizeIframe = function(frame: HTMLIFrameElement) {
   if (!frame) {
     return;
   }
@@ -102,9 +110,9 @@ const resizeIframe = function(frame) {
 };
 
 /**
- * @param {object} frame TBD.
+ * @param frame TBD.
  */
-const loadHandler = function(frame) {
+const loadHandler = function(frame: HTMLIFrameElement) {
   if (!initialState.showTopline) {
     hideTopLine(frame);
   }
