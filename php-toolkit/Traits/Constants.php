@@ -3,7 +3,7 @@
  * A collection of reusable traits classes for Nextcloud apps.
  *
  * @author    Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022, 2024 Claus-Justus Heine
+ * @copyright 2022, 2024, 2025 Claus-Justus Heine
  * @license   AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -21,6 +21,8 @@
  */
 
 namespace OCA\RotDrop\Toolkit\Traits;
+
+use OCP\AppFramework\Http\TemplateResponse;
 
 /** A couple of constants in order to avoid string literals. */
 class Constants
