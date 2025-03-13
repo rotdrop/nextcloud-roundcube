@@ -64,18 +64,6 @@
     "Single sign-on is globally forced \"on\"." : "Еднократната идентификация е глобално наложена като \"включена\".",
     "Email password for RoundCube, if needed." : "Парола за електронна поща за RoundCube, ако е необходимо.",
     "Embedded RoundCube, Personal Settings" : "Вграден RoundCube, лични настройки",
-    "Email Login Name" : "Име за влизане в имейл",
-    "reason unknown" : "неизвестна причина",
-    "Unable to query the initial value of all settings: {message}" : "Не е възможно да се направи запитване за първоначалната стойност на всички настройки: {съобщение}",
-    "Unable to query the initial value of {settingsKey}: {message}" : "Не е възможно да се направи запитване за първоначалната стойност на {settingsKey}: {message}",
-    "Successfully set \"{settingsKey}\" to {value}." : "Успешно задаване на \"{settingsKey}\" на {value}.",
-    "Setting \"{settingsKey}\" has been unset successfully." : "Задаването на \"{settingsKey}\" е отменено успешно.",
-    "Unable to set \"{settingsKey}\" to {value}: {message}." : "Не е възможно да се зададе  \"{settingsKey}\" на {value}: {message}.",
-    "Unable to unset \"{settingsKey}\": {message}" : "Не е възможно да се отмени настройката \"{settingsKey}\": {message}",
-    "Confirmation Required" : "Изисква се потвърждение",
-    "Unconfirmed, reverting to old value." : "Непотвърдено, връща се към старата стойност.",
-    "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Успешно зададена стойност за \"{settingsKey}\" на \"{displayValue}\"",
-    "Setting \"{setting}\" has been unset successfully." : "Задаването на \"{setting}\" е отменено успешно.",
-    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Не може да се зададе стойност за \"{settingsKey}\" на \"{value}\": {message}"
+    "Email Login Name" : "Име за влизане в имейл"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

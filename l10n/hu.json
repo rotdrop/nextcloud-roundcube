@@ -71,18 +71,6 @@
     "Single sign-on is globally forced \"on\"." : "Egyszeri bejelentkezés globálisan bekapcsolatra kényszerítve.",
     "Email password for RoundCube, if needed." : "Email jelszó RoundCubehoz, ha szükséges",
     "Embedded RoundCube, Personal Settings" : "RoundCube beágyazott, Egyedi Beállítások",
-    "Email Login Name" : "Emailes Bejelentkezési Név",
-    "reason unknown" : "ismeretlen ok",
-    "Unable to query the initial value of all settings: {message}" : "Nem lehet lekérdezni a teljes beállítások értékeit: {message}",
-    "Unable to query the initial value of {settingsKey}: {message}" : "Nem lehet lekérni a {settingsKey} kezdeti értékét : {message}",
-    "Successfully set \"{settingsKey}\" to {value}." : "A \"{settingsKey}\" sikeresen beállítva: {value}.",
-    "Setting \"{settingsKey}\" has been unset successfully." : "A \"{settingsKey}\" értéke sikeresen törölve.",
-    "Unable to set \"{settingsKey}\" to {value}: {message}." : "Nem lehet beááítani a \"{settingsKey}\" értékét erre {value}: {message}.",
-    "Unable to unset \"{settingsKey}\": {message}" : "Nem lehet a \"{settingsKey}\" értékét törölni: {message}",
-    "Confirmation Required" : "Megerősítés Szükséges",
-    "Unconfirmed, reverting to old value." : "Nem visszaigazolható, érték visszaállítása eredeti értékre",
-    "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "A \"{settingsKey}\" értéke sikeresen beállítva erre \"{displayValue}\"",
-    "Setting \"{setting}\" has been unset successfully." : "A \"{setting}\" értéke sikeresen törölve.",
-    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Nem lehet beállítani a \"{settingsKey}\" értékét erre \"{value}\": {message}"
+    "Email Login Name" : "Emailes Bejelentkezési Név"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

@@ -82,18 +82,6 @@
     "Single sign-on is globally forced \"on\"." : "Tek oturum açma genel olarak \"Açık\" olacak şekilde ayarlanmış.",
     "Email password for RoundCube, if needed." : "Gerekiyorsa, Roundcube e-posta parolası.",
     "Embedded RoundCube, Personal Settings" : "Eklenmiş Roundcube, kişisel ayarlar",
-    "Email Login Name" : "E-posta kullanıcı adı",
-    "reason unknown" : "neden bilinmiyor",
-    "Unable to query the initial value of all settings: {message}" : "Tüm ayarların varsayılan değerleri sorgulanamadı: {message}",
-    "Unable to query the initial value of {settingsKey}: {message}" : "{settingsKey} için varsayılan değer sorgulanamadı: {message}",
-    "Successfully set \"{settingsKey}\" to {value}." : "\"{settingsKey}\", {value} değerine ayarlandı.",
-    "Setting \"{settingsKey}\" has been unset successfully." : "\"{settingsKey}\" ayarı kaldırıldı.",
-    "Unable to set \"{settingsKey}\" to {value}: {message}." : "\"{settingsKey}\", {value} değerine ayarlanamadı: {message}.",
-    "Unable to unset \"{settingsKey}\": {message}" : "\"{settingsKey}\" ayarı kaldırılamadı: {message}",
-    "Confirmation Required" : "Onay gerekiyor",
-    "Unconfirmed, reverting to old value." : "Onaylanmadı. Eski değere geri dönülüyor.",
-    "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "\"{settingsKey}\", \"{displayValue}\" değerine ayarlandı",
-    "Setting \"{setting}\" has been unset successfully." : "\"{setting}\" ayarı kaldırıldı.",
-    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "\"{settingsKey}\", {value} değerine ayarlanamadı: {message}."
+    "Email Login Name" : "E-posta kullanıcı adı"
 },"pluralForm" :"nplurals=2; plural=(n > 1);"
 }

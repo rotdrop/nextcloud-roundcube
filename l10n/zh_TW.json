@@ -82,18 +82,6 @@
     "Single sign-on is globally forced \"on\"." : "單一登入全域強制為「開啟」。",
     "Email password for RoundCube, if needed." : "Roundcube 的電子郵件密碼（若需要）。",
     "Embedded RoundCube, Personal Settings" : "嵌入式 Roundcube，個人設定",
-    "Email Login Name" : "電子郵件登入名稱",
-    "reason unknown" : "未知理由",
-    "Unable to query the initial value of all settings: {message}" : "無法查詢所有設定的初始值：{message}",
-    "Unable to query the initial value of {settingsKey}: {message}" : "無法查詢 {settingsKey} 的初始值：{message}",
-    "Successfully set \"{settingsKey}\" to {value}." : "成功將「{settingsKey}」設定為 {value}。",
-    "Setting \"{settingsKey}\" has been unset successfully." : "設定「{settingsKey}」已成功取消設定。",
-    "Unable to set \"{settingsKey}\" to {value}: {message}." : "無法設定「{settingsKey}」為 {value}：{message}。",
-    "Unable to unset \"{settingsKey}\": {message}" : "無法取消設定「{settingsKey}」：{message}",
-    "Confirmation Required" : "需要確認",
-    "Unconfirmed, reverting to old value." : "未確認，還原至舊值。",
-    "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "成功設定「{settingsKey}」的值為「{displayValue}」",
-    "Setting \"{setting}\" has been unset successfully." : "設定「{setting}」已成功取消設定。",
-    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "無法將「{settingsKey}」的值設定為「{value}」：{message}"
+    "Email Login Name" : "電子郵件登入名稱"
 },"pluralForm" :"nplurals=1; plural=0;"
 }

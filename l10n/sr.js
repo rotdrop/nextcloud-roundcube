@@ -84,18 +84,6 @@ OC.L10N.register(
     "Single sign-on is globally forced \"on\"." : "Single sign-on је глобално форсирано на „укључено”.",
     "Email password for RoundCube, if needed." : "И-мејл лозинка за RoundCube, ако је потребна.",
     "Embedded RoundCube, Personal Settings" : "Уграђени RoundCube, Лична подешавања",
-    "Email Login Name" : "И-мејл име за пријаву",
-    "reason unknown" : "непознат разлог",
-    "Unable to query the initial value of all settings: {message}" : "Није успео упит почетне вредности свих подешавања: {message}",
-    "Unable to query the initial value of {settingsKey}: {message}" : "Није успео упита почетне вредности {settingsKey}: {message}",
-    "Successfully set \"{settingsKey}\" to {value}." : "„{settingsKey}” је успешно постављена на {value}.",
-    "Setting \"{settingsKey}\" has been unset successfully." : "Подешавање „{settingsKey}” је успешно обрисано.",
-    "Unable to set \"{settingsKey}\" to {value}: {message}." : "Није успело постављање „{settingsKey}” на {value}: {message}.",
-    "Unable to unset \"{settingsKey}\": {message}" : "Није могло да се обрише „{settingsKey}: {message}",
-    "Confirmation Required" : "Потребна је потврда",
-    "Unconfirmed, reverting to old value." : "Није потврђено, враћа се стара вредност.",
-    "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Вредност „{settingsKey}” је успешно постављена на „{displayValue}”",
-    "Setting \"{setting}\" has been unset successfully." : "Подешавање „{setting}” је успешно обрисано.",
-    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Вредност „{settingsKey}” не може да се постави на „{value}”: {message}"
+    "Email Login Name" : "И-мејл име за пријаву"
 },
 "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);");

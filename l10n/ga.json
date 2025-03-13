@@ -82,18 +82,6 @@
     "Single sign-on is globally forced \"on\"." : "Tá síniú isteach aonair éigeantach ar fud an domhain \"ar aghaidh\".",
     "Email password for RoundCube, if needed." : "Pasfhocal ríomhphoist le haghaidh RoundCube, más gá.",
     "Embedded RoundCube, Personal Settings" : "RoundCube Leabaithe, Socruithe Pearsanta",
-    "Email Login Name" : "Ainm Logáil Isteach Ríomhphoist",
-    "reason unknown" : "cúis anaithnid",
-    "Unable to query the initial value of all settings: {message}" : "Ní féidir luach tosaigh na socruithe go léir a cheistiú: {message}",
-    "Unable to query the initial value of {settingsKey}: {message}" : "Ní féidir luach tosaigh {settingsKey} a cheistiú: {message}",
-    "Successfully set \"{settingsKey}\" to {value}." : "D'éirigh le socrú \"{settingsKey}\" go {value}.",
-    "Setting \"{settingsKey}\" has been unset successfully." : "D'éirigh le socrú \"{settingsKey}\" a dhíshuiteáil.",
-    "Unable to set \"{settingsKey}\" to {value}: {message}." : "Ní féidir \"{settingsKey}\" a shocrú go {value}: {message}.",
-    "Unable to unset \"{settingsKey}\": {message}" : "Ní féidir \"{settingsKey}\" a dhíchóimeáil: {message}",
-    "Confirmation Required" : "Deimhniú ag Teastáil",
-    "Unconfirmed, reverting to old value." : "Neamhdhearbhaithe, ag filleadh ar an seanluach.",
-    "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "D'éirigh le socrú luach \"{settingsKey}\" go \"{displayValue}\"",
-    "Setting \"{setting}\" has been unset successfully." : "D'éirigh le socrú \"{setting}\" a dhíshuiteáil.",
-    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Níorbh fhéidir luach a shocrú do \"{settingsKey}\" go \"{value}\": {message}"
+    "Email Login Name" : "Ainm Logáil Isteach Ríomhphoist"
 },"pluralForm" :"nplurals=5; plural=(n==1 ? 0 : n==2 ? 1 : n<7 ? 2 : n<11 ? 3 : 4);"
 }

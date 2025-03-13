@@ -31,6 +31,7 @@
     "revert color" : "vrátit barvu nazpět",
     "restore palette" : "obnovit paletu",
     "factory reset palette" : "vrátit paletu do výchozího stavu",
+    "Custom Color" : "Uživatelsky určená barva",
     "Choose a folder" : "Zvolit složku",
     "Choose a prefix-folder" : "Zvolte složku-předponu",
     "Invalid path selected: \"{dir}\"." : "Vybrán neplatný popis umístění: „{dir}“.",
@@ -81,18 +82,6 @@
     "Single sign-on is globally forced \"on\"." : "Jednotné přihlašování je globálně vynuceno jako „zapnuté“.",
     "Email password for RoundCube, if needed." : "Heslo do e-mailu pro RoundCube (pokud je zapotřebí).",
     "Embedded RoundCube, Personal Settings" : "Vestavěné RoundCube – osobní nastavení",
-    "Email Login Name" : "Přihlašovací jméno do e-mailu",
-    "reason unknown" : "příčina neznámá",
-    "Unable to query the initial value of all settings: {message}" : "Nedaří se dotazovat úvodní hodnotu všech nastavení: {message}",
-    "Unable to query the initial value of {settingsKey}: {message}" : "Nedaří se dotázat na úvodní hodnotu {settingsKey}: {message}",
-    "Successfully set \"{settingsKey}\" to {value}." : "Úspěšně nastaveno „{settingsKey}“ na {value}.",
-    "Setting \"{settingsKey}\" has been unset successfully." : "Nastavení „{settingsKey}“ bylo úspěšně zrušeno.",
-    "Unable to set \"{settingsKey}\" to {value}: {message}." : "Nedaří se nastavit „{settingsKey}“ na {value}: {message}.",
-    "Unable to unset \"{settingsKey}\": {message}" : "Nedaří se zrušit nastavení „{settingsKey}“: {message}",
-    "Confirmation Required" : "Je vyžadováno potvrzení",
-    "Unconfirmed, reverting to old value." : "Nepotvrzeno – vrací se na původní hodnotu.",
-    "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Úspěšně nastavena hodnota pro „{settingsKey}“ na „{displayValue}“",
-    "Setting \"{setting}\" has been unset successfully." : "Nastavení „{setting}“ bylo úspěšně zrušeno.",
-    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Nedaří se nastavit hodnotu pro „{settingsKey}“ na „{value}“: {message}"
+    "Email Login Name" : "Přihlašovací jméno do e-mailu"
 },"pluralForm" :"nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;"
 }

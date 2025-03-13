@@ -67,18 +67,6 @@ OC.L10N.register(
     "Please specify an email address to use with RoundCube." : "Zehaztu helbide elektroniko bat RoundCube-rekin erabiltzeko.",
     "Email password for RoundCube, if needed." : "Posta elektronikoaren pasahitza RoundCube-rak, behar izanez gero.",
     "Embedded RoundCube, Personal Settings" : "RoundCube txertatua, ezarpen pertsonalak",
-    "Email Login Name" : "Posta elektronikoa saioa hasteko izena",
-    "reason unknown" : "arrazoi ezezaguna",
-    "Unable to query the initial value of all settings: {message}" : "Ezin da kontsultatu ezarpen guztien hasierako balioa: {message}",
-    "Unable to query the initial value of {settingsKey}: {message}" : "Ezin da {settingsKey}-ren hasierako balioa kontsultatu: {message}",
-    "Successfully set \"{settingsKey}\" to {value}." : "\"{settingsKey}\" {value}-ra ondo ezarri da.",
-    "Setting \"{settingsKey}\" has been unset successfully." : "\"{settingsKey}\" ezarpena ondo desegin da.",
-    "Unable to set \"{settingsKey}\" to {value}: {message}." : "Ezin izan da \"{settingsKey}\" {value}-ra ezarri: {message}.",
-    "Unable to unset \"{settingsKey}\": {message}" : "Ezin izan da  \"{settingsKey}\" ezarpena desegin: {message}",
-    "Confirmation Required" : "Berrespena behar da",
-    "Unconfirmed, reverting to old value." : "Berretsi gabe, aurreko baliora itzultzen.",
-    "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "\"{settingsKey}\" \"{displayValue}\" baliora ondo ezarri da",
-    "Setting \"{setting}\" has been unset successfully." : "\"{setting}\" ezarpena behar bezala baliogabetu da.",
-    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Ezin izan da \"{settingsKey}\" \"{value}\" baliora ezarri: {message}"
+    "Email Login Name" : "Posta elektronikoa saioa hasteko izena"
 },
 "nplurals=2; plural=(n != 1);");

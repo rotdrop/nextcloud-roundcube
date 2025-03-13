@@ -24,9 +24,6 @@ OC.L10N.register(
     "Clear Selection" : "清除选择",
     "User ID" : "用户ID",
     "Email Address" : "电子邮件地址",
-    "Advanced Settings" : "高级设置",
-    "reason unknown" : "原因不详",
-    "Confirmation Required" : "需要确认",
-    "Unconfirmed, reverting to old value." : "没有确认，回退到之前的值。"
+    "Advanced Settings" : "高级设置"
 },
 "nplurals=1; plural=0;");

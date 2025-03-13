@@ -81,18 +81,6 @@
     "Single sign-on is globally forced \"on\"." : "Jednotné prihlásenie je globálne vynútené ako „zapnuté“.",
     "Email password for RoundCube, if needed." : "E-mailové heslo pre RoundCube, ak je to potrebné.",
     "Embedded RoundCube, Personal Settings" : "Vložený RoundCube, Osobné Nastavenia",
-    "Email Login Name" : "Prihlasovacie meno e-mailu",
-    "reason unknown" : "dôvod neznámy",
-    "Unable to query the initial value of all settings: {message}" : "Nedá sa zistiť počiatočná hodnota všetkých nastavení: {message}",
-    "Unable to query the initial value of {settingsKey}: {message}" : "Nedá sa zistiť počiatočná hodnota {settingsKey}: {message}",
-    "Successfully set \"{settingsKey}\" to {value}." : "Úspešne nastavené \"{settingsKey}\" na {value}.",
-    "Setting \"{settingsKey}\" has been unset successfully." : "Nastavenie {settingsKey} bolo úspešne zrušené.",
-    "Unable to set \"{settingsKey}\" to {value}: {message}." : "Nepodarilo sa nastaviť \"{settingsKey}\" na {value}: {message}.",
-    "Unable to unset \"{settingsKey}\": {message}" : "Nepodarilo sa nastaviť \"{settingsKey}\": {message}",
-    "Confirmation Required" : "Vyžaduje sa potvrdenie",
-    "Unconfirmed, reverting to old value." : "Nepodarilo sa overiť, vraciam pôvodnú hodnotu.",
-    "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Úspešne nastavená hodnota \"{settingsKey}\" na \"{displayValue}\"",
-    "Setting \"{setting}\" has been unset successfully." : "Nastavenie {setting} bolo úspešne zrušené.",
-    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Nebolo možné nastaviť hodnotu \"{settingsKey}\" na \"{value}\": {message}"
+    "Email Login Name" : "Prihlasovacie meno e-mailu"
 },"pluralForm" :"nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);"
 }

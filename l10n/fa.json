@@ -65,18 +65,6 @@
     "Single sign-on is globally forced \"on\"." : "Single sign-on is globally forced \"on\".",
     "Email password for RoundCube, if needed." : "Email password for RoundCube, if needed.",
     "Embedded RoundCube, Personal Settings" : "Embedded RoundCube, Personal Settings",
-    "Email Login Name" : "Email Login Name",
-    "reason unknown" : "reason unknown",
-    "Unable to query the initial value of all settings: {message}" : "Unable to query the initial value of all settings: {message}",
-    "Unable to query the initial value of {settingsKey}: {message}" : "Unable to query the initial value of {settingsKey}: {message}",
-    "Successfully set \"{settingsKey}\" to {value}." : "Successfully set \"{settingsKey}\" to {value}.",
-    "Setting \"{settingsKey}\" has been unset successfully." : "Setting \"{settingsKey}\" has been unset successfully.",
-    "Unable to set \"{settingsKey}\" to {value}: {message}." : "Unable to set \"{settingsKey}\" to {value}: {message}.",
-    "Unable to unset \"{settingsKey}\": {message}" : "Unable to unset \"{settingsKey}\": {message}",
-    "Confirmation Required" : "Confirmation Required",
-    "Unconfirmed, reverting to old value." : "Unconfirmed, reverting to old value.",
-    "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"",
-    "Setting \"{setting}\" has been unset successfully." : "Setting \"{setting}\" has been unset successfully.",
-    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Could not set value for \"{settingsKey}\" to \"{value}\": {message}"
+    "Email Login Name" : "Email Login Name"
 },"pluralForm" :"nplurals=2; plural=(n > 1);"
 }

@@ -27,18 +27,6 @@ OC.L10N.register(
     "Selected path: \"{dir}/{base}/\"." : "Percorso selezionato: \"{dir}/{base}/\".",
     "User ID" : "ID utente",
     "Email Address" : "Indirizzo email",
-    "Advanced Settings" : "Impostazioni avanzate",
-    "reason unknown" : "motivo sconosciuto",
-    "Unable to query the initial value of all settings: {message}" : "Impossibile eseguire una query sul valore iniziale di tutte le impostazioni: {message}",
-    "Unable to query the initial value of {settingsKey}: {message}" : "Impossibile eseguire una query sul valore iniziale di {settingsKey}: {message}",
-    "Successfully set \"{settingsKey}\" to {value}." : "L'impostazione \"{settingsKey}\" è stata impostata correttamente su {value}.",
-    "Setting \"{settingsKey}\" has been unset successfully." : "L'impostazione \"{settingsKey}\" è stata rimossa correttamente.",
-    "Unable to set \"{settingsKey}\" to {value}: {message}." : "Impossibile impostare \"{settingsKey}\" su {value}: {message}.",
-    "Unable to unset \"{settingsKey}\": {message}" : "Impossibile annullare l'impostazione di \"{settingsKey}\": {message}",
-    "Confirmation Required" : "Conferma obbligatoria",
-    "Unconfirmed, reverting to old value." : "Non confermato, ripristino al precedente valore.",
-    "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Valore impostato correttamente per \"{settingsKey}\" su \"{displayValue}\"",
-    "Setting \"{setting}\" has been unset successfully." : "L'impostazione \"{setting}\" è stata annullata correttamente.",
-    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Impossibile impostare il valore per \"{settingsKey}\" su \"{value}\": {message}"
+    "Advanced Settings" : "Impostazioni avanzate"
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

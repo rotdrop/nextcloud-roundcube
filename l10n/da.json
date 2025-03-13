@@ -45,18 +45,6 @@
     "Globally configured as USERID@{emailDefaultDomainAdmin}" : "Globalt konfigureret som USERID@{emailDefaultDomainAdmin}",
     "Globally configured as user's email address, see user's personal settings." : "Globalt konfigureret som brugerens e-mailadresse. Se brugerens personlige indstillinger.",
     "Globally configured as {fixedSingleEmailAddressAdmin}" : "Globalt konfigureret som {fixedSingleEmailAddressAdmin}",
-    "Email Login Name" : "E-mail login navn",
-    "reason unknown" : "årsag ukendt",
-    "Unable to query the initial value of all settings: {message}" : "Kan ikke forespørge den oprindelige værdi af alle indstillinger: {message}",
-    "Unable to query the initial value of {settingsKey}: {message}" : "Kan ikke forespørge den oprindelige værdi af {settingsKey}: {message}",
-    "Successfully set \"{settingsKey}\" to {value}." : "Satte \"{settingsKey}\" til {value}.",
-    "Setting \"{settingsKey}\" has been unset successfully." : "Indstillingen \"{settingsKey}\" er blevet ikke markeret med succes.",
-    "Unable to set \"{settingsKey}\" to {value}: {message}." : "Kan ikke indstille \"{settingsKey}\" til {value}: {message}.",
-    "Unable to unset \"{settingsKey}\": {message}" : "Kan ikke fjerne markeringen \"{settingsKey}\": {message}",
-    "Confirmation Required" : "Bekræftelse krævet",
-    "Unconfirmed, reverting to old value." : "Ubekræftet, tilbagefører til gammel værdi.",
-    "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Satte værdi for \"{settingsKey}\" til \"{displayValue}\"",
-    "Setting \"{setting}\" has been unset successfully." : "Indstillingen \"{setting}\" er blevet ikke markeret med succes.",
-    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Kunne ikke sætte værdi for \"{settingsKey}\" til \"{value}\": {message}"
+    "Email Login Name" : "E-mail login navn"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

@@ -81,18 +81,6 @@
     "Single sign-on is globally forced \"on\"." : "يەككە تىزىملاش دۇنيا مىقياسىدا «ئوچۇق».",
     "Email password for RoundCube, if needed." : "ئەگەر لازىم بولسا RoundCube نىڭ ئېلېكترونلۇق خەت پارولى.",
     "Embedded RoundCube, Personal Settings" : "قىستۇرما RoundCube ، شەخسىي تەڭشەكلەر",
-    "Email Login Name" : "ئېلخەت كىرىش ئىسمى",
-    "reason unknown" : "سەۋەبى نامەلۇم",
-    "Unable to query the initial value of all settings: {message}" : "بارلىق تەڭشەكلەرنىڭ دەسلەپكى قىممىتىنى سۈرۈشتە قىلالمىدى: {message}",
-    "Unable to query the initial value of {settingsKey}: {message}" : "{settingsKey}: {message} نىڭ دەسلەپكى قىممىتىنى سۈرۈشتە قىلالمىدى",
-    "Successfully set \"{settingsKey}\" to {value}." : "مۇۋەپپەقىيەتلىك ھالدا \"{settingsKey}\" نى {value} قىلىپ تەڭشەڭ.",
-    "Setting \"{settingsKey}\" has been unset successfully." : "\"{settingsKey}\" نى تەڭشەش ئوڭۇشلۇق بولمىدى.",
-    "Unable to set \"{settingsKey}\" to {value}: {message}." : "\"{settingsKey}\" نى {value}: {message} غا تەڭشىيەلمىدى.",
-    "Unable to unset \"{settingsKey}\": {message}" : "\"{settingsKey}\" نى تەڭشىگىلى بولمايدۇ: {message}",
-    "Confirmation Required" : "جەزملەشتۈرۈش تەلەپ قىلىنىدۇ",
-    "Unconfirmed, reverting to old value." : "جەزملەشتۈرۈلمىگەن ، كونا قىممەتكە قايتقان.",
-    "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "مۇۋەپپەقىيەتلىك ھالدا \"{settingsKey}\" نىڭ قىممىتىنى \"{displayValue}\" قىلىپ بەلگىلەڭ.",
-    "Setting \"{setting}\" has been unset successfully." : "\"{setting}\" نى تەڭشەش ئوڭۇشلۇق بولمىدى.",
-    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "\"{settingsKey}\" نىڭ قىممىتىنى \"{value}\" غا تەڭشىيەلمىدى: {message}"
+    "Email Login Name" : "ئېلخەت كىرىش ئىسمى"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

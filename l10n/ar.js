@@ -84,18 +84,6 @@ OC.L10N.register(
     "Single sign-on is globally forced \"on\"." : "النفاذ المُوحّد مُفعّل إلزاماً عُموميّاً",
     "Email password for RoundCube, if needed." : "كلمة سر البريد الالكتروني لـ \"راوند كيوب\"؛ إذا طُلبت.",
     "Embedded RoundCube, Personal Settings" : "تطبيق الإيميل \"راوند كيوب\" مُضمّن؛ الإعدادات الشخصية",
-    "Email Login Name" : "اسم الدخول لحساب البريد الالكتروني",
-    "reason unknown" : "السبب غير معلوم",
-    "Unable to query the initial value of all settings: {message}" : "لم يُمكن الاستعلام عن القيمة الابتدائية لكل الإعدادات: {message}",
-    "Unable to query the initial value of {settingsKey}: {message}" : "لم يُمكن الاستعلام عن القيمة الابتدائية لـ{settingsKey}:{message}",
-    "Successfully set \"{settingsKey}\" to {value}." : "تمّ تعيين \"{settingsKey}\" بـ {value} بنجاح.",
-    "Setting \"{settingsKey}\" has been unset successfully." : "تمّ إلغاء تعيين \"{settingsKey}\" بنجاح.",
-    "Unable to set \"{settingsKey}\" to {value}: {message}." : "لم يٌمكن تعيين \"{settingsKey\"} بـ {value}:{message}.",
-    "Unable to unset \"{settingsKey}\": {message}" : "لم يُمكن إلغاء تعيين \"{settingsKey}\":{message}",
-    "Confirmation Required" : "التأكيد مطلوب",
-    "Unconfirmed, reverting to old value." : "لم يتم التأكيد؛ و تمتّ استعادة القيمة القديمة.",
-    "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "تمّ تعيين \"{settingKey}\" بــ \"{displayValue}\" بنجاح",
-    "Setting \"{setting}\" has been unset successfully." : "تمّ إلغاء تعيين الإعداد \"{setting}\" بنجاح.",
-    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "لم يُمكن تعيين \"{settingsKeys}\" بــ \"{value}\":{message}"
+    "Email Login Name" : "اسم الدخول لحساب البريد الالكتروني"
 },
 "nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;");

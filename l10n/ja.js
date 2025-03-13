@@ -34,7 +34,6 @@ OC.L10N.register(
     "Please specify an email address to use with RoundCube." : "RoundCubeで使用するメールアドレスを指定してください。",
     "Email password for RoundCube, if needed." : "必要な場合のみ、RoundCubeの電子メールパスワードを設定",
     "Embedded RoundCube, Personal Settings" : "組み込みRoundCubeの個人設定",
-    "Email Login Name" : "メールログイン名",
-    "Confirmation Required" : "確認が必要"
+    "Email Login Name" : "メールログイン名"
 },
 "nplurals=1; plural=0;");

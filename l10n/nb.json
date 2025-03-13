@@ -81,18 +81,6 @@
     "Single sign-on is globally forced \"on\"." : "Enkel pålogging er globalt tvunget \"på\".",
     "Email password for RoundCube, if needed." : "E-postpassord for RoundCube, om nødvendig.",
     "Embedded RoundCube, Personal Settings" : "Innebygd RoundCube, personlige innstillinger",
-    "Email Login Name" : "Navn på pålogging via e-post",
-    "reason unknown" : "Årsak ukjent",
-    "Unable to query the initial value of all settings: {message}" : "Kan ikke spørre startverdien for alle innstillinger: {message}",
-    "Unable to query the initial value of {settingsKey}: {message}" : "Kan ikke spørre startverdien for {settingsKey}: {message}",
-    "Successfully set \"{settingsKey}\" to {value}." : "Angi {settingsKey} til {value}.",
-    "Setting \"{settingsKey}\" has been unset successfully." : "Innstillingen {settingsKey} er ikke angitt.",
-    "Unable to set \"{settingsKey}\" to {value}: {message}." : "Kan ikke sette {settingsKey} til {value}: {message}.",
-    "Unable to unset \"{settingsKey}\": {message}" : "Kan ikke oppheve \"{settingsKey}\": {message}",
-    "Confirmation Required" : "Bekreftelse kreves",
-    "Unconfirmed, reverting to old value." : "Ubekreftet, går tilbake til gammel verdi.",
-    "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Angi verdien for \"{settingsKey}\" til \"{displayValue}\"",
-    "Setting \"{setting}\" has been unset successfully." : "Innstillingen {setting} er opphevet.",
-    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Kan ikke sette verdien for \"{settingsKey}\" til \"{value}\": {message}"
+    "Email Login Name" : "Navn på pålogging via e-post"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

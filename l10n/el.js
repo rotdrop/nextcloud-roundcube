@@ -83,18 +83,6 @@ OC.L10N.register(
     "Single sign-on is globally forced \"on\"." : "Η μονή σύνδεση είναι καθολικά εξαναγκασμένη σε \"ενεργή\".",
     "Email password for RoundCube, if needed." : "Συνθηματικό email για το RoundCube, εάν απαιτείται.",
     "Embedded RoundCube, Personal Settings" : "Ενσωματωμένο RoundCube, Προσωπικές Ρυθμίσεις",
-    "Email Login Name" : "Όνομα σύνδεσης Email",
-    "reason unknown" : "άγνωστος λόγος",
-    "Unable to query the initial value of all settings: {message}" : "Αδυναμία ερώτησης της αρχικής τιμής όλων των ρυθμίσεων: {message}",
-    "Unable to query the initial value of {settingsKey}: {message}" : "Αδυναμία ερώτησης της αρχικής τιμής της ρύθμισης {settingsKey}: {message}",
-    "Successfully set \"{settingsKey}\" to {value}." : "Επιτυχής ρύθμιση της \"{settingsKey}\" σε {value}.",
-    "Setting \"{settingsKey}\" has been unset successfully." : "Η ρύθμιση \"{settingsKey}\" έχει απενεργοποιηθεί με επιτυχία.",
-    "Unable to set \"{settingsKey}\" to {value}: {message}." : "Αδυναμία ρύθμισης της \"{settingsKey}\" σε {value}: {message}.",
-    "Unable to unset \"{settingsKey}\": {message}" : "Αδυναμία απενεργοποίησης της ρύθμισης \"{settingsKey}\": {message}",
-    "Confirmation Required" : "Απαιτείται επιβεβαίωση",
-    "Unconfirmed, reverting to old value." : "Μη επιβεβαιωμένο, επιστροφή στην παλιά τιμή.",
-    "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Επιτυχής ρύθμιση της τιμής για \"{settingsKey}\" σε \"{displayValue}\"",
-    "Setting \"{setting}\" has been unset successfully." : "Η ρύθμιση \"{setting}\" έχει απενεργοποιηθεί με επιτυχία.",
-    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Αδυναμία ρύθμισης της τιμής για \"{settingsKey}\" σε \"{value}\": {message}"
+    "Email Login Name" : "Όνομα σύνδεσης Email"
 },
 "nplurals=2; plural=(n != 1);");

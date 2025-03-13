@@ -66,18 +66,6 @@ OC.L10N.register(
     "Single sign-on is globally forced \"on\"." : "El inicio de sesión único está forzado globalmente \"activado\".",
     "Email password for RoundCube, if needed." : "Contraseña de correo electrónico para RoundCube, si es necesario.",
     "Embedded RoundCube, Personal Settings" : "RoundCube integrado, Configuración personal",
-    "Email Login Name" : "Nombre de inicio de sesión de correo electrónico",
-    "reason unknown" : "razón desconocida",
-    "Unable to query the initial value of all settings: {message}" : "No se puede consultar el valor inicial de todas las configuraciones: {message}",
-    "Unable to query the initial value of {settingsKey}: {message}" : "No se puede consultar el valor inicial de {settingsKey}: {message}",
-    "Successfully set \"{settingsKey}\" to {value}." : "Se ha establecido correctamente \"{settingsKey}\" en {value}.",
-    "Setting \"{settingsKey}\" has been unset successfully." : "La configuración \"{settingsKey}\" se ha desactivado correctamente.",
-    "Unable to set \"{settingsKey}\" to {value}: {message}." : "No se puede establecer \"{settingsKey}\" en {value}: {message}.",
-    "Unable to unset \"{settingsKey}\": {message}" : "No se puede desactivar \"{settingsKey}\": {message}",
-    "Confirmation Required" : "Confirmación requerida",
-    "Unconfirmed, reverting to old value." : "No confirmado, se vuelve al valor anterior.",
-    "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Se ha establecido correctamente el valor para \"{settingsKey}\" en \"{displayValue}\"",
-    "Setting \"{setting}\" has been unset successfully." : "La configuración \"{setting}\" se ha desactivado correctamente.",
-    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "No se pudo establecer el valor para \"{settingsKey}\" en \"{value}\": {message}"
+    "Email Login Name" : "Nombre de inicio de sesión de correo electrónico"
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

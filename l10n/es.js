@@ -83,18 +83,6 @@ OC.L10N.register(
     "Single sign-on is globally forced \"on\"." : "El inicio de sesión único está forzado globalmente a \"encendido\".",
     "Email password for RoundCube, if needed." : "Contraseña de correo electrónico para RoundCube, si es necesario.",
     "Embedded RoundCube, Personal Settings" : "RoundCube integrado, configuraciones personales",
-    "Email Login Name" : "Nombre de inicio de sesión de correo electrónico",
-    "reason unknown" : "razón desconocida",
-    "Unable to query the initial value of all settings: {message}" : "No fue posible sondear el valor inicial de todas las configuraciones: {message}",
-    "Unable to query the initial value of {settingsKey}: {message}" : "No fue posible sondear el valor inicial de {settingsKey}: {message}",
-    "Successfully set \"{settingsKey}\" to {value}." : "Se estableció exitosamente \"{settingsKey}\" a {value}.",
-    "Setting \"{settingsKey}\" has been unset successfully." : "El valor de configuración \"{settingsKey}\" se reestableció exitosamente.",
-    "Unable to set \"{settingsKey}\" to {value}: {message}." : "No fue posible establecer \"{settingsKey}\" al valor {value}: {message}.",
-    "Unable to unset \"{settingsKey}\": {message}" : "No fue posible reestablecer \"{settingsKey}\": {message}",
-    "Confirmation Required" : "Se requiere confirmación",
-    "Unconfirmed, reverting to old value." : "No fue confirmado, revirtiendo a valor antiguo.",
-    "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Se estableció exitosamente el valor para \"{settingsKey}\" a \"{displayValue}\"",
-    "Setting \"{setting}\" has been unset successfully." : "La configuración \"{setting}\" se reestableció exitosamente.",
-    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "No fue posible establecer el valor de \"{settingsKey}\" a \"{value}\": {message}"
+    "Email Login Name" : "Nombre de inicio de sesión de correo electrónico"
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

@@ -82,18 +82,6 @@
     "Single sign-on is globally forced \"on\"." : "Single-Sign-On wird global als \"eingeschaltet\" erzwungen .",
     "Email password for RoundCube, if needed." : "Email-Passwort für Roundcube, falls erforderlich.",
     "Embedded RoundCube, Personal Settings" : "Eingebettetes RoundCube, Persönliche Einstellungen",
-    "Email Login Name" : "Email Anmeldename",
-    "reason unknown" : "Grund unbekannt",
-    "Unable to query the initial value of all settings: {message}" : "Kann die anfänglichen Werte der Einstellungen nicht abrufen: {message}",
-    "Unable to query the initial value of {settingsKey}: {message}" : "Kann die anfänglichen Wert der Einstellung {settingsKey} nicht abrufen: {message}",
-    "Successfully set \"{settingsKey}\" to {value}." : "Der Wert für die Einstellung \"{settingsKey}\" wurde erfolgreich auf {value} gesetzt.",
-    "Setting \"{settingsKey}\" has been unset successfully." : "Die Einstellung \"{settingsKey}\" wurde erfolgreich gelöscht.",
-    "Unable to set \"{settingsKey}\" to {value}: {message}." : "Konnte den Wert für die Einstellung \"{settingsKey}\" nicht auf den Wert \"{value}\" setzen: {message}.",
-    "Unable to unset \"{settingsKey}\": {message}" : "Kann die Einstellung \"{settingsKey}\" nicht löschen: {message}",
-    "Confirmation Required" : "Bestätigung erforderlich",
-    "Unconfirmed, reverting to old value." : "Unbestätigt, setze auf den alten Wert zurück.",
-    "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Der Wert für die Einstellung \"{settingsKey}\" wurde erfolgreich auf \"{displayValue}\" gesetzt",
-    "Setting \"{setting}\" has been unset successfully." : "Die Einstellung \"{setting}\" wurde erfolgreich gelöscht.",
-    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Konnte den Wert für die Einstellung \"{settingsKey}\" nicht auf den Wert \"{value}\" setzen: {message}"
+    "Email Login Name" : "Email Anmeldename"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

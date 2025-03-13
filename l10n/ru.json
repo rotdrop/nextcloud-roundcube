@@ -33,18 +33,6 @@
     "Below is a configuration snippet which may or may not work with the current version of the RoundCube CardDAV plugin. The configuration shown below is just a suggestion and will not automatically be registered with the RoundCube app. It is your responsibility to configure the RoundCube CardDAV plugin correctly. Please have a look at the explanations in the README.md file." : "Ниже приведен фрагмент конфигурации, который может работать или не работать с текущей версией плагина RoundCube CardDAV. Конфигурация, показанная ниже, является всего лишь предложением и не будет автоматически зарегистрирована в приложении RoundCube. Вы несете ответственность за правильную настройку плагина RoundCube CardDAV. Пожалуйста, ознакомьтесь с пояснениями в файле README.md.",
     "Unable to obtain email credentials for \"{emailUserId}\". Please check your personal Roundcube settings." : "Не удалось получить учетные данные электронной почты для \"{emailUserId}\". Проверьте ваши персональные настройки Roundcube.",
     "Globally configured as user's email address, see user's personal settings." : "Глобально настроен как адрес электронной почты пользователя, см. персональные настройки пользователя.",
-    "Embedded RoundCube, Personal Settings" : "Встроенный RoundCube, персональные настройки",
-    "reason unknown" : "причина неизвестна",
-    "Unable to query the initial value of all settings: {message}" : "Не удается сформировать запрос исходных настроек: {message}",
-    "Unable to query the initial value of {settingsKey}: {message}" : "Не удается сформировать запрос исходной настройки {settingsKey}: {message}",
-    "Successfully set \"{settingsKey}\" to {value}." : "Успешно установлено \"{settingsKey}\" в значение {value}.",
-    "Setting \"{settingsKey}\" has been unset successfully." : "Настройка \"{settingsKey}\" очищена.",
-    "Unable to set \"{settingsKey}\" to {value}: {message}." : "Невозможно установить \"{settingsKey}\" в значение {value}: {message}.",
-    "Unable to unset \"{settingsKey}\": {message}" : "Невозможно очистить \"{settingsKey}\": {message}",
-    "Confirmation Required" : "Требуется подтверждение",
-    "Unconfirmed, reverting to old value." : "Нет подтверждения, будет возвращено старое значение.",
-    "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Успешно установлено значение \"{settingsKey}\" в \"{displayValue}\"",
-    "Setting \"{setting}\" has been unset successfully." : "Настройка \"{setting}\" была успешно отключена.",
-    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Не удалось установить значение \"{settingsKey}\" в \"{value}\": {message}"
+    "Embedded RoundCube, Personal Settings" : "Встроенный RoundCube, персональные настройки"
 },"pluralForm" :"nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);"
 }

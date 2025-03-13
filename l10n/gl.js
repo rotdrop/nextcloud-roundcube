@@ -83,18 +83,6 @@ OC.L10N.register(
     "Single sign-on is globally forced \"on\"." : "A Identificación única (SSO) está forzado globalmente a «activado»",
     "Email password for RoundCube, if needed." : "Contrasinal de correo para Roundcube, se é necesario",
     "Embedded RoundCube, Personal Settings" : "RoundCube integrado, axustes persoais",
-    "Email Login Name" : "Nome de acceso ao correo",
-    "reason unknown" : "motivo descoñecido",
-    "Unable to query the initial value of all settings: {message}" : "Non é posíbel consultar o valor inicial de todos os axustes: {message}",
-    "Unable to query the initial value of {settingsKey}: {message}" : "Non é posíbel consultar o valor inicial de {settingsKey}: {message}",
-    "Successfully set \"{settingsKey}\" to {value}." : "Definiuse correctamente «{settingsKey}» a {value}.",
-    "Setting \"{settingsKey}\" has been unset successfully." : "O axuste «{settingsKey}» foi desactivado correctamente.",
-    "Unable to set \"{settingsKey}\" to {value}: {message}." : "Non é posíbel definir «{settingsKey}» a {value}: {message}.",
-    "Unable to unset \"{settingsKey}\": {message}" : "Non é posíbel desactivar «{settingsKey}»: {message}",
-    "Confirmation Required" : "Precísase de confirmación",
-    "Unconfirmed, reverting to old value." : "Sen confirmar, revertendo ao valor anterior.",
-    "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Definiuse correctamente o valor para «{settingsKey}» a «{displayValue}»",
-    "Setting \"{setting}\" has been unset successfully." : "O axuste «{setting}» foi desactivado correctamente.",
-    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Non foi posíbel definir o valor para «{settingsKey}» a {value}: {message}"
+    "Email Login Name" : "Nome de acceso ao correo"
 },
 "nplurals=2; plural=(n != 1);");
