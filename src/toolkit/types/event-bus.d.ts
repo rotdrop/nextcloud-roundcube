@@ -20,6 +20,8 @@
 
 // import type { Event } from '@nextcloud/event-bus';
 
+import type { Node } from '@nextcloud/files';
+
 /**
  * Define the type used by the notifications app as Event. These are
  * just the properties for Notification.vue from the notifications
@@ -53,6 +55,8 @@ export interface NotificationEvent /* extends Event */ {
 declare module '@nextcloud/event-bus' {
   interface NextcloudEvents {
     'notifications:notification:received': NotificationEvent,
+    'files:node:deleted': Node,
+    'files:node:renamed': Node,
   }
 }
 

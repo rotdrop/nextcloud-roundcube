@@ -27,6 +27,7 @@ declare module '@nextcloud/vue' {
 
   const NcActionButton: Vue;
   const NcActionCaption: Vue;
+  const NcActionInput: Vue;
   const NcActionLink: Vue;
   const NcActionRadio: Vue;
   const NcActionRouter: Vue;
@@ -96,6 +97,7 @@ declare module '@nextcloud/vue' {
     NcActionButton,
     NcActionCaption,
     NcActionCheckbox,
+    NcActionInput,
     NcActionLink,
     NcActionRadio,
     NcActionRouter,
