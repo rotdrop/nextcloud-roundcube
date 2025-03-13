@@ -3,7 +3,7 @@
 WEBPACK_TARGETS = $(ABSSRCDIR)/js/asset-meta.json
 
 #@private
-package-lock.json: package.json webpack.config.js Makefile
+package-lock.json: package.json webpack.config.js Makefile $(THIRD_PARTY_NPM_DEPS)
 	{ [ -d package-lock.json ] && [ test -d node_modules ]; } || $(NPM) install
 	$(NPM) update
 	touch package-lock.json
@@ -59,3 +59,9 @@ stylelint:
 stylelint-fix:
 	$(NPM) run stylelint:fix
 .PHONY: stylelint-
+
+#@@ Removes WebPack builds
+webpack-clean:
+	rm -rf ./js/*
+	rm -rf ./css/*
+.PHONY: webpack-clean
