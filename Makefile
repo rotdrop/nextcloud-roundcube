@@ -170,12 +170,6 @@ fi
 
 .PHONY: appstore
 
-#@@ Removes WebPack builds
-webpack-clean:
-	rm -rf ./js/*
-	rm -rf ./css/*
-.PHONY: webpack-clean
-
 #@@ Removes build files
 clean: ## Tidy up local environment
 	rm -rf $(BUILDDIR)
