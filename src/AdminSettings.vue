@@ -297,7 +297,7 @@ const saveTextInput = async (settingsKey: string, value?: string, force?: boolea
     console.info('SKIPPING SETTINGS-SAVE DURING LOAD', settingsKey, value)
     return
   }
-  saveConfirmedSetting({ value, section: 'admin', settingsKey, force, settings })
+  return saveConfirmedSetting({ value, section: 'admin', settingsKey, force, settings })
 }
 
 const saveSetting = async (settingsKey: string) => {
