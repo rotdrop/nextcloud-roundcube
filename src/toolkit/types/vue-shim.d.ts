@@ -32,6 +32,7 @@ declare module '@nextcloud/vue' {
   const NcActionRadio: Vue;
   const NcActionRouter: Vue;
   const NcActionSeparator: Vue;
+  const NcActionTextEditable: Vue;
   const NcActions: Vue & {
     opened: boolean,
     closeMenu(returnFocus?: boolean):void,
@@ -59,6 +60,7 @@ declare module '@nextcloud/vue' {
   }
 
   const NcCounterBubble: Vue;
+  const NcDateTimePicker: Vue;
 
   const NcListItem: Vue & {
     forceDisplayActions: true,
@@ -66,6 +68,7 @@ declare module '@nextcloud/vue' {
   const NcListItemIcon: Vue;
   const NcModal: Vue;
   const NcProgressBar: Vue;
+  const NcRichContenteditable: Vue;
   const NcRichText: Vue;
   const NcSelect : Vue & {
     localLabel: string;
@@ -103,6 +106,7 @@ declare module '@nextcloud/vue' {
     NcActionRouter,
     NcActionSeparator,
     NcActions,
+    NcActionTextEditable,
     NcAppContent,
     NcAppNavigation,
     NcAppNavigationItem,
@@ -114,6 +118,7 @@ declare module '@nextcloud/vue' {
     NcColorPicker,
     NcContent,
     NcCounterBubble,
+    NcDateTimePicker,
     NcEllipsisedOption,
     NcEmptyContent,
     NcListItem,
@@ -121,6 +126,7 @@ declare module '@nextcloud/vue' {
     NcModal,
     NcPasswordField,
     NcProgressBar,
+    NcRichContenteditable,
     NcRichText,
     NcSelect,
     NcSettingsSection,
