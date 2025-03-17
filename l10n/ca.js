@@ -22,6 +22,7 @@ OC.L10N.register(
     "Choose a prefix-folder" : "Trieu una carpeta-prefix",
     "Invalid path selected: \"{dir}\"." : "El camí seleccionat no és vàlid: \"{dir}\".",
     "Selected path: \"{dir}/{base}/\"." : "Camí seleccionat: \"{dir}/{base}/\".",
+    "Clear Selection" : "Buida la selecció",
     "User ID" : "ID de l'usuari",
     "Email Address" : "Adreça de correu electrònic",
     "Advanced Settings" : "Paràmetres avançats",
