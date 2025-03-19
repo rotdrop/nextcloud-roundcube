@@ -3,7 +3,7 @@
  * Nextcloud RoundCube App.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2020-2024 Claus-Justus Heine
+ * @copyright 2020-2025 Claus-Justus Heine
  * @license AGPL-3.0-or-later
  *
  * Nextcloud RoundCube App is free software: you can redistribute it and/or
@@ -23,26 +23,22 @@
 
 namespace OCA\RoundCube\Settings;
 
-use Psr\Log\LoggerInterface as ILogger;
-
 use OCP\AppFramework\Http\TemplateResponse;
-use OCP\IConfig;
 use OCP\Settings\IDelegatedSettings;
+use OCP\Util;
 
-use OCA\RoundCube\Constants;
 use OCA\RoundCube\Service\AssetService;
 use OCA\RoundCube\Service\Config;
 
 /** Admin settings. */
 class Admin implements IDelegatedSettings
 {
-  const TEMPLATE = 'settings/admin';
-  const ASSET_NAME = 'admin-settings';
+  private const TEMPLATE = 'settings/admin';
+  private const ASSET_NAME = 'admin-settings';
 
   // phpcs:disable Squiz.Commenting.FunctionComment.Missing
   public function __construct(
     private string $appName,
-    private Config $config,
     private AssetService $assetService,
   ) {
   }
@@ -51,21 +47,10 @@ class Admin implements IDelegatedSettings
   /** {@inheritdoc} */
   public function getForm()
   {
-    $templateParameters = [
-      'appName' => $this->appName,
-      'webPrefix' => $this->appName,
-      'assets' => [
-        Constants::JS => $this->assetService->getJSAsset(self::ASSET_NAME),
-        Constants::CSS => $this->assetService->getCSSAsset(self::ASSET_NAME),
-      ],
-    ];
-    foreach (array_keys(Config::SETTINGS) as $setting) {
-      $templateParameters[$setting] = $this->config->getAppValue($setting);
-    }
-    return new TemplateResponse(
-      $this->appName,
-      self::TEMPLATE,
-      $templateParameters);
+    Util::addScript($this->appName, $this->assetService->getJSAsset(self::ASSET_NAME)['asset']);
+    Util::addStyle($this->appName, $this->assetService->getCSSAsset(self::ASSET_NAME)['asset']);
+
+    return new TemplateResponse($this->appName, self::TEMPLATE, [ 'appName' => $this->appName ]);
   }
 
   /** {@inheritdoc} */

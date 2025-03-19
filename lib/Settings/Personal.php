@@ -3,7 +3,7 @@
  * Nextcloud RoundCube App.
  *
  * @author Claus-Justus Heine
- * @copyright 2020-2024 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2020-2025 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * Nextcloud RoundCube App is free software: you can redistribute it and/or
@@ -23,94 +23,33 @@
 
 namespace OCA\RoundCube\Settings;
 
-use Psr\Log\LoggerInterface as ILogger;
-
 use OCP\AppFramework\Http\TemplateResponse;
-use OCP\Authentication\LoginCredentials\IStore as ICredentialsStore;
-use OCP\IConfig;
-use OCP\IURLGenerator;
-use OCP\IUser;
-use OCP\IUserSession;
-use OCP\Security\ICrypto;
 use OCP\Settings\ISettings;
+use OCP\Util;
 
-use OCA\RoundCube\Constants;
 use OCA\RoundCube\Service\AssetService;
-use OCA\RoundCube\Service\Config;
 
 /** Personal settings. */
 class Personal implements ISettings
 {
-  const TEMPLATE = 'settings/personal';
-  const ASSET_NAME = 'personal-settings';
-  const SETTINGS = [
-    'emailAddress',
-    'emailPassword',
-  ];
-
-  /** @var IUser */
-  private $user;
+  private const TEMPLATE = 'settings/personal';
+  private const ASSET_NAME = 'personal-settings';
 
   // phpcs:disable Squiz.Commenting.FunctionComment.Missing
   public function __construct(
-    IUserSession $userSession,
     private string $appName,
-    private Config $config,
     private AssetService $assetService,
-    private IURLGenerator $urlGenerator,
   ) {
-    $this->user = $userSession->getUser();
   }
   // phpcs:enable Squiz.Commenting.FunctionComment.Missing
 
   /** {@inheritdoc} */
   public function getForm()
   {
-    $emailAddressChoice = $this->config->getAppValue('emailAddressChoice');
-    $emailDefaultDomain = $this->config->getAppValue('emailDefaultDomain');
-    switch ($emailAddressChoice) {
-      case 'userIdEmail':
-        $userEmail = $this->user->getUID();
-        if (strpos($userEmail, '@') === false) {
-          $userEmail .= '@'.$emailDefaultDomain;
-        }
-        break;
-      case 'userPreferencesEmail':
-        $userEmail = $this->user->getEMailAddress();
-        break;
-      case 'userChosenEmail':
-        $userEmail = $this->config->getPersonalValue('emailAddress');
-        break;
-    }
+    Util::addScript($this->appName, $this->assetService->getJSAsset(self::ASSET_NAME)['asset']);
+    Util::addStyle($this->appName, $this->assetService->getCSSAsset(self::ASSET_NAME)['asset']);
 
-    $forceSSO = $this->config->getAppValue('forceSSO');
-    if ($forceSSO != 'on') {
-      $emailPassword = $this->config->getPersonalValue('emailPassword');
-    } else {
-      $emailPassword = '';
-    }
-
-    $templateParameters = [
-      'appName' => $this->appName,
-      'webPrefix' => $this->appName,
-      'userId' => $this->user->getUID(),
-      'userEmail' => $this->user->getEMailAddress(),
-      'urlGenerator' => $this->urlGenerator,
-      'emailAddressChoice' => $emailAddressChoice,
-      'emailDefaultDomain' => $emailDefaultDomain,
-      'emailAddress' => $userEmail,
-      'emailPassword' => $emailPassword,
-      'forceSSO' => $forceSSO,
-      'assets' => [
-        Constants::JS => $this->assetService->getJSAsset(self::ASSET_NAME),
-        Constants::CSS => $this->assetService->getCSSAsset(self::ASSET_NAME),
-      ],
-    ];
-
-    return new TemplateResponse(
-      $this->appName,
-      self::TEMPLATE,
-      $templateParameters);
+    return new TemplateResponse($this->appName, self::TEMPLATE, [ 'appName' => $this->appName ]);
   }
 
   /** {@inheritdoc} */
