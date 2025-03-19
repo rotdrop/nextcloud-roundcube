@@ -17,7 +17,7 @@
  - along with this program. If not, see <http://www.gnu.org/licenses/>.
  -->
 <template>
-  <div :class="['app-container', state]">
+  <NcContent :app-name="appName" :class="['app-container', state]">
     <div ref="loaderContainer" class="loader-container" />
     <iframe v-show="state !== 'error'"
             :id="frameId"
@@ -30,10 +30,15 @@
     <div v-if="state === 'error'" id="errorMsg">
       <p>{{ errorMessage }}</p>
     </div>
-  </div>
+  </NcContent>
 </template>
 <script setup lang="ts">
 import { appName } from './config.ts'
+import {
+  // NcAppContent,
+  // NcAppNavigation,
+  NcContent,
+} from '@nextcloud/vue'
 import {
   computed,
   onMounted,
@@ -42,22 +47,15 @@ import {
 } from 'vue'
 import { translate as t } from '@nextcloud/l10n'
 import { loadHandler, resizeHandler } from './roundcube.ts'
-import { getInitialState } from './toolkit/services/InitialStateService.js'
+import getInitialState from './toolkit/util/initial-state.ts'
+import type { InitialState } from './types/initial-state.d.ts'
 
-interface InitialState {
-  state: 'error'|'success',
-  reason: 'norcurl'|'noemail'|'login'|'carddav',
-  emailUserId: string|null,
-  externalLocation: string|null,
-  showTopLine: boolean,
-}
+const initialState = getInitialState<InitialState>()
 
-const initialState = getInitialState() as InitialState
-
-const state = computed(() => initialState.state)
-const reason = computed(() => initialState.reason)
-const externalLocation = computed(() => initialState.externalLocation)
-const showTopLine = computed(() => initialState.showTopLine)
+const state = computed(() => initialState?.state)
+const reason = computed(() => initialState?.reason)
+const externalLocation = computed(() => initialState?.externalLocation)
+const showTopLine = computed(() => initialState?.showTopLine)
 
 let gotLoadEvent = false
 

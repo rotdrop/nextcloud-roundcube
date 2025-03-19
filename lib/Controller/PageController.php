@@ -24,8 +24,6 @@
 
 namespace OCA\RoundCube\Controller;
 
-use Psr\Log\LoggerInterface as ILogger;
-
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http\ContentSecurityPolicy;
 use OCP\AppFramework\Http\JSONResponse;
@@ -35,6 +33,7 @@ use OCP\IL10N;
 use OCP\IRequest;
 use OCP\IURLGenerator;
 use OCP\Util;
+use Psr\Log\LoggerInterface as ILogger;
 
 use OCA\RoundCube\Constants;
 use OCA\RoundCube\Controller\SettingsController;
@@ -109,14 +108,10 @@ class PageController extends Controller
       Config::SHOW_TOP_LINE => $this->config->getAppValue(Config::SHOW_TOP_LINE),
     ]);
 
-    $tplParams = [
-      'appName' => $this->appName,
-      'assets' => [
-        Constants::JS => $this->assetService->getJSAsset(self::MAIN_ASSET),
-        Constants::CSS => $this->assetService->getCSSAsset(self::MAIN_ASSET),
-      ],
-    ];
-    $tpl = new TemplateResponse($this->appName, self::MAIN_TEMPLATE, $tplParams);
+    Util::addScript($this->appName, $this->assetService->getJSAsset(self::MAIN_ASSET)['asset']);
+    Util::addStyle($this->appName, $this->assetService->getCSSAsset(self::MAIN_ASSET)['asset']);
+
+    $tpl = new TemplateResponse($this->appName, self::MAIN_TEMPLATE, []);
 
     // This is mandatory to embed a different server in an iframe.
     $urlParts = parse_url($roundCubeUrl);

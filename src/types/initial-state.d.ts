@@ -1,9 +1,8 @@
 /**
  * Nextcloud RoundCube App.
  *
- * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2020, 2021, 2022, 2023, 2023, 2025 Claus-Justus Heine
- * @license AGPL-3.0-or-later
+ * @author Claus-Justus Heine
+ * @copyright 2020, 2021, 2023, 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
  *
  * Nextcloud RoundCube App is free software: you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -20,21 +19,10 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-import { appName } from './config.ts';
-import { generateFilePath } from '@nextcloud/router';
-import { getRequestToken } from '@nextcloud/auth';
-
-import Vue from 'vue';
-import App from './App.vue';
-
-// CSP config for webpack dynamic chunk loading
-// eslint-disable-next-line
-__webpack_nonce__ = btoa(getRequestToken() || '')
-
-// eslint-disable-next-line
-__webpack_public_path__ = generateFilePath(appName, '', '');
-
-export default new Vue({
-  el: '#content',
-  render: h => h(App),
-});
+export interface InitialState {
+  state: 'error'|'success',
+  reason: 'norcurl'|'noemail'|'login'|'carddav',
+  emailUserId: string|null,
+  externalLocation: string|null,
+  showTopLine: boolean,
+}

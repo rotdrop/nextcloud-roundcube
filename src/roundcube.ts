@@ -19,9 +19,10 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-import { getInitialState } from './toolkit/services/InitialStateService.js';
+import getInitialState from './toolkit/util/initial-state.ts';
+import type { InitialState } from './types/initial-state.d.ts'
 
-const initialState = getInitialState();
+const initialState = getInitialState<InitialState>();
 
 type RoundCubeWindow = Window & {
   rcmail?: {
@@ -110,7 +111,7 @@ const resizeIframe = function(frame: HTMLIFrameElement) {
  * @param frame TBD.
  */
 const loadHandler = function(frame: HTMLIFrameElement) {
-  if (!initialState.showTopline) {
+  if (!initialState?.showTopLine) {
     hideTopLine(frame);
   }
   resizeIframe(frame);
