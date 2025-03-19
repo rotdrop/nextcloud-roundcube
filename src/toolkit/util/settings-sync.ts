@@ -24,13 +24,12 @@ import {
   showSuccess,
   showInfo,
   TOAST_PERMANENT_TIMEOUT,
-  getDialogBuilder,
-  DialogSeverity,
 } from '@nextcloud/dialogs';
 import axios from '@nextcloud/axios';
 import { generateUrl } from '@nextcloud/router';
 import { translate as t } from '@nextcloud/l10n';
 import { isAxiosErrorResponse } from '../types/axios-type-guards.ts';
+import dialogConfirm from './dialog-confirm.ts';
 
 interface FetchSettingsArgs {
   section: 'admin'|'personal',
@@ -60,7 +59,7 @@ async function fetchSettings({ section, settings }: FetchSettingsArgs) {
     console.info('ERROR', e);
     let message = t(appName, 'reason unknown');
     if (isAxiosErrorResponse(e) && e.response.data) {
-      const responseData = e.response.data;
+      const responseData = e.response.data as { messages?: string[] };
       if (Array.isArray(responseData.messages)) {
         message = responseData.messages.join(' ');
       }
@@ -99,7 +98,7 @@ async function fetchSetting({ settingsKey, section, settings }: FetchSettingArgs
     console.info('ERROR', e);
     let message = t(appName, 'reason unknown');
     if (isAxiosErrorResponse(e) && e.response.data) {
-      const responseData = e.response.data;
+      const responseData = e.response.data as { messages?: string[] };
       if (Array.isArray(responseData.messages)) {
         message = responseData.messages.join(' ');
       }
@@ -174,7 +173,7 @@ async function saveSimpleSetting({ settingsKey, section, onSuccess, settings }: 
     console.info('ERROR', e);
     let message = t(appName, 'reason unknown');
     if (isAxiosErrorResponse(e) && e.response.data) {
-      const responseData = e.response.data;
+      const responseData = e.response.data as { messages?: string[] };
       if (Array.isArray(responseData.messages)) {
         message = responseData.messages.join(' ');
       }
@@ -246,31 +245,17 @@ const saveConfirmedSetting = async ({
     const response = await axios.post(generateUrl('apps/' + appName + '/settings/' + section + '/' + settingsKey), { value, force });
     const responseData = response.data;
     if (responseData.status === 'unconfirmed') {
-      let confirmed: boolean|undefined;
-      return getDialogBuilder(t(appName, 'Confirmation Required'))
-        .setText(responseData.feedback)
-        .setSeverity(DialogSeverity.Info)
-        .addButton({
-          label: t('core', 'No'),
-          type: 'secondary',
-          callback() { confirmed = false; },
-        })
-        .addButton({
-          label: t('core', 'Yes'),
-          type: 'primary',
-          callback() { confirmed = true; },
-        })
-        .build()
-        .show()
-        .then(async () => {
-          if (confirmed) {
-            return saveConfirmedSetting({ value, section, settingsKey, force: true, settings, resetData });
-          } else {
-            showInfo(t(appName, 'Unconfirmed, reverting to old value.'));
-            resetData && await resetData();
-            return false;
-          }
-        });
+      const confirmed = await dialogConfirm({
+        title: t(appName, 'Confirmation Required'),
+        text: responseData.feedback,
+      });
+      if (confirmed) {
+        return saveConfirmedSetting({ value, section, settingsKey, force: true, settings, resetData });
+      } else {
+        showInfo(t(appName, 'Unconfirmed, reverting to old value.'));
+        resetData && await resetData();
+        return false;
+      }
     } else {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       let displayValue: any;
@@ -302,7 +287,7 @@ const saveConfirmedSetting = async ({
     console.info('ERROR', e);
     let message = t(appName, 'reason unknown');
     if (isAxiosErrorResponse(e) && e.response.data) {
-      const responseData = e.response.data;
+      const responseData = e.response.data as { messages?: string[] };
       if (Array.isArray(responseData.messages)) {
         message = responseData.messages.join(' ');
       }

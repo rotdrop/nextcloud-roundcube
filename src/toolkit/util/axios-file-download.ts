@@ -26,6 +26,7 @@ import { generateUrl as generateAppUrl } from './generate-url.js';
 import { generateUrl, generateRemoteUrl } from '@nextcloud/router';
 import { parse as parseContentDisposition } from 'content-disposition';
 import type { ResponseType } from 'axios';
+import { isAxiosErrorResponse } from '../types/axios-type-guards.js';
 
 /**
  * Place a download request by posting to the given Ajax URL.
@@ -36,7 +37,7 @@ import type { ResponseType } from 'axios';
  * @param post Optional. Additional post-data. If present we send a
    POST request to the URL with this data.
  */
-const download = async (url: string, post?: Record<string, any>) => {
+const axiosFileDownload = async (url: string, post?: Record<string, any>) => {
 
   const downloadUrl = (url.startsWith(generateUrl(''))
                        || url.startsWith(generateRemoteUrl('')))
@@ -44,23 +45,40 @@ const download = async (url: string, post?: Record<string, any>) => {
     : generateAppUrl(url);
 
   const axiosOptions = { responseType: 'blob' as ResponseType }
-  const response = post
-    ? await axios.post(downloadUrl, post, axiosOptions)
-    : await axios.get(downloadUrl, axiosOptions);
+  try {
+    const response = post
+      ? await axios.post(downloadUrl, post, axiosOptions)
+      : await axios.get(downloadUrl, axiosOptions);
 
-  let fileName = 'download';
-  const contentDisposition = response.headers?.['Content-Disposition']
-  if (contentDisposition) {
-    const contentMeta = parseContentDisposition(contentDisposition);
-    fileName = contentMeta.parameters.filename || fileName;
+    let fileName = 'download';
+
+    const contentDisposition = response.headers?.['content-disposition'];
+    if (typeof contentDisposition === 'string') {
+      const contentMeta = parseContentDisposition(contentDisposition);
+      fileName = contentMeta.parameters.filename || fileName;
+    }
+    let contentType = response.headers?.['content-type'];
+    if (typeof contentType === 'string') {
+      contentType = contentType.split(';')[0];
+    } else {
+      contentType = 'application/octetstream';
+    }
+    fileDownload(response.data, fileName, contentType);
+  } catch (error) {
+    if (isAxiosErrorResponse(error)
+        && error.response.data
+        && error.response.data instanceof Blob
+        && error.response.data.type === 'application/json') {
+      try {
+        const text = await error.response.data.text();
+        const data = JSON.parse(text);
+        error.response.data = data;
+      } catch (error2) {
+        console.error('Unable to convert JSON Blob to objecct.', { error: error2 });
+      }
+      throw error;
+    }
   }
-  let contentType = xhr.getResponseHeader('Content-Type');
-  if (contentType) {
-    contentType = contentType.split(';')[0];
-  } else {
-    contentType = 'application/octetstream';
-  }
-  fileDownload(response.data, fileName, contentType);
 };
 
-export default download;
+export default axiosFileDownload;
