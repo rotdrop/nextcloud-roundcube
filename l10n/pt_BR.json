@@ -31,6 +31,7 @@
     "revert color" : "reverter cor",
     "restore palette" : "restaurar paleta",
     "factory reset palette" : "paleta de redefinição de fábrica",
+    "Custom Color" : "Cor Personalizada",
     "Choose a folder" : "Choose a folder",
     "Choose a prefix-folder" : "Escolha a pasta-prefixo",
     "Invalid path selected: \"{dir}\"." : "Caminho inválido selecionado: \"{dir}\".",
