@@ -122,7 +122,7 @@ webpackConfig.module.rules = [
         options: {
           // Prefer `dart-sass`
           implementation: require('sass'),
-          additionalData: '$appName: ' + appName + ';'
+          additionalData: '$appName: ' + appName + '; ' + '$roundCubeAppName: ' + appName + ';',
         },
       },
     ],

@@ -23,6 +23,7 @@
 import { appName } from './config.ts';
 import { generateFilePath } from '@nextcloud/router';
 import { getRequestToken } from '@nextcloud/auth';
+import router from './router/router.ts';
 
 import Vue from 'vue';
 import App from './App.vue';
@@ -37,4 +38,6 @@ __webpack_public_path__ = generateFilePath(appName, '', '');
 export default new Vue({
   el: '#content',
   render: h => h(App),
+  // @ts-expect-error: 2769, passing the router es extension should be allowed.
+  router,
 });

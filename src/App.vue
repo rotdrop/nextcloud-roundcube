@@ -18,16 +18,15 @@
  -->
 <template>
   <NcContent :app-name="appName" :class="['app-container', state]">
-    <div ref="loaderContainer" class="loader-container" />
-    <iframe v-show="state !== 'error'"
-            :id="frameId"
-            ref="roundCubeFrame"
-            :src="externalLocation + '?_task=mail'"
-            :class="[{ showTopLine }]"
-            :name="appName"
-            @load="loadHandlerWrapper"
-    />
-    <div v-if="state === 'error'" id="errorMsg">
+    <NcAppContent :class="[appName + '-content-container', { 'icon-loading': loading }]">
+      <RouterView v-show="!loading && state !== 'error'"
+                  :loading.sync="loading"
+                  @iframe-loaded="onIFrameLoaded($event)"
+      />
+    </NcAppContent>
+    <div v-if="state === 'error'"
+         id="errorMsg"
+    >
       <p>{{ errorMessage }}</p>
     </div>
   </NcContent>
@@ -35,64 +34,32 @@
 <script setup lang="ts">
 import { appName } from './config.ts'
 import {
-  // NcAppContent,
+  NcAppContent,
   // NcAppNavigation,
   NcContent,
 } from '@nextcloud/vue'
 import {
   computed,
-  onMounted,
-  onUnmounted,
   ref,
 } from 'vue'
 import { translate as t } from '@nextcloud/l10n'
-import { loadHandler, resizeHandler } from './roundcube.ts'
 import getInitialState from './toolkit/util/initial-state.ts'
 import type { InitialState } from './types/initial-state.d.ts'
+import {
+  useRoute,
+  useRouter,
+} from 'vue-router/composables'
+import type { Location as RouterLocation } from 'vue-router'
+
+const loading = ref(true)
+
+const router = useRouter()
+const currentRoute = useRoute()
 
 const initialState = getInitialState<InitialState>()
 
 const state = computed(() => initialState?.state)
 const reason = computed(() => initialState?.reason)
-const externalLocation = computed(() => initialState?.externalLocation)
-const showTopLine = computed(() => initialState?.showTopLine)
-
-let gotLoadEvent = false
-
-const loaderContainer = ref<null|HTMLElement>(null)
-const roundCubeFrame = ref<null|HTMLIFrameElement>(null)
-
-const loadHandlerWrapper = () => {
-  console.info('ROUNDCUBD: GOT LOAD EVENT')
-  loadHandler(roundCubeFrame.value!)
-  if (!gotLoadEvent) {
-    loaderContainer.value!.classList.add('fading')
-  }
-  gotLoadEvent = true
-}
-
-const resizeHandlerWrapper = () => {
-  resizeHandler(roundCubeFrame.value!)
-}
-
-const loadTimeout = 1000 // 1 second
-let timerCount = 0
-
-const loadTimerHandler = () => {
-  if (gotLoadEvent) {
-    return
-  }
-  timerCount++
-  const rcfContents = roundCubeFrame.value!.contentWindow!.document
-  if (rcfContents.querySelector('#layout')) {
-    console.info('ROUNDCUBE: LOAD EVENT FROM TIMER AFTER ' + (loadTimeout * timerCount) + ' ms')
-    roundCubeFrame.value!.dispatchEvent(new Event('load'))
-  } else {
-    setTimeout(loadTimerHandler, loadTimeout)
-  }
-}
-
-const frameId = computed(() => appName + 'Frame')
 
 const errorMessage = computed(() => {
   if (state.value !== 'error') {
@@ -117,15 +84,41 @@ helps. Otherwise contact your system administrator.`)
   }
 })
 
-onMounted(() => {
-  window.addEventListener('resize', resizeHandlerWrapper)
-  setTimeout(loadTimerHandler, loadTimeout)
-})
+const onIFrameLoaded = async (event: { query: Record<string, string> }) => {
+  loading.value = false
+  console.debug('GOT EVENT', { event })
+  if (event.query.id) {
+    delete event.query.id
+  }
+  const routerLocation: RouterLocation = {
+    name: currentRoute.name!,
+    params: {},
+    query: { ...event.query },
+  }
+  try {
+    await router.push(routerLocation)
+  } catch (error) {
+    console.debug('NAVIGATION ABORTED', { error })
+  }
+}
 
-onUnmounted(() => {
-  window.removeEventListener('resize', resizeHandlerWrapper)
+// The initial route is not named and consequently does not load the
+// wrapper component, so just replace it by the one and only named
+// route.
+router.onReady(async () => {
+  if (!currentRoute.name) {
+    const routerLocation: RouterLocation = {
+      name: 'home',
+      params: {},
+      query: { ...currentRoute.query },
+    }
+    try {
+      await router.replace(routerLocation)
+    } catch (error) {
+      console.debug('NAVIGATION ABORTED', { error })
+    }
+  }
 })
-
 </script>
 <style lang="scss" scoped>
 .app-container {
@@ -135,24 +128,12 @@ onUnmounted(() => {
   justify-content: center;
   align-items: stretch;
   align-content: stretch;
-  &.error {
-    .loader-container {
-      display:none; // do not further annoy the user
-    }
-  }
-  .loader-container {
-    background-image: url('../img/loader.gif');
-    background-repeat: no-repeat;
-    background-position: center;
-    z-index:10;
-    width:100%;
-    height:100%;
-    position:fixed;
-    transition: visibility 1s, opacity 1s;
-    &.fading {
-      opacity: 0;
-      visibility: hidden;
-    }
+  main {
+      // strange: all divs have the same height, there is no horizontal
+      // scrollbar, but still FF likes to emit a vertical scrollbar.
+      //
+      // DO NOT ALLOW THIS!
+      overflow: hidden !important;
   }
   #errorMsg {
     align-self: center;
@@ -163,9 +144,6 @@ onUnmounted(() => {
     border: 2px solid var(--color-border-maxcontrast);
     border-radius: var(--border-radius-pill);
     background-color: var(--color-background-dark);
-  }
-  iframe {
-    flex-grow: 10;
   }
 }
 </style>

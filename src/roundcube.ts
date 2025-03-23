@@ -2,7 +2,7 @@
  * Nextcloud RoundCube App.
  *
  * @author Claus-Justus Heine
- * @copyright 2020, 2021, 2022, 2023, 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2020-2025 Claus-Justus Heine <himself@claus-justus-heine.de>
  *
  * Nextcloud RoundCube App is free software: you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -19,11 +19,6 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-import getInitialState from './toolkit/util/initial-state.ts';
-import type { InitialState } from './types/initial-state.d.ts'
-
-const initialState = getInitialState<InitialState>();
-
 type RoundCubeWindow = Window & {
   rcmail?: {
     env: {
@@ -33,9 +28,9 @@ type RoundCubeWindow = Window & {
 }
 
 /**
- * @param {object} rcf RoundCubeFrame.
+ * @param rcf RoundCubeFrame.
  */
-const hideTopLine = function(rcf: HTMLIFrameElement) {
+export const hideTopLine = (rcf: HTMLIFrameElement) => {
   const frameWindow: RoundCubeWindow = rcf.contentWindow!;
   const frameDocument = frameWindow.document!;
 
@@ -67,54 +62,3 @@ const hideTopLine = function(rcf: HTMLIFrameElement) {
     frameDocument.querySelector('.button-logout')!.remove(); // [3]
   }
 };
-
-/**
- * Fills height of window (more precise than height: 100%;)
- *
- * @param frame The frame to be  resized.
- */
-const fillHeight = function(frame: HTMLIFrameElement) {
-  const height = window.innerHeight - frame.getBoundingClientRect().top;
-  frame.style.height = height + 'px';
-  const outerDelta = frame.getBoundingClientRect().height - frame.clientHeight;
-  if (outerDelta) {
-    frame.style.height = (height - outerDelta) + 'px';
-  }
-};
-
-/**
- * Fills width of window (more precise than width: 100%;)
- *
- * @param frame The frame to be resized.
- */
-const fillWidth = function(frame: HTMLIFrameElement) {
-  const width = window.innerWidth - frame.getBoundingClientRect().left;
-  frame.style.width = width + 'px';
-  const outerDelta = frame.getBoundingClientRect().width - frame.clientWidth;
-  if (outerDelta > 0) {
-    frame.style.width = (width - outerDelta) + 'px';
-  }
-};
-
-/**
- * Fills height and width of RC window.
- * More precise than height/width: 100%.
- *
- * @param frame TBD.
- */
-const resizeIframe = function(frame: HTMLIFrameElement) {
-  fillHeight(frame);
-  fillWidth(frame);
-};
-
-/**
- * @param frame TBD.
- */
-const loadHandler = function(frame: HTMLIFrameElement) {
-  if (!initialState?.showTopLine) {
-    hideTopLine(frame);
-  }
-  resizeIframe(frame);
-};
-
-export { loadHandler, resizeIframe as resizeHandler };
