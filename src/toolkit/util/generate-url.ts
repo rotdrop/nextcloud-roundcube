@@ -25,6 +25,7 @@ import {
   generateUrl as nextcloudGenerateUrl,
   generateOcsUrl as nextcloudGenerateOcsUrl,
 } from '@nextcloud/router';
+import type { UrlOptions } from '@nextcloud/router';
 
 /**
  * Generate an absolute URL for this app.
@@ -35,27 +36,25 @@ import {
  * contains parameters. "Excess" parameters will be appended as query
  * parameters to the URL.
  *
- * @param {object} [urlOptions] Object with query parameters
+ * @param urlOptions Object with query parameters
  * ```
  * {
  *   escape: BOOL,
  *   noRewrite: BOOL,
  * }
  * ```
- *
- * @return {string}
  */
-export const generateUrl = function(url, urlParams, urlOptions) {
+export const generateUrl = <T extends string>(url: T, urlParams?: Record<string, string|number|boolean|null>, urlOptions?: UrlOptions) => {
   // const str = '/image/{joinTable}/{ownerId}';
   let generated = nextcloudGenerateUrl('/apps/' + appName + '/' + url, urlParams, urlOptions);
-  const queryParams = { ...urlParams };
+  const queryParams = { ...(urlParams || {})};
   for (const urlParam of url.matchAll(/{([^{}]*)}/g)) {
     delete queryParams[urlParam[1]];
   }
-  const queryArray = [];
+  const queryArray: string[] = [];
   for (const [key, value] of Object.entries(queryParams)) {
     try {
-      queryArray.push(key + '=' + encodeURIComponent(value.toString()));
+      queryArray.push(key + '=' + encodeURIComponent(value?.toString()  || ''));
     } catch (e) {
       console.debug('STRING CONVERSION ERROR', e);
     }
@@ -66,16 +65,16 @@ export const generateUrl = function(url, urlParams, urlOptions) {
   return generated;
 };
 
-export const generateOcsUrl = function(url, urlParams, urlOptions) {
+export const generateOcsUrl = <T extends string>(url: T, urlParams?: Record<string, string|number|boolean|null>, urlOptions?: UrlOptions) => {
   let generated = nextcloudGenerateOcsUrl('/apps/' + appName + '/' + url, urlParams, urlOptions);
   const queryParams = { ...urlParams };
   for (const urlParam of url.matchAll(/{([^{}]*)}/g)) {
     delete queryParams[urlParam[1]];
   }
-  const queryArray = [];
+  const queryArray: string[] = [];
   for (const [key, value] of Object.entries(queryParams)) {
     try {
-      queryArray.push(key + '=' + encodeURIComponent(value.toString()));
+      queryArray.push(key + '=' + encodeURIComponent(value?.toString() || ''));
     } catch (e) {
       console.debug('STRING CONVERSION ERROR', e);
     }

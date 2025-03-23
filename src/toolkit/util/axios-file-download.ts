@@ -22,7 +22,7 @@
 
 import axios from '@nextcloud/axios';
 import fileDownload from 'js-file-download';
-import { generateUrl as generateAppUrl } from './generate-url.js';
+import { generateUrl as generateAppUrl } from './generate-url.ts';
 import { generateUrl, generateRemoteUrl } from '@nextcloud/router';
 import { parse as parseContentDisposition } from 'content-disposition';
 import type { ResponseType } from 'axios';
