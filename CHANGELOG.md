@@ -4,6 +4,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [1.2.0-rc1] - unreleased
+
+### Added
+
+- support Nextcloud v30, v31, drop v27, v28
+
+- New feature: mirror iframe query params in top-level url and pass
+  the params down to the RC iframe src url. Also push the iframe
+  location to the browser history. This way usersthe user can use
+  forward/back/reload buttons of their web-browsers just as if they
+  would use RC as standalone app.
+
+### Changed
+
+- Do not always perform a fresh login, reuse existing auth
+  cookies. This is also necessary in order to make page reload work as
+  otherwise the PHP session is shot down.
+
 ## [1.1.2] - 2024-03-23
 
 ### Added
