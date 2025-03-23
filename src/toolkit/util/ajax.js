@@ -25,7 +25,7 @@ import print_r from './print-r.js';
 import * as Dialogs from './dialogs.js';
 import { isPlainObject } from 'is-plain-object';
 import { getRootUrl as getCloudRootUrl } from '@nextcloud/router';
-import { getInitialState } from '../services/InitialStateService.js';
+import getInitialState from './initial-state.ts';
 
 const cloudWebRoot = getCloudRootUrl() || '/';
 
