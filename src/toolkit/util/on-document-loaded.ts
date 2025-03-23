@@ -1,5 +1,5 @@
 /**
- * @copyright Copyright (c) 2022, 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright Copyright (c) 2022, 2023, 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
  *
@@ -20,7 +20,7 @@
  *
  */
 
-const onDocumentLoaded = (callback) => {
+const onDocumentLoaded = (callback: () => void) => {
   if (document.readyState !== 'loading') {
     callback();
   } else {
