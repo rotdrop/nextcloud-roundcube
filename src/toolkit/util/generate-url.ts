@@ -47,14 +47,14 @@ import type { UrlOptions } from '@nextcloud/router';
 export const generateUrl = <T extends string>(url: T, urlParams?: Record<string, string|number|boolean|null>, urlOptions?: UrlOptions) => {
   // const str = '/image/{joinTable}/{ownerId}';
   let generated = nextcloudGenerateUrl('/apps/' + appName + '/' + url, urlParams, urlOptions);
-  const queryParams = { ...(urlParams || {})};
+  const queryParams = { ...(urlParams || {}) };
   for (const urlParam of url.matchAll(/{([^{}]*)}/g)) {
     delete queryParams[urlParam[1]];
   }
   const queryArray: string[] = [];
   for (const [key, value] of Object.entries(queryParams)) {
     try {
-      queryArray.push(key + '=' + encodeURIComponent(value?.toString()  || ''));
+      queryArray.push(key + '=' + encodeURIComponent(value?.toString() || ''));
     } catch (e) {
       console.debug('STRING CONVERSION ERROR', e);
     }

@@ -26,7 +26,7 @@ import { generateUrl as generateAppUrl } from './generate-url.ts';
 import { generateUrl, generateRemoteUrl } from '@nextcloud/router';
 import { parse as parseContentDisposition } from 'content-disposition';
 import type { ResponseType } from 'axios';
-import { isAxiosErrorResponse } from '../types/axios-type-guards.js';
+import { isAxiosErrorResponse } from '../types/axios-type-guards.ts';
 
 /**
  * Place a download request by posting to the given Ajax URL.
