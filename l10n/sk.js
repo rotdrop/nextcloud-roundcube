@@ -33,6 +33,7 @@ OC.L10N.register(
     "revert color" : "vrátiť farbu",
     "restore palette" : "obnoviť paletu",
     "factory reset palette" : "obnoviť paletu do továrneho nastavenia",
+    "Custom Color" : "Vlastná farba",
     "Choose a folder" : "Vybrať priečinok",
     "Choose a prefix-folder" : "Vyberte prefix-adresár",
     "Invalid path selected: \"{dir}\"." : "Bola vybraná neplatná cesta: \"{dir}\".",
