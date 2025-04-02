@@ -22,21 +22,10 @@ OC.L10N.register(
     "Choose a prefix-folder" : "Trieu una carpeta-prefix",
     "Invalid path selected: \"{dir}\"." : "El camí seleccionat no és vàlid: \"{dir}\".",
     "Selected path: \"{dir}/{base}/\"." : "Camí seleccionat: \"{dir}/{base}/\".",
+    "Clear Selection" : "Buida la selecció",
     "User ID" : "ID de l'usuari",
     "Email Address" : "Adreça de correu electrònic",
     "Advanced Settings" : "Paràmetres avançats",
-    "Enable SSL verification." : "Activa la verificació SSL.",
-    "reason unknown" : "motiu desconegut",
-    "Unable to query the initial value of all settings: {message}" : "No es pot consultar el valor inicial de totes les opcions de configuració: {message}",
-    "Unable to query the initial value of {settingsKey}: {message}" : "No es pot consultar el valor inicial de {settingsKey}: {message}",
-    "Successfully set \"{settingsKey}\" to {value}." : "Definiu correctament \"{settingsKey}\" a {value}.",
-    "Setting \"{settingsKey}\" has been unset successfully." : "El paràmetre \"{settingsKey}\" s'ha desactivat correctament.",
-    "Unable to set \"{settingsKey}\" to {value}: {message}." : "No es pot establir \"{settingsKey}\" a {value}: {message}.",
-    "Unable to unset \"{settingsKey}\": {message}" : "No es pot desactivar \"{settingsKey}\": {message}",
-    "Confirmation Required" : "Confirmació requerida",
-    "Unconfirmed, reverting to old value." : "Sense confirmar, es torna al valor anterior.",
-    "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "S'ha establert correctament el valor de \"{settingsKey}\" a \"{displayValue}\"",
-    "Setting \"{setting}\" has been unset successfully." : "El paràmetre \"{setting}\" s'ha desactivat correctament.",
-    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "No s'ha pogut establir el valor de \"{settingsKey}\" a \"{value}\": {message}"
+    "Enable SSL verification." : "Activa la verificació SSL."
 },
 "nplurals=2; plural=(n != 1);");

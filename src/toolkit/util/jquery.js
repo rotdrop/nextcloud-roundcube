@@ -1,5 +1,5 @@
 /**
- * @copyright Copyright (c) 2022, 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright Copyright (c) 2022, 2023, 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
  *
@@ -22,7 +22,7 @@
 
 // jQuery stuff
 
-import { appName } from '../../config.js';
+import { appName } from '../../config.ts';
 import { getRequestToken, onRequestTokenUpdate } from '@nextcloud/auth';
 const jQuery = require('jquery');
 

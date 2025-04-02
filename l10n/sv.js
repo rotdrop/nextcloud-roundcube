@@ -4,6 +4,7 @@ OC.L10N.register(
     "User" : "Användare",
     "Password" : "Lösenord",
     "bytes" : "byte",
+    "Choose a folder" : "Välj en mapp",
     "User ID" : "Användar-ID",
     "Email Address" : "E-postadress",
     "Advanced Settings" : "Avancerade inställningar"

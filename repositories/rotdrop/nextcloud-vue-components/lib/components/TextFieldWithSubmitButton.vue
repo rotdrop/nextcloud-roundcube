@@ -1,5 +1,5 @@
 <!--
- - @copyright Copyright (c) 2019, 2022, 2023, 2024 Julius Härtl <jus@bitgrid.net>
+ - @copyright Copyright (c) 2019, 2022, 2023, 2024, 2025 Julius Härtl <jus@bitgrid.net>
  - @copyright Copyright (c) 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
  -
  - @author Julius Härtl <jus@bitgrid.net>
@@ -21,50 +21,52 @@
  -->
 <template>
   <div class="component-wrapper">
-    <NcTextField ref="ncTextField"
-                 v-bind="$attrs"
-                 :value="value || ''"
-                 :show-trailing-button="true"
-                 trailing-button-icon="arrowRight"
-                 v-on="$listeners"
-                 @trailing-button-click="$emit('submit', $refs.ncTextField.value)"
-    >
-      <!-- pass through scoped slots -->
-      <template v-for="(_, scopedSlotName) in $scopedSlots" #[scopedSlotName]="slotData">
-        <slot :name="scopedSlotName" v-bind="slotData" />
-      </template>
-
-      <!-- pass through normal slots -->
-      <template v-for="(_, slotName) in $slots" #[slotName]>
-        <slot :name="slotName" />
-      </template>
-    </NcTextField>
-    <p v-if="hint !== '' || !!$slots.hint" class="hint">
-      {{ hint }}
-      <slot name="hint" />
-    </p>
+    <div :class="['alignment-wrapper', ...props.flexContainerClasses]">
+      <div v-if="$slots.alignedBefore" :class="['aligned-before', ...props.flexItemClasses]">
+        <slot name="alignedBefore" />
+      </div>
+      <NcTextField ref="ncTextField"
+                   v-bind="$attrs"
+                   :value="value || ''"
+                   :show-trailing-button="true"
+                   trailing-button-icon="arrowRight"
+                   v-on="$listeners"
+                   @trailing-button-click="$emit('submit', ncTextFieldValue)"
+      >
+        <!-- pass through scoped slots -->
+        <template v-for="(_, scopedSlotName) in $scopedSlots" #[scopedSlotName]="slotData">
+          <slot :name="scopedSlotName" v-bind="slotData" />
+        </template>
+        <!-- pass through normal slots -->
+        <template v-for="(_, slotName) in $slots" #[slotName]>
+          <slot :name="slotName" />
+        </template>
+      </NcTextField>
+      <div v-if="$slots.alignedAfter" :class="['aligned-after', ...flexItemClasses]">
+        <slot name="alignedAfter" />
+      </div>
+    </div>
   </div>
 </template>
-<script>
+<script setup lang="ts">
+import { computed, ref } from 'vue'
 import { NcTextField } from '@nextcloud/vue'
 
-export default {
-  name: 'TextFieldWithSubmitButton',
-  components: {
-    NcTextField,
-  },
-  props: {
-    hint: {
-      type: String,
-      default: '',
-    },
-    value: {
-      type: [String, Number],
-      default: null,
-      validator: (p) => p === null || (p !== undefined && ['string', 'number'].includes(typeof p))
-    },
-  },
-}
+const props = withDefaults(defineProps<{
+  hint?: string,
+  value?: string|number|null,
+  flexContainerClasses?: string[],
+  flexItemClasses?: string[],
+}>(), {
+  hint: '',
+  value: null,
+  flexContainerClasses: () => ['flex-justify-left', 'flex-align-start'],
+  flexItemClasses: () => ['flex-justify-left', 'flex-align-start'],
+})
+
+const ncTextField = ref<typeof NcTextField|null>(null)
+
+const ncTextFieldValue = computed<string|number>(() => ncTextField.value ? ncTextField.value.value : '')
 </script>
 <style lang="scss" scoped>
 .component-wrapper {
@@ -74,6 +76,7 @@ export default {
   }
   // Tweak the submit button of the NcTextField
   .input-field::v-deep { // wrapper
+    margin-block-start: 0;
     .input-field__input.input-field__input--trailing-icon[dir="rtl"] {
       // still it is a trailing icon, so for rtl the margins have to be interchanged
       padding-inline-end: 12px;
@@ -95,9 +98,49 @@ export default {
       }
       &:hover, &:focus {
         &:not(:disabled) {
+          top: 0;
+          right: 0;
+          height: var(--default-clickable-area);
+          width: var(--default-clickable-area) !important;
           border: 2px solid var(--color-primary-element);
           border-radius: var(--border-radius-large);
           outline: 2px solid var(--color-main-background);
+        }
+      }
+    }
+  }
+  &::v-deep .alignment-wrapper {
+    margin-block-start: 10px;
+    display: flex;
+    flex-grow: 1;
+    max-width: 100%;
+    &.flex- {
+      &align- {
+        &center {
+          align-items: center;
+        }
+        &baseline {
+          align-items: baseline;
+        }
+        &stretch {
+          align-items: stretch;
+        }
+        &start {
+          align-items: start;
+        }
+        &end {
+          align-items: end;
+        }
+      }
+      &justify- {
+        &center {
+          justify-content: center;
+        }
+        &start {
+          justify-content: flex-start;
+        }
+        &left {
+          justify-content: left;
         }
       }
     }

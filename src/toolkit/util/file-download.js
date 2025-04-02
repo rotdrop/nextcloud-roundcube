@@ -1,5 +1,5 @@
 /**
- * @copyright Copyright (c) 2022, 2023, 2024 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright Copyright (c) 2022, 2023, 2024, 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
  *
@@ -21,8 +21,8 @@
  */
 
 import $ from './jquery.js';
-import { appName } from '../../config.js';
-import generateUrl from './generate-url.js';
+import { appName } from '../../config.ts';
+import { generateUrl } from './generate-url.ts';
 import * as Ajax from './ajax.js';
 import * as ncRouter from '@nextcloud/router';
 import { showError, TOAST_PERMANENT_TIMEOUT } from '@nextcloud/dialogs';
@@ -62,7 +62,7 @@ const download = function(url, post, options) {
       },
     };
   }
-  options = $.extend({}, defaultOptions, options);
+  options = { ...defaultOptions, ...options };
   const fail = options.fail;
   options.fail = function(data) {
 

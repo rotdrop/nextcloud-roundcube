@@ -42,7 +42,7 @@ trait NodeTrait
   protected IRootFolder $rootFolder;
 
   /**
-   * Stolen from the template-manager.
+   * Borrowed and enhanced from OC\Files\Template\TemplateManager.php
    *
    * @param Node $node
    *

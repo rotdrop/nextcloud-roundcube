@@ -1,5 +1,5 @@
 <!--
- - @copyright Copyright (c) 2022-2024 Claus-Justus Heine <himself@claus-justus-heine.de>
+ - @copyright Copyright (c) 2022-2025 Claus-Justus Heine <himself@claus-justus-heine.de>
  - @author Claus-Justus Heine <himself@claus-justus-heine.de>
  - @license AGPL-3.0-or-later
  -
@@ -20,7 +20,7 @@
   <NcSettingsSection :name="t(appName, 'Embedded RoundCube, Personal Settings')"
                      :class="[...cloudVersionClasses, appName]"
   >
-    <TextField :value.sync="emailAddress"
+    <TextField :value.sync="settings.emailAddress"
                :label="t(appName, 'Email Login Name')"
                :hint="emailAddressHint"
                :placeholder="t(appName, 'Email Address')"
@@ -38,134 +38,120 @@
     </p>
   </NcSettingsSection>
 </template>
-<script>
-import { appName } from './config.js'
+<script setup lang="ts">
+import { appName } from './config.ts'
 import {
   NcPasswordField,
   NcSettingsSection,
 } from '@nextcloud/vue'
+import { translate as t } from '@nextcloud/l10n'
+import {
+  computed,
+  ref,
+  reactive,
+} from 'vue'
 import TextField from '@rotdrop/nextcloud-vue-components/lib/components/TextFieldWithSubmitButton.vue'
-import settingsSync from './toolkit/mixins/settings-sync.js'
-import cloudVersionClasses from './toolkit/util/cloud-version-classes.js'
+import cloudVersionClassesImport from './toolkit/util/cloud-version-classes.js'
+import {
+  fetchSettings,
+  saveConfirmedSetting,
+} from './toolkit/util/settings-sync.ts'
+import type { EmailAddressChoice } from './types/settings.d.ts'
 
-export default {
-  name: 'PersonalSettings',
-  components: {
-    NcPasswordField,
-    NcSettingsSection,
-    TextField,
-  },
-  mixins: [
-    settingsSync,
-  ],
-  data() {
-    return {
-      loading: true,
-      cloudVersionClasses,
-      emailAddress: '',
-      emailPassword: '',
-      emailAddressChoiceAdmin: null,
-      emailDefaultDomainAdmin: null,
-      fixedSingleEmailAddressAdmin: null,
-      forceSSOAdmin: null,
-    }
-  },
-  computed: {
-    protectedEmailPassword: {
-      get() { return this.emailPassword || '' },
-      set(newValue) { this.emailPassword = newValue },
-    },
-    emailAddressDisabled() {
-      if (this.loading > 0) {
-        return true
-      }
-      switch (this.emailAddressChoiceAdmin) {
-      case 'userIdEmail':
-        return true
-      case 'userPreferencesEmail':
-        return true
-      case 'userChosenEmail':
-        return false
-      case 'fixedSingleAddress':
-        return true
-      }
-      return false
-    },
-    emailAddressHint() {
-      switch (this.emailAddressChoiceAdmin) {
-      case 'userIdEmail':
-        return t(appName, 'Globally configured as USERID@{emailDefaultDomainAdmin}', this)
-      case 'userPreferencesEmail':
-        return t(appName, 'Globally configured as user\'s email address, see user\'s personal settings.')
-      case 'fixedSingleAddress':
-        return t(appName, 'Globally configured as {fixedSingleEmailAddressAdmin}', this)
-      case 'userChosenEmail':
-      default:
-        return t(appName, 'Please specify an email address to use with RoundCube.')
-      }
-    },
-    emailPasswordDisabled() {
-      if (this.forceSSO) {
-        return true
-      }
-      switch (this.emailAddressChoiceAdmin) {
-      case 'userIdEmail':
-        return false
-      case 'userPreferencesEmail':
-        return false
-      case 'userChosenEmail':
-        return false
-      case 'fixedSingleAddress':
-        return true
-      default:
-        return false
-      }
-    },
-    emailPasswordHint() {
-      if (this.emailAddressChoiceAdmin === 'fixedSingleAddress') {
-        return t(appName, 'Globally configured by the administrator')
-      }
-      return this.forceSSOAdmin
-        ? t(appName, 'Single sign-on is globally forced "on".')
-        : t(appName, 'Email password for RoundCube, if needed.')
-    },
-  },
-  watch: {},
-  created() {
-    this.getData()
-  },
-  mounted() {
-  },
-  methods: {
-    info(...args) {
-      console.info(this.$options.name, ...args)
-    },
-    async getData() {
-      // slurp in all personal settings
-      this.fetchSettings('personal').finally(() => {
-        this.loading = false
-      })
-    },
-    async saveTextInput(settingsKey, value, force) {
-      if (value === undefined) {
-        value = this[settingsKey] || ''
-      }
-      if (this.loading > 0) {
-        // avoid ping-pong by reactivity
-        console.info('SKIPPING SETTINGS-SAVE DURING LOAD', settingsKey, value)
-        return
-      }
-      this.saveConfirmedSetting(value, 'personal', settingsKey, force, this.updatePatternTestResult)
-    },
-    async saveSetting(setting) {
-      if (this.loading > 0) {
-        // avoid ping-pong by reactivity
-        console.info('SKIPPING SETTINGS-SAVE DURING LOAD', setting)
-        return
-      }
-      this.saveSimpleSetting(setting, 'personal', this.updatePatternTestResult)
-    },
-  },
+const loading = ref(true)
+
+const cloudVersionClasses = computed(() => cloudVersionClassesImport)
+
+const settings = reactive({
+  emailAddress: '',
+  emailPassword: '',
+  emailAddressChoiceAdmin: 'userChosenEmail' as EmailAddressChoice,
+  emailDefaultDomainAdmin: null as null|string,
+  fixedSingleEmailAddressAdmin: null as null|string,
+  forceSSOAdmin: false,
+})
+
+const protectedEmailPassword = computed({
+  get() { return settings.emailPassword || '' },
+  set(newValue) { settings.emailPassword = newValue },
+})
+
+const emailAddressDisabled = computed(() => {
+  if (loading.value) {
+    return true
+  }
+  switch (settings.emailAddressChoiceAdmin) {
+  case 'userIdEmail':
+    return true
+  case 'userPreferencesEmail':
+    return true
+  case 'userChosenEmail':
+    return false
+  case 'fixedSingleAddress':
+    return true
+  }
+  return false
+})
+
+const emailAddressHint = computed(() => {
+  switch (settings.emailAddressChoiceAdmin) {
+  case 'userIdEmail':
+    return t(appName, 'Globally configured as USERID@{emailDefaultDomainAdmin}', this)
+  case 'userPreferencesEmail':
+    return t(appName, 'Globally configured as user\'s email address, see user\'s personal settings.')
+  case 'fixedSingleAddress':
+    return t(appName, 'Globally configured as {fixedSingleEmailAddressAdmin}', this)
+  case 'userChosenEmail':
+  default:
+    return t(appName, 'Please specify an email address to use with RoundCube.')
+  }
+})
+
+const emailPasswordDisabled = computed(() => {
+  if (settings.forceSSOAdmin) {
+    return true
+  }
+  switch (settings.emailAddressChoiceAdmin) {
+  case 'userIdEmail':
+    return false
+  case 'userPreferencesEmail':
+    return false
+  case 'userChosenEmail':
+    return false
+  case 'fixedSingleAddress':
+    return true
+  default:
+    return false
+  }
+})
+
+const emailPasswordHint = computed(() => {
+  if (settings.emailAddressChoiceAdmin === 'fixedSingleAddress') {
+    return t(appName, 'Globally configured by the administrator')
+  }
+  return settings.forceSSOAdmin
+    ? t(appName, 'Single sign-on is globally forced "on".')
+    : t(appName, 'Email password for RoundCube, if needed.')
+})
+
+const getData = async () => {
+  // slurp in all personal settings
+  fetchSettings({ section: 'personal', settings }).finally(() => {
+    loading.value = false
+  })
+}
+getData()
+
+const saveTextInput = async (settingsKey: string, value?: string, force?: boolean) => {
+  if (value === undefined) {
+    value = settings[settingsKey] || ''
+  }
+  if (loading.value) {
+    // avoid ping-pong by reactivity
+    console.info('SKIPPING SETTINGS-SAVE DURING LOAD', settingsKey, value)
+    return
+  }
+  saveConfirmedSetting({ value, section: 'personal', settingsKey, force, settings })
 }
 </script>
 <style lang="scss" scoped>

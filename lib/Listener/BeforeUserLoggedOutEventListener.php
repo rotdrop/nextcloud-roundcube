@@ -3,7 +3,7 @@
  * Nextcloud RoundCube App.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2020-2024 Claus-Justus Heine
+ * @copyright 2020-2025 Claus-Justus Heine
  * @license AGPL-3.0-or-later
  *
  * Nextcloud RoundCube App is free software: you can redistribute it and/or
@@ -42,7 +42,7 @@ class BeforeUserLoggedOutEventListener implements IEventListener
   const EVENT = HandledEvent::class;
 
   // phpcs:disable Squiz.Commenting.FunctionComment.Missing
-  public function __construct(private IAppContainer $appContainer)
+  public function __construct(protected IAppContainer $appContainer)
   {
   }
   // phpcs:enable Squiz.Commenting.FunctionComment.Missing

@@ -13,6 +13,7 @@ else
 $(warning The xpath binary could not be found, falling back to using the CWD as app-name)
 APP_NAME = $(notdir $(CURDIR))
 endif
+DEV_LIB_DIR = $(ABSSRCDIR)/dev-scripts/lib
 BUILDDIR = ./build
 ABSBUILDDIR = $(CURDIR)/build
 BUILD_TOOLS_DIR = $(BUILDDIR)/tools
@@ -26,6 +27,7 @@ PHP = $(shell which php 2> /dev/null)
 NPM = $(shell which npm 2> /dev/null)
 WGET = $(shell which wget 2> /dev/null)
 OPENSSL = $(shell which openssl 2> /dev/null)
+PHPUNIT = ./vendor/bin/phpunit
 
 COMPOSER_SYSTEM = $(shell which composer 2> /dev/null)
 ifeq (, $(COMPOSER_SYSTEM))
@@ -80,50 +82,16 @@ dev: dev-setup npm-dev # test
 dev-setup: app-toolkit composer
 .PHONY: dev-setup
 
-#@private
-composer.json: composer.json.in
-	cp composer.json.in composer.json
-
-#@private
-stamp.composer-core-versions: composer.lock
-	date > $@
-
-#@private
-composer.lock: DRY:=
-#@private
-composer.lock: composer.json composer.json.in
-	rm -f composer.lock
-	$(COMPOSER) install $(COMPOSER_OPTIONS)
-	env DRY=$(DRY) dev-scripts/tweak-composer-json.sh || {\
- rm -f composer.lock;\
- $(COMPOSER) install $(COMPOSER_OPTIONS);\
-}
-
-#@private
-composer-download:
-	mkdir -p $(BUILD_TOOLS_DIR)
-	curl -sS https://getcomposer.org/installer | php
-	mv composer.phar $(BUILD_TOOLS_DIR)
-.PHONY: comoser-download
-
-#@@ Installs and updates the composer dependencies. If composer is not installed
-#@@ a copy is fetched from the web
-composer: stamp.composer-core-versions
-	$(COMPOSER) install $(COMPOSER_OPTIONS)
-.PHONY: composer
-
-#@@ Display the composer suggestions
-composer-suggest:
-	@echo -e "\n*** Regular Composer Suggestions ***\n"
-	$(COMPOSER) suggest --all
-.PHONY: composer-suggest
+include $(DEV_LIB_DIR)/makefile/composer.mk
 
 APP_TOOLKIT_DIR = $(ABSSRCDIR)/php-toolkit
 APP_TOOLKIT_DEST = $(ABSSRCDIR)/lib/Toolkit
 APP_TOOLKIT_NS = RoundCube
 
 include $(APP_TOOLKIT_DIR)/tools/scopeme.mk
+include $(DEV_LIB_DIR)/makefile/ts-app-config.mk
 
+L10N_FILES = $(wildcard l10n/*.js l10n/*.json)
 JS_FILES = $(shell find $(ABSSRCDIR)/src -name "*.js" -o -name "*.vue")
 
 NPM_INIT_DEPS =\
@@ -131,67 +99,10 @@ NPM_INIT_DEPS =\
 
 WEBPACK_DEPS =\
  $(NPM_INIT_DEPS)\
- $(JS_FILES)
+ $(JS_FILES)\
+ $(TS_APP_CONFIG)
 
-WEBPACK_TARGETS = $(ABSSRCDIR)/js/asset-meta.json
-
-#@private
-package-lock.json: package.json webpack.config.js Makefile
-	{ [ -d package-lock.json ] && [ test -d node_modules ]; } || $(NPM) install
-	$(NPM) update
-	touch package-lock.json
-
-BUILD_FLAVOUR_FILE = $(ABSSRCDIR)/build-flavour
-PREV_BUILD_FLAVOUR = $(shell cat $(BUILD_FLAVOUR_FILE) 2> /dev/null || echo)
-
-#@private
-build-flavour-dev:
-ifneq ($(PREV_BUILD_FLAVOUR), dev)
-	make clean
-	echo dev > $(BUILD_FLAVOUR_FILE)
-endif
-.PHONY: build-flavour-dev
-
-#@private
-build-flavour-build:
-ifneq ($(PREV_BUILD_FLAVOUR), build)
-	make clean
-	echo build > $(BUILD_FLAVOUR_FILE)
-endif
-.PHONY: build-flavour-build
-
-#@private
-$(WEBPACK_TARGETS): $(WEBPACK_DEPS) $(BUILD_FLAVOUR_FILE)
-	make webpack-clean
-	$(NPM) run $(shell cat $(BUILD_FLAVOUR_FILE)) || rm -f $(WEBPACK_TARGETS)
-
-#@private
-npm-dev: build-flavour-dev $(WEBPACK_TARGETS)
-.PHONY: npm-dev
-
-#@private
-npm-build: build-flavour-build $(WEBPACK_TARGETS)
-.PHONY: npm-build
-
-#@@ Linting
-lint:
-	$(NPM) run lint
-.PHONY: lint
-
-#@@ Lint and fix (be careful!)
-lint-fix:
-	$(NPM) run lint:fix
-.PHONY: lint-fix
-
-#@@ Style linting
-stylelint:
-	$(NPM) run stylelint
-.PHONY: stylelint
-
-#@@ Style linting and apply fixes (be carful!)
-stylelint-fix:
-	$(NPM) run stylelint:fix
-.PHONY: stylelint-
+include $(DEV_LIB_DIR)/makefile/npm.mk
 
 #@@ Run phpcs on the PHP code
 phpcs: composer
@@ -259,12 +170,6 @@ fi
 
 .PHONY: appstore
 
-#@@ Removes WebPack builds
-webpack-clean:
-	rm -rf ./js/*
-	rm -rf ./css/*
-.PHONY: webpack-clean
-
 #@@ Removes build files
 clean: ## Tidy up local environment
 	rm -rf $(BUILDDIR)
@@ -272,7 +177,8 @@ clean: ## Tidy up local environment
 
 #@@ Same as clean but also removes dependencies installed by composer, bower and npm
 distclean: clean ## Clean even more, calls clean
-	rm -rf vendor*
+	rm -rf vendor
+	rm -rf vendor-bin/**/vendor
 	rm -rf node_modules
 	rm -rf lib/Toolkit/*
 .PHONY: distclean
@@ -281,6 +187,7 @@ distclean: clean ## Clean even more, calls clean
 mostlyclean: webpack-clean distclean
 	rm -f composer*.lock
 	rm -f composer.json
+	rm -f vendor-bin/**/composer.lock
 	rm -f stamp.composer-core-versions
 	rm -f package-lock.json
 	rm -f *.html
@@ -301,10 +208,10 @@ test: unit-tests integration-tests
 
 #@@ Run the unit tests
 unit-tests:
-	./vendor/phpunit/phpunit/phpunit -c phpunit.xml
+	$(PHPUNIT) -c phpunit.xml
 .PHONY: unit-tests
 
 #@@ Run the integration tests
 integration-tests:
-	./vendor/phpunit/phpunit/phpunit -c phpunit.integration.xml
+	$(PHPUNIT) -c phpunit.integration.xml
 .PHONY: integration-tests

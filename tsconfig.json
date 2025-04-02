@@ -1,0 +1,45 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "include": [
+    "../../custom.d.ts",
+    "./build/ts-types/app-config.ts",
+    "./node_modules/@nextcloud/**.ts",
+    "./node_modules/@types/**.ts",
+    "./node_modules/axios/**.ts",
+    "./node_modules/vue-router/**.ts",
+    "./node_modules/vue/**.ts",
+    "./node_modules/webpack/**.ts",
+    "./src/**/*.ts",
+    "./src/**/*.vue",
+    "./src/*-shim.d.ts",
+    "./src/*.ts",
+    "./src/*.vue"
+  ],
+  "compilerOptions": {
+    "types": ["jest", "jquery", "jqeryui", "node", "vue", "vue-router"],
+    "lib": [ "ES2024", "DOM", "DOM.Iterable" ],
+    "outDir": "./dist/",
+    "target": "ESNext",
+    "module": "esnext",
+    "moduleResolution": "Bundler",
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "declaration": false,
+    "noImplicitAny": false,
+    "resolveJsonModule": true,
+    "strict": true,
+    "sourceMap": true
+  },
+  "vueCompilerOptions": {
+    "target": 2.7
+  },
+  "ts-node": {
+    "compilerOptions": {
+      "moduleResolution": "node",
+      "module": "commonjs",
+      "verbatimModuleSyntax": false
+    }
+  }
+}

@@ -16,8 +16,8 @@
     "url": "git+https://github.com/rotdrop/nextcloud-vue-components.git"
   },
   "engines": {
-    "node": "^16.0.0",
-    "npm": "^8.0.0"
+    "node": "^20.0.0",
+    "npm": "^10.0.0"
   },
   "keywords": [
     "Vue",
@@ -28,9 +28,14 @@
   ],
   "devDependencies": {
     "@nextcloud/babel-config": "^1.0.0",
-    "@nextcloud/eslint-config": "^v8.3.0-beta.2",
-    "@nextcloud/vue": "^8.8.1",
     "@nextcloud/dialogs": "^5.1.1",
+    "@nextcloud/eslint-config": "^v8.4.1",
+    "@nextcloud/l10n": "^3.1.0",
+    "@nextcloud/vue": "^8.8.1",
+    "@vue/tsconfig": "^0.5.1",
+    "eslint": "^8.16.0",
+    "typescript": "^5.7.3",
+    "uuid": "^11.0.5",
     "vue": "^2.7.14"
   },
   "author": "Claus-Justus Heine <himself@claus-justus-heine.de>",
@@ -38,5 +43,8 @@
   "bugs": {
     "url": "https://github.com/rotdrop/nextcloud-vue-components/issues"
   },
-  "homepage": "https://github.com/rotdrop/nextcloud-vue-components#readme"
+  "homepage": "https://github.com/rotdrop/nextcloud-vue-components#readme",
+  "dependencies": {
+    "@vue/cli-plugin-typescript": "^5.0.8"
+  }
 }

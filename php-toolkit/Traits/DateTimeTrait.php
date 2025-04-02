@@ -3,7 +3,7 @@
  * A collection of reusable traits classes for Nextcloud apps.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022, 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022, 2023, 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -44,9 +44,7 @@ trait DateTimeTrait
   }
 
   /**
-   * Set
-   *
-   * @param string|int|\DateTimeInterface $dateTime
+   * @param null|string|int|float|\DateTimeInterface $dateTime
    *
    * @return null|\DateTimeImmutable
    */
@@ -55,12 +53,13 @@ trait DateTimeTrait
     if ($dateTime === null || $dateTime === '') {
       return null;
     } elseif (!($dateTime instanceof DateTimeInterface)) {
-      $timeStamp = filter_var($dateTime, FILTER_VALIDATE_INT, [ 'min_range' => 0 ]);
+      $timeStamp = filter_var($dateTime, FILTER_VALIDATE_INT, [ 'min_range' => 1 ]);
       if ($timeStamp === false) {
-        $timeStamp = filter_var($dateTime, FILTER_VALIDATE_FLOAT, [ 'min_range' => 0 ]);
+        $timeStamp = filter_var($dateTime, FILTER_VALIDATE_FLOAT, [ 'min_range' => 1 ]);
       }
       if ($timeStamp !== false) {
-        return (new DateTimeImmutable())->setTimestamp($timeStamp);
+        // NOTE: setTimestamp() cannot be used for sub-second resolution.
+        return (new DateTimeImmutable())->modify('@' . $timeStamp);
       } elseif (is_string($dateTime)) {
         return new DateTimeImmutable($dateTime);
       } else {

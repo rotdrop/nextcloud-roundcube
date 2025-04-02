@@ -5,7 +5,7 @@
  * @author Martin Reinhardt and David Jaedke
  * @author 2019 Leonardo R. Morelli github.com/LeonardoRM
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2020, 2021, 2023 Claus-Justus Heine
+ * @copyright 2020, 2021, 2023, 2025 Claus-Justus Heine
  * @copyright 2012 Martin Reinhardt contact@martinreinhardt-online.de
  * @license AGPL-3.0-or-later
  *
@@ -23,11 +23,5 @@
  * License along with Nextcloud RoundCube App. If not, see
  * <http://www.gnu.org/licenses/>.
  */
-
-namespace OCA\RoundCube;
-
-script($appName, $assets['js']['asset']);
-style($appName, $assets['css']['asset']);
-
 ?>
 <div id="<?php p($appName); ?>-admin-settings"></div>

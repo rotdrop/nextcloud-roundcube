@@ -1,7 +1,7 @@
 module.exports = {
-  extends: [
-    '@nextcloud',
-  ],
+  // extends: [
+  //   '@nextcloud',
+  // ],
   // some unused toolgit files
   ignorePatterns: [
     'src/toolkit/util/file-download.js',
@@ -36,6 +36,12 @@ module.exports = {
       files: ['*.vue'],
       rules: {
         semi: ['error', 'never'],
+      },
+    },
+    {
+      files: ['*.ts', '*.cts', '*.mts', '*.tsx', '*.vue'],
+      rules: {
+        '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
       },
     },
   ],

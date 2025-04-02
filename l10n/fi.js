@@ -13,8 +13,6 @@ OC.L10N.register(
     "User ID" : "Käyttäjätunniste",
     "Email Address" : "Sähköpostiosoite",
     "Advanced Settings" : "Lisäasetukset",
-    "Enable SSL verification." : "Käytä SSL-vahvistusta.",
-    "reason unknown" : "tuntematon syy",
-    "Confirmation Required" : "Vahvistus vaaditaan"
+    "Enable SSL verification." : "Käytä SSL-vahvistusta."
 },
 "nplurals=2; plural=(n != 1);");

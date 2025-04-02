@@ -4,7 +4,7 @@
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
  * @author 2019 Leonardo R. Morelli github.com/LeonardoRM
- * @copyright 2020-2024 Claus-Justus Heine
+ * @copyright 2020-2025 Claus-Justus Heine
  * @license   AGPL-3.0-or-later
  *
  * Nextcloud RoundCube App is free software: you can redistribute it and/or
@@ -24,8 +24,6 @@
 
 namespace OCA\RoundCube\Controller;
 
-use Psr\Log\LoggerInterface as ILogger;
-
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http\ContentSecurityPolicy;
 use OCP\AppFramework\Http\JSONResponse;
@@ -35,6 +33,7 @@ use OCP\IL10N;
 use OCP\IRequest;
 use OCP\IURLGenerator;
 use OCP\Util;
+use Psr\Log\LoggerInterface as ILogger;
 
 use OCA\RoundCube\Constants;
 use OCA\RoundCube\Controller\SettingsController;
@@ -105,23 +104,17 @@ class PageController extends Controller
       'state' => $state,
       'reason' => $reason,
       'emailUserId' => $credentials['userId'] ?? null,
-$this->authenticator->externalURL(),      Config::EXTERNAL_LOCATION => $roundCubeUrl,
+      Config::EXTERNAL_LOCATION => $roundCubeUrl,
       Config::SHOW_TOP_LINE => $this->config->getAppValue(Config::SHOW_TOP_LINE),
     ]);
 
-    $url = $this->authenticator->externalURL();
+    Util::addScript($this->appName, $this->assetService->getJSAsset(self::MAIN_ASSET)['asset']);
+    Util::addStyle($this->appName, $this->assetService->getCSSAsset(self::MAIN_ASSET)['asset']);
 
-    $tplParams = [
-      'appName' => $this->appName,
-      'assets' => [
-        Constants::JS => $this->assetService->getJSAsset(self::MAIN_ASSET),
-        Constants::CSS => $this->assetService->getCSSAsset(self::MAIN_ASSET),
-      ],
-    ];
-    $tpl = new TemplateResponse($this->appName, self::MAIN_TEMPLATE, $tplParams);
+    $tpl = new TemplateResponse($this->appName, self::MAIN_TEMPLATE, []);
 
     // This is mandatory to embed a different server in an iframe.
-    $urlParts = parse_url($url);
+    $urlParts = parse_url($roundCubeUrl);
     $rcServer = $urlParts['host'];
 
     if ($rcServer !== '') {

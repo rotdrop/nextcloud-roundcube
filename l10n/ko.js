@@ -26,16 +26,6 @@ OC.L10N.register(
     "Clear Selection" : "선택 초기화",
     "Email Address" : "이메일 주소",
     "Advanced Settings" : "고급 설정",
-    "Disable when debugging with self-signed certificates." : "자기-서명 인증서로 디버깅할 시 비활성화",
-    "reason unknown" : "알 수 없는 이유",
-    "Successfully set \"{settingsKey}\" to {value}." : "\"{settingsKey}\"을(를) {value}로 설정함",
-    "Setting \"{settingsKey}\" has been unset successfully." : "설정 \"{settingsKey}\"를 해제함",
-    "Unable to set \"{settingsKey}\" to {value}: {message}." : "\"{settingsKey}\"을(를) {value}(으)로 설정할 수 없음: {message}",
-    "Unable to unset \"{settingsKey}\": {message}" : "설정 \"{settingsKey}\"을(를) 해제할 수 없음: {message}",
-    "Confirmation Required" : "확인 필요",
-    "Unconfirmed, reverting to old value." : "확인되지 않음, 이전 값으로 되돌림",
-    "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "{settingsKey}를 {displayValue}로 설정함",
-    "Setting \"{setting}\" has been unset successfully." : "설정 {setting}이(가) 해제되었습니다",
-    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "\"{settingsKey}\"을(를) \"{value}\"(으)로 설정할 수 없음: {message}"
+    "Disable when debugging with self-signed certificates." : "자기-서명 인증서로 디버깅할 시 비활성화"
 },
 "nplurals=1; plural=0;");

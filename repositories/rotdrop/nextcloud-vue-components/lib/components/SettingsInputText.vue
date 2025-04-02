@@ -1,5 +1,5 @@
 <!--
- - @copyright Copyright (c) 2019, 2022, 2023, 2024 Julius Härtl <jus@bitgrid.net>
+ - @copyright Copyright (c) 2019, 2022, 2023, 2024, 2025 Julius Härtl <jus@bitgrid.net>
  - @copyright Copyright (c) 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
  -
  - @author Julius Härtl <jus@bitgrid.net>
@@ -31,13 +31,13 @@
              :value="inputVal"
              :disabled="disabled"
              :placeholder="placeholder"
-             @input="$emit('input', $event.target.value); inputVal = $event.target.value;"
+             @input="onInput"
       >
       <input type="submit"
              class="icon-confirm"
              value=""
              :disabled="disabled"
-             @click="$emit('update', inputVal)"
+             @click="emit('update', inputVal)"
       >
       <input v-if="type === 'password'"
              :id="id + '-visibility-toggle'"
@@ -57,8 +57,13 @@
     </p>
   </form>
 </template>
-
-<script>
+<script setup lang="ts">
+import {
+  ref,
+  computed,
+  watch,
+} from 'vue'
+import { v4 as uuidv4 } from 'uuid'
 
 const cloudVersion = OC.config.versionstring.split('.')
 const cloudVersionClasses = [
@@ -68,55 +73,39 @@ const cloudVersionClasses = [
   'cloud-version-patch-' + cloudVersion[2],
 ]
 
-export default {
-  name: 'SettingsInputText',
-  props: {
-    type: {
-      type: String,
-      default: 'text',
-    },
-    label: {
-      type: String,
-      required: true,
-    },
-    hint: {
-      type: String,
-      default: '',
-    },
-    value: {
-      type: [String, Number],
-      default: '',
-    },
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-    placeholder: {
-      type: String,
-      default: '',
-    },
+const props = withDefaults(
+  defineProps<{
+    type?: string,
+    label: string,
+    hint?: string,
+    value?: string|number,
+    disabled?: boolean,
+    placeholder?: string,
+  }>(), {
+    type: 'text',
+    hint: undefined,
+    value: '',
+    disabled: false,
+    placeholder: undefined,
   },
-  data() {
-    return {
-      inputIsVisible: this.type !== 'password',
-      inputVal: this.value,
-      cloudVersionClasses,
-    }
-  },
-  computed: {
-    id() {
-      return 'settings-input-text-' + this._uid
-    },
-    inputType() {
-      return this.type !== 'password' || !this.inputIsVisible ? this.type : 'text'
-    },
-  },
-  watch: {
-    value(newVal) {
-      this.inputVal = this.value
-    },
-  },
+)
+
+const inputIsVisible = ref(props.type !== 'password')
+const inputVal = ref(props.value)
+const id = ref<string>(uuidv4())
+
+const inputType = computed(() => (props.type !== 'password' || !inputIsVisible.value) ? props.type : 'text')
+
+watch(() => props.value, () => { inputVal.value = props.value })
+
+const emit = defineEmits(['input', 'update'])
+
+const onInput = (event: Event) => {
+  const value = (event.target as HTMLInputElement).value
+  emit('input', value)
+  inputVal.value = value
 }
+
 </script>
 <style lang="scss" scoped>
 .cloud-version {

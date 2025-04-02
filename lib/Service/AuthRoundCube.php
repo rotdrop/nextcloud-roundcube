@@ -28,10 +28,10 @@ use DOMAttr;
 use DOMDocument;
 use DOMXPath;
 
-use Psr\Log\LoggerInterface as ILogger;
-
 use OCP\IL10N;
+use OCP\IRequest;
 use OCP\IURLGenerator;
+use Psr\Log\LoggerInterface as ILogger;
 
 use OCA\RoundCube\AppInfo\Application;
 use OCA\RoundCube\Service\Config;
@@ -72,12 +72,12 @@ class AuthRoundCube
 
   // phpcs:disable Squiz.Commenting.FunctionComment.Missing
   public function __construct(
-    Application $app,
-    private Config $config,
-    private IURLGenerator $urlGenerator,
     private ?string $userId,
-    protected ILogger $logger,
+    private Config $config,
+    private IRequest $request,
+    private IURLGenerator $urlGenerator,
     protected AppPasswordService $appPasswordService,
+    protected ILogger $logger,
   ) {
     $this->enableSSLVerify = $this->config->getAppValue(Config::ENABLE_SSL_VERIFY);
 
@@ -100,6 +100,11 @@ class AuthRoundCube
     $this->rcRequestToken = null;
     $this->rcSessionId = null;
     $this->rcSessionAuth = null;
+
+    // If the user's web-browser already provides the necessary cookies, then
+    // use them.
+    $this->rcSessionAuth = $this->request->cookies[self::COOKIE_RC_SESSAUTH] ?? null;
+    $this->rcSessionId = $this->request->cookies[self::COOKIE_RC_SESSID] ?? null;
   }
   // phpcs:enable Squiz.Commenting.FunctionComment.Missing
 
@@ -140,6 +145,33 @@ class AuthRoundCube
   }
 
   /**
+   * Check whether we are already logged in by the cookies sent to us by the
+   * user's web browser.
+   *
+   * @return bool
+   */
+  public function checkLoggedIn():bool
+  {
+    $mailPageObj = $this->sendRequest("?_task=mail", "GET");
+    $inputs = self::parseInputs($mailPageObj['html']);
+    if (is_array($inputs['_task']) && $inputs['_task']['value'] == 'login'
+        && is_array($inputs['_action']) && $inputs['_action']['value'] == 'login') {
+      return false;
+    }
+    if (is_array($inputs['_token']) && (is_array($inputs['_q']) && ($inputs['_q']['id'] ?? null) == 'mailsearchform')) {
+      $this->rcRequestToken = $inputs['_token']['value'];
+      setcookie(
+        self::COOKIE_RC_SESSID, $this->rcSessionId,
+        0, "/", "", true, true);
+      setcookie(
+        self::COOKIE_RC_SESSAUTH, $this->rcSessionAuth,
+        0, "/", "", true, true);
+      return true;
+    }
+    return false;
+  }
+
+  /**
    * Log  into the external application.
    *
    * @param string $username Login name.
@@ -150,6 +182,9 @@ class AuthRoundCube
    */
   public function login(string $username, string $password):bool
   {
+    if ($this->checkLoggedIn()) {
+      return true;
+    }
     // $this->logInfo('user: ' . $username . ' password: ' . $password);
     // End previous session:
     // Delete cookies sessauth & sessid by expiring them.
@@ -161,7 +196,7 @@ class AuthRoundCube
       $this->logError("Could not get login page.");
       return false;
     }
-    $cookies = self::parseCookies($loginPageObj['headers']['set-cookie']);
+    $cookies = self::parseCookies($loginPageObj['headers']['set-cookie'] ?? null);
     if (isset($cookies[self::COOKIE_RC_SESSID])) {
       $this->rcSessionId = $cookies[self::COOKIE_RC_SESSID];
     }

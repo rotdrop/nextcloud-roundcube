@@ -1,0 +1,38 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "include": [
+    "./lib/*.ts",
+    "./lib/*.vue",
+    "./lib/**/*.ts",
+    "./lib/**/*.vue",
+    "./lib/nextcloud.d.ts",
+    "./lib/vue-app-shim.d.ts",
+    "./lib/vue-shim.d.ts",
+    "./lib/custom.d.ts"
+  ],
+  "compilerOptions": {
+    "types": ["jest", "node", "vue", "vue-router"],
+    "outDir": "./dist/",
+    "target": "ESNext",
+    "module": "esnext",
+    "moduleResolution": "Bundler",
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "declaration": false,
+    "noImplicitAny": false,
+    "resolveJsonModule": true,
+    "strict": true
+  },
+  "vueCompilerOptions": {
+    "target": 2.7
+  },
+  "ts-node": {
+    "compilerOptions": {
+      "moduleResolution": "node",
+      "module": "commonjs",
+      "verbatimModuleSyntax": false
+    }
+  }
+}
