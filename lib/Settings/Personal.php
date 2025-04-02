@@ -48,7 +48,7 @@ class Personal implements ISettings
   {
     Util::addScript($this->appName, $this->assetService->getJSAsset(self::ASSET_NAME)['asset']);
     Util::addStyle($this->appName, $this->assetService->getCSSAsset(self::ASSET_NAME)['asset']);
-    
+
     return new TemplateResponse($this->appName, self::TEMPLATE, [ 'appName' => $this->appName ]);
   }
 
