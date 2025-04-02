@@ -61,6 +61,7 @@ declare module '@nextcloud/vue' {
 
   const NcCounterBubble: Vue;
   const NcDateTimePicker: Vue;
+  const NcDialog: Vue;
 
   const NcListItem: Vue & {
     forceDisplayActions: true,
@@ -95,6 +96,7 @@ declare module '@nextcloud/vue' {
   const NcEllipsisedOption: Vue;
   const NcEmptyContent: Vue;
   const NcPasswordField: Vue;
+  const NcPopover: Vue;
 
   export {
     NcActionButton,
@@ -119,12 +121,14 @@ declare module '@nextcloud/vue' {
     NcContent,
     NcCounterBubble,
     NcDateTimePicker,
+    NcDialog,
     NcEllipsisedOption,
     NcEmptyContent,
     NcListItem,
     NcListItemIcon,
     NcModal,
     NcPasswordField,
+    NcPopover,
     NcProgressBar,
     NcRichContenteditable,
     NcRichText,
