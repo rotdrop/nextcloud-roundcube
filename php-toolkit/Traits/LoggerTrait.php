@@ -167,7 +167,7 @@ trait LoggerTrait
 
   /**
    * @param Throwable $exception
-   * @param string $message
+   * @param null|string $message
    * @param int $shift
    * @param mixed $level
    * @param array $context
@@ -177,7 +177,7 @@ trait LoggerTrait
    */
   public function logException(
     Throwable $exception,
-    string $message = null,
+    ?string $message = null,
     int $shift = 0,
     mixed $level = LogLevel::ERROR,
     array $context = [],
