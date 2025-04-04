@@ -26,6 +26,7 @@ OC.L10N.register(
     "Choose a folder" : "Выберите папку",
     "Invalid path selected: \"{dir}\"." : "Выбран некорректный путь: \"{dir}\".",
     "Selected path: \"{dir}/{base}/\"." : "Выбраный путь: \"{dir}/{base}/\".",
+    "Clear Selection" : "Отменить выбор",
     "Embedded RoundCube, Admin Settings" : "Встроенный RoundCube, настройки администратора",
     "User ID" : "ID пользователя",
     "Email Address" : "Адрес электронной почты",

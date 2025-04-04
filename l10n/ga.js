@@ -34,6 +34,7 @@ OC.L10N.register(
     "restore palette" : "pailéad a chur ar ais",
     "factory reset palette" : "pailéad athshocrú monarchan",
     "Custom Color" : "Dath an Chustaim",
+    "Provided data is not a valid SVG image: \"{data}\"." : "Ar choinníoll nach íomhá bailí SVG iad na sonraí: \"{data}\".",
     "Choose a folder" : "Roghnaigh fillteán",
     "Choose a prefix-folder" : "Roghnaigh fillteán réimír",
     "Invalid path selected: \"{dir}\"." : "Conair neamhbhailí roghnaithe: \"{dir}\".",

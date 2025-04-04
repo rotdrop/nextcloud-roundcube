@@ -32,6 +32,7 @@
     "restore palette" : "restore palette",
     "factory reset palette" : "factory reset palette",
     "Custom Color" : "Custom Colour",
+    "Provided data is not a valid SVG image: \"{data}\"." : "Provided data is not a valid SVG image: \"{data}\".",
     "Choose a folder" : "Choose a folder",
     "Choose a prefix-folder" : "Choose a prefix-folder",
     "Invalid path selected: \"{dir}\"." : "Invalid path selected: \"{dir}\".",

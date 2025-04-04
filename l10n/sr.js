@@ -34,6 +34,7 @@ OC.L10N.register(
     "restore palette" : "врати палету",
     "factory reset palette" : "фабричка подешавања палете",
     "Custom Color" : "Произвољна боја",
+    "Provided data is not a valid SVG image: \"{data}\"." : "Достављени подаци нису исправна SVG слика: „{data}”.",
     "Choose a folder" : "Изаберите фолдер",
     "Choose a prefix-folder" : "Изаберите префикс-фолдер",
     "Invalid path selected: \"{dir}\"." : "Изабрана је неисправна путања: „{dir}”.",
