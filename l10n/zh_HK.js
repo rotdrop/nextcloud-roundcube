@@ -34,6 +34,7 @@ OC.L10N.register(
     "restore palette" : "還原調色板",
     "factory reset palette" : "出廠重設調色板",
     "Custom Color" : "自訂顏色",
+    "Provided data is not a valid SVG image: \"{data}\"." : "提供的數據不是有效的 SVG 圖像：\"{data}\"。",
     "Choose a folder" : "選擇資料夾",
     "Choose a prefix-folder" : "選擇前綴資料夾",
     "Invalid path selected: \"{dir}\"." : "選取了無效路徑：「{dir}」。",
