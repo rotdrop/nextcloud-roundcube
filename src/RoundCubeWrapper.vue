@@ -148,6 +148,12 @@ const resizeObserver = new ResizeObserver((entries) => {
   }
 })
 
+const contentObserver = new MutationObserver((entries) => {
+  logger.info('MUTATION OBSERVED', { entries })
+  const iFrame = externalFrame.value!
+  emitLoaded(iFrame)
+})
+
 const emitError = (error: unknown) => {
   loaderContainer.value!.classList.toggle('fading', true)
   emit('error', {
@@ -163,6 +169,20 @@ Please check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrap
         wrappedApp,
       },
     ),
+  })
+}
+
+const emitLoaded = (iFrame: HTMLIFrameElement) => {
+  const iFrameWindow = iFrame.contentWindow!
+  const iFrameDocument = iFrame.contentDocument!
+  currentLocation.value = iFrameWindow.location.href
+  const search = iFrameWindow.location.search
+  const query = Object.fromEntries((new URLSearchParams(search)).entries())
+  emit('iframe-loaded', {
+    query,
+    iFrame,
+    window: iFrameWindow,
+    document: iFrameDocument,
   })
 }
 
@@ -192,21 +212,15 @@ const loadHandler = () => {
   logger.debug('IFRAME BODY', { iFrameBody })
   if (iFrameBody) {
     resizeObserver.observe(iFrameBody)
+    contentObserver.observe(iFrameBody, { childList: true, subtree: true })
   }
   loaderContainer.value!.classList.toggle('fading', true)
   logger.debug('IFRAME IS NOW', {
     iFrame,
     location: iFrameWindow.location,
   })
-  currentLocation.value = iFrameWindow.location.href
-  const search = iFrameWindow.location.search
-  const query = Object.fromEntries((new URLSearchParams(search)).entries())
-  emit('iframe-loaded', {
-    query,
-    iFrame,
-    window: iFrameWindow,
-    document: iFrameDocument!,
-  })
+  emitLoaded(iFrame)
+  loading.value = false
 }
 
 const loadTimerHandler = () => {
@@ -258,6 +272,7 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
   resizeObserver.disconnect()
+  contentObserver.disconnect()
 })
 
 defineExpose({
