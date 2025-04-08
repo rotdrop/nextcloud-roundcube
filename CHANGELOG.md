@@ -4,11 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [1.2.0-rc1] - unreleased
+## [1.2.0-rc1] - 2025-04-08
 
 ### Added
 
-- support Nextcloud v30, v31, drop v27, v28
+- support Nextcloud v29, v30, v31, drop v27, v28
 
 - New feature: mirror iframe query params in top-level url and pass
   the params down to the RC iframe src url. Also push the iframe
