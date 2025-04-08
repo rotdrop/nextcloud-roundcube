@@ -177,7 +177,6 @@ const loadHandler = () => {
   let iFrameDocument: Document|null
   try {
     iFrameDocument = iFrame.contentDocument
-    tuneContents(iFrame)
   } catch (error: unknown) {
     logger.error('UNABLE TO ACCESS IFRAME CONTENTS', { error })
     emitError(error)
