@@ -22,19 +22,16 @@ import type { StackFrame } from 'stacktrace-js';
 
 export const stackTraceOptions = {
   sourceMapConsumerCache: {},
-  sourceCache: {}
-}
+  sourceCache: {},
+};
 
 const syncStackFrames = (offset: number, depth: number) =>
-  StackTrace.getSync(stackTraceOptions).slice(offset + 1, offset + 1 + depth)
+  StackTrace.getSync(stackTraceOptions).slice(offset + 1, offset + 1 + depth);
+
 const asyncStackFrames = async (offset: number, depth: number) => {
   const stackFrames = await StackTrace.get(stackTraceOptions);
   return stackFrames.slice(offset + 1, offset + 1 + depth);
 };
-
-export const stackFrames = async (offset: number, depth: number) => (globalState.debugModes & DEBUG_SMAPS)
-  ? asyncStackFrames(offset, depth)
-  : syncStackFrames(offset, depth);
 
 type ConsoleMethods = 'debug'|'info'|'error'|'trace';
 
@@ -46,40 +43,47 @@ export interface ConsoleOptions {
 const defaultConsoleOptions = {
   smaps: { debug: true, info: true, error: true, trace: true },
   stackDepth: 0,
-}
+};
 
 class Console {
+
   constructor(prefix: string, options?: ConsoleOptions) {
     this.prefix = prefix;
     options = { ...defaultConsoleOptions, ...(options || {}) };
     this.smaps = { ...{ debug: true, info: true, error: true, trace: true }, ...(options?.smaps || {}) };
     this.stackDepth = options?.stackDepth || 0;
   }
+
   private prefix: string;
   private smaps: { debug: boolean, info: boolean, error: boolean, trace: boolean };
   private stackDepth: number;
   private timestamp() {
-    return (new Date()).toLocaleTimeString("en-gb", { hour: '2-digit', minute: '2-digit', second: '2-digit', fractionalSecondDigits: 3 });
+    return (new Date()).toLocaleTimeString('en-gb', { hour: '2-digit', minute: '2-digit', second: '2-digit', fractionalSecondDigits: 3 });
   }
+
   private async asyncStackFrames(depth: number) {
     try {
-      return (await stackFrames(4, depth));
+      return (await asyncStackFrames(4, depth));
     } catch {
       return [];
     }
-  };
+  }
+
   private syncStackFrames(depth: number) {
     try {
       return syncStackFrames(4, depth);
     } catch {
       return [];
     }
-  };
+  }
+
   private locationObject(stack: StackFrame[]) {
     const time = this.timestamp();
     const prefix = time + ' ' + this.prefix + (stack.length > 0 ? (' ' + stack[0].toString()) : '');
-    return stack.length > 1 ? [ prefix, { stack: stack.map(entry => entry.toString()) } ] : [ prefix ];
-  };
+    return stack.length > 1 ? [prefix, { stack: stack.map(entry => entry.toString()) }] : [prefix];
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private emitMessage(method: ConsoleMethods, ...args: any[]) {
     const depth = Math.max(1, (args.length > 0 && typeof args[0] === 'number') ? args.shift() : this.stackDepth);
     if (this.smaps[method]) {
@@ -88,30 +92,43 @@ class Console {
       console[method](...this.locationObject(this.syncStackFrames(depth)), ...args);
     }
   }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   debug(...args: any[]) {
     return this.emitMessage('debug', ...args);
-  };
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   info(...args: any[]) {
     return this.emitMessage('info', ...args);
-  };
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   error(...args: any[]) {
     return this.emitMessage('error', ...args);
-  };
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   trace(...args: any[]) {
     return this.emitMessage('trace', ...args);
-  };
+  }
+
   enableSourceMaps(method: 'debug'|'info'|'error'|'trace', state: boolean = true) {
     this.smaps[method] = state;
-  };
+  }
+
   disableSourceMaps(method: 'debug'|'info'|'error'|'trace') {
     this.enableSourceMaps(method, false);
-  };
+  }
+
   withStack(depth: number) {
     this.stackDepth = depth;
-  };
+  }
+
   withoutStack() {
     this.stackDepth = 0;
-  };
+  }
+
 }
 
 export default Console;
