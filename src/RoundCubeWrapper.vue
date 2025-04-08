@@ -37,6 +37,7 @@
 </template>
 <script setup lang="ts">
 import { appName } from './config.ts'
+import { translate as t } from '@nextcloud/l10n'
 import { hideTopLine as removeTopLine } from './roundcube.ts'
 import {
   computed,
@@ -46,6 +47,11 @@ import {
   ref,
   watch,
 } from 'vue'
+import Console from './toolkit/util/console.ts'
+
+const wrappedApp = 'RoundCube'
+
+const logger = new Console(wrappedApp + 'Wrapper')
 
 const props = withDefaults(defineProps<{
   externalLocation: string,
@@ -60,8 +66,6 @@ const props = withDefaults(defineProps<{
   }),
 })
 
-const loading = ref(true)
-
 interface IFrameLoadedEventData {
   query: Record<string, string>,
   iFrame: HTMLIFrameElement,
@@ -69,11 +73,19 @@ interface IFrameLoadedEventData {
   document: Document,
 }
 
+interface ErrorEventData {
+  error: Error,
+  hint: string,
+}
+
 const emit = defineEmits<{
   (event: 'iframe-loaded', eventData: IFrameLoadedEventData): void,
   (event: 'iframe-resize', eventData: ResizeObserverEntry): void,
   (event: 'update-loading', loading: boolean): void,
+  (event: 'error', eventData: ErrorEventData): void,
 }>()
+
+const loading = ref(true)
 
 watch(loading, (value) => emit('update-loading', value))
 
@@ -95,11 +107,11 @@ const frameId = computed(() => appName + '-frame')
 
 watch(queryString, (_value) => {
   if (requestedLocation.value !== currentLocation.value) {
-    console.debug('TRIGGER IFRAME REFRESH', { request: requestedLocation.value, current: currentLocation.value })
+    logger.debug('TRIGGER IFRAME REFRESH', { request: requestedLocation.value, current: currentLocation.value })
     loading.value = true
     iFrameLocation.value = requestedLocation.value
   } else {
-    console.debug('NOT CHANGING IFRAME SOURCE', { request: requestedLocation.value, current: currentLocation.value })
+    logger.debug('NOT CHANGING IFRAME SOURCE', { request: requestedLocation.value, current: currentLocation.value })
   }
 })
 
@@ -136,15 +148,41 @@ const resizeObserver = new ResizeObserver((entries) => {
   }
 })
 
+const emitError = (error: unknown) => {
+  loaderContainer.value!.classList.toggle('fading', true)
+  emit('error', {
+    error: error instanceof Error ? error : new Error('Non-error error', { cause: error }),
+    hint: t(
+      appName,
+      `Unable to access the contents of the wrapped {wrappedApp} instance.
+This may be caused by cross-domain access restrictions.
+Please check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain.`,
+      {
+        nextcloudUrl: window.location.protocol + '//' + window.location.host,
+        iFrameUrl: props.externalLocation || '',
+        wrappedApp,
+      },
+    ),
+  })
+}
+
 const loadHandler = () => {
-  console.debug('DOKUWIKI: GOT LOAD EVENT')
+  logger.debug('GOT LOAD EVENT')
   const iFrame = externalFrame.value
   const iFrameWindow = iFrame?.contentWindow
   if (!iFrame || !iFrameWindow) {
     return
   }
   loading.value = true // if not already set ...
-  const iFrameDocument = iFrame.contentDocument
+  let iFrameDocument: Document|null
+  try {
+    iFrameDocument = iFrame.contentDocument
+    tuneContents(iFrame)
+  } catch (error: unknown) {
+    logger.error('UNABLE TO ACCESS IFRAME CONTENTS', { error })
+    emitError(error)
+    return
+  }
   if (props.hideTopLine) {
     removeTopLine(iFrame)
   }
@@ -152,12 +190,12 @@ const loadHandler = () => {
     setIFrameSize(container.value!.getBoundingClientRect())
   }
   iFrameBody = iFrameDocument?.body as undefined|HTMLBodyElement
-  console.debug('IFRAME BODY', { iFrameBody })
+  logger.debug('IFRAME BODY', { iFrameBody })
   if (iFrameBody) {
     resizeObserver.observe(iFrameBody)
   }
   loaderContainer.value!.classList.toggle('fading', true)
-  console.debug('IFRAME IS NOW', {
+  logger.debug('IFRAME IS NOW', {
     iFrame,
     location: iFrameWindow.location,
   })
@@ -178,12 +216,17 @@ const loadTimerHandler = () => {
     return
   }
   timerCount++
-  const rcfContents = externalFrame.value!.contentWindow!.document
-  if (rcfContents.querySelector('#layout')) {
-    console.debug('ROUNDCUBE: LOAD EVENT FROM TIMER AFTER ' + (loadTimeout * timerCount) + ' ms')
-    externalFrame.value!.dispatchEvent(new Event('load'))
-  } else {
-    loadTimer = setTimeout(loadTimerHandler, loadTimeout)
+  try {
+    const iFrameContents = externalFrame.value!.contentWindow!.document
+    if (iFrameContents.querySelector('#layout')) {
+      logger.debug('ROUNDCUBE: LOAD EVENT FROM TIMER AFTER ' + (loadTimeout * timerCount) + ' ms')
+      externalFrame.value!.dispatchEvent(new Event('load'))
+    } else {
+      loadTimer = setTimeout(loadTimerHandler, loadTimeout)
+    }
+  } catch (error: unknown) {
+    logger.error('UNABLE TO ACCESS IFRAME CONTENTS', { error })
+    emitError(error)
   }
 }
 

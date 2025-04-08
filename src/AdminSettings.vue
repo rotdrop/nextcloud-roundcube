@@ -238,6 +238,9 @@ import {
   saveConfirmedSetting,
   saveSimpleSetting,
 } from './toolkit/util/settings-sync.ts'
+import Console from './toolkit/util/console.ts'
+
+const logger = new Console('RoundCubeWrapper')
 
 const loading = ref(true)
 
@@ -294,7 +297,7 @@ const saveTextInput = async (settingsKey: string, value?: string, force?: boolea
   }
   if (loading.value) {
     // avoid ping-pong by reactivity
-    console.info('SKIPPING SETTINGS-SAVE DURING LOAD', settingsKey, value)
+    logger.info('SKIPPING SETTINGS-SAVE DURING LOAD', settingsKey, value)
     return
   }
   return saveConfirmedSetting({ value, section: 'admin', settingsKey, force, settings })
@@ -303,7 +306,7 @@ const saveTextInput = async (settingsKey: string, value?: string, force?: boolea
 const saveSetting = async (settingsKey: string) => {
   if (loading.value) {
     // avoid ping-pong by reactivity
-    console.info('SKIPPING SETTINGS-SAVE DURING LOAD', settingsKey)
+    logger.info('SKIPPING SETTINGS-SAVE DURING LOAD', settingsKey)
     return
   }
   saveSimpleSetting({ settingsKey, section: 'admin', settings })

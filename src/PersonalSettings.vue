@@ -56,7 +56,10 @@ import {
   fetchSettings,
   saveConfirmedSetting,
 } from './toolkit/util/settings-sync.ts'
+import Console from './toolkit/util/console.ts'
 import type { EmailAddressChoice } from './types/settings.d.ts'
+
+const logger = new Console('RoundCubeWrapper')
 
 const loading = ref(true)
 
@@ -148,7 +151,7 @@ const saveTextInput = async (settingsKey: string, value?: string, force?: boolea
   }
   if (loading.value) {
     // avoid ping-pong by reactivity
-    console.info('SKIPPING SETTINGS-SAVE DURING LOAD', settingsKey, value)
+    logger.info('SKIPPING SETTINGS-SAVE DURING LOAD', settingsKey, value)
     return
   }
   saveConfirmedSetting({ value, section: 'personal', settingsKey, force, settings })

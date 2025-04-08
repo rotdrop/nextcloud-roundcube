@@ -22,26 +22,37 @@
       <RouterView v-show="!loading && state !== 'error'"
                   :loading.sync="loading"
                   @iframe-loaded="onIFrameLoaded($event)"
+                  @error="onError"
       />
+      <NcEmptyContent v-if="state === 'error'">
+        <template #name>
+          <h2>{{ t(appName, 'RoundCube Wrapper for Nextcloud') }}</h2>
+        </template>
+        <template #icon>
+          <DynamicSvgIcon :data="appIcon" size="64" />
+        </template>
+        <template #description>
+          <div class="error-message">
+            {{ errorMessage }}
+          </div>
+        </template>
+      </NcEmptyContent>
     </NcAppContent>
-    <div v-if="state === 'error'"
-         id="errorMsg"
-    >
-      <p>{{ errorMessage }}</p>
-    </div>
   </NcContent>
 </template>
 <script setup lang="ts">
 import { appName } from './config.ts'
 import {
   NcAppContent,
-  // NcAppNavigation,
   NcContent,
+  NcEmptyContent,
 } from '@nextcloud/vue'
 import {
   computed,
   ref,
 } from 'vue'
+import DynamicSvgIcon from '@rotdrop/nextcloud-vue-components/lib/components/DynamicSvgIcon.vue'
+import appIcon from '../img/app.svg?raw'
 import { translate as t } from '@nextcloud/l10n'
 import getInitialState from './toolkit/util/initial-state.ts'
 import type { InitialState } from './types/initial-state.d.ts'
@@ -49,21 +60,28 @@ import {
   useRoute,
   useRouter,
 } from 'vue-router/composables'
+import Console from './toolkit/util/console.ts'
 import type { Location as RouterLocation } from 'vue-router'
 
+const logger = new Console('RoundCube Wrapper')
+
 const loading = ref(true)
+const errorHint = ref<string | undefined>(undefined)
 
 const router = useRouter()
 const currentRoute = useRoute()
 
 const initialState = getInitialState<InitialState>()
 
-const state = computed(() => initialState?.state)
+const state = computed(() => errorHint.value ? 'error' : initialState?.state)
 const reason = computed(() => initialState?.reason)
 
 const errorMessage = computed(() => {
   if (state.value !== 'error') {
     return null
+  }
+  if (errorHint.value !== undefined) {
+    return errorHint.value
   }
   switch (reason.value) {
   case 'norcurl':
@@ -84,9 +102,15 @@ helps. Otherwise contact your system administrator.`)
   }
 })
 
+const onError = (event: { error: Error, hint: string }) => {
+  logger.error('Caught an error event', { event })
+  errorHint.value = event.hint
+  loading.value = false
+}
+
 const onIFrameLoaded = async (event: { query: Record<string, string> }) => {
   loading.value = false
-  console.debug('GOT EVENT', { event })
+  logger.debug('GOT EVENT', { event })
   if (event.query.id) {
     delete event.query.id
   }
@@ -98,7 +122,7 @@ const onIFrameLoaded = async (event: { query: Record<string, string> }) => {
   try {
     await router.push(routerLocation)
   } catch (error) {
-    console.debug('NAVIGATION ABORTED', { error })
+    logger.debug('NAVIGATION ABORTED', { error })
   }
 }
 
@@ -115,7 +139,7 @@ router.onReady(async () => {
     try {
       await router.replace(routerLocation)
     } catch (error) {
-      console.debug('NAVIGATION ABORTED', { error })
+      logger.debug('NAVIGATION ABORTED', { error })
     }
   }
 })
@@ -135,15 +159,20 @@ router.onReady(async () => {
       // DO NOT ALLOW THIS!
       overflow: hidden !important;
   }
-  #errorMsg {
-    align-self: center;
-    padding:2em 2em;
-    font-weight: bold;
-    font-size:120%;
-    max-width: 80%;
-    border: 2px solid var(--color-border-maxcontrast);
-    border-radius: var(--border-radius-pill);
-    background-color: var(--color-background-dark);
+  .empty-content::v-deep {
+    h2 ~ p {
+      text-align: center;
+      width: 72ex;
+    }
+    .hint {
+      color: var(--color-text-lighter);
+    }
+    .empty-content__icon {
+      margin-top: 16px;
+    }
+    .error-message {
+      font-weight: bold;
+    }
   }
 }
 </style>

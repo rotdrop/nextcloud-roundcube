@@ -39,6 +39,26 @@ webpackConfig.output = {
   compareBeforeEmit: true, // true would break the Makefile
 };
 
+const svgoOptions = {
+  multipass: true,
+  js2svg: {
+    indent: 2,
+    pretty: true,
+  },
+  plugins: [
+    {
+      name: 'preset-default',
+      params: {
+        overrides: {
+          // viewBox is required to resize SVGs with CSS.
+          // @see https://github.com/svg/svgo/issues/1128
+          removeViewBox: false,
+        },
+      },
+    },
+  ],
+};
+
 webpackConfig.plugins = webpackConfig.plugins.concat([
   new webpack.DefinePlugin({
     APP_NAME: JSON.stringify(appName),
@@ -137,12 +157,14 @@ webpackConfig.module.rules = [
   },
   {
     test: /\.svg$/i,
-    use: 'svgo-loader',
+    resourceQuery: /^$/,
+    loader: 'svgo-loader',
     type: 'asset', // 'asset/resource',
     generator: {
       filename: './css/img/[name]-[hash][ext]',
       publicPath: '../',
     },
+    options: svgoOptions,
   },
   {
     test: /\.vue$/,
@@ -190,6 +212,17 @@ webpackConfig.module.rules = [
       'v-tooltip',
       'yocto-queue',
     ]),
+  },
+  {
+    resourceQuery: /raw/,
+    type: 'asset/source',
+  },
+  {
+    test: /\.svg$/i,
+    resourceQuery: /raw/,
+    loader: 'svgo-loader',
+    type: 'asset/source',
+    options: svgoOptions,
   },
 ];
 

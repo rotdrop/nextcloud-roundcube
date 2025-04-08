@@ -48,6 +48,8 @@
     "is-plain-object": "^5.0.0",
     "mini-css-extract-plugin": "^2.4.5",
     "sass": "^1.86.0",
+    "stacktrace-gps": "github:stacktracejs/stacktrace-gps#62f6967fc85e6fdd5fb9cea1a056b935d9b07a9a",
+    "stacktrace-js": "^2.0.2",
     "svgo-loader": "^4.0.0",
     "vue": "^2.7.15",
     "vue-material-design-icons": "*",
