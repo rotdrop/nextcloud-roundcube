@@ -29,7 +29,7 @@
           <h2>{{ t(appName, 'RoundCube Wrapper for Nextcloud') }}</h2>
         </template>
         <template #icon>
-          <DynamicSvgIcon :data="appIcon" size="64" />
+          <DynamicSvgIcon :data="appIcon" :size="64" />
         </template>
         <template #description>
           <div class="error-message">
