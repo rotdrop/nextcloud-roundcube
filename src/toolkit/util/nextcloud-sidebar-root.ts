@@ -20,6 +20,7 @@
 import { getCurrentInstance } from 'vue';
 import Vue from 'vue';
 import { NodeStatus } from '@nextcloud/files';
+import { emit } from '@nextcloud/event-bus';
 import type { Node} from '@nextcloud/files';
 
 let currentInstance: null|Vue = null;
@@ -36,11 +37,15 @@ const busyNodes: Node[] = [];
  */
 export const getSidebarRoot = () => {
   let instance = getCurrentInstance()?.proxy || null;
-  if (sidebarRoot && currentInstance === instance) {
+  if (sidebarRoot && (instance && currentInstance === instance || !instance && currentInstance)) {
     return sidebarRoot;
   }
-  currentInstance = instance;
-  while (instance && instance.$parent && instance.$parent.$options.name !== 'SidebarRoot') {
+  if (instance) {
+    currentInstance = instance;
+  } else {
+    instance = currentInstance;
+  }
+  while (instance && instance.$parent && instance.$options.name !== 'SidebarRoot') {
     instance = instance?.$parent;
   }
   sidebarRoot = instance || null;
@@ -56,10 +61,12 @@ export const setSidebarNodeBusy = (state: boolean = true) => {
   const node = getSidebarNode();
   if (node && state) {
     node.status = NodeStatus.LOADING;
+    emit('files:node:updated', node);
     busyNodes.push(node);
   } else {
     for (const node of busyNodes) {
       node.status = undefined;
+      emit('files:node:updated', node);
     }
     busyNodes.splice(0, busyNodes.length);
   }
