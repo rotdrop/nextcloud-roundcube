@@ -56,10 +56,8 @@ import {
   fetchSettings,
   saveConfirmedSetting,
 } from './toolkit/util/settings-sync.ts'
-import Console from './toolkit/util/console.ts'
+import logger from './logger.ts'
 import type { EmailAddressChoice } from './types/settings.d.ts'
-
-const logger = new Console('RoundCubeWrapper')
 
 const loading = ref(true)
 

@@ -47,11 +47,9 @@ import {
   ref,
   watch,
 } from 'vue'
-import Console from './toolkit/util/console.ts'
+import logger from './logger.ts'
 
 const wrappedApp = 'RoundCube'
-
-const logger = new Console(wrappedApp + 'Wrapper')
 
 const props = withDefaults(defineProps<{
   externalLocation: string,

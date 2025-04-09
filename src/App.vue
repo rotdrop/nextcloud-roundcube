@@ -60,10 +60,8 @@ import {
   useRoute,
   useRouter,
 } from 'vue-router/composables'
-import Console from './toolkit/util/console.ts'
+import logger from './logger.ts'
 import type { Location as RouterLocation } from 'vue-router'
-
-const logger = new Console('RoundCube Wrapper')
 
 const loading = ref(true)
 const errorHint = ref<string | undefined>(undefined)

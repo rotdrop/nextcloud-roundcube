@@ -238,9 +238,7 @@ import {
   saveConfirmedSetting,
   saveSimpleSetting,
 } from './toolkit/util/settings-sync.ts'
-import Console from './toolkit/util/console.ts'
-
-const logger = new Console('RoundCubeWrapper')
+import logger from './logger.ts'
 
 const loading = ref(true)
 
