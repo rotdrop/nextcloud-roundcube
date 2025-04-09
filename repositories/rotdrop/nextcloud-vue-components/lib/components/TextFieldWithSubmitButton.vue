@@ -51,7 +51,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { NcTextField } from '@nextcloud/vue'
-
 const props = withDefaults(defineProps<{
   hint?: string,
   value?: string|number|null,
@@ -68,6 +67,12 @@ const ncTextField = ref<typeof NcTextField|null>(null)
 
 const ncTextFieldValue = computed<string|number>(() => ncTextField.value ? ncTextField.value.value : '')
 </script>
+<script lang="ts">
+export default {
+  name: 'TextFieldWithSubmitButton',
+  inheritAttrs: false,
+}
+</script>
 <style lang="scss" scoped>
 .component-wrapper {
   .hint {
@@ -77,13 +82,16 @@ const ncTextFieldValue = computed<string|number>(() => ncTextField.value ? ncTex
   // Tweak the submit button of the NcTextField
   .input-field::v-deep { // wrapper
     margin-block-start: 0;
-    .input-field__input.input-field__input--trailing-icon[dir="rtl"] {
-      // still it is a trailing icon, so for rtl the margins have to be interchanged
-      padding-inline-end: 12px;
-      padding-inline-start: var(--default-clickable-area);
-      + .input-field__label {
-        margin-inline-end: 9px;
-        margin-inline-start: var(--default-clickable-area);
+    &.input-field--trailing-icon .input-field__input,
+    .input-field__input.input-field__input--trailing-icon {
+      &[dir="rtl"] {
+        // still it is a trailing icon, so for rtl the margins have to be interchanged
+        padding-inline-end: 12px;
+        padding-inline-start: var(--default-clickable-area);
+        // + .input-field__label {
+        //   margin-inline-end: 9px;
+        //   margin-inline-start: var(--default-clickable-area);
+        // }
       }
     }
     .input-field__trailing-button.button-vue--vue-tertiary-no-background {

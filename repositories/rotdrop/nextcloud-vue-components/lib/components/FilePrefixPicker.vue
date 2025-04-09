@@ -29,7 +29,7 @@
            class="file-picker button icon-folder"
            @click.prevent.stop="() => !disabled && openFilePicker()"
         >
-          {{ pathInfo.dirName + (pathInfo.dirName !== '/' ? '/' : '') }}
+          {{ displayDirName }}
         </a>
       </div>
       <TextFieldWithSubmitButton v-if="!onlyDirName"
@@ -100,6 +100,12 @@ const pathInfo = ref({ dirName: '', baseName: '' })
 
 const pathName = computed(() =>
   (pathInfo.value.dirName ? pathInfo.value.dirName + '/' : '') + (props.onlyDirName ? '' : pathInfo.value.baseName)
+)
+
+const displayDirName = computed(() =>
+  !pathInfo.value.dirName
+  ? './'
+  : pathInfo.value.dirName + (pathInfo.value.dirName !== '/' ? '/' : '')
 )
 
 const filePickerTitle = computed(() =>

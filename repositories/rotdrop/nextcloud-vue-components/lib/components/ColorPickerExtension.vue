@@ -49,9 +49,10 @@
       </NcActionButton>
     </NcActions>
     <NcColorPicker ref="colorPicker"
-                   v-model="rgbColor"
+                   v-model="rgbColorString"
                    :palette="colorPickerPalette"
                    :shown.sync="pickerVisible"
+                   v-bind="$attrs"
                    @submit="submitCustomColor"
                    @update:open="handleOpen"
                    @close="() => false"
@@ -66,12 +67,13 @@
     <input type="submit"
            class="icon-confirm confirm-button"
            value=""
-           @click="emit('update', rgbColor)"
+           @click.prevent="emit('submit', rgbColorString)"
     >
   </div>
 </template>
 <script setup lang="ts">
-import type { Color as RGBColorType } from '@nextcloud/vue'
+import type { Color as NCColorType } from '@nextcloud/vue'
+import { Color as RGBColor } from '../util/color.ts'
 import { appName } from '../config.ts'
 import {
   NcActions,
@@ -88,16 +90,17 @@ import {
   reactive,
 } from 'vue'
 import { translate as t } from '@nextcloud/l10n'
+// import type { PropType } from 'vue'
 
 type NcColorPickerType = typeof NcColorPicker
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const isRGBColor = (arg: any): arg is RGBColorType =>
-  !!arg && !Array.isArray(arg) && typeof arg === 'object' && (arg.r || arg.g || arg.b || arg.color) !== undefined
+const isNCColorType = (arg: any): arg is NCColorType =>
+  !!arg && !(arg instanceof RGBColor) && (typeof arg === 'object') && !isNaN(arg.r + arg.g + arg.b)
 
 const props = withDefaults(
   defineProps<{
-    value?: RGBColorType|string|number[],
+    value?: string,
     label?: string,
     componentLabels?: {
       openColorPicker: string,
@@ -106,9 +109,9 @@ const props = withDefaults(
       revertColorPalette: string,
       resetColorPalette: string,
     },
-    colorPalette: RGBColorType[],
+    colorPalette?: RGBColor[],
   }>(), {
-    value: undefined,
+    value: '#000000',
     label: () => t(appName, 'pick a color'),
     componentLabels: () => {
       return {
@@ -123,19 +126,48 @@ const props = withDefaults(
   },
 )
 
-const rgbColor = ref<undefined|RGBColorType>(undefined)
+const anyToRgb = (value: NCColorType|RGBColor|string|number[]) => {
+  if (value instanceof RGBColor) {
+    return value
+  }
+  let r: number, g: number, b: number
+  let name = t(appName, 'Custom Color')
+  if (isNCColorType(value)) {
+    r = value.r
+    g = value.g
+    b = value.b
+    name = value?.name || name
+  } else if (Array.isArray(value)) {
+    r = value[0]
+    g = value[1]
+    b = value[2]
+  } else { // if (typeof value === 'string') {
+    const colorString = (value.startsWith('#') ? value.substring(1) : value) + '000000'
+    r = parseInt(colorString.substring(0, 2), 16)
+    g = parseInt(colorString.substring(2, 4), 16)
+    b = parseInt(colorString.substring(4, 6), 16)
+  }
+  // const Ctor = factoryColorPalette.value![0].constructor
+  // rgbColor.value = new Ctor(r, g, b, name)
+  return new RGBColor(r, g, b, name)
+}
+const rgbColor = ref(anyToRgb(props.value))
+const rgbColorString = computed({
+  set: (value: string) => { rgbColor.value = anyToRgb(value) },
+  get: () => rgbColor.value?.color || '',
+})
 const pickerVisible = ref(false)
-const factoryColorPalette = ref<undefined|RGBColorType[]>(undefined)
-const colorPickerPalette = ref<undefined|RGBColorType[]>(undefined)
+const factoryColorPalette = ref<undefined|RGBColor[]>(undefined)
+const colorPickerPalette = ref<undefined|RGBColor[]>(undefined)
 const savedState = reactive({
-  rgbColor: undefined as undefined|RGBColorType,
-  colorPickerPalette: undefined as undefined|RGBColorType[],
+  rgbColor: undefined as undefined|RGBColor,
+  colorPickerPalette: undefined as undefined|RGBColor[],
 })
 const loading = ref(true)
 
 const handleOpen = () => {}
 
-const submitCustomColor = (color: RGBColorType) => {
+const submitCustomColor = (color: RGBColor) => {
   prependColorToPalette(color, colorPickerPalette.value!)
 }
 
@@ -152,7 +184,7 @@ const resetColorPalette = () => {
   colorPickerPalette.value!.splice(0, Infinity, ...factoryColorPalette.value!)
 }
 
-const prependColorToPalette = (rgbColor: RGBColorType, palette: RGBColorType []) => {
+const prependColorToPalette = (rgbColor: RGBColor, palette: RGBColor[]) => {
   const rgb = rgbColor.color
   if (palette.findIndex(rgbColor => rgbColor.color === rgb) < 0) {
     palette.pop()
@@ -169,7 +201,7 @@ const prependColorToPalette = (rgbColor: RGBColorType, palette: RGBColorType [])
  *
  * @return {number} Grey-value corresponding to rgb.
  */
-const rgbToGrayScale = (color: RGBColorType):number => {
+const rgbToGrayScale = (color: RGBColor):number => {
   // const r = Number('0x' + rgb.substring(1, 3))
   // const g = Number('0x' + rgb.substring(3, 5))
   // const b = Number('0x' + rgb.substring(5, 7))
@@ -201,8 +233,10 @@ const colorPaletteHasChanged = computed(() =>
 const emit = defineEmits([
   'error',
   'input',
-  'update',
+  'submit',
   'update:value',
+  'update:modelValue',
+  'update:model-value',
   'update:color-palette',
 ])
 
@@ -210,37 +244,33 @@ watch(() => props.value, (newValue) => {
   if (loading.value) {
     return
   }
-  if (newValue === undefined || isRGBColor(newValue)) {
-    rgbColor.value = newValue
-  } else {
-    let r: number, g: number, b: number
-    const name = t(appName, 'Custom Color')
-    if (Array.isArray(newValue)) {
-      r = newValue[0]
-      g = newValue[1]
-      b = newValue[2]
-    } else {
-      const colorString = (newValue.startsWith('#') ? newValue.substring(1) : newValue) + '000000'
-      r = parseInt(colorString.substring(0, 2), 16)
-      g = parseInt(colorString.substring(2, 4), 16)
-      b = parseInt(colorString.substring(4, 6), 16)
-    }
-    const Ctor = factoryColorPalette.value![0].constructor
-    rgbColor.value = new Ctor(r, g, b, name)
+  rgbColor.value = anyToRgb(newValue)
+  if (newValue !== rgbColor.value) {
+    emit('update:value', rgbColorString.value)
+    emit('input', rgbColorString.value)
   }
-  emit('update:value', rgbColor.value)
-  emit('input', rgbColor.value)
 })
 
-const colorPicker = ref<null | NcColorPickerType>(null)
+const colorPicker = ref<null|NcColorPickerType>(null)
+
+let paletteIsUpdating = false
 
 watch(
   colorPickerPalette,
   (newValue) => {
-    if (loading.value) {
+    if (loading.value || paletteIsUpdating) {
       return
     }
     // colorPaletteHasChanged.value = true ??? computed property
+    for (const [index, color] of (colorPickerPalette.value || []).entries()) {
+      if (typeof color === 'string') {
+        colorPickerPalette.value![index] = anyToRgb(color)
+      }
+    }
+    console.debug('EMITTING UPDATE COLOR PALETTE', {
+      palette: colorPickerPalette.value,
+      asString: colorPickerPalette.value!.toString(),
+    })
     emit('update:color-palette', newValue)
   },
   { deep: true },
@@ -250,31 +280,56 @@ watch(() => props.colorPalette, (newValue, oldValue) => {
   if (loading.value) {
     return
   }
-  if (!!newValue && !!oldValue && newValue.toString() === oldValue.toString()) {
+  console.debug('PROPS PALETTE WATCHER', {
+    newValue: newValue ? JSON.stringify(newValue, undefined, 2) : newValue,
+    oldValue: oldValue ? JSON.stringify(oldValue, undefined, 2) : oldValue,
+    equal: !!newValue && !!oldValue && JSON.stringify(newValue) === JSON.stringify(oldValue),
+  })
+  if (!!newValue && !!oldValue && JSON.stringify(newValue) === JSON.stringify(oldValue)) {
+    console.debug('PALETTES ARE EQUAL, SKIPPING UPDATE')
     return
   }
   if (newValue && Array.isArray(newValue) && colorPickerPalette.value) {
-    colorPickerPalette.value.splice(0, Infinity, ...newValue)
+    paletteIsUpdating = true
+    const newPalette = newValue.map(color => anyToRgb(color))
+    colorPickerPalette.value.splice(0, Infinity, ...newPalette)
+    nextTick(() => { paletteIsUpdating = false })
   }
+})
+
+watch(rgbColorString, () => {
+  console.info('RGB COLOR CHANGE', {
+    rgbColor: rgbColor.value,
+    rgbColorString: rgbColorString.value,
+  })
+  emit('update:value', rgbColorString.value)
+  emit('update:model-value', rgbColorString.value)
+  emit('update:modelValue', rgbColorString.value)
 })
 
 onMounted(() => {
   // This seemingly stupid construct of having
   // this.colorPickerPalette === undefined at start enables us to peek
   // the default palette from the NC color picker widget.
-  factoryColorPalette.value = [...colorPicker.value!.palette]
-  console.info('FACTORY PALETTE', factoryColorPalette.value)
-  colorPickerPalette.value = (props.colorPalette && Array.isArray(props.colorPalette) && props.colorPalette.length > 0)
-    ? [...props.colorPalette]
-    : [...factoryColorPalette.value]
-  console.info('PALETTE IS NOW', colorPickerPalette.value, props.colorPalette, factoryColorPalette.value)
+  factoryColorPalette.value = colorPicker.value!.palette.map(color => anyToRgb(color))
+  if (props.colorPalette && Array.isArray(props.colorPalette) && props.colorPalette.length > 0) {
+    colorPickerPalette.value = props.colorPalette.map(color => anyToRgb(color))
+  } else {
+    colorPickerPalette.value = [...factoryColorPalette.value]
+  }
+  console.debug('PALETTE IS NOW', {
+    active: colorPickerPalette.value,
+    activeString: colorPickerPalette.value.toString(),
+    activeJSON: JSON.stringify(colorPickerPalette.value),
+    props: props.colorPalette,
+    factory: factoryColorPalette.value,
+    factoryString: colorPickerPalette.value.toString(),
+  })
   if (rgbColor.value) {
     prependColorToPalette(rgbColor.value, colorPickerPalette.value)
   }
   saveState()
-  nextTick(() => {
-    loading.value = false
-  })
+  nextTick(() => { loading.value = false })
 })
 
 </script>
@@ -297,7 +352,8 @@ export default {
     }
   }
   .confirm-button {
-    min-height: 44px; // in order to match NcButton
+    min-height: var(--default-clickable-area);
+    max-height: var(--default-clickable-area);
     border-top-left-radius:0;
     border-bottom-left-radius:0;
     border: 2px solid var(--color-border-dark);
