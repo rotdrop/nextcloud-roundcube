@@ -70,6 +70,11 @@ OCC = $(CURDIR)/../../occ
 all: help
 .PHONY: all
 
+#@@ git commit the assets, meant for stableXY branches
+commit-assets:
+	cd $(ABSSRCDIR); git add --force js css vendor `find vendor/ -type f` `find js -type f` `find css -type f`; git commit -m "Update assets for stable31 branch."
+.PHONY: commit-assets
+
 #@@ Build the distribution assets (minified, without debugging info)
 build: dev-setup npm-build # test
 .PHONY: build
