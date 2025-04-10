@@ -35,7 +35,7 @@ COMPOSER = $(PHP) $(BUILD_TOOLS_DIR)/composer.phar
 else
 COMPOSER = $(COMPOSER_SYSTEM)
 endif
-COMPOSER_OPTIONS = --prefer-dist
+COMPOSER_OPTIONS = --prefer-dist --no-dev
 
 ifeq ($(PHP),)
 $(error PHP binary is needed, but could not be found and was not specified on the command-line)
