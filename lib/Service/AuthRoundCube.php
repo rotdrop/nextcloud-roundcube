@@ -4,7 +4,7 @@
  *
  * @author 2019 Leonardo R. Morelli github.com/LeonardoRM
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2020 - 2024 Claus-Justus Heine
+ * @copyright 2020 - 2025 Claus-Justus Heine
  * @license AGPL-3.0-or-later
  *
  * Nextcloud RoundCube App is free software: you can redistribute it and/or
@@ -154,7 +154,7 @@ class AuthRoundCube
   {
     $mailPageObj = $this->sendRequest("?_task=mail", "GET");
     $inputs = self::parseInputs($mailPageObj['html']);
-    if (is_array($inputs['_task']) && $inputs['_task']['value'] == 'login'
+    if (is_array($inputs['_task'] ?? null) && $inputs['_task']['value'] == 'login'
         && is_array($inputs['_action']) && $inputs['_action']['value'] == 'login') {
       return false;
     }
