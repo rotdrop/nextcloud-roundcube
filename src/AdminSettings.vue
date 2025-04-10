@@ -27,7 +27,7 @@
       <TextField :value.sync="settings.externalLocation"
                  type="text"
                  :label="t(appName, 'RoundCube Installation Path')"
-                 :hint="t(appName, 'RoundCube path can be entered relative to the Nextcloud server')"
+                 :helper-text="t(appName, 'RoundCube path can be entered relative to the Nextcloud server')"
                  :disabled="loading"
                  @submit="saveTextInput('externalLocation')"
       />
@@ -101,23 +101,31 @@
           <TextField :value.sync="settings.fixedSingleEmailAddress"
                      type="text"
                      :label="t(appName, 'Global Email Login')"
-                     :hint="t(appName, 'Global email user-name for Roundcube for all users')"
+                     :helper-text="t(appName, 'Global email user-name for Roundcube for all users')"
                      :disabled="loading || (settings.emailAddressChoice !== 'fixedSingleAddress')"
                      :placeholder="t(appName, 'Email Address')"
                      @submit="saveTextInput('fixedSingleEmailAddress'); saveTextInput('fixedSingleEmailPassword')"
           />
-          <NcPasswordField :value.sync="protectedFixedSingleEmailPassword"
-                           :label="t(appName, 'Global Email Password')"
-                           :disabled="loading || (settings.emailAddressChoice !== 'fixedSingleAddress')"
-                           :placeholder="t(appName, 'Email Password')"
-                           class="password"
-          />
-          <!-- :show-trailing-button="true"
-               trailing-button-icon="arrowRight"
-               @trailing-button-click="saveTextInput('fixedSingleEmailPassword')" -->
-          <p class="hint">
-            {{ t(appName, 'Global email password for Roundcube for all users') }}
-          </p>
+          <TextField :value.sync="protectedFixedSingleEmailPassword"
+                     :type="isPasswordHidden ? 'password' : 'text'"
+                     :helper-text="t(appName, 'Global email password for Roundcube for all users')"
+                     :label="t(appName, 'Global Email Password')"
+                     :disabled="loading || (settings.emailAddressChoice !== 'fixedSingleAddress')"
+                     :placeholder="t(appName, 'Email Password')"
+                     class="password"
+          >
+            <template #alignedAfter>
+              <NcButton :aria-label="passwordToggleLabel"
+                        :disabled="loading || (settings.emailAddressChoice !== 'fixedSingleAddress')"
+                        @click.stop.prevent="isPasswordHidden = !isPasswordHidden"
+              >
+                <template #icon>
+                  <Eye v-if="isPasswordHidden" :size="18" />
+                  <EyeOff v-else :size="18" />
+                </template>
+              </NcButton>
+            </template>
+          </TextField>
         </div>
       </div>
     </NcSettingsSection>
@@ -178,7 +186,7 @@
       </label>
       <TextField :value.sync="settings.cardDavProvisioningTag"
                  :label="t(appName, 'RoundCube CardDAV Tag')"
-                 :hint="t(appName, 'Tag of a preconfigured CardDAV account pointing to the cloud addressbook. See the documentation of the RCMCardDAV plugin.')"
+                 :helper-text="t(appName, 'Tag of a preconfigured CardDAV account pointing to the cloud addressbook. See the documentation of the RCMCardDAV plugin.')"
                  :disabled="loading"
                  :placeholder="t(appName, 'Email Password')"
                  @submit="saveTextInput('cardDavProvisioningTag')"
@@ -224,8 +232,8 @@ import {
 import { translate as t } from '@nextcloud/l10n'
 import {
   NcActionButton,
+  NcButton,
   NcListItem,
-  NcPasswordField,
   NcSettingsSection,
 } from '@nextcloud/vue'
 import TextField from '@rotdrop/nextcloud-vue-components/lib/components/TextFieldWithSubmitButton.vue'
@@ -238,9 +246,14 @@ import {
   saveConfirmedSetting,
   saveSimpleSetting,
 } from './toolkit/util/settings-sync.ts'
+import Eye from 'vue-material-design-icons/Eye.vue'
+import EyeOff from 'vue-material-design-icons/EyeOff.vue'
 import logger from './logger.ts'
 
 const loading = ref(true)
+
+const isPasswordHidden = ref(true)
+const passwordToggleLabel = computed(() => isPasswordHidden.value ? t(appName, 'Show password') : t(appName, 'Hide password'))
 
 const cloudVersionClasses = computed(() => cloudVersionClassesImport)
 

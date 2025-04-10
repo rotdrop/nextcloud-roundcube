@@ -22,26 +22,38 @@
   >
     <TextField :value.sync="settings.emailAddress"
                :label="t(appName, 'Email Login Name')"
-               :hint="emailAddressHint"
+               :helper-text="emailAddressHint"
                :placeholder="t(appName, 'Email Address')"
                :disabled="emailAddressDisabled"
-               @submit="saveTextInput('emailAddress'); saveTextInput('emailPassword')"
+               @submit="saveTextInput('emailAddress')"
     />
-    <NcPasswordField :value.sync="protectedEmailPassword"
-                     :label="t(appName, 'Email Password')"
-                     :disabled="emailPasswordDisabled"
-                     :placeholder="t(appName, 'Email Password')"
-                     class="password"
-    />
-    <p class="hint">
-      {{ emailPasswordHint }}
-    </p>
+    <TextField :value.sync="protectedEmailPassword"
+               :type="isPasswordHidden ? 'password' : 'text'"
+               :label="t(appName, 'Email Password')"
+               :disabled="emailPasswordDisabled"
+               :placeholder="t(appName, 'Email Password')"
+               :helper-text="emailPasswordHint"
+               class="password"
+               @submit="saveTextInput('emailPassword')"
+    >
+      <template #alignedAfter>
+        <NcButton :aria-label="passwordToggleLabel"
+                  :disabled="emailPasswordDisabled"
+                  @click.stop.prevent="isPasswordHidden = !isPasswordHidden"
+        >
+          <template #icon>
+            <Eye v-if="isPasswordHidden" :size="18" />
+            <EyeOff v-else :size="18" />
+          </template>
+        </NcButton>
+      </template>
+    </TextField>
   </NcSettingsSection>
 </template>
 <script setup lang="ts">
 import { appName } from './config.ts'
 import {
-  NcPasswordField,
+  NcButton,
   NcSettingsSection,
 } from '@nextcloud/vue'
 import { translate as t } from '@nextcloud/l10n'
@@ -56,10 +68,15 @@ import {
   fetchSettings,
   saveConfirmedSetting,
 } from './toolkit/util/settings-sync.ts'
+import Eye from 'vue-material-design-icons/Eye.vue'
+import EyeOff from 'vue-material-design-icons/EyeOff.vue'
 import logger from './logger.ts'
 import type { EmailAddressChoice } from './types/settings.d.ts'
 
 const loading = ref(true)
+
+const isPasswordHidden = ref(true)
+const passwordToggleLabel = computed(() => isPasswordHidden.value ? t(appName, 'Show password') : t(appName, 'Hide password'))
 
 const cloudVersionClasses = computed(() => cloudVersionClassesImport)
 
@@ -97,11 +114,13 @@ const emailAddressDisabled = computed(() => {
 const emailAddressHint = computed(() => {
   switch (settings.emailAddressChoiceAdmin) {
   case 'userIdEmail':
-    return t(appName, 'Globally configured as USERID@{emailDefaultDomainAdmin}', this)
+    // @ts-expect-error settings does serve as data provider for the substitution
+    return t(appName, 'Globally configured as USERID@{emailDefaultDomainAdmin}', settings)
   case 'userPreferencesEmail':
     return t(appName, 'Globally configured as user\'s email address, see user\'s personal settings.')
   case 'fixedSingleAddress':
-    return t(appName, 'Globally configured as {fixedSingleEmailAddressAdmin}', this)
+    // @ts-expect-error settings does serve as data provider for the substitution
+    return t(appName, 'Globally configured as {fixedSingleEmailAddressAdmin}', settings)
   case 'userChosenEmail':
   default:
     return t(appName, 'Please specify an email address to use with RoundCube.')
