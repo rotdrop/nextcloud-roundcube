@@ -26,9 +26,19 @@ import { loadState } from '@nextcloud/initial-state';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface GetInitialStateArgs<D = Record<string, any> > {
   section: string,
-  defaults?: D,
+  defaults?: D|null,
 }
 
+/**
+ * @param args Destructuring arguments
+ *
+ * @param args.section
+ *
+ * @param args.defaults If an object return this if the initial state
+ * cannot be loaded. If undefined or null return null. If undefined
+ * report an error to the browser console if the state could not be
+ *  found.
+ */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const getInitialState = <D = Record<string, any> >({ section, defaults }: GetInitialStateArgs<D> = { section: 'config' }) => {
   try {
@@ -36,7 +46,7 @@ const getInitialState = <D = Record<string, any> >({ section, defaults }: GetIni
     const result = loadState(appName, section) as D;
     return result;
   } catch (err) {
-    if (defaults) {
+    if (defaults || defaults === null) {
       return defaults;
     }
     console.error('error in loadState("' + section + '"): ', err);
