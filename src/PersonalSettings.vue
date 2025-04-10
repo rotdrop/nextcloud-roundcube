@@ -114,13 +114,29 @@ const emailAddressDisabled = computed(() => {
 const emailAddressHint = computed(() => {
   switch (settings.emailAddressChoiceAdmin) {
   case 'userIdEmail':
-    // @ts-expect-error settings does serve as data provider for the substitution
-    return t(appName, 'Globally configured as USERID@{emailDefaultDomainAdmin}', settings)
+    if (settings.emailDefaultDomainAdmin) {
+      // TRANSLATORS: a hint for the user about what is used as login-name to the email-server
+      return t(
+        appName,
+        'Globally configured as NEXTCLOUD_USER_ID@{emailDefaultDomainAdmin}',
+        // @ts-expect-error settings does serve as data provider for the substitution
+        settings,
+      )
+    } else {
+      // TRANSLATORS: a hint for the user about what is used as login-name to the email-server
+      return t(appName, 'Globally configured as NEXTCLOUD_USER_ID')
+    }
   case 'userPreferencesEmail':
+    // TRANSLATORS: a hint for the user about what is used as login-name to the email-server
     return t(appName, 'Globally configured as user\'s email address, see user\'s personal settings.')
   case 'fixedSingleAddress':
-    // @ts-expect-error settings does serve as data provider for the substitution
-    return t(appName, 'Globally configured as {fixedSingleEmailAddressAdmin}', settings)
+    // TRANSLATORS: a hint for the user about what is used as login-name to the email-server
+    return t(
+      appName,
+      'Globally configured as {fixedSingleEmailAddressAdmin}',
+      // @ts-expect-error settings does serve as data provider for the substitution
+      settings,
+    )
   case 'userChosenEmail':
   default:
     return t(appName, 'Please specify an email address to use with RoundCube.')
