@@ -395,6 +395,10 @@ const copyCardDavConfig = () => {
         margin-right:0.5em;
       }
     }
+    :deep(.component-wrapper.email-default-domain) .alignment-wrapper {
+      margin: 0;
+      margin-block-start: 0;
+    }
     .hint {
       color: var(--color-text-lighter);
       font-style: italic;
