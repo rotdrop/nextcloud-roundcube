@@ -21,6 +21,7 @@ OC.L10N.register(
     "Choose a prefix-folder" : "Escolha uma pasta-prefixo",
     "Invalid path selected: \"{dir}\"." : "Selecionado caminho inválido: \"{dir}\".",
     "Selected path: \"{dir}/{base}/\"." : "Caminho selecionado: \"{dir}/{base}/\".",
+    "Show password" : "Mostrar senha",
     "Email Address Selection" : "Seleção do Endereço de Correio Eletrónico",
     "Email Domain" : "Domínio do Correio Eletrónico",
     "User's Preferences" : "Preferências do Utilizador",

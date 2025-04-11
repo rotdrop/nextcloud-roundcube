@@ -23,6 +23,7 @@ OC.L10N.register(
     "Invalid path selected: \"{dir}\"." : "El camí seleccionat no és vàlid: \"{dir}\".",
     "Selected path: \"{dir}/{base}/\"." : "Camí seleccionat: \"{dir}/{base}/\".",
     "Clear Selection" : "Buida la selecció",
+    "Hide password" : "Amaga la contrasenya",
     "User ID" : "ID de l'usuari",
     "Email Address" : "Adreça de correu electrònic",
     "Advanced Settings" : "Paràmetres avançats",

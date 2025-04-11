@@ -12,6 +12,8 @@ OC.L10N.register(
     "bytes" : "байтів",
     "Choose a folder" : "Виберіть каталог",
     "Choose a prefix-folder" : "Виберіть префікс каталогу",
+    "Show password" : "Показати пароль",
+    "Hide password" : "Приховати пароль",
     "User ID" : "ID користувача",
     "Email Address" : "Адреса електронної пошти",
     "Advanced Settings" : "Розширені"

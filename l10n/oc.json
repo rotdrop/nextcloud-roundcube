@@ -3,6 +3,7 @@
     "false" : "fals",
     "User" : "Utilizator",
     "Password" : "Senhal",
+    "Show password" : "Mostrar lo senhal",
     "Advanced Settings" : "Paramètres avançats",
     "Enable SSL verification." : "Activar la verificacion SSL."
 },"pluralForm" :"nplurals=2; plural=(n > 1);"

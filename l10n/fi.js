@@ -10,6 +10,8 @@ OC.L10N.register(
     "Choose a folder" : "Valitse kansio",
     "Invalid path selected: \"{dir}\"." : "Virheellinen polku valittu: \"{dir}\".",
     "Selected path: \"{dir}/{base}/\"." : "Valittu polku: \"{dir}/{base}/\".",
+    "Show password" : "Näytä salasana",
+    "Hide password" : "Piilota salasana",
     "User ID" : "Käyttäjätunniste",
     "Email Address" : "Sähköpostiosoite",
     "Advanced Settings" : "Lisäasetukset",

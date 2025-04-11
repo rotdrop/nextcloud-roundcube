@@ -22,6 +22,7 @@ OC.L10N.register(
     "Invalid path selected: \"{dir}\"." : "Neveljavna izbrana pot: »{dir}«.",
     "Selected path: \"{dir}/{base}/\"." : "Izbrana pot: »{dir}/{base}/«.",
     "Clear Selection" : "Počisti izbor",
+    "Show password" : "Pokaži geslo",
     "User ID" : "ID Uporabnika",
     "Email Address" : "Elektronski naslov",
     "Advanced Settings" : "Napredne nastavitve"
