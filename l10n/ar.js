@@ -44,6 +44,8 @@ OC.L10N.register(
     "Click to submit your changes." : "إضغط لإرسال تعديلاتك",
     "Reset Changes" : "إعادة تعيين التغييرات",
     "Clear Selection" : "إلغاء التحديد",
+    "Show password" : "أظهر كلمة المرور",
+    "Hide password" : "اخفاء كلمة المرور",
     "Config template has been copied to the clipboard." : "قالب التهيئة تمّ نسخه إلى الحافظة.",
     "Failed copying the config template to the clipboard: {reason}." : "فَشَلت عملية نسخ قالب التهيئة إلى الحافظة: {reason}.",
     "Embedded RoundCube, Admin Settings" : "تطبيق RoundCude مُضمّن، إعدادات المدير",

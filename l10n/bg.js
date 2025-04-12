@@ -33,6 +33,8 @@ OC.L10N.register(
     "Choose a prefix-folder" : "Избор на префикс-папка",
     "Invalid path selected: \"{dir}\"." : "Избран е невалиден път: \"{dir}\".",
     "Selected path: \"{dir}/{base}/\"." : "Избран път: \"{dir}/{base}/\".",
+    "Show password" : "Показване на парола",
+    "Hide password" : "Скриване на паролата",
     "Embedded RoundCube, Admin Settings" : "Вграден RoundCube, настройки на администратора",
     "Roundcube Installation" : "Инсталиране на Roundcube",
     "RoundCube Installation Path" : "Път за инсталиране на RoundCube",
