@@ -32,7 +32,7 @@ export interface GetInitialStateArgs<D = Record<string, any> > {
 /**
  * @param args Destructuring arguments
  *
- * @param args.section
+ * @param args.section The desired sub-section of initial state data.
  *
  * @param args.defaults If an object return this if the initial state
  * cannot be loaded. If undefined or null return null. If undefined

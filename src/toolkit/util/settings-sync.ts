@@ -30,12 +30,15 @@ import { generateUrl } from '@nextcloud/router';
 import { translate as t } from '@nextcloud/l10n';
 import { isAxiosErrorResponse } from '../types/axios-type-guards.ts';
 import dialogConfirm from './dialog-confirm.ts';
+import deepEqual from 'deep-equal';
 
 interface FetchSettingsArgs {
   section: 'admin'|'personal',
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   settings: Record<string, any>,
 }
+
+const equals = (a: any, b: any) => deepEqual(a, b, { strict: true });
 
 /**
  * @param data The destructuring object
@@ -52,7 +55,9 @@ async function fetchSettings({ section, settings }: FetchSettingsArgs) {
     const response = await axios.get(generateUrl('apps/' + appName + '/settings/' + section), {});
     // Object.assign(settings, response.data);
     for (const [key, value] of Object.entries(response.data)) {
-      vueSet(settings, key, value);
+      if (!equals(settings[key], value)) {
+        vueSet(settings, key, value);
+      }
     }
     return true;
   } catch (e) {
@@ -92,7 +97,9 @@ interface FetchSettingArgs {
 async function fetchSetting({ settingsKey, section, settings }: FetchSettingArgs) {
   try {
     const response = await axios.get(generateUrl('apps/' + appName + '/settings/' + section + '/' + settingsKey), {});
-    vueSet(settings, settingsKey, response.data.value);
+    if (!equal(settings[settingsKey], response.data.value)) {
+      vueSet(settings, settingsKey, response.data.value);
+    }
     return true;
   } catch (e) {
     console.info('ERROR', e);
@@ -145,12 +152,16 @@ async function saveSimpleSetting({ settingsKey, section, onSuccess, settings }: 
     let displayValue: undefined|string|boolean|any[]|Record<string, any>;
     if (responseData) {
       if (responseData.newValue !== undefined) {
-        settings[settingsKey] = responseData.newValue;
+        if (!equals(settings[settingsKey], responseData.newValue)) {
+          vueSet(settings, settingsKey, responseData.newValue);
+        }
         displayValue = settings[settingsKey];
       }
       if (responseData.humanValue !== undefined) {
         const humanKey = 'human' + settingsKey[0].toUpperCase() + settingsKey.substring(1);
-        settings[humanKey] = responseData.humanValue;
+        if (!equals(settings[humanKey], responseData.humanValue)) {
+          vueSet(settings, humanKey, responseData.humanValue);
+        }
         displayValue = settings[humanKey];
       }
       if (Array.isArray(displayValue)) {
@@ -261,12 +272,16 @@ const saveConfirmedSetting = async ({
       let displayValue: any;
       if (responseData) {
         if (responseData.newValue !== undefined) {
-          settings[settingsKey] = responseData.newValue;
+          if (!equals(settings[settingsKey], responseData.newValue)) {
+            vueSet(settings, settingsKey, responseData.newValue);
+          }
           displayValue = settings[settingsKey];
         }
         if (responseData.humanValue !== undefined) {
           const humanKey = 'human' + settingsKey[0].toUpperCase() + settingsKey.substring(1);
-          settings[humanKey] = responseData.humanValue;
+          if (!equals(settings[humanKey], responseData.humanValue)) {
+            vueSet(settings, humanKey, responseData.humanValue);
+          }
           displayValue = settings[humanKey];
           if (Array.isArray(displayValue)) {
             displayValue = displayValue.toString();
