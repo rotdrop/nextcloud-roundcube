@@ -80,6 +80,8 @@ OC.L10N.register(
     "Unable to configure the CardDAV integration for \"{emailUserId}\"." : "無法為「{emailUserId}」設定 CardDAV 整合。",
     "Unable to obtain email credentials for \"{emailUserId}\". Please check your personal Roundcube settings." : "無法擷取「{emailUserId}」的電子郵件身份驗證。請檢查您的個人 Roundcube 設定。",
     "RoundCube Wrapper for Nextcloud" : "Nextcloud 的 RoundCube Wrapper",
+    "Globally configured as NEXTCLOUD_USER_ID@{emailDefaultDomainAdmin}" : "全域設定為 NEXTCLOUD_USER_ID@{emailDefaultDomainAdmin}",
+    "Globally configured as NEXTCLOUD_USER_ID" : "全域設定為 NEXTCLOUD_USER_ID",
     "Globally configured as user's email address, see user's personal settings." : "全域設定為使用者的電子郵件地址，檢視使用者個人設定。",
     "Globally configured as {fixedSingleEmailAddressAdmin}" : "全域設定為 {fixedSingleEmailAddressAdmin}",
     "Please specify an email address to use with RoundCube." : "請指定用於 Roundcube 的電子郵件地址。",
