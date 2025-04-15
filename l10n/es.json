@@ -64,7 +64,7 @@
     "Advanced Settings" : "Ajustes avanzados",
     "Force single sign on (disables custom password)." : "Forzar single sign on (deshabilita contraseña personalizada)",
     "Show RoundCube top information bar (shows logout button)." : "Mostrar la barra superior de información de RoundCube (mostrará el botón de cerrar sesión)",
-    "Disable when debugging with self-signed certificates." : "Deshabilite cuando haga debugging con certificados auto-firmados.",
+    "Disable when debugging with self-signed certificates." : "Deshabilite cuando haga depuración con certificados auto-firmados.",
     "Enable SSL verification." : "Habilite la verificación SSL.",
     "Encrypt per-user data -- in particular their email passwords -- with their personal cloud password. This implies that these settings will be lost when users forget their passwords. If unchecked the email login credentials are still protected by the server secret. The latter implies that an administrator is able to decrypt the login credentials, but the configuration data survives user password-loss." : "Cifrar los datos por usuario -- en particular sus contraseñas de correo -- con su contraseña personal de la nube. Esto implica que estas configuraciones se perderán cuando los usuarios olviden su contraseña. Si no se selecciona las credenciales de correo seguirán protegidas por los secretos del servidor. Esto último implica que el administrador podrá descifrar las credenciales de ingreso, pero los datos de configuración sobrevivirán a una pérdida de la contraseña de parte de los usuarios.",
     "Per-user encryption of config values." : "Cifrado de valores de configuración por usuario.",
