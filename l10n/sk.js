@@ -34,6 +34,7 @@ OC.L10N.register(
     "restore palette" : "obnoviť paletu",
     "factory reset palette" : "obnoviť paletu do továrneho nastavenia",
     "Custom Color" : "Vlastná farba",
+    "Provided data is not a valid SVG image: \"{data}\"." : "Poskytnuté dáta nie sú validným obrázkom SVG: \"{data}\".",
     "Choose a folder" : "Vybrať priečinok",
     "Choose a prefix-folder" : "Vyberte prefix-adresár",
     "Invalid path selected: \"{dir}\"." : "Bola vybraná neplatná cesta: \"{dir}\".",

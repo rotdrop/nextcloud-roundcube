@@ -42,6 +42,7 @@ OC.L10N.register(
     "Click to submit your changes." : "Κάντε κλικ για να υποβάλετε τις αλλαγές σας.",
     "Reset Changes" : "Επαναφορά αλλαγών",
     "Clear Selection" : "Καθαρισμός επιλογής",
+    "Show password" : "Εμφάνιση κωδικού",
     "Config template has been copied to the clipboard." : "Το πρότυπο διαμόρφωσης έχει αντιγραφεί στο πρόχειρο.",
     "Failed copying the config template to the clipboard: {reason}." : "Αποτυχία αντιγραφής του προτύπου διαμόρφωσης στο πρόχειρο: {reason}.",
     "Embedded RoundCube, Admin Settings" : "Ενσωματωμένο RoundCube, Ρυθμίσεις Διαχειριστή",

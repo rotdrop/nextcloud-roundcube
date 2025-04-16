@@ -35,6 +35,7 @@ OC.L10N.register(
     "Click to submit your changes." : "Klik for at sende dine ændringer.",
     "Reset Changes" : "Nulstil ændringer",
     "Clear Selection" : "Ryd markering",
+    "Show password" : "Vis adgangskode",
     "Hide password" : "Skjul adgangskode",
     "User ID" : "Bruger ID",
     "Email Address" : "Email adresse",
