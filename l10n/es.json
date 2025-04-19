@@ -31,6 +31,8 @@
     "revert color" : "revertir color",
     "restore palette" : "restaurar paleta",
     "factory reset palette" : "restablecer paleta a valores de fábrica",
+    "Custom Color" : "Color personalizado",
+    "Provided data is not a valid SVG image: \"{data}\"." : "Los datos provistos no son una imagen SVG válida: \"{data}\".",
     "Choose a folder" : "Elija una carpeta",
     "Choose a prefix-folder" : "Seleccione una carpeta prefijo",
     "Invalid path selected: \"{dir}\"." : "Ruta seleccionada inválida \"{dir}\".",
