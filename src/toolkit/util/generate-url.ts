@@ -30,19 +30,13 @@ import type { UrlOptions } from '@nextcloud/router';
 /**
  * Generate an absolute URL for this app.
  *
- * @param {string} url The locate URL without app-prefix.
+ * @param url The locate URL without app-prefix.
  *
- * @param {object} [urlParams] Object holding url-parameters if url
+ * @param urlParams Object holding url-parameters if url
  * contains parameters. "Excess" parameters will be appended as query
  * parameters to the URL.
  *
  * @param urlOptions Object with query parameters
- * ```
- * {
- *   escape: BOOL,
- *   noRewrite: BOOL,
- * }
- * ```
  */
 export const generateUrl = <T extends string>(url: T, urlParams?: Record<string, string|number|boolean|null>, urlOptions?: UrlOptions) => {
   // const str = '/image/{joinTable}/{ownerId}';

@@ -18,20 +18,27 @@
  */
 
 declare global {
-  var OC: {
+  const OC: {
     config: {
       versionstring: string,
     }
     dialogs: {
-      confirm: (text: string, title: string, callback: (answer: boolean) => any, modal: boolean) => void,
+      confirm: (
+        text: string,
+        title: string,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        callback: (answer: boolean) => any,
+        modal: boolean,
+      ) => void,
       alert: (text: string, title: string) => void,
     },
   };
-  var OCA: {
+  const OCA: {
     Files: {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       [key: string]: any,
     },
-  }
+  };
 }
 
-export {}
+export {};

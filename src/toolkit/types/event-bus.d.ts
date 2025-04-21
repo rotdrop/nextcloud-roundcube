@@ -37,13 +37,16 @@ export interface Notification {
   user: string;
   message: string;
   messageRich: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   messageRichParameters: any;
   subject: string;
   subjectRich: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   subjectRichParameters: any;
   objectType: string;
   objectId: string;
   shouldNotify: boolean;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   actions: Array<any>;
   index: number;
 }
@@ -60,4 +63,4 @@ declare module '@nextcloud/event-bus' {
   }
 }
 
-export {}
+export {};

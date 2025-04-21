@@ -37,6 +37,7 @@ import { isAxiosErrorResponse } from '../types/axios-type-guards.ts';
  * @param post Optional. Additional post-data. If present we send a
    POST request to the URL with this data.
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const axiosFileDownload = async (url: string, post?: Record<string, any>) => {
 
   const downloadUrl = (url.startsWith(generateUrl(''))
@@ -44,7 +45,7 @@ const axiosFileDownload = async (url: string, post?: Record<string, any>) => {
     ? url
     : generateAppUrl(url);
 
-  const axiosOptions = { responseType: 'blob' as ResponseType }
+  const axiosOptions = { responseType: 'blob' as ResponseType };
   try {
     const response = post
       ? await axios.post(downloadUrl, post, axiosOptions)
