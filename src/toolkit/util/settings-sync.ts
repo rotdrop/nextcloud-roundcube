@@ -38,6 +38,7 @@ interface FetchSettingsArgs {
   settings: Record<string, any>,
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const equals = (a: any, b: any) => deepEqual(a, b, { strict: true });
 
 /**
@@ -97,7 +98,7 @@ interface FetchSettingArgs {
 async function fetchSetting({ settingsKey, section, settings }: FetchSettingArgs) {
   try {
     const response = await axios.get(generateUrl('apps/' + appName + '/settings/' + section + '/' + settingsKey), {});
-    if (!equal(settings[settingsKey], response.data.value)) {
+    if (!equals(settings[settingsKey], response.data.value)) {
       vueSet(settings, settingsKey, response.data.value);
     }
     return true;
