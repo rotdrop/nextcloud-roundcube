@@ -64,11 +64,16 @@ webpackConfig.plugins = webpackConfig.plugins.concat([
     APP_NAME: JSON.stringify(appName),
   }),
   new ESLintPlugin({
-    extensions: ['js', 'vue'],
+    extensions: [
+      'js',
+      'ts',
+      'vue',
+    ],
     exclude: [
       'node_modules',
       '3rdparty',
       'src/legacy',
+      'src/toolkit/util/jquery.js',
     ],
   }),
   new HtmlWebpackPlugin({
@@ -95,15 +100,6 @@ webpackConfig.plugins = webpackConfig.plugins.concat([
     ],
     exclude: [
       // 'src/toolkit/**',
-      'src/toolkit/util/ajax.js',
-      'src/toolkit/util/dialogs.js',
-      'src/toolkit/util/file-download.js',
-      'src/toolkit/util/file-node-helper.js',
-      'src/toolkit/util/generate-url.js',
-      'src/toolkit/util/jquery.js',
-      'src/toolkit/util/on-document-loaded.js',
-      'src/toolkit/util/pangram.js',
-      'src/toolkit/util/print-r.js',
     ],
   }),
   new BundleAnalyzerPlugin({
