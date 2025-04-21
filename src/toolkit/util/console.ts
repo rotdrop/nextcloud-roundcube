@@ -87,8 +87,10 @@ class Console {
   private emitMessage(method: ConsoleMethods, ...args: any[]) {
     const depth = Math.max(1, (args.length > 0 && typeof args[0] === 'number') ? args.shift() : this.stackDepth);
     if (this.smaps[method]) {
+      // eslint-disable-next-line no-console
       this.asyncStackFrames(depth).then(stack => { console[method](...this.locationObject(stack), ...args); });
     } else {
+      // eslint-disable-next-line no-console
       console[method](...this.locationObject(this.syncStackFrames(depth)), ...args);
     }
   }
