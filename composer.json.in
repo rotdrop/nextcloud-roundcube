@@ -10,6 +10,11 @@
     }
   ],
   "require": {},
+  "provide": {
+    "symfony/console": "*",
+    "symfony/event-dispatcher": "*",
+    "symfony/process": "*"
+  },
   "require-dev": {
     "bamarni/composer-bin-plugin": "^1.8",
     "phpmd/phpmd" : "@stable",
