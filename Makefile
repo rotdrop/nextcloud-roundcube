@@ -83,6 +83,11 @@ build: dev-setup npm-build # test
 dev: dev-setup npm-dev # test
 .PHONY: dev
 
+#@@ Build the distribution assets (minified, without debugging info)
+build-no-dev:
+	make COMPOSER_OPTIONS="$(COMPOSER_OPTIONS) --no-dev" build
+.PHONY: build-no-dev
+
 #@private
 dev-setup: app-toolkit composer
 .PHONY: dev-setup
