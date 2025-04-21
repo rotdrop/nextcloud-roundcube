@@ -24,6 +24,7 @@ OC.L10N.register(
     "Invalid path selected: \"{dir}\"." : "잘못된 경로가 지정됨: \"{dir}\"",
     "Selected path: \"{dir}/{base}/\"." : "지정한 경로: \"{dir}/{base}/\"",
     "Clear Selection" : "선택 초기화",
+    "Show password" : "암호 표시",
     "Email Address" : "이메일 주소",
     "Advanced Settings" : "고급 설정",
     "Disable when debugging with self-signed certificates." : "자기-서명 인증서로 디버깅할 시 비활성화"

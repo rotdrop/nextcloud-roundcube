@@ -13,6 +13,7 @@ OC.L10N.register(
     "Password" : "Wachtwoord",
     "bytes" : "bytes",
     "submit" : "versturen",
+    "Show password" : "Toon wachtwoord",
     "User ID" : "Gebruiker-ID",
     "Email Address" : "E-mailadres",
     "Advanced Settings" : "Geavanceerde instellingen"

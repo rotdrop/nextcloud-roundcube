@@ -23,6 +23,7 @@ OC.L10N.register(
     "An empty value is not allowed, please make your choice!" : "Tühi väärtus pole lubatud, palun tee oma valik!",
     "Reset Changes" : "Lähtesta muudatused",
     "Clear Selection" : "Kustuta valik",
+    "Show password" : "Näita salasõna",
     "Advanced Settings" : "Täpsemad seaded",
     "RoundCube Wrapper for Nextcloud" : "RoundCube'i kest Nextcloudi jaoks"
 },

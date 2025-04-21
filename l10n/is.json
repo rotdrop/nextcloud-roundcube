@@ -2,6 +2,8 @@
     "User" : "Notandi",
     "Password" : "Lykilorð",
     "bytes" : "bæti",
+    "Show password" : "Sýna lykilorð",
+    "Hide password" : "Fela lykilorð",
     "Email Address" : "Tölvupóstfang",
     "Advanced Settings" : "Ítarlegar stillingar"
 },"pluralForm" :"nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);"

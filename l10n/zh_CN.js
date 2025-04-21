@@ -22,6 +22,8 @@ OC.L10N.register(
     "Invalid path selected: \"{dir}\"." : "选择了无效路径：“{dir}”。",
     "Selected path: \"{dir}/{base}/\"." : "选择的路径：\"{dir}/{base}/\"。",
     "Clear Selection" : "清除选择",
+    "Show password" : "显示密码",
+    "Hide password" : "隐藏密码",
     "User ID" : "用户ID",
     "Email Address" : "电子邮件地址",
     "Advanced Settings" : "高级设置"

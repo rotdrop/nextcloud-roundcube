@@ -4,6 +4,8 @@ OC.L10N.register(
     "User" : "Notandi",
     "Password" : "Lykilorð",
     "bytes" : "bæti",
+    "Show password" : "Sýna lykilorð",
+    "Hide password" : "Fela lykilorð",
     "Email Address" : "Tölvupóstfang",
     "Advanced Settings" : "Ítarlegar stillingar"
 },

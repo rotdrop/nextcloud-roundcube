@@ -37,7 +37,7 @@ export interface FileInfoDTO {
   permissions: number,
   'mount-type': string,
   etag: string,
-};
+}
 
 /**
  * @param fileInfo File-info object.

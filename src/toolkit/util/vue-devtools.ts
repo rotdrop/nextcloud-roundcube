@@ -21,9 +21,9 @@ import Vue from 'vue';
 
 // Unsane mixture between type and instance. How to cleanup?
 declare global {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // eslint-disable-next-line
   var __VUE_DEVTOOLS_GLOBAL_HOOK__: any;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // eslint-disable-next-line
   var __VUE__: any;
 }
 
@@ -39,4 +39,4 @@ export const disableVueDevTools = () => {
   if (window.__VUE_DEVTOOLS_GLOBAL_HOOK__?.enabled) {
     window.__VUE_DEVTOOLS_GLOBAL_HOOK__.enabled = false;
   }
-}
+};

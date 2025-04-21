@@ -31,7 +31,7 @@ Vue.use(Router);
 
 const base = generateUrl('/apps/' + appName);
 
-const initialState = getInitialState<InitialState>()
+const initialState = getInitialState<InitialState>();
 
 const options: RouterOptions = {
   mode: 'history',

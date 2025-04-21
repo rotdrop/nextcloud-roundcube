@@ -4,6 +4,8 @@ OC.L10N.register(
     "User" : "Usuario",
     "Password" : "Contraseña",
     "bytes" : "bytes",
+    "Show password" : "Mostrar contraseña",
+    "Hide password" : "Ocultar contraseña",
     "User ID" : "ID de usuario",
     "Email Address" : "Dirección de correo electrónico",
     "Advanced Settings" : "Configuraciones Avanzadas"

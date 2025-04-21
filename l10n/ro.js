@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "User" : "Utilizator",
     "Password" : "Parolă",
+    "Show password" : "Arată parola",
     "User ID" : "ID-ul utilizatorului",
     "Email Address" : "Adresă de mail",
     "Advanced Settings" : "Setări avansate"

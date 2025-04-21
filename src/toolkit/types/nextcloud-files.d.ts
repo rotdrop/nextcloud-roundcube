@@ -21,8 +21,6 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type { LegacyFileInfo } from '@nextcloud/files';
-
 declare module '@nextcloud/files' {
 
   /**
@@ -39,9 +37,10 @@ declare module '@nextcloud/files' {
     mountType: string,
     isDirectory: () => boolean,
     canEdit: () => boolean,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     get: (key: string) => any,
     // ... and a couple of other properties
   }
 }
 
-export {}
+export {};

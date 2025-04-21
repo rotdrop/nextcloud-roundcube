@@ -14,6 +14,7 @@ OC.L10N.register(
     "submit" : "unviar",
     "restore palette" : "restaurar la paleta",
     "Please select an item!" : "¡Seleiciona un elementu!",
+    "Show password" : "Amosar la contraseña",
     "Email Address" : "Direición de corréu electrónicu",
     "Advanced Settings" : "Configuración avanzada",
     "Enable SSL verification." : "Activar la verificación SSL."

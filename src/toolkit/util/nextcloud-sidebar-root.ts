@@ -17,11 +17,10 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { getCurrentInstance } from 'vue';
-import Vue from 'vue';
+import Vue, { getCurrentInstance } from 'vue';
 import { NodeStatus } from '@nextcloud/files';
 import { emit } from '@nextcloud/event-bus';
-import type { Node} from '@nextcloud/files';
+import type { Node } from '@nextcloud/files';
 
 let currentInstance: null|Vue = null;
 
@@ -37,7 +36,7 @@ const busyNodes: Node[] = [];
  */
 export const getSidebarRoot = () => {
   let instance = getCurrentInstance()?.proxy || null;
-  if (sidebarRoot && (instance && currentInstance === instance || !instance && currentInstance)) {
+  if (sidebarRoot && ((instance && currentInstance === instance) || (!instance && currentInstance))) {
     return sidebarRoot;
   }
   if (instance) {

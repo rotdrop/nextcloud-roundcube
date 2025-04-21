@@ -4,6 +4,8 @@ OC.L10N.register(
     "User" : "Naudotojas",
     "Password" : "Slaptažodis",
     "bytes" : "baitų",
+    "Show password" : "Rodyti slaptažodį",
+    "Hide password" : "Slėpti slaptažodį",
     "User ID" : "Naudotojo ID",
     "Email Address" : "El. pašto adresas",
     "Advanced Settings" : "Išplėstiniai nustatymai"

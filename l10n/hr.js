@@ -4,6 +4,7 @@ OC.L10N.register(
     "User" : "@string/user_icon",
     "Password" : "Zaporka",
     "bytes" : "bajtova",
+    "Show password" : "Pokaži zaporku",
     "Email Address" : "Adresa e-pošte",
     "Advanced Settings" : "Napredne postavke"
 },
