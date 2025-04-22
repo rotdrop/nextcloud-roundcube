@@ -92,9 +92,9 @@ README.md file which is distributed together with this app.`)
 your personal Roundcube settings. Maybe a re-login to Nextcloud
 helps. Otherwise contact your system administrator.`)
   case 'carddav':
-    return t(appName, 'Unable to configure the CardDAV integration for "{emailUserId}".', this)
+    return t(appName, 'Unable to configure the CardDAV integration for "{emailUserId}".', initialState)
   case 'noemail':
-    return t(appName, 'Unable to obtain email credentials for "{emailUserId}". Please check your personal Roundcube settings.', this)
+    return t(appName, 'Unable to obtain email credentials for "{emailUserId}". Please check your personal Roundcube settings.', initialState)
   default:
     return null
   }
