@@ -92,7 +92,7 @@ include $(APP_TOOLKIT_DIR)/tools/scopeme.mk
 include $(DEV_LIB_DIR)/makefile/ts-app-config.mk
 
 L10N_FILES = $(wildcard l10n/*.js l10n/*.json)
-JS_FILES = $(shell find $(ABSSRCDIR)/src -name "*.js" -o -name "*.vue")
+JS_FILES = $(shell find $(ABSSRCDIR)/src -name "*.js" -o -name "*.ts" -o -name "*.vue")
 
 NPM_INIT_DEPS =\
  Makefile package-lock.json package.json webpack.config.js .eslintrc.js
