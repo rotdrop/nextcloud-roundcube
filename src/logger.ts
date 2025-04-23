@@ -21,6 +21,11 @@
 
 import Console from './toolkit/util/console.ts';
 
-const logger = new Console('MailRoundCube');
+const consoleOptions = {
+  smaps: { debug: false, info: false, error: false, trace: false },
+  stackDepth: 0,
+};
+
+const logger = new Console('MailRoundCube', consoleOptions);
 
 export default logger;

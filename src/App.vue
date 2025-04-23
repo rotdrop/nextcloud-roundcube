@@ -78,9 +78,6 @@ const errorMessage = computed(() => {
   if (state.value !== 'error') {
     return null
   }
-  if (errorHint.value !== undefined) {
-    return errorHint.value
-  }
   switch (reason.value) {
   case 'norcurl':
     return t(appName, `You did not tell me where to find your configured Roundcube
@@ -96,7 +93,7 @@ helps. Otherwise contact your system administrator.`)
   case 'noemail':
     return t(appName, 'Unable to obtain email credentials for "{emailUserId}". Please check your personal Roundcube settings.', initialState)
   default:
-    return null
+    return errorHint.value || null
   }
 })
 
