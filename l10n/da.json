@@ -25,7 +25,7 @@
     "restore palette" : "genopret palette",
     "factory reset palette" : "fabriksnulstil palette",
     "Custom Color" : "Brugerdefineret farve",
-    "Provided data is not a valid SVG image: \"{data}\"." : "Forudsat at data ikke er et gyldigt SVG- billede: \"{data}\".",
+    "Provided data is not a valid SVG image: \"{data}\"." : "Data er ikke et gyldigt SVG-billede: \"{data}\"",
     "Choose a folder" : "Vælg en mappe",
     "Choose a prefix-folder" : "Vælg en præfiksmappe",
     "Invalid path selected: \"{dir}\"." : "Ugyldig sti valgt: \"{dir}\".",
