@@ -47,7 +47,7 @@ OC.L10N.register(
     "Show password" : "Passwort anzeigen",
     "Hide password" : "Passwort verbergen",
     "Config template has been copied to the clipboard." : "Die Konfigurationsvorlage wurde in die Zwischenablage kopiert.",
-    "Failed copying the config template to the clipboard: {reason}." : "Fehler beim Kopieren der Konfigurationsvorlage in die Zwischenablage: {reason}.",
+    "Failed copying the config template to the clipboard: {reason}." : "Konfigurationsvorlage konnte nicht in die Zwischenablage kopiert werden: {reason}.",
     "Embedded RoundCube, Admin Settings" : "Eingebettetes RoundCube, Admin-Einstellungen",
     "Roundcube Installation" : "Roundcube Installation",
     "RoundCube Installation Path" : "RoundCube Installationspfad",
