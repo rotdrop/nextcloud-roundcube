@@ -41,7 +41,7 @@ OC.L10N.register(
     "Selected path: \"{dir}/{base}/\"." : "Ausgewählter Pfad: \"{dir}/{base}\".",
     "Please select an item!" : "Bitte ein Element wählen!",
     "An empty value is not allowed, please make your choice!" : "Ein leerer Wert ist unzulässig, bitte treffen Sie Ihre Wahl!",
-    "Click to submit your changes." : "Klicken um Ihre Änderungen zu übermitteln",
+    "Click to submit your changes." : "Klicken, um Ihre Änderungen zu übermitteln",
     "Reset Changes" : "Änderungen zurücksetzen",
     "Clear Selection" : "Auswahl leeren",
     "Show password" : "Passwort anzeigen",
