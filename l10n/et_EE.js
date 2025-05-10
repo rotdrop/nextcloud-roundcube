@@ -24,6 +24,7 @@ OC.L10N.register(
     "Reset Changes" : "Lähtesta muudatused",
     "Clear Selection" : "Kustuta valik",
     "Show password" : "Näita salasõna",
+    "User ID" : "Kasutajatunnus",
     "Advanced Settings" : "Täpsemad seaded",
     "RoundCube Wrapper for Nextcloud" : "RoundCube'i kest Nextcloudi jaoks"
 },
