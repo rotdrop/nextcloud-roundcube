@@ -138,6 +138,10 @@ const openFilePicker = async () => {
     .build()
 
   let dir = await picker.pick() || '/'
+  if (Array.isArray(dir)) {
+    // work around bug in @nextcloud/dialogs@6.2.0
+    dir = dir[0]
+  }
   if (dir.startsWith('//')) { // new in Nextcloud 25?
     dir = dir.slice(1)
   }
