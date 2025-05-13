@@ -1,6 +1,9 @@
 OC.L10N.register(
     "mail_roundcube",
     {
+    "Unknown admin setting: \"%1$s\"" : "Tundmatu haldusseadistus: „%1$s“",
+    "The admin setting \"%1$s\" is read-only" : "Haldusseadistus „%1$s“ on vaid lugemisõigustes",
+    "Value \"%1$s\" for setting \"%2$s\" is not convertible to boolean." : "„%2$s“ seadistuse väärtus „%1$s“ pole teisendatav tõeväärtuse andmetüübiks.",
     "true" : "tõene",
     "false" : "väär",
     "Unknown personal setting: \"%1$s\"" : "Tundmatu isiklik seadistus: „%1$s“",
