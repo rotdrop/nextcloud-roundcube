@@ -14,6 +14,7 @@ OC.L10N.register(
     "Password" : "Salasõna",
     "Login succeeded." : "Sisselogimine õnnestud",
     "Login failed." : "Sisselogimine ei õnnestunud.",
+    "bytes" : "baiti",
     "pick a color" : "vali värv",
     "open" : "ava",
     "submit" : "saada",
