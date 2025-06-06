@@ -27,7 +27,7 @@
       <div v-if="$slots.alignedBefore" :class="['aligned-before', ...flexItemClasses]">
         <slot name="alignedBefore" />
       </div>
-      <div :class="['select-combo-wrapper', { loading }, ...flexItemClasses, ...actionClasses]">
+      <div :class="['select-combo-wrapper', { loading, actions: $slots.actions || clearAction || resetAction, submit: submitButton }, ...flexItemClasses, ...actionClasses]">
         <NcSelect ref="ncSelect"
                   v-bind="$attrs"
                   v-model="value"
@@ -291,6 +291,9 @@ export default {
     align-items: stretch;
     flex-grow: 1;
     flex-wrap: nowrap;
+    &.actions {
+      max-width: calc(100% - var(--default-clickable-area));
+    }
     .v-select.select {
       flex-grow:1;
       max-width:100%;
