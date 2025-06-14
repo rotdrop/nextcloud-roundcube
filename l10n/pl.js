@@ -19,6 +19,7 @@ OC.L10N.register(
     "pick a color" : "wybierz kolor",
     "Choose a folder" : "Wybierz katalog",
     "Click to submit your changes." : "Kliknij, aby przesłać zmiany.",
+    "Clear Selection" : "Wyczyść zaznaczenie",
     "Show password" : "Pokaż hasło",
     "Hide password" : "Ukryj hasło",
     "User ID" : "ID użytkownika",
