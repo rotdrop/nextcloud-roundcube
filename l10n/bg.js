@@ -19,7 +19,7 @@ OC.L10N.register(
     "Caused by previous exception" : "Причинено от предишно изключение",
     "bytes" : "байта",
     "The supplied color-string \"%s\" seems to be invalid." : "Предоставеният низ за цвят „%s“ изглежда е невалиден.",
-    "The input color values are invalid." : "Въведените стойности на цветовете са невалидни.",
+    "The input color values are invalid." : "Въведените стойности на цвят са невалидни.",
     "RoundCube Mail" : "Електронна поща на RoundCube",
     "RoundCube Web Mail" : "Уеб поща на RoundCube",
     "Embed an installation of RoundCube into Nextcloud" : "Вграждане на инсталация на RoundCube в Nextcloud",
