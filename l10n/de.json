@@ -75,7 +75,7 @@
     "RCMCardDAV Plugin Configuration" : "RCMCardDAV-Plugin Einstellungen",
     "ClipBoard" : "Zwischenablage",
     "Below is a configuration snippet which may or may not work with the current version of the RoundCube CardDAV plugin. The configuration shown below is just a suggestion and will not automatically be registered with the RoundCube app. It is your responsibility to configure the RoundCube CardDAV plugin correctly. Please have a look at the explanations in the README.md file." : "Unten siehst du einen Konfigurationsausschnitt, der möglicherweise mit der aktuellen Version des RoundCube CardDAV-Plugins funktioniert. Die unten stehende Konfiguration ist nur ein Vorschlag und wird nicht automatisch in der RoundCube-App registriert. Es liegt an dir, das RoundCube CardDAV-Plugin korrekt zu konfigurieren. Bitte beachte die Erläuterungen in der Datei README.md.",
-    "Unable to configure the CardDAV integration for \"{emailUserId}\"." : "Die CardDAV-Integration für \"{emailUserId}\" kann nicht konfiguriert werden.",
+    "Unable to configure the CardDAV integration for \"{emailUserId}\"." : "Die CardDAV-Integration für \"{emailUserId}\" kann nicht eingerichtet werden.",
     "Unable to obtain email credentials for \"{emailUserId}\". Please check your personal Roundcube settings." : "E-Mail-Anmeldeinformationen für \"{emailUserId}\" konnten nicht abgerufen werden. Bitte überprüfe deine persönlichen Roundcube-Einstellungen.",
     "RoundCube Wrapper for Nextcloud" : "RoundCube-Wrapper für Nextcloud",
     "Globally configured as NEXTCLOUD_USER_ID@{emailDefaultDomainAdmin}" : "Global konfiguriert als NEXTCLOUD_USER_ID@{emailDefaultDomainAdmin}",
