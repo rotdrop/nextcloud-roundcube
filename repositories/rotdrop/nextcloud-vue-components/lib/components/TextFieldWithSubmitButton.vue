@@ -26,12 +26,12 @@
         <slot name="alignedBefore" />
       </div>
       <NcTextField ref="ncTextField"
+                   v-model="model"
                    v-bind="$attrs"
-                   :value="value || ''"
                    :show-trailing-button="true"
                    trailing-button-icon="arrowRight"
                    v-on="$listeners"
-                   @trailing-button-click="$emit('submit', ncTextFieldValue)"
+                   @trailing-button-click="$emit('submit', model)"
       >
         <!-- pass through scoped slots -->
         <template v-for="(_, scopedSlotName) in $scopedSlots" #[scopedSlotName]="slotData">
@@ -49,28 +49,54 @@
   </div>
 </template>
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { ref, watch } from 'vue';
 import { NcTextField } from '@nextcloud/vue'
+
 const props = withDefaults(defineProps<{
-  hint?: string,
-  value?: string|number|null,
+  modelValue?: string|number,
+  value?: string|number,
   flexContainerClasses?: string[],
   flexItemClasses?: string[],
+  readonly?: boolean,
 }>(), {
-  hint: '',
-  value: null,
+  modelValue: undefined,
+  value: undefined,
   flexContainerClasses: () => ['flex-justify-left', 'flex-align-start'],
   flexItemClasses: () => ['flex-justify-left', 'flex-align-start'],
+  readonly: false,
 })
 
-const ncTextField = ref<typeof NcTextField|null>(null)
+const emit = defineEmits([
+  'submit',
+  'input',
+  'update:modelValue',
+  'update:model-value',
+  'update:value',
+])
 
-const ncTextFieldValue = computed<string|number>(() => ncTextField.value ? ncTextField.value.value : '')
+// Keep a private data of the copy in order to support even missing
+// value or modelValue props. Still hitting the submit button should
+// present the current input value as event data.
+const model = ref<string|number|undefined>(props.modelValue || props.value || '')
+
+watch(() => props.value, (value) => { model.value = value })
+watch(() => props.modelValue, (value) => { model.value = value })
+
+watch(model, (value) => {
+  emit('update:modelValue', value)
+  emit('update:model-value', value)
+  emit('update:value', value)
+  emit('input', value)
+})
 </script>
 <script lang="ts">
 export default {
   name: 'TextFieldWithSubmitButton',
   inheritAttrs: false,
+  model: {
+    prop: 'modelValue',
+    event: 'update:modelValue',
+  },
 }
 </script>
 <style lang="scss" scoped>

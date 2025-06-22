@@ -30,7 +30,7 @@
       <div :class="['select-combo-wrapper', { loading, actions: $slots.actions || clearAction || resetAction, submit: submitButton }, ...flexItemClasses, ...actionClasses]">
         <NcSelect ref="ncSelect"
                   v-bind="$attrs"
-                  v-model="value"
+                  v-model="modelValue"
                   :multiple="props.multiple"
                   :label-outside="true"
                   :clearable="props.clearable"
@@ -113,6 +113,7 @@ type ValueType = ItemType|ItemType[]
 
 const props = withDefaults(
   defineProps<{
+    modelValue?: ValueType,
     // show an loading indicator on the wrapper select
     loading?: boolean,
     disabled?: boolean,
@@ -131,7 +132,6 @@ const props = withDefaults(
     inputId?: string,
     hint?: string,
     tooltip?: Record<string, string>|string|boolean,
-    value?: ValueType,
     flexContainerClasses?: string[],
     flexItemClasses?: string[],
     // configure default button and action additions
@@ -140,6 +140,7 @@ const props = withDefaults(
     resetAction?: boolean,
     resetState?: ValueType,
   }>(), {
+    modelValue: undefined,
     loading: false,
     disabled: false,
     // clearable allows deselection of the last item
@@ -157,7 +158,6 @@ const props = withDefaults(
     inputId: undefined,
     hint: undefined,
     tooltip: undefined,
-    value: undefined,
     flexContainerClasses: () => ['flex-justify-left', 'flex-align-center'],
     flexItemClasses: () => ['flex-justify-left', 'flex-align-center'],
     // configure default button and action additions
@@ -168,7 +168,7 @@ const props = withDefaults(
   },
 )
 
-const value = ref<undefined|ValueType>(props.value)
+const modelValue = ref<undefined|ValueType>(props.modelValue)
 const active = ref(false)
 const ncSelect = ref<null|typeof NcSelect>(null)
 
@@ -181,7 +181,7 @@ const actionClasses = computed(() => {
 })
 
 // const submitAction = computed(() => this.actionClasses.indexOf('submit-button') !== -1)
-const empty = computed(() => !props.value || (Array.isArray(props.value) && props.value.length === 0))
+const empty = computed(() => !props.modelValue || (Array.isArray(props.modelValue) && props.modelValue.length === 0))
 const tooltipToShow = computed(() => {
   if (active.value) {
     return false
@@ -201,7 +201,7 @@ defineExpose({
 })
 
 // receive updates from the parent ...
-watch(() => props.value, (newValue) => { value.value = newValue })
+watch(() => props.modelValue, (newValue) => { modelValue.value = newValue })
 
 const emit = defineEmits([
   'error',
@@ -219,8 +219,8 @@ const emitUpdate = () => {
   if (props.required && empty.value) {
     emit('error', t(appName, 'An empty value is not allowed, please make your choice!'))
   } else {
-    emitInput(value.value)
-    emit('update', value.value)
+    emitInput(modelValue.value)
+    emit('update', modelValue.value)
   }
 }
 
@@ -236,6 +236,10 @@ const clearSelection = () => {
 export default {
   name: 'SelectWithSubmitButton',
   inheritAttrs: false,
+  model: {
+    prop: 'modelValue',
+    event: 'update:modelValue',
+  },
 }
 </script>
 <style lang="scss" scoped>

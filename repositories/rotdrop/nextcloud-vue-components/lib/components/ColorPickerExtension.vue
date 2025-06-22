@@ -33,7 +33,7 @@
                       :disabled="savedState.rgbColor === rgbColor"
                       @click="rgbColor = savedState.rgbColor"
       >
-        {{ componentLabels.revertColor }}
+        {{ componentLabels.undoColorChoice }}
       </NcActionButton>
       <NcActionButton icon="icon-toggle-background"
                       :disabled="!colorPaletteHasChanged"
@@ -67,7 +67,7 @@
     <input type="submit"
            class="icon-confirm confirm-button"
            value=""
-           @click.prevent="emit('submit', rgbColorString)"
+           @click.prevent="submitColorChoice"
     >
   </div>
 </template>
@@ -100,24 +100,24 @@ const isNCColorType = (arg: any): arg is NCColorType =>
 
 const props = withDefaults(
   defineProps<{
-    value?: string,
+    modelValue?: string,
     label?: string,
     componentLabels?: {
       openColorPicker: string,
       submitColorChoice: string,
-      revertColor: string,
+      undoColorChoice: string,
       revertColorPalette: string,
       resetColorPalette: string,
     },
     colorPalette?: RGBColor[],
   }>(), {
-    value: '#000000',
+    modelValue: '#000000',
     label: () => t(appName, 'pick a color'),
     componentLabels: () => {
       return {
         openColorPicker: t(appName, 'open'),
         submitColorChoice: t(appName, 'submit'),
-        revertColor: t(appName, 'revert color'),
+        undoColorChoice: t(appName, 'undo color choice'),
         revertColorPalette: t(appName, 'restore palette'),
         resetColorPalette: t(appName, 'factory reset palette'),
       }
@@ -151,7 +151,7 @@ const anyToRgb = (value: NCColorType|RGBColor|string|number[]) => {
   // rgbColor.value = new Ctor(r, g, b, name)
   return new RGBColor(r, g, b, name)
 }
-const rgbColor = ref(anyToRgb(props.value))
+const rgbColor = ref(anyToRgb(props.modelValue))
 const rgbColorString = computed({
   set: (value: string) => { rgbColor.value = anyToRgb(value) },
   get: () => rgbColor.value?.color || '',
@@ -174,6 +174,7 @@ const submitCustomColor = (color: RGBColor) => {
 const submitColorChoice = () => {
   pickerVisible.value = false
   savedState.rgbColor = rgbColor.value
+  emit('submit', rgbColorString)
 }
 
 const revertColorPalette = () => {
@@ -240,12 +241,12 @@ const emit = defineEmits([
   'update:color-palette',
 ])
 
-watch(() => props.value, (newValue) => {
+watch(() => props.modelValue, (newValue) => {
   if (loading.value) {
     return
   }
   rgbColor.value = anyToRgb(newValue)
-  if (newValue !== rgbColor.value) {
+  if (newValue !== rgbColor.value.color) {
     emit('update:value', rgbColorString.value)
     emit('input', rgbColorString.value)
   }
@@ -298,7 +299,7 @@ watch(() => props.colorPalette, (newValue, oldValue) => {
 })
 
 watch(rgbColorString, () => {
-  console.info('RGB COLOR CHANGE', {
+  console.debug('RGB COLOR CHANGE', {
     rgbColor: rgbColor.value,
     rgbColorString: rgbColorString.value,
   })
@@ -337,6 +338,10 @@ onMounted(() => {
 export default {
   name: 'ColorPickerExtension',
   inheritAttrs: false,
+  model: {
+    prop: 'modelValue',
+    event: 'update:modelValue',
+  },
 }
 </script>
 <style scoped lang="scss">
