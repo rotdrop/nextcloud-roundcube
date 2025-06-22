@@ -33,6 +33,8 @@ OC.L10N.register(
     "revert color" : "inverser la couleur",
     "restore palette" : "restaurer la palette",
     "factory reset palette" : "Ré-initialiser la palette",
+    "Custom Color" : "Couleur personnalisée",
+    "Provided data is not a valid SVG image: \"{data}\"." : "Les données fournies ne sont pas une image SVG valide : {data}\".",
     "Choose a folder" : "Choisir un dossier",
     "Choose a prefix-folder" : "Choisir un préfixe de dossier",
     "Invalid path selected: \"{dir}\"." : "Chemin invalide sélectionné : \"{dir}\".",
