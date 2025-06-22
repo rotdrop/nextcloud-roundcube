@@ -3,7 +3,7 @@
  * Some PHP utility functions for Nextcloud apps.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022, 2023, 2024 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022, 2023, 2024, 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -267,7 +267,7 @@ class ArchiveService
 
     $this->restoreProcessEnvironment();
 
-    if ($format === null) {
+    if ($format === null || $format === false) {
       throw new Exceptions\ArchiveCannotOpenException(
         $this->l->t('Unable to detect the archive format of "%1$s".', $fileNode->getName())
       );

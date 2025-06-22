@@ -156,6 +156,27 @@ trait UtilTrait
   }
 
   /**
+   * Format a float value for display in the given or the default locale.
+   *
+   * @param mixed $value Value to format.
+   *
+   * @param int $decimals Number of decimal places.
+   *
+   * @param null|string $locale Locale to use, use user-locale if null.
+   *
+   * @return string
+   */
+  public function formatFloatValue(mixed $value, int $decimals = 4, ?string $locale = null):string
+  {
+    empty($locale) && $locale = $this->getLocale();
+    $fmt = new NumberFormatter($locale, NumberFormatter::DECIMAL);
+    $fmt->setAttribute(NumberFormatter::MIN_FRACTION_DIGITS, 0);
+    $fmt->setAttribute(NumberFormatter::MAX_FRACTION_DIGITS, $decimals);
+    $result = $fmt->format((float)$value);
+    return $result;
+  }
+
+  /**
    * Parse a storage user input value and return its value in bytes.
    *
    * @param null|string $value Input value.
