@@ -3,7 +3,7 @@
  * Some PHP utility functions for Nextcloud apps.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022, 2023, 2024 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022-2025 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -67,7 +67,7 @@ class UserScopeService
   public function __construct(
     protected LoggerInterface $logger,
     protected IRequest $request,
-    protected CredentialsStore $credentialsStorage,
+    protected CredentialsStore $credentialsStore,
     protected TokenProvider $tokenProvider,
     protected ISecureRandom $secureRandom,
     protected IUserSession $userSession,
