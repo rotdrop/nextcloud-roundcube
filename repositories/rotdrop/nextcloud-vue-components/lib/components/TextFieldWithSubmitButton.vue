@@ -46,6 +46,10 @@
         <slot name="alignedAfter" />
       </div>
     </div>
+    <p v-if="hint !== '' || !!$slots.hint" class="hint">
+      {{ hint }}
+      <slot name="hint" />
+    </p>
   </div>
 </template>
 <script setup lang="ts">
@@ -55,12 +59,14 @@ import { NcTextField } from '@nextcloud/vue'
 const props = withDefaults(defineProps<{
   modelValue?: string|number,
   value?: string|number,
+  hint?: string,
   flexContainerClasses?: string[],
   flexItemClasses?: string[],
   readonly?: boolean,
 }>(), {
   modelValue: undefined,
   value: undefined,
+  hint: undefined,
   flexContainerClasses: () => ['flex-justify-left', 'flex-align-start'],
   flexItemClasses: () => ['flex-justify-left', 'flex-align-start'],
   readonly: false,
