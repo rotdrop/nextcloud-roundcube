@@ -30,7 +30,6 @@ OC.L10N.register(
     "pick a color" : "Velg en farge",
     "open" : "åpen",
     "submit" : "forelegge",
-    "revert color" : "tilbakestill farge",
     "restore palette" : "Gjenopprett palett",
     "factory reset palette" : "Fabrikkinnstilt palett",
     "Choose a folder" : "Velg en mappe",

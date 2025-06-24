@@ -23,7 +23,6 @@ OC.L10N.register(
     "pick a color" : "vælg en farve",
     "open" : "åben",
     "submit" : "send",
-    "revert color" : "omved farve",
     "restore palette" : "genopret palette",
     "factory reset palette" : "fabriksnulstil palette",
     "Custom Color" : "Brugerdefineret farve",

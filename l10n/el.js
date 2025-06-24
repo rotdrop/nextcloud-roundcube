@@ -30,7 +30,6 @@ OC.L10N.register(
     "pick a color" : "επιλογή χρώματος",
     "open" : "άνοιγμα",
     "submit" : "υποβολή",
-    "revert color" : "επιστροφή στο αρχικό χρώμα",
     "restore palette" : "επαναφορά παλέτας",
     "factory reset palette" : "επαναφορά παλέτας σε εργοστασιακές ρυθμίσεις",
     "Choose a folder" : "Επιλογή φακέλου",

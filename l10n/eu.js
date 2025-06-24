@@ -30,7 +30,6 @@ OC.L10N.register(
     "pick a color" : "aukeratu kolore bat",
     "open" : "ireki",
     "submit" : "bidali",
-    "revert color" : "Kolorea berrezarri",
     "restore palette" : "berrezarri paleta",
     "factory reset palette" : "Berrezarri paleta hasierako baliotara",
     "Choose a folder" : "Aukeratu karpeta bat",

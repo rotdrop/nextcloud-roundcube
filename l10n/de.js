@@ -30,7 +30,7 @@ OC.L10N.register(
     "pick a color" : "Farbe wählen",
     "open" : "öffnen",
     "submit" : "Übermitteln",
-    "revert color" : "Farbe umkehren",
+    "undo color choice" : "Farbauswahl rückgängig machen",
     "restore palette" : "Farbenskala wiederherstellen",
     "factory reset palette" : "Farbenskala auf Werkseinstellungen zurücksetzen",
     "Custom Color" : "Benutzerdefinierte Farbe",

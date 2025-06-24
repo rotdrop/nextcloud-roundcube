@@ -30,7 +30,6 @@ OC.L10N.register(
     "pick a color" : "szín kiválasztása",
     "open" : "megnyitás",
     "submit" : "elküldés",
-    "revert color" : "szín visszaállítása",
     "restore palette" : "paletta helyreállítása",
     "factory reset palette" : "paletta gyári visszaállítása",
     "Choose a folder" : "Válasszon mappát",

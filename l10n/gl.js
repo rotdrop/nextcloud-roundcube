@@ -30,7 +30,6 @@ OC.L10N.register(
     "pick a color" : "escoller unha cor",
     "open" : "abir",
     "submit" : "enviar",
-    "revert color" : "reverter a cor",
     "restore palette" : "restaurar a paleta",
     "factory reset palette" : "restabelecer a paleta de fábrica",
     "Choose a folder" : "Escoller un cartafol",

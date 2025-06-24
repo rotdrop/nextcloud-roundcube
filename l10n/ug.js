@@ -30,7 +30,6 @@ OC.L10N.register(
     "pick a color" : "رەڭ تاللاڭ",
     "open" : "ئوچۇق",
     "submit" : "تاپشۇرۇش",
-    "revert color" : "رەڭنى قايتۇرۇش",
     "restore palette" : "palette نى ئەسلىگە كەلتۈرۈش",
     "factory reset palette" : "زاۋۇتنى ئەسلىگە كەلتۈرۈش",
     "Choose a folder" : "قىسقۇچنى تاللاڭ",

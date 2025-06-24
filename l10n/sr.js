@@ -30,7 +30,7 @@ OC.L10N.register(
     "pick a color" : "изабери боју",
     "open" : "отвори",
     "submit" : "submit",
-    "revert color" : "врати стару боју",
+    "undo color choice" : "врати избор боје на старо",
     "restore palette" : "врати палету",
     "factory reset palette" : "фабричка подешавања палете",
     "Custom Color" : "Произвољна боја",

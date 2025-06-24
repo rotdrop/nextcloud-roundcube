@@ -30,7 +30,7 @@ OC.L10N.register(
     "pick a color" : "挑選顏色",
     "open" : "打開",
     "submit" : "遞交",
-    "revert color" : "還原顏色",
+    "undo color choice" : "還原顏色選擇",
     "restore palette" : "還原調色板",
     "factory reset palette" : "出廠重設調色板",
     "Custom Color" : "自訂顏色",

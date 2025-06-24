@@ -21,7 +21,7 @@ OC.L10N.register(
     "pick a color" : "vali värv",
     "open" : "ava",
     "submit" : "saada",
-    "revert color" : "taasta värv",
+    "undo color choice" : "võta värvide valimine tagasi",
     "restore palette" : "taasta palett",
     "factory reset palette" : "lähtesta palett",
     "Custom Color" : "Sinu valitud värv",

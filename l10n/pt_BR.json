@@ -28,7 +28,7 @@
     "pick a color" : "escolher uma cor",
     "open" : "abrir",
     "submit" : "enviar",
-    "revert color" : "reverter cor",
+    "undo color choice" : "desfazer escolha da cor",
     "restore palette" : "restaurar paleta",
     "factory reset palette" : "redefinição de fábrica da paleta",
     "Custom Color" : "Cor Personalizada",

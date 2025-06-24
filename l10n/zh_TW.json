@@ -28,7 +28,7 @@
     "pick a color" : "挑選顏色",
     "open" : "開啟",
     "submit" : "submit",
-    "revert color" : "還原顏色",
+    "undo color choice" : "撤銷顏色選擇",
     "restore palette" : "還原調色盤",
     "factory reset palette" : "將調色盤重設為出廠預設值",
     "Custom Color" : "自訂顏色",
