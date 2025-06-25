@@ -1,0 +1,14 @@
+OC.L10N.register(
+    "mail_roundcube",
+    {
+    "User" : "Корисник",
+    "Password" : "Лозинка",
+    "bytes" : "бајти",
+    "open" : "отвори",
+    "submit" : "испрати",
+    "Choose a folder" : "Избери папка",
+    "Show password" : "Прикажи лозинка",
+    "Hide password" : "Сокриј лозинка",
+    "Advanced Settings" : "Напредни параметри"
+},
+"nplurals=2; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : 1;");
