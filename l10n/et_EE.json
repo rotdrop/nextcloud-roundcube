@@ -35,12 +35,27 @@
     "Clear Selection" : "Kustuta valik",
     "Show password" : "Näita salasõna",
     "Hide password" : "Peida salasõna",
+    "Embedded RoundCube, Admin Settings" : "Lõimitud RoundCube'i peakasutaja seadistused",
+    "Roundcube Installation" : "Roundcube'i paigaldus",
+    "RoundCube Installation Path" : "Roundcube'i paigalduse asukoht",
+    "RoundCube path can be entered relative to the Nextcloud server" : "RoundCube'i asukoha võid sisestada suhtelisena Nextcloudi serveri suhtes",
+    "Email Address Selection" : "E-posti aadressi valik",
     "User ID" : "Kasutajatunnus",
+    "Email Domain" : "E-posti domeen",
+    "User's Preferences" : "Kasutaja eelistused",
+    "User's Choice" : "Kasutaja valik",
+    "Fixed Single Address" : "Üks fikseeritud aadress",
     "Global Email Login" : "Üldine e-posti kasutajanimi",
+    "Global email user-name for Roundcube for all users" : "Üldine e-posti kasutajanimi kõikide Roundcube'i kasutajate jaoks",
     "Email Address" : "E-posti aadress",
+    "Global email password for Roundcube for all users" : "Üldine e-posti salasõna kõikide Roundcube'i kasutajate jaoks",
     "Global Email Password" : "Üldine e-posti salasõna",
     "Email Password" : "E-posti salasõna",
     "Advanced Settings" : "Täpsemad seaded",
-    "RoundCube Wrapper for Nextcloud" : "RoundCube'i kest Nextcloudi jaoks"
+    "RoundCube Wrapper for Nextcloud" : "RoundCube'i kest Nextcloudi jaoks",
+    "Globally configured as NEXTCLOUD_USER_ID@{emailDefaultDomainAdmin}" : "Seadistatud üldisena, kui NEXTCLOUD_USER_ID@{emailDefaultDomainAdmin}",
+    "Globally configured as NEXTCLOUD_USER_ID" : "Seadistatud üldisena, kui NEXTCLOUD_USER_ID",
+    "Globally configured as {fixedSingleEmailAddressAdmin}" : "Seadistatud üldisena, kui {fixedSingleEmailAddressAdmin}",
+    "Globally configured by the administrator" : "Peakasutaja poolt seadistatud üldisena"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
