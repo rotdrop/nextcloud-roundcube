@@ -77,6 +77,8 @@ OC.L10N.register(
     "RCMCardDAV Plugin Configuration" : "RCMCardDAV-Plugin Einstellungen",
     "ClipBoard" : "Zwischenablage",
     "Below is a configuration snippet which may or may not work with the current version of the RoundCube CardDAV plugin. The configuration shown below is just a suggestion and will not automatically be registered with the RoundCube app. It is your responsibility to configure the RoundCube CardDAV plugin correctly. Please have a look at the explanations in the README.md file." : "Unten siehst du einen Konfigurationsausschnitt, der möglicherweise mit der aktuellen Version des RoundCube CardDAV-Plugins funktioniert. Die unten stehende Konfiguration ist nur ein Vorschlag und wird nicht automatisch in der RoundCube-App registriert. Es liegt an dir, das RoundCube CardDAV-Plugin korrekt zu konfigurieren. Bitte beachte die Erläuterungen in der Datei README.md.",
+    "You did not tell me where to find your configured Roundcube\ninstance. Please head over to the admin-settings and configure this\napp, thank you! It might also be a good idea to have a look at the\nREADME.md file which is distributed together with this app." : "Sie haben mir nicht gesagt, wo ich deine konfigurierte Roundcube\nInstanz finde. Bitte gehe zu den Administratoreinstellungen und konfiguriere diese\nApp, vielen Dank! Es empfiehlt sich auch, einen Blick auf die Datei\nREADME.md zu werfen, die mit dieser App mitgeliefert wird.",
+    "Unable to login into Roundcube, there are login errors. Please check\nyour personal Roundcube settings. Maybe a re-login to Nextcloud\nhelps. Otherwise contact your system administrator." : "Die Anmeldung bei Roundcube ist nicht möglich. Es liegen Anmeldefehler vor. Bitte überprüfe\ndeine persönlichen Roundcube-Einstellungen. Möglicherweise hilft eine erneute Anmeldung bei Nextcloud.\nAndernfalls wende dich an deine Systemadministration.",
     "Unable to configure the CardDAV integration for \"{emailUserId}\"." : "Die CardDAV-Integration für \"{emailUserId}\" kann nicht eingerichtet werden.",
     "Unable to obtain email credentials for \"{emailUserId}\". Please check your personal Roundcube settings." : "E-Mail-Anmeldeinformationen für \"{emailUserId}\" konnten nicht abgerufen werden. Bitte überprüfe deine persönlichen Roundcube-Einstellungen.",
     "RoundCube Wrapper for Nextcloud" : "RoundCube-Wrapper für Nextcloud",
@@ -89,6 +91,7 @@ OC.L10N.register(
     "Single sign-on is globally forced \"on\"." : "Single-Sign-On wird global als \"eingeschaltet\" erzwungen .",
     "Email password for RoundCube, if needed." : "Email-Passwort für Roundcube, falls erforderlich.",
     "Embedded RoundCube, Personal Settings" : "Eingebettetes RoundCube, Persönliche Einstellungen",
-    "Email Login Name" : "Email Anmeldename"
+    "Email Login Name" : "Email Anmeldename",
+    "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "Der Zugriff auf die Inhalte der umschlossenen {wrappedApp} Instanz ist nicht möglich.\nDie Ursache können domänenübergreifende Zugriffsbeschränkungen sein.\nBitte überprüfe, ob deine Nextcloud-Instanz ({nextcloudUrl}) und die umschlossene {wrappedApp} Instanz ({iFrameUrl}) von derselben Domäne aus bedient werden."
 },
 "nplurals=2; plural=(n != 1);");

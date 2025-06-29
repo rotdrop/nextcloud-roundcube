@@ -75,6 +75,8 @@
     "RCMCardDAV Plugin Configuration" : "Nastavení zásuvného modulu RCMCardDAV",
     "ClipBoard" : "Scrhánka",
     "Below is a configuration snippet which may or may not work with the current version of the RoundCube CardDAV plugin. The configuration shown below is just a suggestion and will not automatically be registered with the RoundCube app. It is your responsibility to configure the RoundCube CardDAV plugin correctly. Please have a look at the explanations in the README.md file." : "Níže je výstřižek z nastavení který může a nemusí fungovat ve stávající verzi zásuvného modulu RoundCube CardDAV. Níže zobrazené nastavení je pouze návrh a nebude automaticky zaregistrováno v aplikaci RoundCube. Je vaší odpovědností nastavit zásuvný modlu RoundCube CardDAV správně. Podívejte se na vysvětlení v souboru README.md.",
+    "You did not tell me where to find your configured Roundcube\ninstance. Please head over to the admin-settings and configure this\napp, thank you! It might also be a good idea to have a look at the\nREADME.md file which is distributed together with this app." : "Neuvedli jste kde chcete hledat vámi využívanou nastavenou instanci Roundcube. Přejděte do nastavení pro správu a tuto aplikaci nastavte. Také může pomoci se podívat do souboru README.md, šířeného s touto aplikací.",
+    "Unable to login into Roundcube, there are login errors. Please check\nyour personal Roundcube settings. Maybe a re-login to Nextcloud\nhelps. Otherwise contact your system administrator." : "Nedaří se přihlásit do Roundcube – dochází k chybám přihlášení. Zkontrolujte svá osobní nastavení v Roundcube. Možná pomůže opětovné přihlášení do Nextcloud. Pokud ne, obraťte se na správce.",
     "Unable to configure the CardDAV integration for \"{emailUserId}\"." : "Nepodařilo se nastavit CardDAV napojení pro „{emailUserId}“.",
     "Unable to obtain email credentials for \"{emailUserId}\". Please check your personal Roundcube settings." : "Nedaří se získat přihlašovací údaje k e-mailu „{emailUserId}“. Zkontrolujte svá osobní nastavení pro Roundcube.",
     "RoundCube Wrapper for Nextcloud" : "Obalovací vrstva kolem RoundCube pro Nextcloud",
@@ -87,6 +89,7 @@
     "Single sign-on is globally forced \"on\"." : "Jednotné přihlašování je globálně vynuceno jako „zapnuté“.",
     "Email password for RoundCube, if needed." : "Heslo do e-mailu pro RoundCube (pokud je zapotřebí).",
     "Embedded RoundCube, Personal Settings" : "Vestavěné RoundCube – osobní nastavení",
-    "Email Login Name" : "Přihlašovací jméno do e-mailu"
+    "Email Login Name" : "Přihlašovací jméno do e-mailu",
+    "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "Nebylo možné přistoupit do obsahu  obalené instance{wrappedApp}.\nTo může být způsobeno omezeními přístupu napříč doménami.\nZkontrolujte, že vámi využívaná instance Nextcloud ({nextcloudUrl}) a obalená instance {wrappedApp} ({iFrameUrl}) jsou poskytovány ze stejné domény."
 },"pluralForm" :"nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;"
 }

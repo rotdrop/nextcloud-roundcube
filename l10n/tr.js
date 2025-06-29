@@ -30,6 +30,7 @@ OC.L10N.register(
     "pick a color" : "bir renk seçin",
     "open" : "aç",
     "submit" : "gönder",
+    "undo color choice" : "renk seçimini geri al",
     "restore palette" : "paleti geri yükle",
     "factory reset palette" : "paleti ilk durumuna sıfırla",
     "Custom Color" : "Özel renk",
@@ -76,6 +77,8 @@ OC.L10N.register(
     "RCMCardDAV Plugin Configuration" : "RCMCardDAV uygulama eki yapılandırması",
     "ClipBoard" : "Pano",
     "Below is a configuration snippet which may or may not work with the current version of the RoundCube CardDAV plugin. The configuration shown below is just a suggestion and will not automatically be registered with the RoundCube app. It is your responsibility to configure the RoundCube CardDAV plugin correctly. Please have a look at the explanations in the README.md file." : "Aşağıda RoundCube CardDAV uygulama ekinin güncel sürümüyle çalışabilecek veya çalışmayabilecek bir yapılandırma bölümü bulunuyor. Aşağıda gösterilen yapılandırma yalnızca bir öneridir ve RoundCube uygulamasına otomatik olarak kaydedilmeyecektir. RoundCube CardDAV uygulama ekini doğru şekilde yapılandırmak sizin sorumluluğunuzdadır. Lütfen README.md dosyasındaki açıklamalara bakın.",
+    "You did not tell me where to find your configured Roundcube\ninstance. Please head over to the admin-settings and configure this\napp, thank you! It might also be a good idea to have a look at the\nREADME.md file which is distributed together with this app." : "Yapılandırılmış Roundcube kopyasını nerede bulacağımı bana\nsöylemediniz. Lütfen yönetici ayarlarına gidin ve bu uygulamayı\nyapılandırın, teşekkürler! Bu uygulamayla birlikte dağıtılan\nREADME.md dosyasına da göz atmanız iyi olabilir.",
+    "Unable to login into Roundcube, there are login errors. Please check\nyour personal Roundcube settings. Maybe a re-login to Nextcloud\nhelps. Otherwise contact your system administrator." : "Roundcube oturumu açılırken bazı sorunlar çıktı. Lütfen kişisel Roundcube\nayarlarınızı denetleyin. Yeniden Nextcloud oturumu açmak yardımcı olabilir.\nSorun sürüyorsa sistem yöneticiniz ile görüşün.",
     "Unable to configure the CardDAV integration for \"{emailUserId}\"." : "\"{emailUserId}\" için CardDAV bütünleştirmesi yapılandırılamadı.",
     "Unable to obtain email credentials for \"{emailUserId}\". Please check your personal Roundcube settings." : "\"{emailUserId}\" için e-posta kimlik doğrulama bilgileri alınamadı. Lütfen kişisel Roundcube ayarlarınızı denetleyin.",
     "RoundCube Wrapper for Nextcloud" : "Nextcloud için RoundCube sarmalayıcısı ",
@@ -88,6 +91,7 @@ OC.L10N.register(
     "Single sign-on is globally forced \"on\"." : "Tek oturum açma genel olarak \"Açık\" olacak şekilde ayarlanmış.",
     "Email password for RoundCube, if needed." : "Gerekiyorsa, Roundcube e-posta parolası.",
     "Embedded RoundCube, Personal Settings" : "Eklenmiş Roundcube, kişisel ayarlar",
-    "Email Login Name" : "E-posta kullanıcı adı"
+    "Email Login Name" : "E-posta kullanıcı adı",
+    "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "{wrappedApp} sarmalanmış kopyasının içeriğine erişilemedi.\nBu durum, etki alanları arası erişim kısıtlamalarından kaynaklanabilir.\nLütfen Nextcloud kopyanızın ({nextcloudUrl}) ve sarmalanmış {wrappedApp} kopyanızın ({iFrameUrl}) aynı etki alanından sunulduğundan emin olun."
 },
 "nplurals=2; plural=(n > 1);");
