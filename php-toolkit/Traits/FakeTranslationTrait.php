@@ -3,7 +3,7 @@
  * A collection of reusable traits classes for Nextcloud apps.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022, 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022, 2023, 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -33,11 +33,11 @@ trait FakeTranslationTrait
   /**
    * @param string $text
    *
-   * @param array $parameters
+   * @param string|<array $parameters
    *
    * @return string
    */
-  protected static function t(string $text, array $parameters = []):string
+  protected static function t(string $text, string|array $parameters = []):string
   {
     if (!is_array($parameters)) {
       $parameters = [ $parameters ];
