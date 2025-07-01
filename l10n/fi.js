@@ -5,6 +5,7 @@ OC.L10N.register(
     "Password" : "Salasana",
     "Login succeeded." : "Kirjautuminen onnistui.",
     "Login failed." : "Kirjautuminen epäonnistui.",
+    "%1$s (renamed)" : "%1$s (nimetty uudelleen)",
     "bytes" : "tavua",
     "pick a color" : "valitse väri",
     "Choose a folder" : "Valitse kansio",

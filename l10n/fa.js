@@ -18,6 +18,8 @@ OC.L10N.register(
     "Password" : "گذرواژه",
     "Error, caught an exception." : "Error, caught an exception.",
     "Caused by previous exception" : "Caused by previous exception",
+    "%1$s (renamed)" : "%1$s (تغییر نام داده شد)",
+    "renamed file" : "فایل تغییر نام داده شد",
     "bytes" : "بایت",
     "The supplied color-string \"%s\" seems to be invalid." : "The supplied color-string \"%s\" seems to be invalid.",
     "The input color values are invalid." : "The input color values are invalid.",

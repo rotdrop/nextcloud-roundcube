@@ -20,6 +20,8 @@ OC.L10N.register(
     "Login failed." : "Belépés sikertelen.",
     "Error, caught an exception." : "Hiba, kivétel történt.",
     "Caused by previous exception" : "Az előző kivétel okozta",
+    "%1$s (renamed)" : "%1$s (átnevezve)",
+    "renamed file" : "átnevezett fájl",
     "bytes" : "bájt",
     "The supplied color-string \"%s\" seems to be invalid." : "A megadott „%s” színkód érvénytelennek tűnik.",
     "The input color values are invalid." : "A bemeneti színértékeke érvénytelenek.",

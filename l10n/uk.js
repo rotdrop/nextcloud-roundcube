@@ -9,6 +9,8 @@ OC.L10N.register(
     "Password" : "Пароль",
     "Login succeeded." : "Успішно авторизовано.",
     "Login failed." : "Не вдалося авторизуватися.",
+    "%1$s (renamed)" : "%1$s (перейменовано)",
+    "renamed file" : "перейменовано файл",
     "bytes" : "байтів",
     "Choose a folder" : "Виберіть каталог",
     "Choose a prefix-folder" : "Виберіть префікс каталогу",

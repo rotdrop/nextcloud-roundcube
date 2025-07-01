@@ -3,6 +3,8 @@ OC.L10N.register(
     {
     "User" : "Lietotājs",
     "Password" : "Parole",
+    "%1$s (renamed)" : "%1$s (pārdēvēta)",
+    "renamed file" : "pārdēvēja datni",
     "bytes" : "baiti",
     "Clear Selection" : "Notīrīt atlasi",
     "Show password" : "Rādīt paroli",

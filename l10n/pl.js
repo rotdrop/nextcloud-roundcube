@@ -14,6 +14,8 @@ OC.L10N.register(
     "Login failed." : "Logowanie nie powiodło się.",
     "Error, caught an exception." : "Błąd, złapano wyjątek.",
     "Caused by previous exception" : "Spowodowane przez poprzedni wyjątek",
+    "%1$s (renamed)" : "%1$s (zmieniona nazwa)",
+    "renamed file" : "zmieniona nazwa pliku",
     "bytes" : "bajtów",
     "The input color values are invalid." : "Wprowadzone wartości kolorów są nieprawidłowe.",
     "pick a color" : "wybierz kolor",

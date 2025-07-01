@@ -3,6 +3,8 @@ OC.L10N.register(
     {
     "User" : "Användare",
     "Password" : "Lösenord",
+    "%1$s (renamed)" : "%1$s (omdöpt)",
+    "renamed file" : "omdöpt fil",
     "bytes" : "byte",
     "Choose a folder" : "Välj en mapp",
     "Show password" : "Visa lösenord",

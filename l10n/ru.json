@@ -17,6 +17,8 @@
     "Login failed." : "Ошибка входа.",
     "Error, caught an exception." : "Ошибка, обнаружено исключение.",
     "Caused by previous exception" : "Вызвано предыдущим исключением",
+    "%1$s (renamed)" : "%1$s (переименовано)",
+    "renamed file" : "переименованный файл",
     "bytes" : "байты",
     "The supplied color-string \"%s\" seems to be invalid." : "Указанная цветовая строка \"%s\", возможно, недопустима.",
     "The input color values are invalid." : "Введенные значения цвета недопустимы.",

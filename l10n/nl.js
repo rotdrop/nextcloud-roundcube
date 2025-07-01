@@ -11,6 +11,8 @@ OC.L10N.register(
     "Unknown personal setting: \"%s\"." : "Onbekende persoonlijke instelling: \"%s\"",
     "User" : "Gebruiker",
     "Password" : "Wachtwoord",
+    "%1$s (renamed)" : "%1$s (hernoemd)",
+    "renamed file" : "bestand hernoemd",
     "bytes" : "bytes",
     "submit" : "versturen",
     "Show password" : "Toon wachtwoord",

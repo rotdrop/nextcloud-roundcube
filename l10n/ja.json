@@ -4,6 +4,8 @@
     "RoundCube Integration" : "RoundCube統合",
     "User" : "ユーザー",
     "Password" : "パスワード",
+    "%1$s (renamed)" : "%1$s (リネーム済み)",
+    "renamed file" : "リネーム済みファイル",
     "bytes" : "バイト",
     "Embed an installation of RoundCube into Nextcloud" : "NextcloudにRoundCubeを組み込む",
     "Integrates an existing RoundCube standalone email-webapp into NextCloud, with optional SSO." : "SSOで既存のRoundCubeスタンドアロンメールウェブアプリをNextCloudに統合します。",

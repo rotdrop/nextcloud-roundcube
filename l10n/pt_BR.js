@@ -20,6 +20,9 @@ OC.L10N.register(
     "Login failed." : "Falha no login.",
     "Error, caught an exception." : "Erro, capturou uma exceção ",
     "Caused by previous exception" : "Causado por exceção anterior",
+    "%1$s (renamed)" : "%1$s (renomeado)",
+    "renamed file" : "arquivo renomeado",
+    "Unable to sanitize filename \"%s\"." : "Não foi possível limpar o nome do arquivo \"%s\".",
     "bytes" : "bytes",
     "The supplied color-string \"%s\" seems to be invalid." : "A cadeia de cores fornecida \"%s\" parece ser inválida.",
     "The input color values are invalid." : "Os valores de cor de entrada são inválidos.",
@@ -77,6 +80,8 @@ OC.L10N.register(
     "RCMCardDAV Plugin Configuration" : "Configuração do Plug-in RCMCardDAV",
     "ClipBoard" : "Área de transferência ",
     "Below is a configuration snippet which may or may not work with the current version of the RoundCube CardDAV plugin. The configuration shown below is just a suggestion and will not automatically be registered with the RoundCube app. It is your responsibility to configure the RoundCube CardDAV plugin correctly. Please have a look at the explanations in the README.md file." : "Abaixo está um trecho de configuração que pode ou não funcionar com a versão atual do plug-in CardDAV do RoundCube. A configuração mostrada abaixo é apenas uma sugestão e não será registrada automaticamente no aplicativo RoundCube. É de sua responsabilidade configurar corretamente o plug-in CardDAV do RoundCube. Por favor, dê uma olhada nas explicações do arquivo README.md.",
+    "You did not tell me where to find your configured Roundcube\ninstance. Please head over to the admin-settings and configure this\napp, thank you! It might also be a good idea to have a look at the\nREADME.md file which is distributed together with this app." : "Você não me disse onde encontrar sua instância configurada\ndo Roundcube. Por favor, vá até as configurações administrativas e configure este\naplicativo, obrigado! Também pode ser uma boa ideia dar uma olhada no\narquivo README.md que é distribuído junto com este aplicativo.",
+    "Unable to login into Roundcube, there are login errors. Please check\nyour personal Roundcube settings. Maybe a re-login to Nextcloud\nhelps. Otherwise contact your system administrator." : "Não é possível fazer login no Roundcube, há erros de login. Verifique\nsuas configurações pessoais do Roundcube. Talvez um novo login no Nextcloud\najude. Caso contrário, entre em contato com o administrador do sistema.",
     "Unable to configure the CardDAV integration for \"{emailUserId}\"." : "Não foi possível configurar a integração CardDAV para \"{emailUserId}\".",
     "Unable to obtain email credentials for \"{emailUserId}\". Please check your personal Roundcube settings." : "Não foi possível obter as credenciais de e-mail para \"{emailUserId}\". Verifique suas configurações pessoais do Roundcube.",
     "RoundCube Wrapper for Nextcloud" : "Wrapper do RoundCube para o Nextcloud",
@@ -89,6 +94,7 @@ OC.L10N.register(
     "Single sign-on is globally forced \"on\"." : "O logon único é forçado globalmente a ser \"ativado\"/\"on\".",
     "Email password for RoundCube, if needed." : "Senha de e-mail para RoundCube, se necessário.",
     "Embedded RoundCube, Personal Settings" : "RoundCube Integrado, Configurações Pessoais",
-    "Email Login Name" : "Nome de Login de E-mail"
+    "Email Login Name" : "Nome de Login de E-mail",
+    "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "Não é possível acessar o conteúdo da instância {wrappedApp} embrulhada.\nIsso pode ser causado por restrições de acesso entre domínios.\nVerifique se a instância do Nextcloud ({nextcloudUrl}) e a instância do {wrappedApp} embrulhada ({iFrameUrl}) são servidas a partir do mesmo domínio."
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

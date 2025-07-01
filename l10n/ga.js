@@ -20,6 +20,8 @@ OC.L10N.register(
     "Login failed." : "Theip ar logáil isteach.",
     "Error, caught an exception." : "Earráid, ghlac eisceacht.",
     "Caused by previous exception" : "De bharr eisceachta roimhe seo",
+    "%1$s (renamed)" : "%1$s (athainmnithe)",
+    "renamed file" : "comhad athainmnithe",
     "bytes" : "bearta",
     "The supplied color-string \"%s\" seems to be invalid." : "Is cosúil go bhfuil an teaghrán datha soláthraithe \"%s\" neamhbhailí.",
     "The input color values are invalid." : "Tá na luachanna datha ionchuir neamhbhailí.",

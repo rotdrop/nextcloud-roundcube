@@ -18,6 +18,8 @@
     "Login failed." : "Falló el inicio de sesión.",
     "Error, caught an exception." : "Error, se encontró una excepción.",
     "Caused by previous exception" : "Causado por la excepción anterior",
+    "%1$s (renamed)" : "%1$s (renombrado)",
+    "renamed file" : "archivo renombrado",
     "bytes" : "bytes",
     "The supplied color-string \"%s\" seems to be invalid." : "La cadena de color \"%s\" parece ser inválida.",
     "The input color values are invalid." : "Los códigos de color ingresados son inválidos.",

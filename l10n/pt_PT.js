@@ -19,6 +19,8 @@ OC.L10N.register(
     "Login failed." : "Falha no início de sessão.",
     "Error, caught an exception." : "Erro, detetada uma exceção.",
     "Caused by previous exception" : "Causado por uma exceção anterior",
+    "%1$s (renamed)" : "%1$s (renomeado)",
+    "renamed file" : "ficheiro renomeado",
     "bytes" : "bytes",
     "The supplied color-string \"%s\" seems to be invalid." : "A string de cor fornecida \"%s\" parece ser inválida.",
     "The input color values are invalid." : "Os valores de cor introduzidos são inválidos.",
