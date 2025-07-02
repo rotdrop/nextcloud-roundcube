@@ -20,6 +20,7 @@ OC.L10N.register(
     "Login failed." : "فشلت عملية الدخول.",
     "Error, caught an exception." : "خطأ نتج عنه توليد استثناء.",
     "Caused by previous exception" : "ناتج عن استنثاء سابق",
+    "renamed file" : "ملف معاد تسميته",
     "bytes" : "بايت",
     "The supplied color-string \"%s\" seems to be invalid." : "الرمز اللوني المُعطي \"%s\" يبدو أنه غير صحيح.",
     "The input color values are invalid." : "قيم اللون المُعطاة غير صحيحة.",
