@@ -20,6 +20,7 @@
     "Caused by previous exception" : "De bharr eisceachta roimhe seo",
     "%1$s (renamed)" : "%1$s (athainmnithe)",
     "renamed file" : "comhad athainmnithe",
+    "Unable to sanitize filename \"%s\"." : "Ní féidir ainm comhaid \"%s\" a shláintiú.",
     "bytes" : "bearta",
     "The supplied color-string \"%s\" seems to be invalid." : "Is cosúil go bhfuil an teaghrán datha soláthraithe \"%s\" neamhbhailí.",
     "The input color values are invalid." : "Tá na luachanna datha ionchuir neamhbhailí.",
@@ -77,6 +78,8 @@
     "RCMCardDAV Plugin Configuration" : "Cumraíocht Breiseán RCMCardDAV",
     "ClipBoard" : "Gearrthóg",
     "Below is a configuration snippet which may or may not work with the current version of the RoundCube CardDAV plugin. The configuration shown below is just a suggestion and will not automatically be registered with the RoundCube app. It is your responsibility to configure the RoundCube CardDAV plugin correctly. Please have a look at the explanations in the README.md file." : "Seo thíos blúire cumraíochta a d’fhéadfadh nó nach n-oibreoidh leis an leagan reatha den bhreiseán RoundCube CardDAV. Níl sa chumraíocht a thaispeántar thíos ach moladh agus ní bheidh sé cláraithe go huathoibríoch leis an aip RoundCube. Is ortsa atá an fhreagracht an breiseán RoundCube CardDAV a chumrú i gceart. Breathnaigh le do thoil ar na mínithe sa chomhad README.md.",
+    "You did not tell me where to find your configured Roundcube\ninstance. Please head over to the admin-settings and configure this\napp, thank you! It might also be a good idea to have a look at the\nREADME.md file which is distributed together with this app." : "Níor inis tú dom cá bhfaighidh mé do Roundcube cumraithe. Téigh chuig socruithe an riarthóra agus cumraigh an aip seo, go raibh maith agat! B’fhéidir gur smaoineamh maith é freisin breathnú ar an gcomhad README.md atá dáilte in éineacht leis an aip seo.",
+    "Unable to login into Roundcube, there are login errors. Please check\nyour personal Roundcube settings. Maybe a re-login to Nextcloud\nhelps. Otherwise contact your system administrator." : "Ní féidir logáil isteach i Roundcube, tá earráidí logála isteach ann. Seiceáil do shocruithe pearsanta Roundcube le do thoil. B’fhéidir go mbeadh ath-logáil isteach i Nextcloud ina chuidiú. Seachas sin, déan teagmháil le riarthóir do chórais.",
     "Unable to configure the CardDAV integration for \"{emailUserId}\"." : "Ní féidir comhtháthú CardDAV a chumrú le haghaidh \"{emailUserId}\".",
     "Unable to obtain email credentials for \"{emailUserId}\". Please check your personal Roundcube settings." : "Ní féidir dintiúir ríomhphoist a fháil le haghaidh \"{emailUserId}\". Seiceáil do shocruithe pearsanta Roundcube le do thoil.",
     "RoundCube Wrapper for Nextcloud" : "Fillteán RoundCube do Nextcloud",
@@ -89,6 +92,7 @@
     "Single sign-on is globally forced \"on\"." : "Tá síniú isteach aonair éigeantach ar fud an domhain \"ar aghaidh\".",
     "Email password for RoundCube, if needed." : "Pasfhocal ríomhphoist le haghaidh RoundCube, más gá.",
     "Embedded RoundCube, Personal Settings" : "RoundCube Leabaithe, Socruithe Pearsanta",
-    "Email Login Name" : "Ainm Logáil Isteach Ríomhphoist"
+    "Email Login Name" : "Ainm Logáil Isteach Ríomhphoist",
+    "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "Ní féidir rochtain a fháil ar ábhar an tsampla fillte {wrappedApp}.\nD’fhéadfadh srianta rochtana tras-fhearainn a bheith ina gcúis leis seo.\nSeiceáil le do thoil go bhfuil do chás Nextcloud ({nextcloudUrl}) agus an tsampla fillte {wrappedApp} ({iFrameUrl}) á bhfreastal ón bhfearann ​​​​céanna."
 },"pluralForm" :"nplurals=5; plural=(n==1 ? 0 : n==2 ? 1 : n<7 ? 2 : n<11 ? 3 : 4);"
 }
