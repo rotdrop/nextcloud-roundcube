@@ -22,6 +22,7 @@ OC.L10N.register(
     "bytes" : "bytes",
     "Show password" : "Onesha nenosiri",
     "User ID" : "Kitambulisho cha mtumiaji",
+    "Advanced Settings" : "Advanced Settings",
     "Enable SSL verification." : "Enable SSL verification.",
     "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain."
 },
