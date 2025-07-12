@@ -22,6 +22,7 @@ OC.L10N.register(
     "Caused by previous exception" : "Изазвао је претходни изузетак",
     "%1$s (renamed)" : "%1$s (преименован)",
     "renamed file" : "преименован фајл",
+    "Unable to sanitize filename \"%s\"." : "Није могло да се пречисти име фајла „%s”.",
     "bytes" : "бајтова",
     "The supplied color-string \"%s\" seems to be invalid." : "Изгледа да је неисправан наведени стринг боје „%s”.",
     "The input color values are invalid." : "Улазне вредности боје су неисправне.",
@@ -79,6 +80,8 @@ OC.L10N.register(
     "RCMCardDAV Plugin Configuration" : "Конфигурација RCMCardDAV додатка",
     "ClipBoard" : "Клипборд",
     "Below is a configuration snippet which may or may not work with the current version of the RoundCube CardDAV plugin. The configuration shown below is just a suggestion and will not automatically be registered with the RoundCube app. It is your responsibility to configure the RoundCube CardDAV plugin correctly. Please have a look at the explanations in the README.md file." : "Испод се налази одломак конфигурације који може да ради или може да не ради са текућом верзијом RoundCube CardDAV додатка. Приказана конфигурација је само предлог и неће се аутоматски регистровати у RoundCube апликацији. На вама је одговорност да исправно конфигуришете RoundCube CardDAV додатак. Молимо вас да прочитате објашњења у фајлу README.md.",
+    "You did not tell me where to find your configured Roundcube\ninstance. Please head over to the admin-settings and configure this\napp, thank you! It might also be a good idea to have a look at the\nREADME.md file which is distributed together with this app." : "Нисте ми навели где могу да пронађем подешену Roundcube\nинстанцу. Молим вас да пређете на админ-подешавања и\nконфигуришете ову апликацију, хвала! Може бити од користи да\nпогледате фајл README.md који се испоручује заједно са овом\nапликацијом.",
+    "Unable to login into Roundcube, there are login errors. Please check\nyour personal Roundcube settings. Maybe a re-login to Nextcloud\nhelps. Otherwise contact your system administrator." : "Не може да се пријави у Roundcube, постоје грешке приликом\nпријављивања. Молимо вас да проверите своја лична Roundcube\nподешавања. Можда може да помогне поновно пријављивање на\nNextcloud. У супротном се обратите свом систем администратору.",
     "Unable to configure the CardDAV integration for \"{emailUserId}\"." : "Не може да се подеси CardDAV интеграција за „{emailUserId}.",
     "Unable to obtain email credentials for \"{emailUserId}\". Please check your personal Roundcube settings." : "Не могу да се добију подаци за и-мејл пријаву за „{emailUserId}”. Молимо вас да проверите своја лична Roundcube подешавања.",
     "RoundCube Wrapper for Nextcloud" : "RoundCube омотач за Nextcloud",
@@ -91,6 +94,7 @@ OC.L10N.register(
     "Single sign-on is globally forced \"on\"." : "Single sign-on је глобално форсирано на „укључено”.",
     "Email password for RoundCube, if needed." : "И-мејл лозинка за RoundCube, ако је потребна.",
     "Embedded RoundCube, Personal Settings" : "Уграђени RoundCube, Лична подешавања",
-    "Email Login Name" : "И-мејл име за пријаву"
+    "Email Login Name" : "И-мејл име за пријаву",
+    "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "Не може да се приступи садржају обмотане {wrappedApp} инстанце.\nУзрок овога може да буде ограничење приступа другим доменима.\nМолимо вас да проверите да ли се ваша Nextcloud инстанца\n({nextcloudUrl}) и обмотана {wrappedApp} инстанца ({iFrameUrl})\nсервирају са истог домена."
 },
 "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);");
