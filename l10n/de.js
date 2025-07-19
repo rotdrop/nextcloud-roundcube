@@ -1,7 +1,7 @@
 OC.L10N.register(
     "mail_roundcube",
     {
-    "Unknown admin setting: \"%1$s\"" : "Unbekannte Verwaltungseinstellung: \"%1$s\"",
+    "Unknown admin setting: \"%1$s\"" : "Unbekannte Administrationseinstellung: \"%1$s\"",
     "The admin setting \"%1$s\" is read-only" : "Die Verwaltungseinstellung \"%1$s\" kann nur gelesen werden.",
     "Scheme of external URL must be one of \"http\" or \"https\", but nothing was specified." : "Das Schema der externen URL muss \"http\" oder \"https\" enthalten, aber es wurde keins von beiden angegeben.",
     "Scheme of external URL must be one of \"http\" or \"https\", \"%s\" given." : "Das Schema der externen URL muss \"http\" oder \"https\", \"%s\" wurde angegeben.",
@@ -40,7 +40,7 @@ OC.L10N.register(
     "Provided data is not a valid SVG image: \"{data}\"." : "Die bereitgestellten Daten sind kein gültiges SVG-Bild: \"{data}\".",
     "Choose a folder" : "Ordner auswählen",
     "Choose a prefix-folder" : "Wähle den \"Eltern\"-Ordner",
-    "Invalid path selected: \"{dir}\"." : "Es wurde ein ungültiger Pfad ausgewählt: {dir}.",
+    "Invalid path selected: \"{dir}\"." : "Ungültiger Pfad ausgewählt: {dir}.",
     "Selected path: \"{dir}/{base}/\"." : "Ausgewählter Datei-Pfad: \"{dir}/{base}/\"",
     "Please select an item!" : "Bitte ein Element wählen!",
     "An empty value is not allowed, please make your choice!" : "Ein leerer Wert ist unzulässig, bitte triff deine Wahl!",
