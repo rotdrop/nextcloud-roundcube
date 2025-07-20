@@ -40,7 +40,7 @@ OC.L10N.register(
     "Provided data is not a valid SVG image: \"{data}\"." : "Die bereitgestellten Daten sind kein gültiges SVG-Bild: \"{data}\".",
     "Choose a folder" : "Ordner auswählen",
     "Choose a prefix-folder" : "Wähle den \"Eltern\"-Ordner",
-    "Invalid path selected: \"{dir}\"." : "Ungültiger Pfad ausgewählt: {dir}.",
+    "Invalid path selected: \"{dir}\"." : "Ungültiger Pfad ausgewählt: \"{dir}\".",
     "Selected path: \"{dir}/{base}/\"." : "Ausgewählter Datei-Pfad: \"{dir}/{base}/\"",
     "Please select an item!" : "Bitte ein Element wählen!",
     "An empty value is not allowed, please make your choice!" : "Ein leerer Wert ist unzulässig, bitte triff deine Wahl!",
