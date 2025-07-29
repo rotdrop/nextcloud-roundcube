@@ -77,8 +77,8 @@ const axiosFileDownload = async (url: string, post?: Record<string, any>) => {
       } catch (error2) {
         console.error('Unable to convert JSON Blob to objecct.', { error: error2 });
       }
-      throw error;
     }
+    throw error;
   }
 };
 
