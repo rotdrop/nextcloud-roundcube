@@ -18,6 +18,7 @@ OC.L10N.register(
     "Show password" : "Toon wachtwoord",
     "User ID" : "Gebruiker-ID",
     "Email Address" : "E-mailadres",
-    "Advanced Settings" : "Geavanceerde instellingen"
+    "Advanced Settings" : "Geavanceerde instellingen",
+    "Disable when debugging with self-signed certificates." : "Uitschakelen bij de foutopsporing met zelfondertekende certificaten."
 },
 "nplurals=2; plural=(n != 1);");
