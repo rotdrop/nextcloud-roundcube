@@ -239,7 +239,7 @@ import {
 import TextField from '@rotdrop/nextcloud-vue-components/lib/components/TextFieldWithSubmitButton.vue'
 import { showSuccess, showError } from '@nextcloud/dialogs'
 import ClipBoard from 'vue-material-design-icons/Clipboard.vue'
-import cloudVersionClassesImport from './toolkit/util/cloud-version-classes.js'
+import cloudVersionClassesImport from './toolkit/util/cloud-version-classes.ts'
 import type { EmailAddressChoice } from './types/settings.d.ts'
 import {
   fetchSettings,
