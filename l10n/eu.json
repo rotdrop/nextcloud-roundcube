@@ -18,6 +18,8 @@
     "Login failed." : "Saioa hasteak huts egin du.",
     "Error, caught an exception." : "Errorea, salbuespen bat aurkitu da.",
     "Caused by previous exception" : "Aurreko salbuespen batek sortua",
+    "%1$s (renamed)" : "%1$s (berrizendatua)",
+    "renamed file" : "fitxategia berrizendatu da",
     "bytes" : "byte",
     "The supplied color-string \"%s\" seems to be invalid." : "Emandako \"%s\" kolore-katea baliogabea dirudi.",
     "The input color values are invalid." : "Sartutako kolorearen balioak baliogabeak dira.",
