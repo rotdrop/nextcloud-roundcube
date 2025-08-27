@@ -77,21 +77,21 @@ class Console {
     }
   }
 
-  private locationObject(stack: StackFrame[]) {
-    const time = this.timestamp();
+  private locationObject(stack: StackFrame[], time: string) {
     const prefix = time + ' ' + this.prefix + (stack.length > 0 ? (' ' + stack[0].toString()) : '');
     return stack.length > 1 ? [prefix, { stack: stack.map(entry => entry.toString()) }] : [prefix];
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private emitMessage(method: ConsoleMethods, ...args: any[]) {
+    const time = this.timestamp();
     const depth = Math.max(1, (args.length > 0 && typeof args[0] === 'number') ? args.shift() : this.stackDepth);
     if (this.smaps[method]) {
       // eslint-disable-next-line no-console
-      this.asyncStackFrames(depth).then(stack => { console[method](...this.locationObject(stack), ...args); });
+      this.asyncStackFrames(depth).then(stack => { console[method](...this.locationObject(stack, time), ...args); });
     } else {
       // eslint-disable-next-line no-console
-      console[method](...this.locationObject(this.syncStackFrames(depth)), ...args);
+      console[method](...this.locationObject(this.syncStackFrames(depth), time), ...args);
     }
   }
 

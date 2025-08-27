@@ -81,6 +81,7 @@ declare module '@nextcloud/vue' {
   };
 
   const NcSettingsSection: Vue;
+  const NcTextArea: Vue;
 
   const NcTextField: Vue & {
     value: string|number;
@@ -137,6 +138,7 @@ declare module '@nextcloud/vue' {
     NcRichText,
     NcSelect,
     NcSettingsSection,
+    NcTextArea,
     NcTextField,
     Tooltip,
   };
