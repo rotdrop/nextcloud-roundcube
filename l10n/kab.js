@@ -4,6 +4,7 @@ OC.L10N.register(
     "true" : "idetti",
     "false" : "ucciḍ",
     "User" : "Aseqdac",
+    "Password" : "Awal n uɛeddi",
     "Show password" : "Sken awal uffir",
     "Advanced Settings" : "Iɣewwaren leqqayen"
 },
