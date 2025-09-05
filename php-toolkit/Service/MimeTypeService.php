@@ -28,13 +28,13 @@ use OC\Files\Type\Detection as MimeTypeDetector;
 use Psr\Log\LoggerInterface;
 use OCP\Files\IMimeTypeDetector;
 
-use OCA\FilesArchive\Toolkit\Backend\ArchiveFormats;
-use OCA\FilesArchive\Toolkit\Traits\Constants;
+use OCA\RotDrop\Toolkit\Backend\ArchiveFormats;
+use OCA\RotDrop\Toolkit\Traits\Constants;
 
 /** Tweak the Nextcloud server to support all MIME-types needed by this app. */
 class MimeTypeService
 {
-  use \OCA\FilesArchive\Toolkit\Traits\LoggerTrait;
+  use \OCA\RotDrop\Toolkit\Traits\LoggerTrait;
 
   const MIME_TYPE_MAPPING_DATA_FILE = 'config/nextcloud/mimetypemapping.json';
   const MIME_TYPE_ALIASES_DATA_FILE = 'config/nextcloud/mimetypealiases.json';
