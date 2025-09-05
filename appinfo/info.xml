@@ -18,7 +18,7 @@
   <category>social</category>+
   <dependencies>
     <php min-version="8.1" max-version="8.4" />
-    <nextcloud min-version="29" max-version="31" />
+    <nextcloud min-version="29" max-version="32" />
   </dependencies>
   <bugs>https://github.com/rotdrop/nextcloud-roundcube/issues</bugs>
   <website>https://github.com/rotdrop/nextcloud-roundcube/</website>
