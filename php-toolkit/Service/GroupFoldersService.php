@@ -3,7 +3,7 @@
  * Some PHP utility functions for Nextcloud apps.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022, 2023, 2024 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022-2025 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -30,6 +30,7 @@ use OCP\Constants;
 use OCP\Files\IRootFolder;
 
 use OCA\GroupFolders\Folder\FolderManager;
+use OCA\GroupFolders\Folder\FolderWithMappingsAndCache;
 use OCA\GroupFolders\Mount\MountProvider;
 
 /**
@@ -117,6 +118,9 @@ class GroupFoldersService
     $folders = $this->folderManager->getAllFoldersWithSize($this->getRootFolderStorageId());
     $this->sharedFolders = [];
     foreach ($folders as $folderInfo) {
+      if ($folderInfo instanceof FolderWithMappingsAndCache) {
+        $folderInfo = $folderInfo->toArray();
+      }
       $this->sharedFolders[$folderInfo['mount_point']] = $folderInfo;
     }
     $this->logDebug('FOLDERS ' . print_r($this->sharedFolders, true));
