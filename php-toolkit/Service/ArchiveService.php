@@ -308,7 +308,8 @@ class ArchiveService
           $messages[] = $this->l->t('The "%1$s" driver could handle this format, but it is not installed.', $shortDriver);
           $typeLabel = BasicDriver::$typeLabels[$driverClass::TYPE];
           $instructions = $driverClass::getInstallationInstruction();
-          $messages[] = $this->l->t('Installation instructions: ')
+          $messages[] = $this->l->t('Installation instructions:')
+            . ' '
             . ucfirst($typeLabel)
             . '. '
             . ucfirst($instructions)
