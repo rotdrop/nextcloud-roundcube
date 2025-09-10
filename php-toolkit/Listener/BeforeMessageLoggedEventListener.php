@@ -33,6 +33,7 @@ use OCP\EventDispatcher\Event;
 use OCP\EventDispatcher\IEventDispatcher;
 use OCP\EventDispatcher\IEventListener;
 use OCP\Log\BeforeMessageLoggedEvent as HandledEvent;
+use OCP\Server;
 
 /**
  * Listener foŕ log-entries in order to provide the formatted log-entry to
@@ -65,11 +66,11 @@ class BeforeMessageLoggedEventListener implements IEventListener
     }
 
     /** @var IEventDispatcher $eventDispatcher */
-    $eventDispatcher = $this->appContainer->get(IEventDispatcher::class);
-
-    // Make this always a one-shot listener in order to avoid recursions.
+    $eventDispatcher = Server::get(IEventDispatcher::class);
+    // This must be a one-shot listener, even more as NC now uses lazy ghosts.
     $eventDispatcher->removeListener(self::EVENT, [$this, 'handle']);
 
+    // The following line triggers the initialization of this lazy ghost.
     $this->logger = $this->appContainer->get(LoggerInterface::class);
 
     $appName = $this->appContainer->get('appName');
