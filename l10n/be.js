@@ -4,6 +4,7 @@ OC.L10N.register(
     "User" : "Карыстальнік",
     "Password" : "Пароль",
     "%1$s (renamed)" : "%1$s (перайменаваны)",
+    "renamed file" : "перайменаваны файл",
     "submit" : "адправіць",
     "Choose a folder" : "Выберыце папку",
     "Reset Changes" : "Скінуць змены",
