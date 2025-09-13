@@ -199,14 +199,14 @@ trait ResponseTrait
       'message' => ($top
                     ? $this->l->t('Error, caught an exception.')
                     : $this->l->t('Caused by previous exception')),
-      'brief' => $throwable->getFile() . ':' . $throwable->getLine() . ' '.$shortException . ': ' . $throwable->getMessage(),
+      'brief' => str_replace(\OC::$SERVERROOT, '', $throwable->getFile()) . ':' . $throwable->getLine() . ' '.$shortException . ': ' . $throwable->getMessage(),
       'exception' => [
         'class' => get_class($throwable),
         'message' => $throwable->getMessage(),
-        'file' => $throwable->getFile(),
+        'file' => str_replace(\OC::$SERVERROOT, '', $throwable->getFile()),
         'line' => $throwable->getLine(),
         'code' => $throwable->getCode(),
-        'trace' => $throwable->getTraceAsString(),
+        'trace' => str_replace(\OC::$SERVERROOT, '', $throwable->getTraceAsString()),
       ],
       'previous' => empty($previous) ? null : $this->exceptionChainData($previous, false),
     ];
