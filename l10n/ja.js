@@ -11,6 +11,7 @@ OC.L10N.register(
     "bytes" : "バイト",
     "Embed an installation of RoundCube into Nextcloud" : "NextcloudにRoundCubeを組み込む",
     "Integrates an existing RoundCube standalone email-webapp into NextCloud, with optional SSO." : "SSOで既存のRoundCubeスタンドアロンメールウェブアプリをNextCloudに統合します。",
+    "submit" : "送信",
     "Clear Selection" : "セッションクリア",
     "Show password" : "パスワードを表示",
     "Hide password" : "パスワードを隠す",
