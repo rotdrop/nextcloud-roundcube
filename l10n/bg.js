@@ -15,8 +15,6 @@ OC.L10N.register(
     "RoundCube Integration" : "RoundCube интеграция",
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Проблем с инсталирането; необходимият ресурс „%1$s“ от тип „%2$s“ не е инсталиран на сървъра, моля, свържете се със системния администратор!",
     "Password" : "Парола",
-    "Error, caught an exception." : "Грешка, засечено е изключение.",
-    "Caused by previous exception" : "Причинено от предишно изключение",
     "bytes" : "байта",
     "The supplied color-string \"%s\" seems to be invalid." : "Предоставеният низ за цвят „%s“ изглежда е невалиден.",
     "The input color values are invalid." : "Въведените стойности на цвят са невалидни.",

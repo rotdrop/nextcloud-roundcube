@@ -18,8 +18,6 @@ OC.L10N.register(
     "Password" : "Pasfhocal",
     "Login succeeded." : "D'éirigh leis an logáil isteach.",
     "Login failed." : "Theip ar logáil isteach.",
-    "Error, caught an exception." : "Earráid, ghlac eisceacht.",
-    "Caused by previous exception" : "De bharr eisceachta roimhe seo",
     "%1$s (renamed)" : "%1$s (athainmnithe)",
     "renamed file" : "comhad athainmnithe",
     "Unable to sanitize filename \"%s\"." : "Ní féidir ainm comhaid \"%s\" a shláintiú.",

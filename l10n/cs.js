@@ -18,8 +18,6 @@ OC.L10N.register(
     "Password" : "Heslo",
     "Login succeeded." : "Přihlášení úspěšné.",
     "Login failed." : "Přihlášení neúspěšné.",
-    "Error, caught an exception." : "Chyba: zachycena výjimka",
-    "Caused by previous exception" : "Způsobeno předchozí výjimkou",
     "%1$s (renamed)" : "%1$s (přejmenované)",
     "renamed file" : "přejmenovaný soubor",
     "Unable to sanitize filename \"%s\"." : "Nedaří se zbavit název souboru „%s“ nežádoucích součástí.",

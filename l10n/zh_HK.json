@@ -16,8 +16,6 @@
     "Password" : "密碼",
     "Login succeeded." : "登入成功。",
     "Login failed." : "登入失敗。",
-    "Error, caught an exception." : "錯誤，捕捉到例外。",
-    "Caused by previous exception" : "由先前的例外造成",
     "%1$s (renamed)" : "%1$s（已重新命名）",
     "renamed file" : "已重新命名的檔案",
     "Unable to sanitize filename \"%s\"." : "無法清理檔案名 \"%s\"。",

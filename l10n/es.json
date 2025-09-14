@@ -16,8 +16,6 @@
     "Password" : "Contraseña",
     "Login succeeded." : "Inicio de sesión exitoso.",
     "Login failed." : "Falló el inicio de sesión.",
-    "Error, caught an exception." : "Error, se encontró una excepción.",
-    "Caused by previous exception" : "Causado por la excepción anterior",
     "%1$s (renamed)" : "%1$s (renombrado)",
     "renamed file" : "archivo renombrado",
     "Unable to sanitize filename \"%s\"." : "No fue posible sanear el nombre del archivo: \"%s\".",

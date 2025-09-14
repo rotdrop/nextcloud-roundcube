@@ -11,7 +11,6 @@ OC.L10N.register(
     "Unknown personal setting: \"%s\"." : "Neznana osebna nastavitev »%s«",
     "User" : "Uporabnik",
     "Password" : "Geslo",
-    "Error, caught an exception." : "Zaznana je izjemna napaka.",
     "bytes" : "bajtov",
     "pick a color" : "izbor barve",
     "open" : "odpri",

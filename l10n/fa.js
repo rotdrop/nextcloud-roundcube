@@ -16,8 +16,6 @@ OC.L10N.register(
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!",
     "User" : "کاربر",
     "Password" : "گذرواژه",
-    "Error, caught an exception." : "Error, caught an exception.",
-    "Caused by previous exception" : "Caused by previous exception",
     "%1$s (renamed)" : "%1$s (تغییر نام داده شد)",
     "renamed file" : "فایل تغییر نام داده شد",
     "bytes" : "بایت",

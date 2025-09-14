@@ -17,8 +17,6 @@ OC.L10N.register(
     "Password" : "Password",
     "Login succeeded." : "Sessão iniciada com sucesso.",
     "Login failed." : "Falha no início de sessão.",
-    "Error, caught an exception." : "Erro, detetada uma exceção.",
-    "Caused by previous exception" : "Causado por uma exceção anterior",
     "%1$s (renamed)" : "%1$s (renomeado)",
     "renamed file" : "ficheiro renomeado",
     "bytes" : "bytes",

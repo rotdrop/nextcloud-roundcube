@@ -14,8 +14,6 @@ OC.L10N.register(
     "Password" : "암호",
     "Login succeeded." : "로그인 성공",
     "Login failed." : "로그인 실패",
-    "Error, caught an exception." : "오류, 예외 발견",
-    "Caused by previous exception" : "이전 예외로 인해 발생함",
     "bytes" : "바이트",
     "The supplied color-string \"%s\" seems to be invalid." : "제공된 color-string \"%s\"이(가) 잘못된 것 같습니다",
     "The input color values are invalid." : "입력 색상값이 유효하지 않습니다",

@@ -12,8 +12,6 @@
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Problema d'instal·lació; el recurs necessari \"%1$s\" del tipus \"%2$s\" no està instal·lat al servidor, poseu-vos en contacte amb l'administrador del sistema!",
     "User" : "Usuari",
     "Password" : "Contrasenya",
-    "Error, caught an exception." : "Error, s'ha detectat una excepció.",
-    "Caused by previous exception" : "Causat per una excepció anterior",
     "bytes" : "bytes",
     "The supplied color-string \"%s\" seems to be invalid." : "La cadena de color subministrada \"%s\" sembla que no és vàlida.",
     "The input color values are invalid." : "Els valors de color d'entrada no són vàlids.",

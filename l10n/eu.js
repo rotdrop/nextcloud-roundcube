@@ -18,8 +18,6 @@ OC.L10N.register(
     "Password" : "Pasahitza",
     "Login succeeded." : "Saioa hasi da.",
     "Login failed." : "Saioa hasteak huts egin du.",
-    "Error, caught an exception." : "Errorea, salbuespen bat aurkitu da.",
-    "Caused by previous exception" : "Aurreko salbuespen batek sortua",
     "%1$s (renamed)" : "%1$s (berrizendatua)",
     "renamed file" : "fitxategia berrizendatu da",
     "bytes" : "byte",

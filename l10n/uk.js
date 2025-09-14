@@ -18,8 +18,6 @@ OC.L10N.register(
     "Password" : "Пароль",
     "Login succeeded." : "Успішно авторизовано.",
     "Login failed." : "Не вдалося авторизуватися.",
-    "Error, caught an exception." : "Помилка, спіймано виняток.",
-    "Caused by previous exception" : "Викликано попереднім винятком",
     "%1$s (renamed)" : "%1$s (перейменовано)",
     "renamed file" : "перейменовано файл",
     "Unable to sanitize filename \"%s\"." : "Не вдалося очистити ім'я файлу \"%s\".",

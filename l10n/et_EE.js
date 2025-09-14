@@ -14,8 +14,6 @@ OC.L10N.register(
     "Password" : "Salasõna",
     "Login succeeded." : "Sisselogimine õnnestud",
     "Login failed." : "Sisselogimine ei õnnestunud.",
-    "Error, caught an exception." : "Viga",
-    "Caused by previous exception" : "Põhjustatud eelmise vea poolt",
     "%1$s (renamed)" : "%1$s (nimi on muudetud)",
     "renamed file" : "muudetud nimega fail",
     "Unable to sanitize filename \"%s\"." : "„%s“ failinime puhastamine polnud võimalik.",

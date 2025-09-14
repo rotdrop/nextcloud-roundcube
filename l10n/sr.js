@@ -18,8 +18,6 @@ OC.L10N.register(
     "Password" : "Лозинка",
     "Login succeeded." : "Пријава је успела.",
     "Login failed." : "Није успела пријава.",
-    "Error, caught an exception." : "Грешка, ухваћен је изузетак.",
-    "Caused by previous exception" : "Изазвао је претходни изузетак",
     "%1$s (renamed)" : "%1$s (преименован)",
     "renamed file" : "преименован фајл",
     "Unable to sanitize filename \"%s\"." : "Није могло да се пречисти име фајла „%s”.",

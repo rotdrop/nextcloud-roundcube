@@ -18,8 +18,6 @@ OC.L10N.register(
     "Password" : "Mot de passe",
     "Login succeeded." : "Connexion réussie.",
     "Login failed." : "Échec de la connexion",
-    "Error, caught an exception." : "Erreur, une exception a été déclarée.",
-    "Caused by previous exception" : "Causé par une exception précédente",
     "%1$s (renamed)" : "%1$s (renommé)",
     "renamed file" : "fichier renommé",
     "Unable to sanitize filename \"%s\"." : "Impossible de nettoyer le nom de fichier « %s ».",

@@ -18,8 +18,6 @@ OC.L10N.register(
     "Password" : "Parola",
     "Login succeeded." : "Oturum açıldı.",
     "Login failed." : "Oturum açılamadı.",
-    "Error, caught an exception." : "Hata, bir sorunla karşılaşıldı.",
-    "Caused by previous exception" : "Önceki sorundan kaynaklandı",
     "%1$s (renamed)" : "%1$s (yeniden adlandırıldı)",
     "renamed file" : "dosyayı yeniden adlandırdı",
     "Unable to sanitize filename \"%s\"." : "\"%s\" dosya adı sadeleştirilemedi.",

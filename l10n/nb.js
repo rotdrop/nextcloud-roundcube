@@ -18,8 +18,6 @@ OC.L10N.register(
     "Password" : "PassordP",
     "Login succeeded." : "Innlogging lyktes.",
     "Login failed." : "Innlogging feilet.",
-    "Error, caught an exception." : "Feil, fanget et unntak.",
-    "Caused by previous exception" : "Skyldes tidligere unntak",
     "bytes" : "byte",
     "The supplied color-string \"%s\" seems to be invalid." : "Den medfølgende fargestrengen \"%s\" ser ut til å være ugyldig.",
     "The input color values are invalid." : "Verdiene for inndatafarge er ugyldige.",

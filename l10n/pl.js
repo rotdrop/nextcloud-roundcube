@@ -12,8 +12,6 @@ OC.L10N.register(
     "Password" : "Hasło",
     "Login succeeded." : "Logowanie powiodło się.",
     "Login failed." : "Logowanie nie powiodło się.",
-    "Error, caught an exception." : "Błąd, złapano wyjątek.",
-    "Caused by previous exception" : "Spowodowane przez poprzedni wyjątek",
     "%1$s (renamed)" : "%1$s (zmieniona nazwa)",
     "renamed file" : "zmieniona nazwa pliku",
     "bytes" : "bajtów",

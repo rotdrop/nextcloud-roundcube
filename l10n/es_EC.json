@@ -13,8 +13,6 @@
     "RoundCube Integration" : "Integración de RoundCube",
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Problema de instalación; el recurso requerido \"%1$s\" del tipo \"%2$s\" no está instalado en el servidor, ¡póngase en contacto con el administrador del sistema!",
     "User" : "Usuario",
-    "Error, caught an exception." : "Error, se detectó una excepción.",
-    "Caused by previous exception" : "Provocado por una excepción anterior",
     "bytes" : "bytes",
     "The supplied color-string \"%s\" seems to be invalid." : "La cadena de color suministrada \"%s\" parece ser inválida.",
     "The input color values are invalid." : "Los valores de color de entrada no son válidos.",

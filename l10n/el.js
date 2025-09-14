@@ -18,8 +18,6 @@ OC.L10N.register(
     "Password" : "Συνθηματικό",
     "Login succeeded." : "Η σύνδεση πέτυχε.",
     "Login failed." : "Η σύνδεση απέτυχε.",
-    "Error, caught an exception." : "Σφάλμα, εντοπίστηκε εξαίρεση.",
-    "Caused by previous exception" : "Προκλήθηκε από προηγούμενη εξαίρεση",
     "bytes" : "bytes",
     "The supplied color-string \"%s\" seems to be invalid." : "Η παρεχόμενη συμβολοσειρά χρώματος \"%s\" φαίνεται να είναι άκυρη.",
     "The input color values are invalid." : "Οι τιμές χρώματος εισόδου είναι άκυρες.",

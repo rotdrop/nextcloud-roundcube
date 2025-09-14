@@ -15,8 +15,6 @@
     "Password" : "Пароль",
     "Login succeeded." : "Вход выполнен успешно.",
     "Login failed." : "Ошибка входа.",
-    "Error, caught an exception." : "Ошибка, обнаружено исключение.",
-    "Caused by previous exception" : "Вызвано предыдущим исключением",
     "%1$s (renamed)" : "%1$s (переименовано)",
     "renamed file" : "переименованный файл",
     "bytes" : "байты",

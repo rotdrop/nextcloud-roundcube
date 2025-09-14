@@ -18,8 +18,6 @@ OC.L10N.register(
     "Password" : "Nenosiri",
     "Login succeeded." : "Uingiaji umefanikiwa",
     "Login failed." : "Uingiaji umeshindikana",
-    "Error, caught an exception." : "Hitilafu, imekamatwa ubaguzi.",
-    "Caused by previous exception" : "Imesababishwa na ubaguzi wa awali",
     "%1$s (renamed)" : "%1$s (iliyopew jina jipya)",
     "renamed file" : "Faili iliyopewa jina jipya",
     "Unable to sanitize filename \"%s\"." : "Haiwezi kutakasa jina la faili \"%s\".",

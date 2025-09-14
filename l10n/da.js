@@ -15,8 +15,6 @@ OC.L10N.register(
     "Password" : "Kodeord",
     "Login succeeded." : "Login lykkedes.",
     "Login failed." : "Login mislykkedes.",
-    "Error, caught an exception." : "Fejl, fangede en undtagelse.",
-    "Caused by previous exception" : "Forårsaget af tidligere undtagelse",
     "%1$s (renamed)" : "%1$s (omdøbt)",
     "renamed file" : "omdøbt fil",
     "bytes" : "bytes",

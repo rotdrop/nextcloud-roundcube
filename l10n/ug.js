@@ -18,8 +18,6 @@ OC.L10N.register(
     "Password" : "پارول",
     "Login succeeded." : "كىرىش مۇۋەپپەقىيەتلىك بولدى.",
     "Login failed." : "كىرىش مەغلۇب بولدى.",
-    "Error, caught an exception." : "خاتالىق ، بۇنىڭ سىرتىدا.",
-    "Caused by previous exception" : "ئالدىنقى مۇستەسنالىقتىن كېلىپ چىققان",
     "bytes" : "bytes",
     "The supplied color-string \"%s\" seems to be invalid." : "تەمىنلەنگەن رەڭلىك سىزىق \"% s\" ئىناۋەتسىزدەك قىلىدۇ.",
     "The input color values are invalid." : "كىرگۈزۈش رەڭ قىممىتى ئىناۋەتسىز.",

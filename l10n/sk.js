@@ -18,8 +18,6 @@ OC.L10N.register(
     "Password" : "Heslo",
     "Login succeeded." : "Prihlásenie bolo úspešné.",
     "Login failed." : "Prihlásenie zlyhalo.",
-    "Error, caught an exception." : "Chyba, vyskytla sa výnimka.",
-    "Caused by previous exception" : "Spôsobené predchádzajúcou výnimkou",
     "bytes" : "bajty",
     "The supplied color-string \"%s\" seems to be invalid." : "Zdá sa, že dodaný reťazec farby \"%s“ je neplatný.",
     "The input color values are invalid." : "Hodnoty vstupných farieb sú neplatné.",
