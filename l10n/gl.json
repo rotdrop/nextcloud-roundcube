@@ -81,6 +81,7 @@
     "Single sign-on is globally forced \"on\"." : "A Identificación única (SSO) está forzado globalmente a «activado»",
     "Email password for RoundCube, if needed." : "Contrasinal de correo para Roundcube, se é necesario",
     "Embedded RoundCube, Personal Settings" : "RoundCube integrado, axustes persoais",
-    "Email Login Name" : "Nome de acceso ao correo"
+    "Email Login Name" : "Nome de acceso ao correo",
+    "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "Non foi posíbel acceder ao contido da instancia envolta {wrappedApp}.\nIsto pode ser causado por restricións de acceso entre dominios.\nComprobe que a súa instancia de Nextcloud ({nextcloudUrl}) e a instancia envolvida ({wrappedApp}) {iFrameUrl} están a ser servidas desde o mesmo dominio."
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
