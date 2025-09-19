@@ -18,6 +18,8 @@ OC.L10N.register(
     "Password" : "Συνθηματικό",
     "Login succeeded." : "Η σύνδεση πέτυχε.",
     "Login failed." : "Η σύνδεση απέτυχε.",
+    "%1$s (renamed)" : "%1$s (μετονομάστηκε)",
+    "renamed file" : "μετονομασμένο αρχείο",
     "bytes" : "bytes",
     "The supplied color-string \"%s\" seems to be invalid." : "Η παρεχόμενη συμβολοσειρά χρώματος \"%s\" φαίνεται να είναι άκυρη.",
     "The input color values are invalid." : "Οι τιμές χρώματος εισόδου είναι άκυρες.",
