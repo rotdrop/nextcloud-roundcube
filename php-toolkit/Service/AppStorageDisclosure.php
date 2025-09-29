@@ -95,7 +95,8 @@ class AppStorageDisclosure
 
   /**
    * Obtain an app-data folder as ordinary Filesystem Folder instance instead
-   * of \OCP\Files\SimpleFS\ISimpleFolder.
+   * of \OCP\Files\SimpleFS\ISimpleFolder. The folder is created if it does
+   * not exist.
    *
    * @param string $path Path relative to the app-data directory for this app.
    *
@@ -105,7 +106,11 @@ class AppStorageDisclosure
   {
     $rootFolder = $this->getAppRootFolder();
     /** @var Folder $appFolder */
-    $appFolder = $rootFolder->get($this->appName);
+    try {
+      $appFolder = $rootFolder->get($this->appName);
+    } catch (FileNotFoundException) {
+      $appFolder = $rootFolder->newFolder($this->appName);
+    }
     if ($path == '') {
       return $appFolder;
     }
@@ -121,9 +126,12 @@ class AppStorageDisclosure
       $this->logInfo('TRY CREATE ' . $path);
       $folder = $appFolder->newFolder($path);
       if (empty($folder)) {
-        throw new RuntimeException($this->l->t(
-          'App-storage sub-folder "%s" does not exist and cannot be created.', $path
-        ));
+        throw new RuntimeException(
+          $this->l->t(
+            'App-storage sub-folder "%s" does not exist and cannot be created.',
+            $path,
+          ),
+        );
       }
     }
     return $folder;
