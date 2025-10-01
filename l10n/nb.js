@@ -18,6 +18,7 @@ OC.L10N.register(
     "Password" : "PassordP",
     "Login succeeded." : "Innlogging lyktes.",
     "Login failed." : "Innlogging feilet.",
+    "%1$s (renamed)" : "%1$s (har fått nytt navn)",
     "bytes" : "byte",
     "The supplied color-string \"%s\" seems to be invalid." : "Den medfølgende fargestrengen \"%s\" ser ut til å være ugyldig.",
     "The input color values are invalid." : "Verdiene for inndatafarge er ugyldige.",
