@@ -20,6 +20,7 @@ OC.L10N.register(
     "Login failed." : "Η σύνδεση απέτυχε.",
     "%1$s (renamed)" : "%1$s (μετονομάστηκε)",
     "renamed file" : "μετονομασμένο αρχείο",
+    "Unable to sanitize filename \"%s\"." : "Αδυναμία καθαρισμού ονόματος αρχείου \"%s\".",
     "bytes" : "bytes",
     "The supplied color-string \"%s\" seems to be invalid." : "Η παρεχόμενη συμβολοσειρά χρώματος \"%s\" φαίνεται να είναι άκυρη.",
     "The input color values are invalid." : "Οι τιμές χρώματος εισόδου είναι άκυρες.",
@@ -82,6 +83,7 @@ OC.L10N.register(
     "Single sign-on is globally forced \"on\"." : "Η μονή σύνδεση είναι καθολικά εξαναγκασμένη σε \"ενεργή\".",
     "Email password for RoundCube, if needed." : "Συνθηματικό email για το RoundCube, εάν απαιτείται.",
     "Embedded RoundCube, Personal Settings" : "Ενσωματωμένο RoundCube, Προσωπικές Ρυθμίσεις",
-    "Email Login Name" : "Όνομα σύνδεσης Email"
+    "Email Login Name" : "Όνομα σύνδεσης Email",
+    "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "Αδυναμία πρόσβασης στα περιεχόμενα της περιεχόμενης εγκατάστασης {wrappedApp}.\nΑυτό μπορεί να προκληθεί από περιορισμούς πρόσβασης δια-τομέα.\nΠαρακαλώ ελέγξτε ότι η εγκατάσταση Nextcloud σας ({nextcloudUrl}) και η περιεχόμενη εγκατάσταση {wrappedApp} ({iFrameUrl}) εξυπηρετούνται από τον ίδιο τομέα."
 },
 "nplurals=2; plural=(n != 1);");
