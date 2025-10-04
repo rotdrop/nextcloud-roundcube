@@ -1,8 +1,10 @@
 { "translations": {
     "Unknown admin setting: \"%1$s\"" : "Nieznane ustawienie administracyjne: \"%1$s\"",
+    "The admin setting \"%1$s\" is read-only" : "Ustawienie administratora \"%1$s\" jest tylko do odczytu",
     "Scheme of external URL must be one of \"http\" or \"https\", but nothing was specified." : "Zewnętrzny URL musi zawierać „http” lub „https”, lecz nic nie podano.",
     "Scheme of external URL must be one of \"http\" or \"https\", \"%s\" given." : "Zewnętrzny URL musi zawierać „http” lub „https”, lecz podano „%s”.",
     "Host-part of external URL seems to be empty" : "Host zewnętrznego URL wygląda na pusty",
+    "Value \"%1$s\" for setting \"%2$s\" is not convertible to boolean." : "Wartość \"%1$s\" dla ustawienia \"%2$s\" nie jest możliwa do konwersji na wartość logiczną.",
     "true" : "prawda",
     "false" : "nieprawda",
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Problem z instalacją: wymagany zasób „%1$s” typu „%2$s” nie jest zainstalowany na serwerze, skontaktuj się z administratorem!",
@@ -12,6 +14,7 @@
     "Login failed." : "Logowanie nie powiodło się.",
     "%1$s (renamed)" : "%1$s (zmieniona nazwa)",
     "renamed file" : "zmieniona nazwa pliku",
+    "Unable to sanitize filename \"%s\"." : "Nie można oczyścić nazwy pliku \"%s\".",
     "bytes" : "bajtów",
     "The input color values are invalid." : "Wprowadzone wartości kolorów są nieprawidłowe.",
     "pick a color" : "wybierz kolor",
@@ -24,6 +27,7 @@
     "User ID" : "ID użytkownika",
     "Email Address" : "Adres e-mail",
     "Advanced Settings" : "Ustawienia zaawansowane",
-    "Enable SSL verification." : "Włącz weryfikację SSL."
+    "Enable SSL verification." : "Włącz weryfikację SSL.",
+    "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "Nie można uzyskać dostępu do zawartości opakowanej instancji {wrappedApp}. Może to być spowodowane ograniczeniami dostępu między domenami. Sprawdź, czy Twoja instancja Nextcloud ({nextcloudUrl}) i opakowana instancja ({wrappedApp}, {iFrameUrl}) są serwowane z tej samej domeny."
 },"pluralForm" :"nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);"
 }
