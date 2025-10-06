@@ -31,7 +31,7 @@ use OCP\IURLGenerator;
 use OCP\IUserSession;
 use OCP\Share\IManager as IShareManager;
 use OCP\Share\IShare;
-use Psr\Log\LoggerInterface as ILogger;
+use Psr\Log\LoggerInterface;
 
 /**
  * Support class for the creating cloud shared, currently only web-links can
