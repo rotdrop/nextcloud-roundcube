@@ -26,14 +26,15 @@ import { translate as t } from '@nextcloud/l10n';
 export interface DialogConfirmArgs {
   title: string,
   text: string,
+  allowHtml?: boolean,
   defaultNo?: boolean,
 }
 
-const dialogConfirm = async ({ title, text, defaultNo }: DialogConfirmArgs): Promise<boolean|undefined> => {
+const dialogConfirm = async ({ title, text, allowHtml, defaultNo }: DialogConfirmArgs): Promise<boolean|undefined> => {
   let answer: boolean|undefined;
-  await getDialogBuilder(title)
-    .setText(text)
+  const dialog = getDialogBuilder(title)
     .setSeverity(DialogSeverity.Info)
+    .setText(allowHtml === true ? '' : text)
     .addButton({
       label: t('core', 'No'),
       type: defaultNo ? 'primary' : 'secondary',
@@ -44,8 +45,11 @@ const dialogConfirm = async ({ title, text, defaultNo }: DialogConfirmArgs): Pro
       type: defaultNo ? 'secondary' : 'primary',
       callback() { answer = true; },
     })
-    .build()
-    .show();
+    .build();
+  if (allowHtml === true) {
+    dialog.setHTML(text);
+  }
+  await dialog.show();
   if (answer === undefined) {
     return undefined;
   } else {

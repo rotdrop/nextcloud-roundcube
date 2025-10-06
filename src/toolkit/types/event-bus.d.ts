@@ -20,7 +20,7 @@
 
 // import type { Event } from '@nextcloud/event-bus';
 
-import type { Node } from '@nextcloud/files';
+import type { Folder, Node, View } from '@nextcloud/files';
 
 /**
  * Define the type used by the notifications app as Event. These are
@@ -60,6 +60,11 @@ declare module '@nextcloud/event-bus' {
     'notifications:notification:received': NotificationEvent,
     'files:node:deleted': Node,
     'files:node:renamed': Node,
+    'files:list:updated': {
+      folder: Folder,
+      contents: Node[],
+      view: View,
+    },
   }
 }
 
