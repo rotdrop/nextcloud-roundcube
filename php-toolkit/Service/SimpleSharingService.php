@@ -93,10 +93,11 @@ class SimpleSharingService
       // make sure it is UTC midnight
       $expirationDate = new DateTimeImmutable($expirationDate->format('Y-m-d'));
     }
-    $expirationTimeStamp = $expirationDate === null ? -1 : $expirationDate->getTimestamp();
 
     /** @var IShare $share */
     foreach ($this->shareManager->getSharesBy($shareOwner, $shareType, $node, false, -1) as $share) {
+      $expirationTimeStamp = $expirationDate === null ? -1 : $expirationDate->getTimestamp();
+
       // check permissions
       if ($share->getPermissions() !== $sharePerms) {
         continue;
