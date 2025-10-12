@@ -42,6 +42,8 @@ export const generateUrl = <T extends string>(url: T, urlParams?: Record<string,
   // const str = '/image/{joinTable}/{ownerId}';
   url = url.replace(/^\/+/g, '') as T;
   let generated = nextcloudGenerateUrl('/apps/' + appName + '/' + url, urlParams, urlOptions);
+  // remove missing parameters as optional
+  generated = generated.replace(/\/%7B[^%]+%7D/g, '');
   const queryParams = { ...(urlParams || {}) };
   for (const urlParam of url.matchAll(/{([^{}]*)}/g)) {
     delete queryParams[urlParam[1]];
