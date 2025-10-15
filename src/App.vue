@@ -106,18 +106,23 @@ const onError = (event: { error: Error, hint: string }) => {
 const onIFrameLoaded = async (event: { query: Record<string, string> }) => {
   loading.value = false
   logger.debug('GOT EVENT', { event })
-  if (event.query.id) {
-    delete event.query.id
-  }
   const routerLocation: RouterLocation = {
     name: currentRoute.name!,
     params: {},
     query: { ...event.query },
   }
-  try {
-    await router.push(routerLocation)
-  } catch (error) {
-    logger.debug('NAVIGATION ABORTED', { error })
+  if (JSON.stringify(currentRoute.query) !== JSON.stringify(routerLocation.query)) {
+    logger.debug('PUSHING ROUTE', {
+      currentRoute,
+      routerLocation,
+      currentQuery: JSON.stringify(currentRoute.query),
+      targetQuery: JSON.stringify(routerLocation.query),
+    })
+    try {
+      await router.push(routerLocation)
+    } catch (error) {
+      logger.debug('NAVIGATION ABORTED', { error })
+    }
   }
 }
 
@@ -126,6 +131,7 @@ const onIFrameLoaded = async (event: { query: Record<string, string> }) => {
 // route.
 router.onReady(async () => {
   if (!currentRoute.name) {
+    logger.debug('FORCING NAMED ROUTE', { currentRoute })
     const routerLocation: RouterLocation = {
       name: 'home',
       params: {},

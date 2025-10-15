@@ -24,14 +24,10 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import type { RouterOptions } from 'vue-router';
 import { generateUrl } from '@nextcloud/router';
-import getInitialState from '../toolkit/util/initial-state.ts';
-import type { InitialState } from '../types/initial-state.d.ts';
 
 Vue.use(Router);
 
 const base = generateUrl('/apps/' + appName);
-
-const initialState = getInitialState<InitialState>();
 
 const options: RouterOptions = {
   mode: 'history',
@@ -40,12 +36,8 @@ const options: RouterOptions = {
   routes: [
     {
       path: '/',
-      component: () => import('../RoundCubeWrapper.vue'),
+      component: () => import('../RoundCubeWrapperRouteReactivity.vue'),
       name: 'home',
-      props: route => ({
-        externalLocation: initialState?.externalLocation,
-        query: route.query,
-      }),
     },
   ],
   scrollBehavior(to, _from, savedPosition) {

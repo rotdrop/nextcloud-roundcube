@@ -48,6 +48,7 @@ import {
   watch,
 } from 'vue'
 import logger from './logger.ts'
+import type { Route } from 'vue-router'
 
 const wrappedApp = 'RoundCube'
 
@@ -55,7 +56,7 @@ const props = withDefaults(defineProps<{
   externalLocation: string,
   fullScreen?: boolean,
   hideTopLine?: boolean,
-  query?: Record<string, string>,
+  query?: Route['query'],
 }>(), {
   fullScreen: true,
   hideTopLine: true,
@@ -103,16 +104,6 @@ const currentLocation = ref(requestedLocation.value)
 
 const frameId = computed(() => appName + '-frame')
 
-watch(queryString, (_value) => {
-  if (requestedLocation.value !== currentLocation.value) {
-    logger.debug('TRIGGER IFRAME REFRESH', { request: requestedLocation.value, current: currentLocation.value })
-    loading.value = true
-    iFrameLocation.value = requestedLocation.value
-  } else {
-    logger.debug('NOT CHANGING IFRAME SOURCE', { request: requestedLocation.value, current: currentLocation.value })
-  }
-})
-
 const loadTimeout = 1000 // 1 second
 
 let timerCount = 0
@@ -124,6 +115,27 @@ const loaderContainer = ref<null|HTMLDivElement>(null)
 const frameWrapper = ref<null|HTMLDivElement>(null)
 const externalFrame = ref<null|HTMLIFrameElement>(null)
 let iFrameBody: undefined | HTMLBodyElement
+
+const contentObserver = new MutationObserver((entries) => {
+  logger.info('MUTATION OBSERVED', { entries })
+  const iFrame = externalFrame.value!
+  emitLoaded(iFrame)
+})
+
+watch(queryString, (_value) => {
+  if (requestedLocation.value !== currentLocation.value) {
+    logger.debug('TRIGGER IFRAME REFRESH', { request: requestedLocation.value, current: currentLocation.value })
+    loading.value = true
+    contentObserver.disconnect()
+    iFrameLocation.value = requestedLocation.value
+    const iFrame = externalFrame.value
+    if (iFrame?.contentWindow) {
+      iFrame.contentWindow.location.href = requestedLocation.value
+    }
+  } else {
+    logger.debug('NOT CHANGING IFRAME SOURCE', { request: requestedLocation.value, current: currentLocation.value })
+  }
+})
 
 const setIFrameSize = ({ width, height }: DOMRectReadOnly) => {
   if (!externalFrame.value) {
@@ -144,12 +156,6 @@ const resizeObserver = new ResizeObserver((entries) => {
       setIFrameSize(entry.contentRect)
     }
   }
-})
-
-const contentObserver = new MutationObserver((entries) => {
-  logger.info('MUTATION OBSERVED', { entries })
-  const iFrame = externalFrame.value!
-  emitLoaded(iFrame)
 })
 
 const emitError = (error: unknown) => {
