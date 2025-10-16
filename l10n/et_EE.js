@@ -19,7 +19,6 @@ OC.L10N.register(
     "Unable to sanitize filename \"%s\"." : "„%s“ failinime puhastamine polnud võimalik.",
     "bytes" : "baiti",
     "The input color values are invalid." : "Sisestatud värvide väärtused on vigased.",
-    "RoundCube Mail" : "RoundCube'i veebimeil",
     "RoundCube Web Mail" : "RoundCube'i veebimeil",
     "pick a color" : "vali värv",
     "open" : "ava",
