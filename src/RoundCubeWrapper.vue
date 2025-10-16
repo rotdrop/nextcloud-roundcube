@@ -88,7 +88,7 @@ const loading = ref(true)
 
 watch(loading, (value) => emit('update-loading', value))
 
-const queryString = computed(() => (new URLSearchParams(props.query)).toString())
+const queryString = computed(() => (new URLSearchParams(props.query as Record<string, string>)).toString().replace(/\+/g, '%20'))
 
 const requestedLocation = computed(() => {
   return props.externalLocation + '/' + (queryString.value ? '?' + queryString.value : '')
