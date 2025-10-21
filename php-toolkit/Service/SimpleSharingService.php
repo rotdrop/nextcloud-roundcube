@@ -96,14 +96,14 @@ class SimpleSharingService
 
     /** @var IShare $share */
     foreach ($this->shareManager->getSharesBy($shareOwner, $shareType, $node, false, -1) as $share) {
-      $expirationTimeStamp = $expirationDate === null ? -1 : $expirationDate->getTimestamp();
-
       // check permissions
       if ($share->getPermissions() !== $sharePerms) {
         continue;
       }
 
       if ($expirationDate !== false) {
+        $expirationTimeStamp = $expirationDate === null ? -1 : $expirationDate->getTimestamp();
+
         // check expiration time
         $shareExpirationDate = $share->getExpirationDate();
 
