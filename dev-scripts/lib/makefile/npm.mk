@@ -2,11 +2,19 @@
 
 WEBPACK_TARGETS = $(ABSSRCDIR)/js/asset-meta.json
 
+WEBPACK_DEPS := $(sort $(WEBPACK_DEPS) Makefile node_modules package-lock.json package.json webpack.config.js .eslintrc.js)
+
 #@private
 package-lock.json: package.json webpack.config.js Makefile $(THIRD_PARTY_NPM_DEPS)
 	{ [ -d package-lock.json ] && [ test -d node_modules ]; } || $(NPM) install
 	$(NPM) update
 	touch package-lock.json
+
+#@private
+node_modules:
+	$(NPM) install
+	touch package-lock.json
+	touch node_modules
 
 BUILD_FLAVOUR_FILE = $(ABSSRCDIR)/build-flavour
 PREV_BUILD_FLAVOUR = $(shell cat $(BUILD_FLAVOUR_FILE) 2> /dev/null || echo)
