@@ -66,12 +66,19 @@ class SimpleSharingService
    * \false then just ignore the expiration date. Otherwise do an exact match
    * on the given date. Default to null.
    *
+   * @param null|false|string $password Optional password. If \false ignore,
+   * if null create a passwordless share. The share password is updated even
+   * if $noCreate is \true.
+   *
    * @param bool $noCreate Do not create a new share, but return an existing
    * share if it exists.
    *
+   * @param null|string $newShareOwner If given try to modify the share to use
+   * the new owner. The share-owner is corrected event if $noCreate is \true.
+   *
    * @return null|array The absolute URLs for the share or null.
    * ```
-   * [ 'files_sharing': URL, 'webdav' => DAV_URL ]
+   * [ 'files_sharing': URL, 'webdav' => DAV_URL, 'share' => ISHARE_INSTANCE ]
    * ```
    */
   public function linkShare(
@@ -79,7 +86,9 @@ class SimpleSharingService
     ?string $shareOwner = null,
     int $sharePerms = \OCP\Constants::PERMISSION_CREATE,
     mixed $expirationDate = null,
+    ?string $password = null,
     bool $noCreate = false,
+    ?string $newShareOwner = null,
   ):?array {
     $this->logDebug('shared folder id ' . $node->getId());
 
@@ -94,68 +103,100 @@ class SimpleSharingService
       $expirationDate = new DateTimeImmutable($expirationDate->format('Y-m-d'));
     }
 
-    /** @var IShare $share */
-    foreach ($this->shareManager->getSharesBy($shareOwner, $shareType, $node, false, -1) as $share) {
-      // check permissions
-      if ($share->getPermissions() !== $sharePerms) {
-        continue;
-      }
+    $share = null;
 
-      if ($expirationDate !== false) {
-        $expirationTimeStamp = $expirationDate === null ? -1 : $expirationDate->getTimestamp();
-
-        // check expiration time
-        $shareExpirationDate = $share->getExpirationDate();
-
-        $shareExpirationStamp = $shareExpirationDate === null ? -1 : $shareExpirationDate->getTimestamp();
-
-        if ($shareExpirationStamp != $expirationTimeStamp) {
+    try {
+      /** @var IShare $share */
+      foreach ($this->shareManager->getSharesBy($shareOwner, $shareType, $node, false, -1) as $share) {
+        // check permissions
+        if ($share->getPermissions() !== $sharePerms) {
+          $share = null;
           continue;
         }
+
+        if ($expirationDate !== false) {
+          $expirationTimeStamp = $expirationDate === null ? -1 : $expirationDate->getTimestamp();
+
+          // check expiration time
+          $shareExpirationDate = $share->getExpirationDate();
+
+          $shareExpirationStamp = $shareExpirationDate === null ? -1 : $shareExpirationDate->getTimestamp();
+
+          if ($shareExpirationStamp != $expirationTimeStamp) {
+            $share = null;
+            continue;
+          }
+        }
+
+        // check permissions
+        if ($share->getPermissions() !== $sharePerms) {
+          $share = null;
+          continue;
+        }
+
+        if ($newShareOwner !== null && $newShareOwner !== $shareOwner) {
+          $share->setShareOwner($newShareOwner);
+          $share->setSharedBy($newShareOwner);
+          $this->shareManager->updateShare($share);
+        }
+
+
+        if ($password !== false
+            && $share->getPassword() !== $password // both null is ok
+            && !$this->shareManager->checkPassword($share, $password)) {
+          $share->setPassword($password);
+          $this->shareManager->updateShare($share);
+        }
+
+        break;
       }
 
-      // check permissions
-      if ($share->getPermissions() === $sharePerms) {
-        $token = $share->getToken();
-        $filesSharing = $this->urlGenerator->linkToRouteAbsolute('files_sharing.sharecontroller.showShare', ['token' => $token]);
-        $dav = $this->urlGenerator->getAbsoluteURL('/public.php/dav/files/' . $token);
-        $this->logInfo('Reuse existing link-share ' . $filesSharing . ' || ' . $dav);
-        return [
-          'files_sharing' => $filesSharing,
-          'dav' => $dav,
-        ];
+      if ($share === null) {
+        if ($noCreate) {
+          return null;
+        }
+
+        // None found, generate a new one
+
+        if ($newShareOwner !== null && $newShareOwner !== $shareOwner) {
+          $shareOwner = $newShareOwner;
+        }
+
+        /** @var IShare $share */
+        $share = $this->shareManager->newShare();
+        $share->setNode($node);
+        $share->setPermissions($sharePerms);
+        $share->setShareType($shareType);
+        $share->setShareOwner($shareOwner);
+        $share->setSharedBy($shareOwner);
+        if ($password !== false) {
+          $share->setPassword($password);
+        }
+        if ($expirationDate !== false) {
+          $share->setExpirationDate($expirationDate);
+        }
+
+        $share = $this->shareManager->createShare($share);
+        if ($share->getShareOwner() != $shareOwner || $share->getSharedBy() != $shareOwner) {
+          // the manager insist on $node->getOwner() on created, but for the
+          // time being allows modification later on.
+          $share->setShareOwner($shareOwner);
+          $share->setSharedBy($shareOwner);
+          $this->shareManager->updateShare($share);
+        }
       }
-    }
-
-    if ($noCreate) {
-      return null;
-    }
-
-    // None found, generate a new one
-    /** @var IShare $share */
-    $share = $this->shareManager->newShare();
-    $share->setNode($node);
-    $share->setPermissions($sharePerms);
-    $share->setShareType($shareType);
-    $share->setShareOwner($shareOwner);
-    $share->setSharedBy($shareOwner);
-    if ($expirationDate !== false) {
-      $share->setExpirationDate($expirationDate);
-    }
-
-    if (!$this->shareManager->createShare($share)) {
-      return null;
+    } catch (Throwable $t) {
+      $this->logException('Unable to find, modify or generate link-share for "' . $node->getPath() . '".');
     }
 
     $token = $share->getToken();
     $filesSharing = $this->urlGenerator->linkToRouteAbsolute('files_sharing.sharecontroller.showShare', ['token' => $token]);
     $dav = $this->urlGenerator->getAbsoluteURL('/public.php/dav/files/' . $token);
 
-    $this->logInfo('Created new link-share ' . $filesSharing . ' || ' . $dav);
-
     return [
       'files_sharing' => $filesSharing,
       'dav' => $dav,
+      'share' => $share,
     ];
   }
 
@@ -373,7 +414,16 @@ class SimpleSharingService
     $share->setSharedBy($sharedById);
 
     try {
-      $this->shareManager->createShare($share);
+      $share = $this->shareManager->createShare($share);
+      if ($share->getShareOwner() != $ownerId || $share->getSharedBy() != $sharedById) {
+        // the manager insist on $node->getOwner() on created, but for the
+        // time being allows modification later on.
+        $share->setShareOwner($ownerId);
+        $share->setSharedBy($sharedById);
+        $this->shareManager->updateShare($share);
+      }
+
+
       return true;
     } catch (Throwable $t) {
       $this->logException($t);

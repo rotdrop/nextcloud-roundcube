@@ -3,7 +3,7 @@
  * Some PHP utility functions for Nextcloud apps.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022, 2023, 2024 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022-2025 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -51,24 +51,10 @@ class RequestService
     protected IRequest $request,
     protected IURLGenerator $urlGenerator,
     protected LoggerInterface $logger,
-    protected ?IL10N $l = null,
+    protected IL10N $l,
   ) {
   }
   // phpcs:enable Squiz.Commenting.FunctionComment.Missing
-
-  /**
-   * Set the localization to use.
-   *
-   * @param IL10N $l10n
-   *
-   * @return RequestService $this.
-   */
-  public function setL10N(IL10N $l10n):RequestService
-  {
-    $this->l = $l10n;
-
-    return $this;
-  }
 
   /**
    * Post to to a Cloud route.

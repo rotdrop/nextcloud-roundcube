@@ -179,22 +179,6 @@ class ArchiveService
   // phpcs:enable
 
   /**
-   * Set the localization to use.
-   *
-   * @param IL10N $l10n
-   *
-   * @return ArchiveService $this.
-   *
-   * @todo Maybe generate a dummy support app instead.
-   */
-  public function setL10N(IL10N $l10n):ArchiveService
-  {
-    $this->l = $l10n;
-
-    return $this;
-  }
-
-  /**
    * Guard against undefined $this->l.
    *
    * @param string $formatString
