@@ -62,14 +62,12 @@ const props = withDefaults(defineProps<{
   hint?: string,
   flexContainerClasses?: string[],
   flexItemClasses?: string[],
-  readonly?: boolean,
 }>(), {
   modelValue: undefined,
   value: undefined,
   hint: undefined,
   flexContainerClasses: () => ['flex-justify-left', 'flex-align-start'],
   flexItemClasses: () => ['flex-justify-left', 'flex-align-start'],
-  readonly: false,
 })
 
 const emit = defineEmits([
