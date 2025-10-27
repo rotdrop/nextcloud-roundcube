@@ -33,6 +33,8 @@ use OCP\Share\IManager as IShareManager;
 use OCP\Share\IShare;
 use Psr\Log\LoggerInterface;
 
+use OCA\RotDrop\Toolkit\Traits\Constants;
+
 /**
  * Support class for the creating cloud shared, currently only web-links can
  * be generated.
@@ -40,6 +42,8 @@ use Psr\Log\LoggerInterface;
 class SimpleSharingService
 {
   use \OCA\RotDrop\Toolkit\Traits\LoggerTrait;
+
+  public const LINK_SHARE_PREFIX = Constants::PATH_SEPARATOR . 's' . Constants::PATH_SEPARATOR;
 
   /** {@inheritdoc} */
   public function __construct(
@@ -344,13 +348,24 @@ class SimpleSharingService
   }
 
   /**
-   * @param string $url Share token or the url to it.
+   * @param string $url Share token or the url to it. Allowed urls have the form
+   * https://NEXTCLOUD_BASE_URI/s/TOKEN/FURTHER/PATH/COMPOINENTS.
    *
    * @return null|IShare The share if is found, null otherwise.
    */
-  private function getShareFromUrl(string $url):?IShare
+  public function getShareFromUrl(string $url):?IShare
   {
-    $token = basename($url); // allow an URL.
+    $baseUrl = $this->urlGenerator->getBaseUrl();
+    if (str_starts_with($url, $baseUrl)) {
+      $url = substr($url, strlen($baseUrl));
+    }
+    $urlParts = parse_url($url);
+    $urlPath = $urlParts['path'];
+    if (str_starts_with($urlPath, self::LINK_SHARE_PREFIX)) {
+      $token = explode(Constants::PATH_SEPARATOR, substr($urlPath, strlen(self::LINK_SHARE_PREFIX)))[0];
+    } else {
+      $token = $urlPath;
+    }
 
     $share = $this->shareManager->getShareByToken($token);
 
