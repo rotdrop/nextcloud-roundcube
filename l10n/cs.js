@@ -27,6 +27,7 @@ OC.L10N.register(
     "Roundcube Mail" : "Pošta Roundcube",
     "RoundCube Web Mail" : "Webový e-mail RoundCube",
     "Embed an installation of Roundcube into Nextcloud" : "Včlenění instalace Roundcube do Nextcloud",
+    "Integrates an existing Roundcube standalone email-webapp into Nextcloud, with optional SSO." : "Napojí existující samostatného webového e-mailového klienta Roundcube do Nextcloud s volitelným sjednoceným přihlašováním (SSO).",
     "pick a color" : "zvolte barvu",
     "open" : "otevřít",
     "submit" : "odeslat",
