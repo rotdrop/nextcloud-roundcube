@@ -18,7 +18,7 @@
     "Login failed." : "Produciuse un fallo no acceso:",
     "%1$s (renamed)" : "%1$s (renomeado)",
     "renamed file" : "ficheiro renomeado",
-    "Unable to sanitize filename \"%s\"." : "Non foi posíbel sanear o nome do ficheiro «%s»",
+    "Unable to sanitize filename \"%s\"." : "Non é posíbel sanear o nome do ficheiro «%s»",
     "bytes" : "bytes",
     "The supplied color-string \"%s\" seems to be invalid." : "A cadea de cor fornecida «%s» semella ser incorrecta.",
     "The input color values are invalid." : "Os valores de cores introducidos non son válidos.",
@@ -91,6 +91,6 @@
     "Email password for RoundCube, if needed." : "Contrasinal de correo para Roundcube, se é necesario",
     "Embedded RoundCube, Personal Settings" : "Roundcube integrado, axustes persoais",
     "Email Login Name" : "Nome de acceso ao correo",
-    "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "Non foi posíbel acceder ao contido da instancia envolta {wrappedApp}.\nIsto pode ser causado por restricións de acceso entre dominios.\nComprobe que a súa instancia de Nextcloud ({nextcloudUrl}) e a instancia envolvida ({wrappedApp}) {iFrameUrl} están a ser servidas desde o mesmo dominio."
+    "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "Non é posíbel acceder ao contido da instancia envolta {wrappedApp}.\nIsto pode ser causado por restricións de acceso entre dominios.\nComprobe que a súa instancia de Nextcloud ({nextcloudUrl}) e a instancia envolvida ({wrappedApp}) {iFrameUrl} están a ser servidas desde o mesmo dominio."
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
