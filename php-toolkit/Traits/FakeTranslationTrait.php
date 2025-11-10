@@ -33,7 +33,7 @@ trait FakeTranslationTrait
   /**
    * @param string $text
    *
-   * @param string|<array $parameters
+   * @param string|array $parameters
    *
    * @return string
    */

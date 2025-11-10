@@ -43,6 +43,7 @@ class SimpleSharingService
 {
   use \OCA\RotDrop\Toolkit\Traits\LoggerTrait;
 
+  private const INDEX_PHP = Constants::PATH_SEPARATOR . 'index.php';
   public const LINK_SHARE_PREFIX = Constants::PATH_SEPARATOR . 's' . Constants::PATH_SEPARATOR;
 
   /** {@inheritdoc} */
@@ -358,6 +359,13 @@ class SimpleSharingService
     $baseUrl = $this->urlGenerator->getBaseUrl();
     if (str_starts_with($url, $baseUrl)) {
       $url = substr($url, strlen($baseUrl));
+    }
+    $webRoot = $this->urlGenerator->getWebroot();
+    if (str_starts_with($url, $webRoot)) {
+      $url = substr($url, strlen($webRoot));
+    }
+    if (str_starts_with($url, self::INDEX_PHP)) {
+      $url = substr($url, strlen(self::INDEX_PHP));
     }
     $urlParts = parse_url($url);
     $urlPath = $urlParts['path'];
