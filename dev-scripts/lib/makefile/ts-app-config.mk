@@ -1,8 +1,11 @@
 # Makefile fragment for generating a typescript ts-app-config.ts exporting
 # appName as string literal and AppName as its type.
 
+ifeq ($(TS_TYPES_DIR),)
+TS_TYPES_DIR := $(BUILDDIR)/ts-types
+endif
 TS_APP_CONFIG_IN = $(ABSSRCDIR)/dev-scripts/lib/templates/app-config.ts.in
-TS_APP_CONFIG = $(BUILDDIR)/ts-types/app-config.ts
+TS_APP_CONFIG = $(TS_TYPES_DIR)/app-config.ts
 
 #@private
 ts-app-config: $(TS_APP_CONFIG)
