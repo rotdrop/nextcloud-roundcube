@@ -24,7 +24,7 @@
 declare module '@nextcloud/files' {
 
   /**
-   * Incomplete interface for OC.Files.FileInfo which is actually a
+   * Incomplete interface for OC dot Files dot FileInfo which is actually a
      constructor for this thing. See core/src/files/fileinfo.js
    */
   export interface LegacyFileInfo {
