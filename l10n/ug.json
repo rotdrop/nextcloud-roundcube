@@ -16,6 +16,8 @@
     "Password" : "پارول",
     "Login succeeded." : "كىرىش مۇۋەپپەقىيەتلىك بولدى.",
     "Login failed." : "كىرىش مەغلۇب بولدى.",
+    "%1$s (renamed)" : "%1$s (قايتا ئسىملاندى)",
+    "renamed file" : "قايتا ئىسىملانغان ھۆججەت",
     "bytes" : "bytes",
     "The supplied color-string \"%s\" seems to be invalid." : "تەمىنلەنگەن رەڭلىك سىزىق \"% s\" ئىناۋەتسىزدەك قىلىدۇ.",
     "The input color values are invalid." : "كىرگۈزۈش رەڭ قىممىتى ئىناۋەتسىز.",
