@@ -3,6 +3,9 @@ OC.L10N.register(
     {
     "Unknown admin setting: \"%1$s\"" : "Tundmatu haldusseadistus: „%1$s“",
     "The admin setting \"%1$s\" is read-only" : "Haldusseadistus „%1$s“ on vaid lugemisõigustes",
+    "Scheme of external URL must be one of \"http\" or \"https\", but nothing was specified." : "Välise võrguaadressi alguses peab olema kas „http“ või „https“, aga mitte midagi sellist pole sisestatud.",
+    "Scheme of external URL must be one of \"http\" or \"https\", \"%s\" given." : "Välise võrguaadressi alguses peab olema kas „http“ või „https“, aga oli hoopis „%s“.",
+    "Host-part of external URL seems to be empty" : "Välise võrguaadressi serveriosa tundub olema tühi.",
     "Value \"%1$s\" for setting \"%2$s\" is not convertible to boolean." : "„%2$s“ seadistuse väärtus „%1$s“ pole teisendatav tõeväärtuse andmetüübiks.",
     "true" : "tõene",
     "false" : "väär",
@@ -18,6 +21,7 @@ OC.L10N.register(
     "renamed file" : "muudetud nimega fail",
     "Unable to sanitize filename \"%s\"." : "„%s“ failinime puhastamine polnud võimalik.",
     "bytes" : "baiti",
+    "The supplied color-string \"%s\" seems to be invalid." : "Sisestatud värvikood „%s“ tundub olema vigane.",
     "The input color values are invalid." : "Sisestatud värvide väärtused on vigased.",
     "Roundcube Mail" : "RoundCube'i veebimeil",
     "RoundCube Web Mail" : "RoundCube'i veebimeil",
@@ -49,6 +53,7 @@ OC.L10N.register(
     "RoundCube Installation Path" : "Roundcube'i paigalduse asukoht",
     "RoundCube path can be entered relative to the Nextcloud server" : "RoundCube'i asukoha võid sisestada suhtelisena Nextcloudi serveri suhtes",
     "Email Address Selection" : "E-posti aadressi valik",
+    "Cloud Login-Id" : "Pilvteenuse kasutajanimi",
     "User ID" : "Kasutajatunnus",
     "Email Domain" : "E-posti domeen",
     "User's Preferences" : "Kasutaja eelistused",
@@ -67,7 +72,11 @@ OC.L10N.register(
     "Globally configured as NEXTCLOUD_USER_ID@{emailDefaultDomainAdmin}" : "Seadistatud üldisena, kui NEXTCLOUD_USER_ID@{emailDefaultDomainAdmin}",
     "Globally configured as NEXTCLOUD_USER_ID" : "Seadistatud üldisena, kui NEXTCLOUD_USER_ID",
     "Globally configured as {fixedSingleEmailAddressAdmin}" : "Seadistatud üldisena, kui {fixedSingleEmailAddressAdmin}",
+    "Please specify an email address to use with RoundCube." : "Sisesta RoundCube'iga kasutatav e-posti aadress.",
     "Globally configured by the administrator" : "Peakasutaja poolt seadistatud üldisena",
+    "Email password for RoundCube, if needed." : "Sisesta RoundCube'i salasõna, kui see peaks olema vajalik.",
+    "Embedded RoundCube, Personal Settings" : "Lõimitud RoundCube'i isiklikud seadistused",
+    "Email Login Name" : "E-posti kasutajanimi",
     "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "{wrappedApp} liidese sisule pole võimalik ligi saada.\nSee võib olla seotud domeenide ristkasutuse piirangutega.\nPalun kontrolli, et sinu Nextcloudi server ({nextcloudUrl}) ja lõimitud {wrappedApp} ({iFrameUrl}) paikneksid samas domeenis."
 },
 "nplurals=2; plural=(n != 1);");
