@@ -53,4 +53,32 @@ trait BackedEnumTrait
   {
     return array_combine(self::values(), self::names());
   }
+
+    /**
+   * Try to convert a string which is either the value or the case name into
+   * the enum instance. If an enum instance is passed, it is just returned.
+   *
+   * @param mixed $key
+   *
+   * @return self
+   *
+   * @throws ValueError
+   * @throws Error
+   */
+  public static function get(mixed $key):self
+  {
+    if ($key instanceof self) {
+      return $key;
+    }
+    try {
+      $key = self::from($key);
+    } catch (ValueError) {
+      try {
+        $key = self::{$key};
+      } catch (Throwable $t) {
+        throw new InvalidArgumentException("{$key} is neither a value nor a key of {self::class}");
+      }
+    }
+    return $key;
+  }
 }
