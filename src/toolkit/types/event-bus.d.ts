@@ -65,6 +65,7 @@ declare module '@nextcloud/event-bus' {
       contents: Node[],
       view: View,
     },
+    'toggle-navigation': { open: boolean },
   }
 }
 

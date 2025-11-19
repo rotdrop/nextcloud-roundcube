@@ -27,6 +27,7 @@ import { loadState } from '@nextcloud/initial-state';
 export interface GetInitialStateArgs<D = Record<string, any> > {
   section: string,
   defaults?: D|null,
+  onError?: 'throw',
 }
 
 /**
@@ -37,10 +38,13 @@ export interface GetInitialStateArgs<D = Record<string, any> > {
  * @param args.defaults If an object return this if the initial state
  * cannot be loaded. If undefined or null return null. If undefined
  * report an error to the browser console if the state could not be
- *  found.
+ * found.
+ *
+ * @param args.onError If set to the literal 'throw' then an error is
+   thrown on error. Otherwise the function return just null on error.
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const getInitialState = <D = Record<string, any> >({ section, defaults }: GetInitialStateArgs<D> = { section: 'config' }) => {
+const getInitialState = <D = Record<string, any> >({ section, defaults, onError }: GetInitialStateArgs<D> = { section: 'config' }) => {
   try {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const result = loadState(appName, section) as D;
@@ -49,8 +53,13 @@ const getInitialState = <D = Record<string, any> >({ section, defaults }: GetIni
     if (defaults || defaults === null) {
       return defaults;
     }
-    console.error('error in loadState("' + section + '"): ', err);
-    return null;
+    const message = 'Error in loadState("' + section + '")';
+    if (onError === 'throw') {
+      throw new Error(message, { cause: err });
+    } else {
+      console.error(message, err);
+      return null;
+    }
   }
 };
 
