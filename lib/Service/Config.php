@@ -3,7 +3,7 @@
  * Nextcloud RoundCube App.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2020-2024 Claus-Justus Heine
+ * @copyright 2020-2025 Claus-Justus Heine
  * @license AGPL-3.0-or-later
  *
  * Nextcloud RoundCube App is free software: you can redistribute it and/or
@@ -309,8 +309,8 @@ class Config
   {
     $userEmail = null;
     $userPassword = null;
-    $emailAddressChoice = $this->getAppValue('emailAddressChoice', 'userPreferencesEmail');
-    $emailDefaultDomain = $this->getAppValue('emailDefaultDomain', '');
+    $emailAddressChoice = $this->getAppValue(self::EMAIL_ADDRESS_CHOICE, self::EMAIL_ADDRESS_CHOICE_USER_PREFERENCES);
+    $emailDefaultDomain = $this->getAppValue(self::EMAIL_DEFAULT_DOMAIN, self::EMAIL_DEFAULT_DOMAIN_DEFAULT);
     switch ($emailAddressChoice) {
       case self::EMAIL_ADDRESS_CHOICE_USER_ID:
         $userEmail = $this->user->getUID();
