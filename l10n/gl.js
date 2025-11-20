@@ -72,7 +72,7 @@ OC.L10N.register(
     "Disable when debugging with self-signed certificates." : "Desactivar ao depurar con certificados autoasinados.",
     "Enable SSL verification." : "Activar a verificación SSL.",
     "Encrypt per-user data -- in particular their email passwords -- with their personal cloud password. This implies that these settings will be lost when users forget their passwords. If unchecked the email login credentials are still protected by the server secret. The latter implies that an administrator is able to decrypt the login credentials, but the configuration data survives user password-loss." : "Cifra os datos por usuario, — en particular os seus contrasinais de correo — co seu contrasinal persoal na nube. Isto implica que esta configuración perderase cando os usuarios esquezan os seus contrasinais. Se non se marca, as credenciais de acceso do correo aínda están protexidas polo segredo do servidor. Isto último implica que un administrador pode descifrar as credenciais de acceso, mais os datos de configuración sobreviven á perda do contrasinal do usuario.",
-    "Per-user encryption of config values." : "Cifrado por usuario dos valores de configuración.",
+    "Per-user encryption of config values." : "Cifraxe por usuario dos valores de configuración.",
     "RoundCube CardDAV Tag" : "Etiqueta CardDAV de Roundcube",
     "Tag of a preconfigured CardDAV account pointing to the cloud addressbook. See the documentation of the RCMCardDAV plugin." : "Etiqueta dunha conta CardDAV preconfigurada que apunta ao caderno de enderezos na nube. Consulte a documentación do complemento RCMCardDAV.",
     "RCMCardDAV Plugin Configuration" : "Configuración do complemento RCMCardDAV",
