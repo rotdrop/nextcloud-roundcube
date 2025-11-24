@@ -19,6 +19,10 @@
 
 import Vue from 'vue';
 
+import Console from './console.ts';
+
+const logger = new Console('VUE-DEVTOOLS');
+
 // Unsane mixture between type and instance. How to cleanup?
 declare global {
   // eslint-disable-next-line
@@ -29,14 +33,24 @@ declare global {
 
 // Enabe dev-tools also needs unsafe-eval on script-src in the CSP.
 export const enableVueDevTools = () => {
-  if (window.__VUE_DEVTOOLS_GLOBAL_HOOK__) {
-    window.__VUE_DEVTOOLS_GLOBAL_HOOK__.enabled = true;
-    window.__VUE__ = Vue;
+  if (globalThis.__VUE_DEVTOOLS_GLOBAL_HOOK__) {
+    logger.info('**************** ENABLING VUE DEV-TOOLS ******************', {
+      globalThis,
+    });
+    globalThis.__VUE_DEVTOOLS_GLOBAL_HOOK__.enabled = true;
+    globalThis.__VUE__ = Vue;
+  } else {
+    logger.error('VUE-DEVTOOLS DOES NOT SEEM TO BE AVAILABLE', {
+      globalThis,
+    });
   }
 };
 
 export const disableVueDevTools = () => {
-  if (window.__VUE_DEVTOOLS_GLOBAL_HOOK__?.enabled) {
-    window.__VUE_DEVTOOLS_GLOBAL_HOOK__.enabled = false;
+  if (globalThis.__VUE_DEVTOOLS_GLOBAL_HOOK__?.enabled) {
+    globalThis.__VUE_DEVTOOLS_GLOBAL_HOOK__.enabled = false;
   }
 };
+
+export const vueDevTools = ({ enabled }: { enabled: boolean } = { enabled: true }) =>
+  enabled ? enableVueDevTools() : disableVueDevTools();
