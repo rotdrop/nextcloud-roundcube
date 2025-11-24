@@ -24,7 +24,8 @@
 
 namespace OCA\RotDrop\Toolkit\DTO;
 
-use DateTimeInterface;
+use DateTime;
+use DateTimeImmutable;
 use ReflectionClass;
 use ReflectionProperty;
 
@@ -57,7 +58,8 @@ abstract class AbstractDTO implements \JsonSerializable
     $result = [];
     foreach (static::$keys[static::class] as $key) {
       $value = $this->{$key};
-      if ($value instanceof DateTimeInterface) {
+      if ($value instanceof DateTime && get_class($value) === DateTime::class
+          || $value instanceof DateTimeImmutable && get_class($value) === DateTimeImmutable::class) {
         $value = $value->format(DateTime::W3C);
       }
       $result[$key] = $value;
