@@ -15,6 +15,7 @@
     "bytes" : "字节",
     "The supplied color-string \"%s\" seems to be invalid." : "提供的颜色字符串“%s”似乎是无效的。",
     "The input color values are invalid." : "输入的颜色值无效。",
+    "open" : "打开",
     "submit" : "提交",
     "Choose a folder" : "选择一个文件夹",
     "Invalid path selected: \"{dir}\"." : "选择了无效路径：“{dir}”。",
@@ -24,6 +25,7 @@
     "Hide password" : "隐藏密码",
     "User ID" : "用户ID",
     "Email Address" : "电子邮件地址",
-    "Advanced Settings" : "高级设置"
+    "Advanced Settings" : "高级设置",
+    "ClipBoard" : "剪贴板"
 },"pluralForm" :"nplurals=1; plural=0;"
 }
