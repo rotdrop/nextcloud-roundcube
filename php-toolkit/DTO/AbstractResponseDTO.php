@@ -25,7 +25,7 @@
 namespace OCA\RotDrop\Toolkit\DTO;
 
 use OCP\AppFramework\Http;
-use OCP\AppFramework\Http\DataResponse;
+use OCP\AppFramework\Http\JSONResponse;
 
 /**
  * Base class for DTOs.
@@ -39,8 +39,8 @@ abstract class AbstractResponseDTO extends AbstractDTO
    *
    * @return DataResponse
    */
-  public function response(int $httpStatusCode = Http::STATUS_OK): DataResponse
+  public function response(int $httpStatusCode = Http::STATUS_OK): JSONResponse
   {
-    return new DataResponse($this, statusCode: $httpStatusCode);
+    return new JSONResponse($this, statusCode: $httpStatusCode);
   }
 }

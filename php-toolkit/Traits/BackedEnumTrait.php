@@ -22,13 +22,17 @@
 
 namespace OCA\RotDrop\Toolkit\Traits;
 
+use InvalidArgumentException;
+use Throwable;
+use ValueError;
+
 /**
  * Some convenience stuff for PHP enums.
  */
 trait BackedEnumTrait
 {
   /**
-   * @return array<int, string> The names of the enum cases as flat array.
+   * @return array<string> The names of the enum cases as flat array.
    */
   public static function names(): array
   {
@@ -36,7 +40,7 @@ trait BackedEnumTrait
   }
 
   /**
-   * @return array<int, string> The values of the enum cases as flat array.
+   * @return array<string> The values of the enum cases as flat array.
    */
   public static function values(): array
   {
@@ -51,7 +55,7 @@ trait BackedEnumTrait
    */
   public static function array(): array
   {
-    return array_combine(self::values(), self::names());
+    return array_combine(self::names(), self::values());
   }
 
     /**
@@ -71,14 +75,19 @@ trait BackedEnumTrait
       return $key;
     }
     try {
-      $key = self::from($key);
-    } catch (ValueError) {
+      $instance = self::from($key);
+    } catch (ValueError $e) {
       try {
-        $key = self::{$key};
+        $instance = self::{$key};
       } catch (Throwable $t) {
-        throw new InvalidArgumentException("{$key} is neither a value nor a key of {self::class}");
+        $previous = new \ReflectionProperty($t, 'previous');
+        $previous->setValue($t, $e);
+        throw new InvalidArgumentException(
+          "{$key} is neither a value nor a key of {self::class}: " . print_r(self::array(), true),
+          previous: $t,
+        );
       }
     }
-    return $key;
+    return $instance;
   }
 }

@@ -28,11 +28,12 @@ use DateTime;
 use DateTimeImmutable;
 use ReflectionClass;
 use ReflectionProperty;
+use JsonSerializable;
 
 /**
  * Base class for DTOs.
  */
-abstract class AbstractDTO implements \JsonSerializable
+abstract class AbstractDTO implements JsonSerializable
 {
   protected static ?array $keys = [];
 
@@ -58,7 +59,9 @@ abstract class AbstractDTO implements \JsonSerializable
     $result = [];
     foreach (static::$keys[static::class] as $key) {
       $value = $this->{$key};
-      if ($value instanceof DateTime && get_class($value) === DateTime::class
+      if ($value instanceof JsonSerializable) {
+        $value = $value->jsonSerialize();
+      } elseif ($value instanceof DateTime && get_class($value) === DateTime::class
           || $value instanceof DateTimeImmutable && get_class($value) === DateTimeImmutable::class) {
         $value = $value->format(DateTime::W3C);
       }
