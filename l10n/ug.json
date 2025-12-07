@@ -81,6 +81,7 @@
     "Single sign-on is globally forced \"on\"." : "يەككە تىزىملاش دۇنيا مىقياسىدا «ئوچۇق».",
     "Email password for RoundCube, if needed." : "ئەگەر لازىم بولسا RoundCube نىڭ ئېلېكترونلۇق خەت پارولى.",
     "Embedded RoundCube, Personal Settings" : "قىستۇرما RoundCube ، شەخسىي تەڭشەكلەر",
-    "Email Login Name" : "ئېلخەت كىرىش ئىسمى"
+    "Email Login Name" : "ئېلخەت كىرىش ئىسمى",
+    "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "ئورالغان {wrappedApp} مىسالىنىڭ مەزمۇنىغا كىرەلمىدى.\nبۇنىڭ سەۋەبى تور دائىرىسى ئارا كىرىش چەكلىمىسى بولۇشى مۇمكىن.\nNextcloud مىسالىڭىز ({nextcloudUrl}) بىلەن ئورالغان {wrappedApp} مىسالىڭىز ({iFrameUrl}) نىڭ ئوخشاش تور دائىرىسىدىن ئەۋەتىلگەنلىكىنى تەكشۈرۈڭ."
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
