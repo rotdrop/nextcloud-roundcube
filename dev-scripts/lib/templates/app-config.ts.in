@@ -19,4 +19,6 @@
  */
 
 export type AppName = '@@APP_NAME@@';
+export type AppVersion = '@@APP_VERSION@@';
 export const appName: AppName = '@@APP_NAME@@';
+export const appVersion: AppVersion = '@@APP_VERSION@@';

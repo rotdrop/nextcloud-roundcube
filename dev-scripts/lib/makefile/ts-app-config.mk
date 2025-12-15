@@ -14,4 +14,4 @@ ts-app-config: $(TS_APP_CONFIG)
 #@private
 $(TS_APP_CONFIG): Makefile $(APP_INFO) $(TS_APP_CONFIG_IN)
 	mkdir -p $$(dirname $@)
-	sed 's/@@APP_NAME@@/$(APP_NAME)/g' $(TS_APP_CONFIG_IN) > $@
+	sed -e 's/@@APP_NAME@@/$(APP_NAME)/g' -e 's/@@APP_VERSION@@/$(APP_VERSION)/g' $(TS_APP_CONFIG_IN) > $@
