@@ -16,6 +16,8 @@
     "Password" : "Heslo",
     "Login succeeded." : "Prihlásenie bolo úspešné.",
     "Login failed." : "Prihlásenie zlyhalo.",
+    "%1$s (renamed)" : "%1$s (premenovaný)",
+    "renamed file" : "premenovaný súbor",
     "bytes" : "bajty",
     "The supplied color-string \"%s\" seems to be invalid." : "Zdá sa, že dodaný reťazec farby \"%s“ je neplatný.",
     "The input color values are invalid." : "Hodnoty vstupných farieb sú neplatné.",
