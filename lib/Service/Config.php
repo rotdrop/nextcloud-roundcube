@@ -67,7 +67,7 @@ class Config
   public const ENABLE_SSL_VERIFY = 'enableSSLVerify';
   public const ENABLE_SSL_VERIFY_DEFAULT = true;
   public const ENABLE_TLS_CLIENT_CERTIFICATES = 'enableTLSClientCertificates';
-  public const ENABLE_SSL_VERIFY_DEFAULT = false;
+  public const ENABLE_TLS_CLIENT_CERTIFICATES_DEFAULT = false;
   public const PERSONAL_ENCRYPTION = 'personalEncryption';
   public const PERSONAL_ENCRYPTION_DEFAULT = false;
   public const CARDDAV_PROVISIONG_TAG = 'cardDavProvisioningTag';
