@@ -58,6 +58,7 @@ class AuthRoundCube
 
   /** @var bool */
   private $enableSSLVerify;
+  private $enableClientTLSCertificates;
 
   private $proto;
   private $host;
@@ -80,6 +81,7 @@ class AuthRoundCube
     protected ILogger $logger,
   ) {
     $this->enableSSLVerify = $this->config->getAppValue(Config::ENABLE_SSL_VERIFY);
+    $this->enableClientTLSCertificates = $this->config->getAppValue(Config::ENABLE_TLS_CLIENT_CERTIFICATES);
 
     $location = $this->config->getAppValue(Config::EXTERNAL_LOCATION);
     if ($location[0] == '/') {
@@ -458,6 +460,12 @@ class AuthRoundCube
         $curlOpts[CURLOPT_SSL_VERIFYPEER] = false;
         $curlOpts[CURLOPT_SSL_VERIFYHOST] = 0;
       }
+      if ($this->enableClientTLSCertificates) {
+        $curlOpts[CURLOPT_SSLKEY] = "TODO-ClientCertificate.key";
+        $curlOpts[CURLOPT_SSLCERT] = "TODO-ClientCertificate.pem";
+        $curlOpts[CURLOPT_SSLKEYPASSWD] = "TODO-ClientCertificatePassword";
+      }
+
       curl_setopt_array($curl, $curlOpts);
 
       $rawResponse = curl_exec($curl);

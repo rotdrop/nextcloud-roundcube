@@ -66,6 +66,8 @@ class Config
   public const SHOW_TOP_LINE_DEFAULT = false;
   public const ENABLE_SSL_VERIFY = 'enableSSLVerify';
   public const ENABLE_SSL_VERIFY_DEFAULT = true;
+  public const ENABLE_TLS_CLIENT_CERTIFICATES = 'enableTLSClientCertificates';
+  public const ENABLE_SSL_VERIFY_DEFAULT = false;
   public const PERSONAL_ENCRYPTION = 'personalEncryption';
   public const PERSONAL_ENCRYPTION_DEFAULT = false;
   public const CARDDAV_PROVISIONG_TAG = 'cardDavProvisioningTag';
@@ -78,6 +80,7 @@ class Config
     self::FORCE_SSO => self::FORCE_SSO_DEFAULT,
     self::SHOW_TOP_LINE => self::SHOW_TOP_LINE_DEFAULT,
     self::ENABLE_SSL_VERIFY => self::ENABLE_SSL_VERIFY_DEFAULT,
+    self::ENABLE_TLS_CLIENT_CERTIFICATES => self::ENABLE_TLS_CLIENT_CERTIFICATES_DEFAULT,
     self::PERSONAL_ENCRYPTION => self::PERSONAL_ENCRYPTION_DEFAULT,
     self::CARDDAV_PROVISIONG_TAG => self::CARDDAV_PROVISIONG_TAG_DEFAULT,
   ];
