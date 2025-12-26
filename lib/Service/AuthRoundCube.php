@@ -55,6 +55,9 @@ class AuthRoundCube
 
   /** @var string */
   private $appName;
+  private $clientTLSKeyFile;
+  private $clientTLSCertificateFile;
+  private $clientTLSKeyPassword;
 
   /** @var bool */
   private $enableSSLVerify;
@@ -82,6 +85,9 @@ class AuthRoundCube
   ) {
     $this->enableSSLVerify = $this->config->getAppValue(Config::ENABLE_SSL_VERIFY);
     $this->enableClientTLSCertificates = $this->config->getAppValue(Config::ENABLE_TLS_CLIENT_CERTIFICATES);
+    $this->clientTLSKeyFile = $this->config->getAppValue(Config::CLIENT_TLS_KEY_FILE);
+    $this->clientTLSCertificateFile = $this->config->getAppValue(Config::CLIENT_TLS_CERTIFICATE_FILE);
+    $this->clientTLSKeyPassword = $this->config->getAppValue(Config::CLIENT_TLS_KEY_PASSWORD);
 
     $location = $this->config->getAppValue(Config::EXTERNAL_LOCATION);
     if ($location[0] == '/') {
@@ -461,9 +467,9 @@ class AuthRoundCube
         $curlOpts[CURLOPT_SSL_VERIFYHOST] = 0;
       }
       if ($this->enableClientTLSCertificates) {
-        $curlOpts[CURLOPT_SSLKEY] = "TODO-ClientCertificate.key";
-        $curlOpts[CURLOPT_SSLCERT] = "TODO-ClientCertificate.pem";
-        $curlOpts[CURLOPT_SSLKEYPASSWD] = "TODO-ClientCertificatePassword";
+        $curlOpts[CURLOPT_SSLKEY] = $this->clientTLSKeyFile;
+        $curlOpts[CURLOPT_SSLCERT] = $this->clientTLSCertificateFile;
+        $curlOpts[CURLOPT_SSLKEYPASSWD] = $this->clientTLSKeyPassword;
       }
 
       curl_setopt_array($curl, $curlOpts);

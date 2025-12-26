@@ -68,6 +68,12 @@ class Config
   public const ENABLE_SSL_VERIFY_DEFAULT = true;
   public const ENABLE_TLS_CLIENT_CERTIFICATES = 'enableTLSClientCertificates';
   public const ENABLE_TLS_CLIENT_CERTIFICATES_DEFAULT = false;
+  public const CLIENT_TLS_KEY_FILE = 'clientTLSKeyFile';
+  public const CLIENT_TLS_KEY_FILE_DEFAULT = '';
+  public const CLIENT_TLS_CERTIFICATE_FILE = 'clientTLSCertificateFile';
+  public const CLIENT_TLS_CERTIFICATE_FILE_DEFAULT = '';
+  public const CLIENT_TLS_KEY_PASSWORD = 'clientTLSKeyPassword';
+  public const CLIENT_TLS_KEY_PASSWORD_DEFAULT = '';
   public const PERSONAL_ENCRYPTION = 'personalEncryption';
   public const PERSONAL_ENCRYPTION_DEFAULT = false;
   public const CARDDAV_PROVISIONG_TAG = 'cardDavProvisioningTag';
@@ -81,6 +87,9 @@ class Config
     self::SHOW_TOP_LINE => self::SHOW_TOP_LINE_DEFAULT,
     self::ENABLE_SSL_VERIFY => self::ENABLE_SSL_VERIFY_DEFAULT,
     self::ENABLE_TLS_CLIENT_CERTIFICATES => self::ENABLE_TLS_CLIENT_CERTIFICATES_DEFAULT,
+    self::CLIENT_TLS_KEY_FILE => self::CLIENT_TLS_KEY_FILE_DEFAULT,
+    self::CLIENT_TLS_CERTIFICATE_FILE => self::CLIENT_TLS_CERTIFICATE_FILE_DEFAULT,
+    self::CLIENT_TLS_KEY_PASSWORD => self::CLIENT_TLS_KEY_PASSWORD_DEFAULT,
     self::PERSONAL_ENCRYPTION => self::PERSONAL_ENCRYPTION_DEFAULT,
     self::CARDDAV_PROVISIONG_TAG => self::CARDDAV_PROVISIONG_TAG_DEFAULT,
   ];
