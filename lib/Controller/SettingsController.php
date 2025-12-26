@@ -61,7 +61,7 @@ class SettingsController extends Controller
     Config::SHOW_TOP_LINE => [ 'rw' => true, 'default' => Config::SHOW_TOP_LINE_DEFAULT, ],
     Config::ENABLE_SSL_VERIFY => [ 'rw' => true, 'default' => Config::ENABLE_SSL_VERIFY_DEFAULT, ],
     Config::ENABLE_TLS_CLIENT_CERTIFICATES => [ 'rw' => true, 'default' => Config::ENABLE_TLS_CLIENT_CERTIFICATES_DEFAULT, ],
-    Config::CLIENT_TLS_KEY_FILE => [ 'rw' => true, 'default' => Config::CLIENT_TLS_KEY_FILE_DEFAULT, ]
+    Config::CLIENT_TLS_KEY_FILE => [ 'rw' => true, 'default' => Config::CLIENT_TLS_KEY_FILE_DEFAULT, ],
     Config::CLIENT_TLS_CERTIFICATE_FILE => [ 'rw' => true, 'default' => Config::CLIENT_TLS_CERTIFICATE_FILE_DEFAULT, ],
     Config::CLIENT_TLS_KEY_PASSWORD => [ 'rw' => true, 'default' => Config::CLIENT_TLS_KEY_PASSWORD_DEFAULT, ],
     Config::PERSONAL_ENCRYPTION => [ 'rw' => true, 'default' => Config::PERSONAL_ENCRYPTION_DEFAULT, ],
