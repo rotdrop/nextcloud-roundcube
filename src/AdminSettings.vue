@@ -170,6 +170,62 @@
       >
         {{ t(appName, 'Enable SSL verification.') }}
       </label>
+      <input id="enable-tls-client-certificates"
+             v-model="settings.enableTLSClientCertificates"
+             class="checkbox"
+             type="checkbox"
+             name="enableTLSClientCertificates"
+             value="1"
+             :disabled="loading"
+             @change="saveSetting('enableTLSClientCertificates')"
+      >
+      <label for="enable-tls-client-certificates"
+             :title="t(appName, 'Enable when mutual TLS is enforced on the webserver.')"
+      >
+        {{ t(appName, 'Enable TLS Client Certificates.') }}
+      </label>
+      <input id="client-tls-key-file"
+             v-model="settings.clientTLSKeyFile"
+             class="checkbox"
+             type="checkbox"
+             name="clientTLSKeyFile"
+             value="1"
+             :disabled="loading"
+             @change="saveSetting('clientTLSKeyFile')"
+      >
+      <label for="client-tls-key-file"
+             :title="t(appName, 'Filename for the private key used for mutual TLS.')"
+      >
+        {{ t(appName, 'Filename for the client private key.') }}
+      </label>
+      <input id="client-tls-certificate-file"
+             v-model="settings.clientTLSCertificateFile"
+             class="checkbox"
+             type="checkbox"
+             name="clientTLSCertificateFile"
+             value="1"
+             :disabled="loading"
+             @change="saveSetting('clientTLSCertificateFile')"
+      >
+      <label for="client-tls-certificate-file"
+             :title="t(appName, 'Filename for the certificate used for mutual TLS.')"
+      >
+        {{ t(appName, 'FIlename for the client certificate.') }}
+      </label>
+      <input id="client-tls-key-password`"
+             v-model="settings.clientTLSKeyPassword"
+             class="checkbox"
+             type="checkbox"
+             name="clientTLSKeyPassword"
+             value="1"
+             :disabled="loading"
+             @change="saveSetting('clientTLSKeyPassword')"
+      >
+      <label for="enable-tls-key-password"
+             :title="t(appName, 'Password for the private key file.')"
+      >
+        {{ t(appName, 'Private key password.') }}
+      </label>
       <input id="personal-encryption"
              v-model="settings.personalEncryption"
              class="checkbox"
@@ -266,6 +322,10 @@ const settings = reactive({
   forceSSO: false,
   showTopLine: false,
   enableSSLVerify: true,
+  enableTLSClientCertificates: false,
+  clientTLSKeyFile: '',
+  clientTLSCertificateFile: '',
+  clientTLSKeyPassword: '',
   personalEncryption: false,
   cardDavProvisioningTag: '',
 })
