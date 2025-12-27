@@ -151,6 +151,9 @@ class SettingsController extends Controller
       case Config::EMAIL_ADDRESS_CHOICE:
       case Config::FIXED_SINGLE_EMAIL_ADDRESS:
       case Config::CARDDAV_PROVISIONG_TAG:
+      case Config::CLIENT_TLS_KEY_FILE:
+      case Config::CLIENT_TLS_CERTIFICATE_FILE:
+      case Config::CLIENT_TLS_KEY_PASSWORD:
         $newValue = $value;
         break;
       case Config::FIXED_SINGLE_EMAIL_PASSWORD:
@@ -240,6 +243,9 @@ class SettingsController extends Controller
         case Config::EMAIL_ADDRESS_CHOICE:
         case Config::FIXED_SINGLE_EMAIL_ADDRESS:
         case Config::CARDDAV_PROVISIONG_TAG:
+        case Config::CLIENT_TLS_KEY_FILE:
+        case Config::CLIENT_TLS_CERTIFICATE_FILE:
+        case Config::CLIENT_TLS_KEY_PASSWORD:
           break;
         case Config::FIXED_SINGLE_EMAIL_PASSWORD:
           $humanValue = '●●●●●●●●';
