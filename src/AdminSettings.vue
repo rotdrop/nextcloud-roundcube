@@ -182,50 +182,29 @@
       <label for="enable-tls-client-certificates"
              :title="t(appName, 'Enable when mutual TLS is enforced on the webserver.')"
       >
-        {{ t(appName, 'Enable TLS Client Certificates.') }}
+        {{ t(appName, 'Enable TLS Client Certificate support (mutual TLS)') }}
       </label>
-      <input id="client-tls-key-file"
-             v-model="settings.clientTLSKeyFile"
-             class="checkbox"
-             type="checkbox"
-             name="clientTLSKeyFile"
-             value="1"
-             :disabled="loading"
-             @change="saveSetting('clientTLSKeyFile')"
-      >
-      <label for="client-tls-key-file"
-             :title="t(appName, 'Filename for the private key used for mutual TLS.')"
-      >
-        {{ t(appName, 'Filename for the client private key.') }}
-      </label>
-      <input id="client-tls-certificate-file"
-             v-model="settings.clientTLSCertificateFile"
-             class="checkbox"
-             type="checkbox"
-             name="clientTLSCertificateFile"
-             value="1"
-             :disabled="loading"
-             @change="saveSetting('clientTLSCertificateFile')"
-      >
-      <label for="client-tls-certificate-file"
-             :title="t(appName, 'Filename for the certificate used for mutual TLS.')"
-      >
-        {{ t(appName, 'FIlename for the client certificate.') }}
-      </label>
-      <input id="client-tls-key-password`"
-             v-model="settings.clientTLSKeyPassword"
-             class="checkbox"
-             type="checkbox"
-             name="clientTLSKeyPassword"
-             value="1"
-             :disabled="loading"
-             @change="saveSetting('clientTLSKeyPassword')"
-      >
-      <label for="enable-tls-key-password"
-             :title="t(appName, 'Password for the private key file.')"
-      >
-        {{ t(appName, 'Private key password.') }}
-      </label>
+      <TextField :value.sync="settings.clientTLSKeyFile"
+                 type="text"
+                 :label="t(appName, 'Filename for the client TLS private key')"
+                 :helper-text="t(appName, 'Filename for the private key used for mutual TLS')"
+                 :disabled="loading"
+                 @submit="saveTextInput('clientTLSKeyFile')"
+      />
+      <TextField :value.sync="settings.clientTLSCertificateFile"
+                 type="text"
+                 :label="t(appName, 'Filename for the client TLS certificate')"
+                 :helper-text="t(appName, 'Filename for the certificate used for mutual TLS')"
+                 :disabled="loading"
+                 @submit="saveTextInput('clientTLSCertificateFile')"
+      />
+      <TextField :value.sync="settings.clientTLSKeyPassword"
+                 type="text"
+                 :label="t(appName, 'Password for the TLS private key file')"
+                 :helper-text="t(appName, 'Password used to decrypt the provided private key file')"
+                 :disabled="loading"
+                 @submit="saveTextInput('clientTLSKeyPassword')"
+      />
       <input id="personal-encryption"
              v-model="settings.personalEncryption"
              class="checkbox"
