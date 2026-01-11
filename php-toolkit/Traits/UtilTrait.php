@@ -3,7 +3,7 @@
  * A collection of reusable traits classes for Nextcloud apps.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022, 2023, 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022, 2023, 2025, 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -33,48 +33,10 @@ use OCP\IL10N;
 trait UtilTrait
 {
   use BracedPlaceholderTrait;
+  use CamelCaseToDashesTrait;
 
   /** @var IL10N */
   protected IL10N $l;
-
-  /**
-   * Take any dashed or "underscored" lower-case string and convert to
-   * camel-case.
-   *
-   * @param string $string the string to convert.
-   *
-   * @param bool $capitalizeFirstCharacter self explaining.
-   *
-   * @param string $dashes Characters to replace.
-   *
-   * @return string
-   */
-  protected static function dashesToCamelCase(string $string, bool $capitalizeFirstCharacter = false, string $dashes = '_-'):string
-  {
-    $str = str_replace(str_split($dashes), '', ucwords($string, $dashes));
-
-    if (!$capitalizeFirstCharacter) {
-      $str[0] = strtolower($str[0]);
-    }
-
-    return $str;
-  }
-
-  /**
-   * Take an camel-case string and convert to lower-case with dashes
-   * or underscores between the words. First letter may or may not
-   * be upper case.
-   *
-   * @param string $string String to work on.
-   *
-   * @param string $separator Separator to use, defaults to '-'.
-   *
-   * @return string
-   */
-  protected static function camelCaseToDashes(string $string, string $separator = '-'):string
-  {
-    return strtolower(preg_replace('/([A-Z])/', $separator.'$1', lcfirst($string)));
-  }
 
   /**
    * Return the locale as string, e.g. de_DE.UTF-8.

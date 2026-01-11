@@ -42,6 +42,8 @@ class Constants
   public const WEB_ASSET_META = self::JS . self::PATH_SEPARATOR . 'asset-meta.json';
   public const INFO_FILE = 'appinfo' . self::PATH_SEPARATOR . 'info.xml';
 
+  public const ENUM_VALUE_L10N_TAG = 'ENUMVALUE';
+
   // The following will be moved to the ResponseTrait as soon as >= PHP 8.2 is feasible
   public const RENDER_AS_GUEST = TemplateResponse::RENDER_AS_GUEST;
   public const RENDER_AS_BLANK = 'blank';

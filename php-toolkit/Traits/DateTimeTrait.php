@@ -20,6 +20,8 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+declare(strict_types=1);
+
 namespace OCA\RotDrop\Toolkit\Traits;
 
 use DateTime;
@@ -38,7 +40,7 @@ trait DateTimeTrait
    *
    * @return DateTimeInterface
    */
-  public static function ensureDate(?DateTimeInterface $dateTime):DateTimeInterface
+  protected static function ensureDate(?DateTimeInterface $dateTime):DateTimeInterface
   {
     return $dateTime ?? new DateTimeImmutable('@1');
   }
@@ -46,16 +48,16 @@ trait DateTimeTrait
   /**
    * @param null|string|int|float|\DateTimeInterface $dateTime
    *
-   * @return null|\DateTimeImmutable
+   * @return ?DateTimeImmutable
    */
-  public static function convertToDateTime($dateTime):?DateTimeImmutable
+  protected static function convertToDateTime(null|string|int|float|DateTimeInterface $dateTime): ?DateTimeImmutable
   {
     if ($dateTime === null || $dateTime === '') {
       return null;
     } elseif (!($dateTime instanceof DateTimeInterface)) {
-      $timeStamp = filter_var($dateTime, FILTER_VALIDATE_INT, [ 'min_range' => 1 ]);
+      $timeStamp = filter_var($dateTime, FILTER_VALIDATE_INT, ['options' => ['min_range' => 1]]);
       if ($timeStamp === false) {
-        $timeStamp = filter_var($dateTime, FILTER_VALIDATE_FLOAT, [ 'min_range' => 1 ]);
+        $timeStamp = filter_var($dateTime, FILTER_VALIDATE_FLOAT, ['options' => ['min_range' => 1]]);
       }
       if ($timeStamp !== false) {
         // NOTE: setTimestamp() cannot be used for sub-second resolution.
@@ -67,12 +69,10 @@ trait DateTimeTrait
       }
     } elseif ($dateTime instanceof DateTime) {
       return DateTimeImmutable::createFromMutable($dateTime);
-    } elseif ($dateTime instanceof DateTimeImmutable) {
-      return $dateTime;
     } else {
-      throw new InvalidArgumentException('Unsupported date-time class: '.get_class($dateTime));
+      return $dateTime;
     }
-    return null; // not reached
+    // Not reached.
   }
 
   /**
@@ -86,8 +86,10 @@ trait DateTimeTrait
    *
    * @todo Rework time-zone stuff.
    */
-  public static function convertToTimezoneDate(DateTimeInterface $date, ?DateTimeZone $timeZone = null):DateTimeImmutable
-  {
+  protected static function convertToTimezoneDate(
+    DateTimeInterface $date,
+    ?DateTimeZone $timeZone = null,
+  ):DateTimeImmutable {
     if ($timeZone === null) {
       $timeZone = $date->getTimezone();
     }
