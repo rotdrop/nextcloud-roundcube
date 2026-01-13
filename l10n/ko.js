@@ -21,6 +21,7 @@ OC.L10N.register(
     "Choose a prefix-folder" : "접두사 폴더 지정",
     "Invalid path selected: \"{dir}\"." : "잘못된 경로가 지정됨: \"{dir}\"",
     "Selected path: \"{dir}/{base}/\"." : "지정한 경로: \"{dir}/{base}/\"",
+    "Reset Changes" : "변경 사항 초기화",
     "Clear Selection" : "선택 초기화",
     "Show password" : "암호 표시",
     "User ID" : "유저 ID",
