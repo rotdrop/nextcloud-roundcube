@@ -6,17 +6,18 @@
 # of PHP scoper, but much simpler as we have full control over our own
 # sources ;)
 
-SRC_DIR=$(realpath $(dirname $0)/..)
+SRC_DIR=$(realpath "$(dirname "$0")"/..)
 DST_DIR=$([ -n "$1" ] && realpath "$1")
 NS_PREFIX=$2
 
 if [ -z "$DST_DIR" ] || [ -z "$NS_PREFIX" ]; then
     cat <<EOF
-Usage: $(basename $0) DST_DIR NAMESPACE_PREFIX
+Usage: $(basename "$0") DST_DIR NAMESPACE_PREFIX
 EOF
     exit 1
 fi
 
-rsync -a --delete $SRC_DIR/[A-Z]* $DST_DIR/.
-find $DST_DIR -name '*.php' -exec sed -Ei 's/([\]?)OCA\\RotDrop\\Toolkit/\1OCA\\'$NS_PREFIX'\\Toolkit/g'  {} \;
-find $DST_DIR -exec touch {} \;
+mkdir -p "$DST_DIR"/.
+rsync -a --delete "$SRC_DIR"/[A-Z]* "$DST_DIR"/.
+find "$DST_DIR" -name '*.php' -exec sed -Ei 's/([\]?)OCA\\RotDrop\\Toolkit/\1OCA\\'"$NS_PREFIX"'\\Toolkit/g'  {} \;
+find "$DST_DIR" -exec touch {} \;
