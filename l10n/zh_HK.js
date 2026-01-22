@@ -67,7 +67,7 @@ OC.L10N.register(
     "Global Email Password" : "全局電郵密碼",
     "Email Password" : "電郵密碼",
     "Advanced Settings" : "進階設定",
-    "Force single sign on (disables custom password)." : "強制單點登錄（禁用自定義密碼）。",
+    "Force single sign on (disables custom password)." : "強制單點登錄（禁用自訂密碼）。",
     "Show RoundCube top information bar (shows logout button)." : "顯示 RoundCube 頂部資訊欄（顯示登出按鈕）。",
     "Disable when debugging with self-signed certificates." : "使用自簽名證書調試時停用。",
     "Enable SSL verification." : "啟用 SSL 驗證。",
