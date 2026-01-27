@@ -3,7 +3,7 @@
  * A collection of reusable traits classes for Nextcloud apps.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022, 2023, 2025, 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -20,28 +20,34 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace OCA\RotDrop\Toolkit\Traits;
+namespace OCA\RotDrop\Toolkit\Response;
+
+use InvalidArgumentException;
+
+use GuzzleHttp\Psr7\Response;
 
 /**
- * Supply a dummy t() function in order to inject strings into the translation
- * machinery.
- *
- * @SuppressWarnings(PHPMD.ShortMethodName)
+ * Yet another class defining Http status codes.
  */
-trait FakeTranslationTrait
+class HttpStatus
 {
   /**
-   * @param string $text
+   * Ask Guzzle\Psr7 for the reason phrase.
    *
-   * @param string|array $parameters
+   * @param int $httpStatusCode
    *
-   * @return string
+   * @return ?string
    */
-  protected static function t(string $text, string|array $parameters = []):string
+  public static function getPhrase(int $httpStatusCode): ?string
   {
-    if (!is_array($parameters)) {
-      $parameters = [ $parameters ];
+    try {
+      $phrase = new Response()->withStatus($httpStatusCode)->getReasonPhrase();
+    } catch (InvalidArgumentException) {
+      return null;
     }
-    return empty($parameters) ? $text : vsprintf($text, $parameters);
+    if ($phrase === (string)$httpStatusCode) {
+      return null;
+    }
+    return $phrase;
   }
 }
