@@ -22,6 +22,7 @@
 
 namespace OCA\RotDrop\Toolkit\Traits;
 
+use BadMethodCallException;
 use InvalidArgumentException;
 use Throwable;
 use ValueError;
@@ -52,17 +53,22 @@ trait TranslatableEnumTrait
   public static function getL10NValues(IL10N $l): array
   {
     $values = self::values();
-    return array_combine(
-      $values,
-      array_map(
-        function(string $value) use ($l) {
-          $prefix = self::l10nTag();
-          $l10nValue = $l->t($prefix . $value);
-          return ($l10nValue === $value || $l10nValue === $prefix . $value) ? $l->t($value) : $l10nValue;
-        },
-        $values,
-      ),
-    );
+    return array_combine($values, array_map(fn(self $case) => $case->t($l), self::cases()));
+  }
+
+  /**
+   * @param IL10N $l
+   *
+   * @return string The translated value.
+   *
+   * @SuppressWarnings(PHPMD.ShortMethodName)
+   */
+  public function t(IL10N $l): string
+  {
+    $prefix = self::l10nTag();
+    $value = $this->value;
+    $l10nValue = $l->t($prefix . $value);
+    return ($l10nValue === $value || $l10nValue === $prefix . $value) ? $l->t($value) : $l10nValue;
   }
 
   /** @return string */
@@ -74,5 +80,32 @@ trait TranslatableEnumTrait
     }
     $classBaseName = strtoupper(self::camelCaseToDashes($classBaseName, separator: '_'));
     return self::L10N_TAG . '_' . $classBaseName . ': ';
+  }
+
+  /**
+   * @param string $name Mehthod name. Must be equal to an existing case.
+   *
+   * @param array<string> $arguments Method arguments. Must either be empty or
+   * contain an IL10N object.
+   *
+   * @return string
+   *
+   * @throws BadMethodCallException
+   */
+  public static function __callstatic(string $name, array $arguments)
+  {
+    try {
+      $instance = self::{$name};
+    } catch (Throwable $t) {
+      throw new BadMethodCallException('The given method "' . $name . '" does not exist.', previous: $t);
+    }
+    if (count($arguments) > 1) {
+      throw new BadMethodCallException('The given method "' . $name . '" takes at most one argument.');
+    }
+    $l = $arguments[0] ?? null;
+    if ($l && !($l instanceof IL10N)) {
+      throw new InvalidArgumentException('The single argument of the given method "' . $name . '" must be an instance of "' . IL10N::class . '".');
+    }
+    return $l ? $instance->t($l) : $instance->value;
   }
 }

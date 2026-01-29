@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace OCA\RotDrop\Toolkit\Traits;
 
+use BadMethodCallException;
 use InvalidArgumentException;
 use ReflectionClass;
 use Throwable;
@@ -94,5 +95,27 @@ trait BackedEnumTrait
       }
     }
     return $instance;
+  }
+
+  /**
+   * @param string $name Mehthod name. Must be equal to an existing case.
+   *
+   * @param array<string> $arguments Method arguments. Must be empty.
+   *
+   * @return string
+   *
+   * @throws BadMethodCallException
+   */
+  public static function __callstatic(string $name, array $arguments)
+  {
+    try {
+      $instance = self::{$name};
+    } catch (Throwable $t) {
+      throw new BadMethodCallException('The given method "' . $name . '" does not exist.', previous: $t);
+    }
+    if (count($arguments) > 0) {
+      throw new BadMethodCallException('The given method "' . $name . '" takes no arguments.');
+    }
+    return $instance->value;
   }
 }
