@@ -1,9 +1,9 @@
 <?php
 /**
- * A collection of reusable traits classes for Nextcloud apps.
+ * Some PHP utility functions for Nextcloud apps.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022, 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2025, 2026 Claus-Justus Heine
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -20,26 +20,27 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace OCA\RotDrop\Toolkit\Traits;
-
-use OCA\RotDrop\Toolkit\Service\AppInfoService;
+namespace OCA\RotDrop\Toolkit\Exceptions;
 
 /**
- * Trait which extracts the app-name from the info.xml file for cases where it
- * cannot be supplied by the cloud.
+ * Exception thrown by  OCA\RotDrop\Toolkit\Doctrine\ORM\EntitySerializer\EntitySerializer.
  */
-trait AppNameTrait
+class EntitySerializationException extends DatabaseException
 {
-  /**
-   * @param string $classDir The value of __DIR__ of the consuming class.
-   *
-   * @return null|string The app-name from the info.xml file or null if that
-   * cannot be found.
-   *
-   * @todo Remove unused parameter.
-   */
-  protected static function getAppInfoAppName(string $classDir): ?string
+  // phpcs:disable Squiz.Commenting.FunctionComment.Missing
+  public function __construct(
+    string $message,
+    protected mixed $entity,
+    int $code = 0,
+    $previous = null,
+  ) {
+    parent::__construct($message, $code, $previous);
+  }
+  // phpcs:enable
+
+  /** @return mixed */
+  public function getEntity():mixed
   {
-    return AppInfoService::getAppInfoAppName();
+    return $this->entity;
   }
 }

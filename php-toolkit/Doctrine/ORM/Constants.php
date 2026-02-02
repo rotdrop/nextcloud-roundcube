@@ -1,9 +1,9 @@
 <?php
 /**
- * A collection of reusable traits classes for Nextcloud apps.
+ * Some PHP utility functions for Nextcloud apps.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022, 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022-2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -20,26 +20,25 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace OCA\RotDrop\Toolkit\Traits;
+namespace OCA\RotDrop\Toolkit\Doctrine\ORM;
 
-use OCA\RotDrop\Toolkit\Service\AppInfoService;
+use Spatie\TypeScriptTransformer\Attributes as TSAttributes;
 
 /**
- * Trait which extracts the app-name from the info.xml file for cases where it
- * cannot be supplied by the cloud.
+ * Provide some constants for options understood by the FindLikeTrait.
  */
-trait AppNameTrait
+#[TSAttributes\TypeScript]
+class Constants
 {
-  /**
-   * @param string $classDir The value of __DIR__ of the consuming class.
+    /**
+   * @var string
    *
-   * @return null|string The app-name from the info.xml file or null if that
-   * cannot be found.
-   *
-   * @todo Remove unused parameter.
+   * The very first array element to findBy() as defined in
+   * \OCA\CAFEVDB\Database\Doctrine\ORM\Traits\FindLikeTrait may contain
+   * options if it is strictly equal to this value.
    */
-  protected static function getAppInfoAppName(string $classDir): ?string
-  {
-    return AppInfoService::getAppInfoAppName();
-  }
+  public const QUERY_OPTIONS_KEY = EntityRepository::QUERY_OPTIONS_KEY;
+  public const QUERY_OPTION_WILDCARDS = EntityRepository::QUERY_OPTION_WILDCARDS;
+  public const WILDCARD_QUERY_OPTIONS = EntityRepository::WILDCARD_QUERY_OPTIONS;
+
 }

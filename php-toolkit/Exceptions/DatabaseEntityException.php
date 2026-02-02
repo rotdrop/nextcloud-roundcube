@@ -1,9 +1,9 @@
 <?php
 /**
- * A collection of reusable traits classes for Nextcloud apps.
+ * Some PHP utility functions for Nextcloud apps.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022, 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2025, 2026 Claus-Justus Heine
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -20,26 +20,30 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace OCA\RotDrop\Toolkit\Traits;
+namespace OCA\RotDrop\Toolkit\Exceptions;
 
-use OCA\RotDrop\Toolkit\Service\AppInfoService;
+use Throwable;
 
-/**
- * Trait which extracts the app-name from the info.xml file for cases where it
- * cannot be supplied by the cloud.
- */
-trait AppNameTrait
+/** Base class for database exceptions providing an entity-class. */
+class DatabaseEntityException extends DatabaseException
 {
   /**
-   * @param string $classDir The value of __DIR__ of the consuming class.
+   * @param string $message
    *
-   * @return null|string The app-name from the info.xml file or null if that
-   * cannot be found.
+   * @param int $code
    *
-   * @todo Remove unused parameter.
+   * @param ?Throwable $previous
+   *
+   * @param ?string $entityClassName
+   *
+   * {@inheritdoc}
    */
-  protected static function getAppInfoAppName(string $classDir): ?string
-  {
-    return AppInfoService::getAppInfoAppName();
+  public function __construct(
+    string $message,
+    int $code = 0,
+    ?Throwable $previous = null,
+    public readonly ?string $entityClassName = null,
+  ) {
+    parent::__construct($message, $code, $previous);
   }
 }

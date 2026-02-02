@@ -22,8 +22,10 @@
 
 namespace OCA\RotDrop\Toolkit\Doctrine\ORM;
 
+use Doctrine\ORM;
+
 /** A class to extends from pulling in the FindLikeTrait. */
-class EntityRepository extends \Doctrine\ORM\EntityRepository
+class EntityRepository extends ORM\EntityRepository
 {
   use FindLikeTrait;
 }
