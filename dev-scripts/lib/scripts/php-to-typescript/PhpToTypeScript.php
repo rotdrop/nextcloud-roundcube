@@ -76,6 +76,7 @@ class PhpToTypeScript extends Command
 
   /** {@inheritdoc} */
   public function __construct(
+    protected string $devScriptsFolder,
     protected array $configInfo,
     protected array $excludes,
     protected array $scopedNamespaces,
@@ -333,6 +334,7 @@ class PhpToTypeScript extends Command
           phpNamespacePrefix: $input->getOption(self::OPTION_NS_PREFIX),
           outputPrefix: $outputPrefix . self::TS_MODULES_DIR,
           output: $output,
+          devScriptsFolder: $this->devScriptsFolder,
         );
         $metadataGenerator->generateSparseMetadata();
         $entityMapNamespace = $metadataGenerator->exportEntityMap();

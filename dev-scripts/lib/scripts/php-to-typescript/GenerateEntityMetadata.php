@@ -63,6 +63,10 @@ class GenerateEntityMetadata
   /**
    * CTOR.
    *
+   * @param string $devScriptsFolder The location of the main PHP script which
+   * uses this script. Needed to determine the location of the ORM console
+   * application.
+   *
    * @param string $phpNamespacePrefix PHP-Namespace prefix to strip from the
    * start. Output will go to subdirectories according to the
    * remaining namespace.
@@ -72,15 +76,12 @@ class GenerateEntityMetadata
    * the PHP namespace prefix).
    *
    * @param ConsoleOutputInterface $output
-   *
-   * @param string $ormCliCmd The full path the ORM cli command which is used to
-   * obtain the list of known databse entities and the meta-data information.
    */
   public function __construct(
+    private string $devScriptsFolder,
     private string $phpNamespacePrefix,
     private string $outputPrefix,
     private ConsoleOutputInterface $output,
-    private string $ormCliCmd = __DIR__ . '/../../../orm-cmd.php',
   ) {
   }
 
@@ -286,9 +287,11 @@ export {
     $progressBar = new ProgressBar($progressSection);
     $warningsSection = $this->output->section();
 
+    $ormCliCmd = $this->devScriptsFolder . Constants::PATH_SEP . 'orm-cmd.php';
+
     // --format=json not understood here.
     $ormCliProcess = new Process([
-      $this->ormCliCmd,
+      $ormCliCmd,
       'orm:info',
     ]);
 
@@ -325,7 +328,7 @@ export {
     foreach ($entityNames as $entityName) {
       // $textSection->writeln('ENTITY ' . $entityName);
       $ormCliProcess = new Process([
-        $this->ormCliCmd,
+        $ormCliCmd,
         '--format=json',
         'orm:mapping:describe',
         $entityName,
