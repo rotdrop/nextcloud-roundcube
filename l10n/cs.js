@@ -13,6 +13,11 @@ OC.L10N.register(
     "The personal setting \"%1$s\" is read-only" : "Osobní nastavení „%1$s“ je pouze pro čtení",
     "Unknown personal setting: \"%s\"." : "Neznámo osobní nastavení: „%s“.",
     "RoundCube Integration" : "Napojení na RoundCube",
+    "Exactly one of query-parameters \"%1$s\" and \"%2$s\" have to be specified." : "Je třebá zadat právě jeden z parametrů dotazu „%1$s“ a „%2$s“.",
+    "Unable to find the entity \"%1$s\" identified by \"%2$s\"." : "Nepodařilo se najít entitu „%1$s“ identifikovanou pomocí „%2$s“.",
+    "Unable to determine the identifier values for an instance of \"%s\"." : "Nedaří se zjistit hodnoty identifikátoru pro instanci „%s“",
+    "Collection \"%1$s\" in entity of type \"%2$s\" is null." : "Sada „%1$s“ v typu entity „%2$s“ je nulová.",
+    "Unable to compute a serialization for an instance of \"%s\"." : "Nedaří se spočítat serializaci pro instanci „%s“.",
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Problém s instalací: potřebný prostředek „%1$s“ typu „%2$s“ není na serveru nainstalovaný – obraťte se na jeho správce!",
     "User" : "Uživatel",
     "Password" : "Heslo",
@@ -93,6 +98,8 @@ OC.L10N.register(
     "Email password for RoundCube, if needed." : "Heslo do e-mailu pro RoundCube (pokud je zapotřebí).",
     "Embedded RoundCube, Personal Settings" : "Vestavěné RoundCube – osobní nastavení",
     "Email Login Name" : "Přihlašovací jméno do e-mailu",
-    "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "Nebylo možné přistoupit do obsahu  obalené instance{wrappedApp}.\nTo může být způsobeno omezeními přístupu napříč doménami.\nZkontrolujte, že vámi využívaná instance Nextcloud ({nextcloudUrl}) a obalená instance {wrappedApp} ({iFrameUrl}) jsou poskytovány ze stejné domény."
+    "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "Nebylo možné přistoupit do obsahu  obalené instance{wrappedApp}.\nTo může být způsobeno omezeními přístupu napříč doménami.\nZkontrolujte, že vámi využívaná instance Nextcloud ({nextcloudUrl}) a obalená instance {wrappedApp} ({iFrameUrl}) jsou poskytovány ze stejné domény.",
+    "Unable to search for entities \"{entityName}\" with identifier \"{criteria}\"." : "Nebylo možné hledat entity „{entityName}“ s identifikátorem „{criteria}“.",
+    "Unable to fetch entity \"{entityName}\" with identifier \"{identifier}\"." : "Nepodařilo se získat entitu „{entityName}“ s identifikátorem „{identifier}“."
 },
 "nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;");

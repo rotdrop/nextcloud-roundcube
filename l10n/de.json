@@ -11,6 +11,11 @@
     "The personal setting \"%1$s\" is read-only" : "Die perönliche Einstellung \"%1$s\" kann nur gelesen werden.",
     "Unknown personal setting: \"%s\"." : "Unbekannte persönliche Einstellung: \"%s\"",
     "RoundCube Integration" : "RoundCube-Einbindung",
+    "Exactly one of query-parameters \"%1$s\" and \"%2$s\" have to be specified." : "Genau einer der Abfrageparameter \"%1$s\" und \"%2$s\" muss angegeben werden.",
+    "Unable to find the entity \"%1$s\" identified by \"%2$s\"." : "Die Entität \"%1$s\", die durch \"%2$s\" identifiziert wird, konnte nicht gefunden werden.",
+    "Unable to determine the identifier values for an instance of \"%s\"." : "Die Bezeichnerwerte für eine Instanz von \"%s\" konnten nicht ermittelt werden.",
+    "Collection \"%1$s\" in entity of type \"%2$s\" is null." : "Sammlung \"%1$s\" in der Entität vom Typ \"%2$s\" ist null.",
+    "Unable to compute a serialization for an instance of \"%s\"." : "Eine Serialisierung für eine Instanz von \"%s\" kann nicht berechnet werden.",
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Installationsproblem; die benötigte Ressource \"%1$s\" vom Typ \"%2$s\" ist auf dem Server nicht installiert, bitte die Systemadministration kontaktieren!",
     "User" : "Benutzer",
     "Password" : "Passwort",
@@ -91,6 +96,8 @@
     "Email password for RoundCube, if needed." : "Email-Passwort für Roundcube, falls erforderlich.",
     "Embedded RoundCube, Personal Settings" : "Eingebettetes RoundCube, Persönliche Einstellungen",
     "Email Login Name" : "Email Anmeldename",
-    "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "Der Zugriff auf die Inhalte der umschlossenen {wrappedApp} Instanz ist nicht möglich.\nDie Ursache können domänenübergreifende Zugriffsbeschränkungen sein.\nBitte überprüfe, ob deine Nextcloud-Instanz ({nextcloudUrl}) und die umschlossene {wrappedApp} Instanz ({iFrameUrl}) von derselben Domäne aus bedient werden."
+    "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "Der Zugriff auf die Inhalte der umschlossenen {wrappedApp} Instanz ist nicht möglich.\nDie Ursache können domänenübergreifende Zugriffsbeschränkungen sein.\nBitte überprüfe, ob deine Nextcloud-Instanz ({nextcloudUrl}) und die umschlossene {wrappedApp} Instanz ({iFrameUrl}) von derselben Domäne aus bedient werden.",
+    "Unable to search for entities \"{entityName}\" with identifier \"{criteria}\"." : "Es kann nicht nach Entitäten \"{entityName}\" mit der Kennung \"{criteria}\" gesucht werden.",
+    "Unable to fetch entity \"{entityName}\" with identifier \"{identifier}\"." : "Die Entität \"{entityName}\" mit der Kennung \"{identifier}\" konnte nicht abgerufen werden."
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

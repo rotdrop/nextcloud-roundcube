@@ -1,5 +1,5 @@
 /**
- * @copyright Copyright (c) 2024, 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright Copyright (c) 2024, 2025, 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
@@ -37,12 +37,10 @@ export interface Notification {
   user: string;
   message: string;
   messageRich: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  messageRichParameters: any;
+  messageRichParameters: Record<string, unknown>;
   subject: string;
   subjectRich: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  subjectRichParameters: any;
+  subjectRichParameters: Record<string, unknown>;
   objectType: string;
   objectId: string;
   shouldNotify: boolean;

@@ -3,7 +3,7 @@
  * Some PHP utility functions for Nextcloud apps.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022-2025 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022-2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -191,7 +191,7 @@ class SimpleSharingService
         }
       }
     } catch (Throwable $t) {
-      $this->logException('Unable to find, modify or generate link-share for "' . $node->getPath() . '".');
+      $this->logException($t, 'Unable to find, modify or generate link-share for "' . $node->getPath() . '".');
     }
 
     $token = $share->getToken();

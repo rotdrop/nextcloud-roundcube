@@ -3,7 +3,7 @@
  * A collection of reusable traits classes for Nextcloud apps.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2025, 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -19,11 +19,15 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+declare(strict_types=1);
 
 namespace OCA\RotDrop\Toolkit\Traits;
 
+use BadMethodCallException;
 use InvalidArgumentException;
+use ReflectionClass;
 use Throwable;
+use TypeError;
 use ValueError;
 
 /**
@@ -53,7 +57,7 @@ trait BackedEnumTrait
    * [ NAME => VALUE, ... ]
    * ```
    */
-  public static function array(): array
+  public static function toArray(): array
   {
     return array_combine(self::names(), self::values());
   }
@@ -62,32 +66,56 @@ trait BackedEnumTrait
    * Try to convert a string which is either the value or the case name into
    * the enum instance. If an enum instance is passed, it is just returned.
    *
-   * @param mixed $key
+   * @param self|int|string $instanceOrCaseOrValue
    *
    * @return self
    *
-   * @throws ValueError
-   * @throws Error
+   * @throws InvalidArgumentException
+   * @throws TypeError
    */
-  public static function get(mixed $key):self
+  public static function get(self|int|string $instanceOrCaseOrValue):self
   {
-    if ($key instanceof self) {
-      return $key;
+    if ($instanceOrCaseOrValue instanceof self) {
+      return $instanceOrCaseOrValue;
     }
     try {
-      $instance = self::from($key);
-    } catch (ValueError $e) {
+      $instance = self::from($instanceOrCaseOrValue);
+    } catch (TypeError|ValueError $e) {
       try {
-        $instance = self::{$key};
+        $instance = self::{$instanceOrCaseOrValue};
       } catch (Throwable $t) {
-        $previous = new \ReflectionProperty($t, 'previous');
-        $previous->setValue($t, $e);
+        $class = new ReflectionClass($t);
+        $ctor = $class->getConstructor();
+        $ctor->invoke($t, $t->getMessage(), $t->getCode(), $e);
+        $invalid = $instanceOrCaseOrValue ?? 'NULL';
         throw new InvalidArgumentException(
-          "{$key} is neither a value nor a key of {self::class}: " . print_r(self::array(), true),
+          "{$invalid} is neither a value nor a key of {self::class}: " . print_r(self::toArray(), true),
           previous: $t,
         );
       }
     }
     return $instance;
+  }
+
+  /**
+   * @param string $name Mehthod name. Must be equal to an existing case.
+   *
+   * @param array<string> $arguments Method arguments. Must be empty.
+   *
+   * @return string
+   *
+   * @throws BadMethodCallException
+   */
+  public static function __callstatic(string $name, array $arguments)
+  {
+    try {
+      $instance = self::{$name};
+    } catch (Throwable $t) {
+      throw new BadMethodCallException('The given method "' . $name . '" does not exist.', previous: $t);
+    }
+    if (count($arguments) > 0) {
+      throw new BadMethodCallException('The given method "' . $name . '" takes no arguments.');
+    }
+    return $instance->value;
   }
 }

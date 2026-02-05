@@ -459,7 +459,8 @@ class AnyToPdf
       $process = new Process([
         $converter,
         '--convert-to', 'pdf',
-        '--filter-options', 'ExportNotes=False',
+        '--filter-options', 'ExportNotes=false',
+        '--filter-options', 'ExportFormFields=true',
         '-', '-',
       ]);
       $process->setInput($data);

@@ -3,7 +3,7 @@
  * A collection of reusable traits classes for Nextcloud apps.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022, 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -22,7 +22,7 @@
 
 namespace OCA\RotDrop\Toolkit\Traits;
 
-use SimpleXMLElement;
+use OCA\RotDrop\Toolkit\Service\AppInfoService;
 
 /**
  * Trait which extracts the app-name from the info.xml file for cases where it
@@ -35,21 +35,11 @@ trait AppNameTrait
    *
    * @return null|string The app-name from the info.xml file or null if that
    * cannot be found.
+   *
+   * @todo Remove unused parameter.
    */
-  protected function getAppInfoAppName(string $classDir):?string
+  protected static function getAppInfoAppName(string $classDir): ?string
   {
-    // Extract the directory nesting level from the class-name, so this counts
-    // the part after OCA\APP_NAME_SPACE. Thus OCA\APP\AppInfo\Application.php
-    // yields a nesting-level of 2 and yes, the info file is
-    // lib/AppInfo/../../appinfo/info.xml
-    $nestingLevel = count(explode('\\', __CLASS__)) - 2;
-
-    $pathPrefix = str_repeat(Constants::PATH_SEPARATOR . '..', $nestingLevel);
-    $infoFile = Constants::PATH_SEPARATOR . Constants::INFO_FILE;
-
-    // we do not try-catch here as this file MUST be there and parseable.
-    $infoXml = new SimpleXMLElement(file_get_contents($classDir . $pathPrefix . $infoFile));
-
-    return !empty($infoXml->id) ? (string)$infoXml->id : null;
+    return AppInfoService::getAppInfoAppName();
   }
 }

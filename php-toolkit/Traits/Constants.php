@@ -3,7 +3,7 @@
  * A collection of reusable traits classes for Nextcloud apps.
  *
  * @author    Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022, 2024, 2025 Claus-Justus Heine
+ * @copyright 2022, 2024-2026 Claus-Justus Heine
  * @license   AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -33,6 +33,7 @@ class Constants
    * File-path separator.
    */
   public const PATH_SEPARATOR = '/';
+  public const PATH_SEP = self::PATH_SEPARATOR;
   public const DEFAULT_ADMIN_ARCHIVE_SIZE_LIMIT = (1 << 32);
   public const USER_FOLDER_PREFIX = 'files';
   public const JS = 'js';
@@ -41,6 +42,8 @@ class Constants
   public const HASH = 'hash';
   public const WEB_ASSET_META = self::JS . self::PATH_SEPARATOR . 'asset-meta.json';
   public const INFO_FILE = 'appinfo' . self::PATH_SEPARATOR . 'info.xml';
+
+  public const ENUM_VALUE_L10N_TAG = 'ENUMVALUE';
 
   // The following will be moved to the ResponseTrait as soon as >= PHP 8.2 is feasible
   public const RENDER_AS_GUEST = TemplateResponse::RENDER_AS_GUEST;
