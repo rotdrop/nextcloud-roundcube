@@ -13,6 +13,11 @@ OC.L10N.register(
     "The personal setting \"%1$s\" is read-only" : "The personal setting \"%1$s\" is read-only",
     "Unknown personal setting: \"%s\"." : "Unknown personal setting: \"%s\".",
     "RoundCube Integration" : "RoundCube Integration",
+    "Exactly one of query-parameters \"%1$s\" and \"%2$s\" have to be specified." : "Exactly one of query-parameters \"%1$s\" and \"%2$s\" have to be specified.",
+    "Unable to find the entity \"%1$s\" identified by \"%2$s\"." : "Unable to find the entity \"%1$s\" identified by \"%2$s\".",
+    "Unable to determine the identifier values for an instance of \"%s\"." : "Unable to determine the identifier values for an instance of \"%s\".",
+    "Collection \"%1$s\" in entity of type \"%2$s\" is null." : "Collection \"%1$s\" in entity of type \"%2$s\" is null.",
+    "Unable to compute a serialization for an instance of \"%s\"." : "Unable to compute a serialization for an instance of \"%s\".",
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!",
     "User" : "User",
     "Password" : "Password",
@@ -93,6 +98,8 @@ OC.L10N.register(
     "Email password for RoundCube, if needed." : "Email password for RoundCube, if needed.",
     "Embedded RoundCube, Personal Settings" : "Embedded RoundCube, Personal Settings",
     "Email Login Name" : "Email Login Name",
-    "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain."
+    "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain.",
+    "Unable to search for entities \"{entityName}\" with identifier \"{criteria}\"." : "Unable to search for entities \"{entityName}\" with identifier \"{criteria}\".",
+    "Unable to fetch entity \"{entityName}\" with identifier \"{identifier}\"." : "Unable to fetch entity \"{entityName}\" with identifier \"{identifier}\"."
 },
 "nplurals=2; plural=(n != 1);");
