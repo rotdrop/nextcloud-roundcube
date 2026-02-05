@@ -22,6 +22,8 @@
 
 namespace OCA\RotDrop\Toolkit\Traits;
 
+use \OCP\IL10N;
+
 /**
  * Supply a dummy t() function in order to inject strings into the translation
  * machinery.
@@ -37,11 +39,13 @@ trait FakeTranslationTrait
    *
    * @return string
    */
-  protected static function t(string $text, string|array $parameters = []):string
+  protected static function t(string $text, string|array $parameters = [], ?IL10N $l = null):string
   {
     if (!is_array($parameters)) {
       $parameters = [ $parameters ];
     }
-    return empty($parameters) ? $text : vsprintf($text, $parameters);
+    return $l
+      ? $l->t($text, $parameters)
+      : (empty($parameters) ? $text : vsprintf($text, $parameters));
   }
 }
