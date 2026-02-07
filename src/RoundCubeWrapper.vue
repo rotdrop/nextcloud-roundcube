@@ -33,6 +33,31 @@
               @load="loadHandler"
       />
     </div>
+    <!-- File picker for attaching files from Nextcloud -->
+    <FilePicker
+      v-if="isFilePickerOpen"
+      :name="t(appName, 'Choose a file to add as attachment')"
+      :buttons="filePickerButtons"
+      @close="onFilePickerClose"
+    />
+    <!-- Folder picker for saving attachments to Nextcloud -->
+    <FilePicker
+      v-if="isFileSaverOpen"
+      :name="t(appName, 'Choose a folder to store the attachment in')"
+      :buttons="fileSaverButtons"
+      :allow-pick-directory="true"
+      :multiselect="false"
+      :mimetype-filter="['httpd/unix-directory']"
+      @close="onFileSaverClose"
+    />
+    <!-- File picker for creating share links -->
+    <FilePicker
+      v-if="isShareLinkPickerOpen"
+      :name="t(appName, 'Choose a file to share as a link')"
+      :buttons="shareLinkPickerButtons"
+      :multiselect="false"
+      @close="onShareLinkPickerClose"
+    />
   </div>
 </template>
 <script setup lang="ts">
@@ -49,6 +74,8 @@ import {
 } from 'vue'
 import logger from './logger.ts'
 import type { Route } from 'vue-router'
+import { useIframeBridge } from './composables/useIframeBridge.ts'
+import { FilePickerVue as FilePicker } from '@nextcloud/dialogs/filepicker.js'
 
 const wrappedApp = 'RoundCube'
 
@@ -57,9 +84,11 @@ const props = withDefaults(defineProps<{
   fullScreen?: boolean,
   hideTopLine?: boolean,
   query?: Route['query'],
+  enableBridge?: boolean,
 }>(), {
   fullScreen: true,
   hideTopLine: true,
+  enableBridge: false,
   query: () => ({
     _task: 'mail',
   }),
@@ -115,6 +144,49 @@ const loaderContainer = ref<null|HTMLDivElement>(null)
 const frameWrapper = ref<null|HTMLDivElement>(null)
 const externalFrame = ref<null|HTMLIFrameElement>(null)
 let iFrameBody: undefined | HTMLBodyElement
+
+// Enable file bridge for Nextcloud file picker integration (if enabled by admin)
+const {
+  isFilePickerOpen,
+  isFileSaverOpen,
+  isShareLinkPickerOpen,
+  onFilesPicked,
+  onFilePickerClose,
+  onFolderSelected,
+  onFileSaverClose,
+  onShareLinkFilePicked,
+  onShareLinkPickerClose,
+} = useIframeBridge(
+  externalFrame,
+  { enabled: props.enableBridge }
+)
+
+// File picker buttons configuration
+const filePickerButtons = [
+  {
+    label: t(appName, 'Choose'),
+    callback: onFilesPicked,
+    type: 'primary',
+  },
+]
+
+// Folder picker buttons configuration for saving files
+const fileSaverButtons = [
+  {
+    label: t(appName, 'Choose'),
+    callback: onFolderSelected,
+    type: 'primary',
+  },
+]
+
+// Share link file picker buttons configuration
+const shareLinkPickerButtons = [
+  {
+    label: t(appName, 'Share'),
+    callback: onShareLinkFilePicked,
+    type: 'primary',
+  },
+]
 
 const contentObserver = new MutationObserver((entries) => {
   logger.info('MUTATION OBSERVED', { entries })
@@ -176,12 +248,164 @@ Please check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrap
   })
 }
 
+/**
+ * Inject the Nextcloud bridge client into the iframe.
+ * This enables file/calendar integration via postMessage.
+ */
+const injectBridgeClient = (iFrameWindow: Window, iFrameDocument: Document) => {
+  // Check if already injected
+  if ((iFrameWindow as { NextcloudBridge?: unknown }).NextcloudBridge) {
+    return
+  }
+
+  try {
+    const script = iFrameDocument.createElement('script')
+    script.textContent = `
+      (function() {
+        if (window.NextcloudBridge) return;
+
+        var pendingRequests = {};
+
+        window.NextcloudBridge = {
+          generateRequestId: function() {
+            return 'req_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+          },
+
+          handleMessage: function(event) {
+            var data = event.data;
+            if (!data || !data.requestId || !data.action) return;
+            var pending = pendingRequests[data.requestId];
+            if (!pending) return;
+            delete pendingRequests[data.requestId];
+            if (data.success) {
+              pending.resolve(data);
+            } else {
+              pending.reject(new Error(data.error || 'Unknown error'));
+            }
+          },
+
+          sendAndWait: function(message, timeoutMs) {
+            var self = this;
+            timeoutMs = timeoutMs || 300000;
+            return new Promise(function(resolve, reject) {
+              var requestId = self.generateRequestId();
+              message.requestId = requestId;
+              pendingRequests[requestId] = { resolve: resolve, reject: reject };
+              setTimeout(function() {
+                if (pendingRequests[requestId]) {
+                  delete pendingRequests[requestId];
+                  reject(new Error('Request timeout'));
+                }
+              }, timeoutMs);
+              window.parent.postMessage(message, '*');
+            });
+          },
+
+          pickFiles: function(options) {
+            options = options || {};
+            return this.sendAndWait({
+              action: 'pickFile',
+              multiple: options.multiple !== false,
+              mimeTypes: options.mimeTypes
+            }).then(function(response) {
+              return response.files || [];
+            });
+          },
+
+          saveFile: function(filename, content, mimeType) {
+            return this.sendAndWait({
+              action: 'saveFile',
+              filename: filename,
+              content: content,
+              mimeType: mimeType
+            }).then(function(response) {
+              return response.path || '';
+            });
+          },
+
+          saveFiles: function(files) {
+            return this.sendAndWait({
+              action: 'saveFiles',
+              files: files
+            }).then(function(response) {
+              return response.path || '';
+            });
+          },
+
+          createShareLink: function() {
+            return this.sendAndWait({
+              action: 'createShareLink'
+            }).then(function(response) {
+              return {
+                url: response.url || '',
+                filename: response.filename || ''
+              };
+            });
+          },
+
+          getCalendars: function() {
+            return this.sendAndWait({
+              action: 'getCalendars'
+            }).then(function(response) {
+              return response.calendars || [];
+            });
+          },
+
+          addToCalendar: function(calendarUrl, icsContent) {
+            return this.sendAndWait({
+              action: 'addToCalendar',
+              calendarUrl: calendarUrl,
+              icsContent: icsContent
+            });
+          },
+
+          blobToBase64: function(blob) {
+            return new Promise(function(resolve, reject) {
+              var reader = new FileReader();
+              reader.onload = function() {
+                var result = reader.result;
+                var base64 = result.split(',')[1] || result;
+                resolve(base64);
+              };
+              reader.onerror = reject;
+              reader.readAsDataURL(blob);
+            });
+          },
+
+          base64ToBlob: function(base64, mimeType) {
+            mimeType = mimeType || 'application/octet-stream';
+            var binary = atob(base64);
+            var bytes = new Uint8Array(binary.length);
+            for (var i = 0; i < binary.length; i++) {
+              bytes[i] = binary.charCodeAt(i);
+            }
+            return new Blob([bytes], { type: mimeType });
+          }
+        };
+
+        window.addEventListener('message', function(e) {
+          window.NextcloudBridge.handleMessage(e);
+        });
+      })();
+    `
+    iFrameDocument.head.appendChild(script)
+  } catch (error) {
+    logger.error('Failed to inject file bridge client', { error })
+  }
+}
+
 const emitLoaded = (iFrame: HTMLIFrameElement) => {
   const iFrameWindow = iFrame.contentWindow!
   const iFrameDocument = iFrame.contentDocument!
   currentLocation.value = iFrameWindow.location.href
   const search = iFrameWindow.location.search
   const query = Object.fromEntries((new URLSearchParams(search)).entries())
+
+  // Inject bridge client for Nextcloud integration (if enabled)
+  if (props.enableBridge) {
+    injectBridgeClient(iFrameWindow, iFrameDocument)
+  }
+
   emit('iframe-loaded', {
     query,
     iFrame,
