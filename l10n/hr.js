@@ -42,6 +42,7 @@ OC.L10N.register(
     "Reset Changes" : "Reset Changes",
     "Clear Selection" : "Clear Selection",
     "Show password" : "Pokaži zaporku",
+    "User ID" : "ID korisnika",
     "Email Address" : "Adresa e-pošte",
     "Advanced Settings" : "Napredne postavke",
     "Unable to search for entities \"{entityName}\" with identifier \"{criteria}\"." : "Nije moguće search for entities \\{entityName}\\ with identifier \\{criteria}\\.",

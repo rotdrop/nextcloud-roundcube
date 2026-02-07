@@ -11,6 +11,11 @@
     "The personal setting \"%1$s\" is read-only" : "Tá an socrú pearsanta \"%1$s\" inléite amháin",
     "Unknown personal setting: \"%s\"." : "Socrú pearsanta anaithnid: \"%s\".",
     "RoundCube Integration" : "Comhtháthú RoundCube",
+    "Exactly one of query-parameters \"%1$s\" and \"%2$s\" have to be specified." : "Caithfear ceann amháin go díreach de na paraiméadair fiosrúcháin \"%1$s\" agus \"%2$s\" a shonrú.",
+    "Unable to find the entity \"%1$s\" identified by \"%2$s\"." : "Ní féidir an t-eintiteas \"%1$s\" a aimsiú a shainaithnítear le \"%2$s\".",
+    "Unable to determine the identifier values for an instance of \"%s\"." : "Ní féidir luachanna aitheantais an sampla \"%s\" a chinneadh.",
+    "Collection \"%1$s\" in entity of type \"%2$s\" is null." : "Tá an bailiúchán \"%1$s\" san eintiteas de chineál \"%2$s\" neamhní.",
+    "Unable to compute a serialization for an instance of \"%s\"." : "Ní féidir sraithiú a ríomh le haghaidh sampla de \"%s\".",
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Fadhb suiteála; níl an acmhainn riachtanach \"%1$s\" de chineál \"%2$s\" suiteáilte ar an bhfreastalaí, téigh i dteagmháil le riarthóir an chórais!",
     "User" : "Úsáideoir",
     "Password" : "Pasfhocal",
@@ -91,6 +96,8 @@
     "Email password for RoundCube, if needed." : "Pasfhocal ríomhphoist le haghaidh RoundCube, más gá.",
     "Embedded RoundCube, Personal Settings" : "RoundCube Leabaithe, Socruithe Pearsanta",
     "Email Login Name" : "Ainm Logáil Isteach Ríomhphoist",
-    "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "Ní féidir rochtain a fháil ar ábhar an tsampla fillte {wrappedApp}.\nD’fhéadfadh srianta rochtana tras-fhearainn a bheith ina gcúis leis seo.\nSeiceáil le do thoil go bhfuil do chás Nextcloud ({nextcloudUrl}) agus an tsampla fillte {wrappedApp} ({iFrameUrl}) á bhfreastal ón bhfearann ​​​​céanna."
+    "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "Ní féidir rochtain a fháil ar ábhar an tsampla fillte {wrappedApp}.\nD’fhéadfadh srianta rochtana tras-fhearainn a bheith ina gcúis leis seo.\nSeiceáil le do thoil go bhfuil do chás Nextcloud ({nextcloudUrl}) agus an tsampla fillte {wrappedApp} ({iFrameUrl}) á bhfreastal ón bhfearann ​​​​céanna.",
+    "Unable to search for entities \"{entityName}\" with identifier \"{criteria}\"." : "Ní féidir cuardach a dhéanamh ar eintitis \"{entityName}\" leis an aitheantóir \"{criteria}\".",
+    "Unable to fetch entity \"{entityName}\" with identifier \"{identifier}\"." : "Ní féidir an t-eintiteas \"{entityName}\" a fháil leis an aitheantóir \"{identifier}\"."
 },"pluralForm" :"nplurals=5; plural=(n==1 ? 0 : n==2 ? 1 : n<7 ? 2 : n<11 ? 3 : 4);"
 }
