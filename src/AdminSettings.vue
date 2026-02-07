@@ -170,6 +170,41 @@
       >
         {{ t(appName, 'Enable SSL verification.') }}
       </label>
+      <input id="enable-tls-client-certificates"
+             v-model="settings.enableTLSClientCertificates"
+             class="checkbox"
+             type="checkbox"
+             name="enableTLSClientCertificates"
+             value="1"
+             :disabled="loading"
+             @change="saveSetting('enableTLSClientCertificates')"
+      >
+      <label for="enable-tls-client-certificates"
+             :title="t(appName, 'Enable when mutual TLS is enforced on the webserver.')"
+      >
+        {{ t(appName, 'Enable TLS Client Certificate support (mutual TLS)') }}
+      </label>
+      <TextField :value.sync="settings.clientTLSKeyFile"
+                 type="text"
+                 :label="t(appName, 'Filename for the client TLS private key')"
+                 :helper-text="t(appName, 'This is the filename of the private key that this addon will use to connect to roundcube to login with, it does not need to match the user but it needs to be accepted by the webserver as a valid client certificate.')"
+                 :disabled="loading"
+                 @submit="saveTextInput('clientTLSKeyFile')"
+      />
+      <TextField :value.sync="settings.clientTLSCertificateFile"
+                 type="text"
+                 :label="t(appName, 'Filename for the client TLS certificate')"
+                 :helper-text="t(appName, 'This is the filename of the matching certificate for the above private key')"
+                 :disabled="loading"
+                 @submit="saveTextInput('clientTLSCertificateFile')"
+      />
+      <TextField :value.sync="settings.clientTLSKeyPassword"
+                 type="text"
+                 :label="t(appName, 'Password for the TLS private key file')"
+                 :helper-text="t(appName, 'The password used to protect the private key, this can be blank')"
+                 :disabled="loading"
+                 @submit="saveTextInput('clientTLSKeyPassword')"
+      />
       <input id="personal-encryption"
              v-model="settings.personalEncryption"
              class="checkbox"
@@ -266,6 +301,10 @@ const settings = reactive({
   forceSSO: false,
   showTopLine: false,
   enableSSLVerify: true,
+  enableTLSClientCertificates: false,
+  clientTLSKeyFile: '',
+  clientTLSCertificateFile: '',
+  clientTLSKeyPassword: '',
   personalEncryption: false,
   cardDavProvisioningTag: '',
 })
