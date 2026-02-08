@@ -6,4 +6,18 @@ module.exports = {
       },
     },
   },
+  rules: {
+    'operator-linebreak': [
+      'error',
+      'before',
+      {
+        overrides: {
+          '=': 'after',
+          '+=': 'after',
+          '-=': 'after',
+        },
+      },
+    ],
+    indent: ['error', 2, { SwitchCase: 1 }],
+  },
 };
