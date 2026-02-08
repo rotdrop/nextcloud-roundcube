@@ -32,7 +32,7 @@ $corePrefix = '/../../../../..';
 
 require_once __DIR__ . $corePrefix . '/lib/versioncheck.php';
 
-use OC\Console\Application;
+// use OC\Console\Application;
 
 define('OC_CONSOLE', 1);
 
@@ -95,7 +95,7 @@ try {
     echo "The process control (PCNTL) extensions are required in case you want to interrupt long running commands - see http://php.net/manual/en/book.pcntl.php" . PHP_EOL;
   }
 
-  $application = \OCP\Server::get(Application::class);
+  // $application = \OCP\Server::get(Application::class);
 } catch (Exception $ex) {
   exceptionHandler($ex);
 } catch (Error $ex) {

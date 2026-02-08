@@ -13,6 +13,11 @@ OC.L10N.register(
     "The personal setting \"%1$s\" is read-only" : "O axuste persoal «%1$s» é só de lectura",
     "Unknown personal setting: \"%s\"." : "Axuste persoal descoñecido: «%s»",
     "RoundCube Integration" : "Integración de Roundcube",
+    "Exactly one of query-parameters \"%1$s\" and \"%2$s\" have to be specified." : "É necesario especificar exactamente un dos parámetros de consulta «%1$s» e «%2$s».",
+    "Unable to find the entity \"%1$s\" identified by \"%2$s\"." : "Non é posíbel atopar a entidade «%1$s» identificada por «%2$s».",
+    "Unable to determine the identifier values for an instance of \"%s\"." : "Non é posíbel determinar os valores identificadores para unha instancia de «%s».",
+    "Collection \"%1$s\" in entity of type \"%2$s\" is null." : "A colección «%1$s» na entidade do tipo «%2$s» é nula.",
+    "Unable to compute a serialization for an instance of \"%s\"." : "Non é posíbel calcular unha serialización para unha instancia de «%s».",
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Problema de instalación; precísase do recurso «%1$s» de tipo «%2$s» mais non está instalado no servidor, póñase en contacto coa administración do sistema!",
     "User" : "Usuario",
     "Password" : "Contrasinal",
@@ -93,6 +98,8 @@ OC.L10N.register(
     "Email password for RoundCube, if needed." : "Contrasinal de correo para Roundcube, se é necesario",
     "Embedded RoundCube, Personal Settings" : "Roundcube integrado, axustes persoais",
     "Email Login Name" : "Nome de acceso ao correo",
-    "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "Non é posíbel acceder ao contido da instancia envolta {wrappedApp}.\nIsto pode ser causado por restricións de acceso entre dominios.\nComprobe que a súa instancia de Nextcloud ({nextcloudUrl}) e a instancia envolvida ({wrappedApp}) {iFrameUrl} están a ser servidas desde o mesmo dominio."
+    "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "Non é posíbel acceder ao contido da instancia envolta {wrappedApp}.\nIsto pode ser causado por restricións de acceso entre dominios.\nComprobe que a súa instancia de Nextcloud ({nextcloudUrl}) e a instancia envolvida ({wrappedApp}) {iFrameUrl} están a ser servidas desde o mesmo dominio.",
+    "Unable to search for entities \"{entityName}\" with identifier \"{criteria}\"." : "Non é posíbel buscar entidades «{entityName}» co identificador «{criteria}».",
+    "Unable to fetch entity \"{entityName}\" with identifier \"{identifier}\"." : "Non é posíbel atopar entidades «{entityName}» co identificador «{identifier}»."
 },
 "nplurals=2; plural=(n != 1);");

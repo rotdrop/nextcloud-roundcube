@@ -35,6 +35,8 @@ class AppInfoService
 {
   private static string $appInfoPath;
 
+  private static string $appFolderPath;
+
   private static array $appInfo;
 
   /**
@@ -49,18 +51,33 @@ class AppInfoService
       return self::$appInfoPath;
     }
 
+    self::$appInfoPath = self::getAppFolderPath() . Constants::PATH_SEP . Constants::INFO_FILE;
+
+    return self::$appInfoPath;
+  }
+
+  /**
+   * Determine the path of the application folder.
+   *
+   * @return string
+   */
+  public static function getAppFolderPath(): string
+  {
+    if (self::$appFolderPath ?? null) {
+      return self::$appFolderPath;
+    }
+
     // Extract the directory nesting level from the class-name, so this counts
     // the part after OCA\APP_NAME_SPACE. Thus OCA\APP_NAME_SPACE\AppInfo\Application.php
     // yields a nesting-level of 2 and yes, the info file is
     // lib/AppInfo/../../appinfo/info.xml
     $nestingLevel = count(explode('\\', __CLASS__)) - 2;
 
-    $pathPrefix = str_repeat(Constants::PATH_SEPARATOR . '..', $nestingLevel);
-    $infoFile = Constants::PATH_SEPARATOR . Constants::INFO_FILE;
+    $pathPrefix = str_repeat(Constants::PATH_SEP . '..', $nestingLevel);
 
-    self::$appInfoPath = __DIR__ . $pathPrefix . $infoFile;
+    self::$appFolderPath = __DIR__ . $pathPrefix;
 
-    return self::$appInfoPath;
+    return self::$appFolderPath;
   }
 
   /**
