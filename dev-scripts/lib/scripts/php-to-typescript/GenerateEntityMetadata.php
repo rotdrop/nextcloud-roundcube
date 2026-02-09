@@ -1,4 +1,3 @@
-#!/usr/bin/env php
 <?php
 /**
  * Some PHP utility functions for Nextcloud apps.
@@ -26,12 +25,13 @@ namespace OCA\RotDrop\DevScripts\PhpToTypeScript;
 use ReflectionClass;
 use UnexpectedValueException;
 
-use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\ConsoleOutputInterface;
 use Symfony\Component\Console\Output\ConsoleSectionOutput;
-use Symfony\Component\Process\Process;
+use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Exception as ProcessExceptions;
-use Symfony\Component\Console\Helper\ProgressBar;
+use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\Process;
 
 use OCA\RotDrop\Toolkit\Traits\Constants;
 
@@ -289,14 +289,18 @@ export {
 
     $ormCliCmd = $this->devScriptsFolder . Constants::PATH_SEP . 'orm-cmd.php';
 
+    $headerSection->writeln('<info>' . 'Fetching list of entities ...' . '</>');
+
     // --format=json not understood here.
     $ormCliProcess = new Process([
       $ormCliCmd,
       'orm:info',
     ]);
 
-    $headerSection->writeln('<info>' . 'Fetching list of entities ...' . '</>');
     $ormCliProcess->run();
+    if (!$ormCliProcess->isSuccessful()) {
+      throw new ProcessFailedException($ormCliProcess);
+    }
     $rawEntities = $ormCliProcess->getOutput();
     $numberOfLines = substr_count($rawEntities, "\n");
     $progressBar->start($numberOfLines);
@@ -335,7 +339,7 @@ export {
       ]);
       $ormCliProcess->run();
       if (!$ormCliProcess->isSuccessful()) {
-        throw new UnexpectedValueException('ORM CLI process failed: ' . $ormCliProcess->getErrorOuput());
+        throw new UnexpectedValueException('ORM CLI process failed: ' . $ormCliProcess->getErrorOutput());
       }
 
       $metadataJson = $ormCliProcess->getOutput();

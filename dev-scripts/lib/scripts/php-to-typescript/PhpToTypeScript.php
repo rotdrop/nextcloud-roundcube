@@ -36,6 +36,7 @@ use Symfony\Component\Console\Output\ConsoleOutputInterface;
 
 use Spatie\TypeScriptTransformer\Collectors\EnumCollector;
 use Spatie\TypeScriptTransformer\Structures\TransformedType;
+use Spatie\TypeScriptTransformer\Transformers;
 use Spatie\TypeScriptTransformer\TypeScriptTransformer;
 use Spatie\TypeScriptTransformer\TypeScriptTransformerConfig;
 use Spatie\TypeScriptTransformer\Types\TypeScriptType;
@@ -56,30 +57,44 @@ class PhpToTypeScript extends Command
   private const OPTION_CONSTANTS_AS_PROPERTIES = 'properties';
   private const OPTION_HELP = 'help';
   private const OPTION_NS_PREFIX = 'ns-prefix';
-  private const OPTION_OUTPUTS = 'outputs';
   private const OPTION_OUTPUT_PREFIX = 'output-prefix';
+  private const OPTION_INPUT_PATHS = 'input-paths';
   private const OPTION_QUIET = 'quiet';
   private const OPTION_SCOPED_NS_PREFIX = 'scoped-ns-prefix';
-  private const OPTION_SOURCES = 'sources';
-  private const OPTION_SOURCE_PREFIX = 'source-prefix';
+  private const OPTION_SOURCE_DIR = 'source-dir';
+  private const OPTION_EXCLUDE = 'exclude';
   private const OPTION_VERBOSE = 'verbose';
   private const OUTPUT_SUFFIX = '.d.ts';
   private const VERBOSITY_MAX = 3;
-  private const PHP_PREFIX = 'php-';
   private const LINE_SEPARATOR = "\r\n";
   private const LINE_BUFFER_SIZE = 4096;
   private const NS_DECLARATION = 'declare namespace';
   private const TYPE_DECLARATION = 'export type';
   private const ROOT_NS = 'ROOT';
   private const ROOT_MODULE = self::ROOT_NS . '.ts';
-  private const TS_MODULES_DIR = 'php-modules';
+  private const PHP_PREFIX = 'php-';
+  private const TS_MODULES_DIR = self::PHP_PREFIX . 'modules';
+  private const TS_TYPES_FILE = self::PHP_PREFIX . 'types' . self::OUTPUT_SUFFIX;
+  private const TRANSFORMERS = [
+    Transformers\EnumTransformer::class,
+    ClassConstantsTransformer::class,
+    Transformers\DtoTransformer::class,
+  ];
 
-  /** {@inheritdoc} */
+  /**
+   * CTOR.
+   *
+   * @param string $devScriptsFolder The directory containing the development scripts.
+   *
+   * @param array $excludes Exluded directories, defaults to [].
+   *
+   * @param array $scopedNamespaces Scoped namespaces which need special
+   * handling by the DatabaseEntityCollector class, defaults to [].
+   */
   public function __construct(
     protected string $devScriptsFolder,
-    protected array $configInfo,
-    protected array $excludes,
-    protected array $scopedNamespaces,
+    protected array $excludes = [],
+    protected array $scopedNamespaces = [],
   ) {
     parent::__construct();
   }
@@ -98,10 +113,17 @@ class PhpToTypeScript extends Command
         'The path to the output directory. Required.',
       )
       ->addOption(
-        self::OPTION_SOURCE_PREFIX,
+        self::OPTION_SOURCE_DIR,
         's',
-        InputOption::VALUE_REQUIRED,
-        'The path to the source directory. Required.',
+        InputOption::VALUE_REQUIRED|InputOption::VALUE_IS_ARRAY,
+        'The path to the source directory containing PHP files. Maybe given multiple times. Required.',
+      )
+      ->addOption(
+        self::OPTION_EXCLUDE,
+        'e',
+        InputOption::VALUE_OPTIONAL|InputOption::VALUE_IS_ARRAY,
+        'Exclude the given directory. Maybe given multiple times.',
+        [],
       )
       ->addOption(
         self::OPTION_CONSTANTS,
@@ -128,18 +150,6 @@ class PhpToTypeScript extends Command
         null,
         InputOption::VALUE_NONE,
         'Convert the single-file namespace declaration to a multi-file module structure.',
-      )
-      ->addOption(
-        self::OPTION_OUTPUTS,
-        null,
-        InputOption::VALUE_NONE,
-        'Output the list of outputs.',
-      )
-      ->addOption(
-        self::OPTION_SOURCES,
-        null,
-        InputOption::VALUE_NONE,
-        'Output the list of sources.',
       )
       ->addOption(
         self::OPTION_HELP,
@@ -200,36 +210,18 @@ class PhpToTypeScript extends Command
       $output->setVerbosity(OutputInterface::VERBOSITY_NORMAL << $verbosity);
     }
 
-    if ($input->getOption(self::OPTION_SOURCES)) {
-      $sources = [];
-      foreach ($this->configInfo as $outputName => $outputInfo) {
-        $sources = array_merge($sources, $outputInfo['paths']);
-      }
-      $output->setVerbosity(OutputInterface::VERBOSITY_NORMAL);
-      $output->writeln(implode(' ', $sources));
-      return COMMAND::SUCCESS;
-    }
-    if ($input->getOption(self::OPTION_OUTPUTS)) {
-      $outputs = [];
-      foreach ($this->configInfo as $outputName => $outputInfo) {
-        $outputs[] = self::PHP_PREFIX . $outputName . self::OUTPUT_SUFFIX;
-      }
-      $output->setVerbosity(OutputInterface::VERBOSITY_NORMAL);
-      $output->writeln(implode(' ', $outputs));
-      return COMMAND::SUCCESS;
-    }
-
     $error = false;
     $outputPrefix = $input->getOption(self::OPTION_OUTPUT_PREFIX);
     if (empty($outputPrefix)) {
       $output->writeln('<error>' . 'The "--' . self::OPTION_OUTPUT_PREFIX . '" option is mandatory.' . '</error>', OutputInterface::VERBOSITY_QUIET);
       $error = true;
     }
-    $sourcePrefix = $input->getOption(self::OPTION_SOURCE_PREFIX);
-    if (empty($sourcePrefix)) {
-      $output->writeln('<error>' . 'The "--' . self::OPTION_SOURCE_PREFIX . '" option is mandatory.' . '</error>', OutputInterface::VERBOSITY_QUIET);
+    $sourceDirs = $input->getOption(self::OPTION_SOURCE_DIR);
+    if (empty($sourceDirs)) {
+      $output->writeln('<error>' . 'The "--' . self::OPTION_SOURCE_DIR . '" option is mandatory.' . '</error>', OutputInterface::VERBOSITY_QUIET);
       $error = true;
     }
+    $excludes = array_merge($input->getOption(self::OPTION_EXCLUDE), $this->excludes);
     if ($error) {
       $output->setVerbosity(OutputInterface::VERBOSITY_NORMAL);
       $help = new HelpCommand();
@@ -241,9 +233,6 @@ class PhpToTypeScript extends Command
 
     if (!str_ends_with($outputPrefix, '/')) {
       $outputPrefix .= '/';
-    }
-    if (!str_ends_with($sourcePrefix, '/')) {
-      $sourcePrefix .= '/';
     }
 
     $namespacePrefix = $input->getOption(self::OPTION_NS_PREFIX);
@@ -263,91 +252,86 @@ class PhpToTypeScript extends Command
       $scopedNamespacePrefix = trim($namespacePrefix . '\\' . trim($scopedNamespacePrefix, '\\'), '\\');
     }
 
-    foreach ($this->configInfo as $outputName => $outputInfo) {
-      $outputFile = $outputPrefix . self::PHP_PREFIX . $outputName . self::OUTPUT_SUFFIX;
+    $outputFile = $outputPrefix . self::TS_TYPES_FILE;
 
-      $excludes = array_merge($this->excludes, $outputInfo['excludes'] ?? []);
+    $config = TransformerConfig::create()
+      ->appNamespace($namespacePrefix)
+      ->scopedNamespacePrefix($scopedNamespacePrefix)
+      ->scopedNamespaces($this->scopedNamespaces)
+      // path where your PHP classes are
+      ->autoDiscoverTypes(...$sourceDirs)
+      ->autoDiscoverExcludePaths(...$excludes)
+      ->autoDiscoverExcludeRegExp('/.*~$|\\/\\.#.+/')
+      ->nullToOptional(true)
+      // ->transformToNativeEnums(true)
+      // list of transformers
+      ->transformers(self::TRANSFORMERS)
+      ->collectors([
+        // transform all abstract DTOs
+        DTOCollector::class,
+        // transform all native enums
+        EnumCollector::class,
+        // transfrom all database entities
+        DatabaseEntityCollector::class,
+      ])
+      // try inject default TypeScriptTransformer
+      ->defaultTypeReplacements([
+        // Carbon actually just by default emits a simple strings
+        // Carbon\CarbonImmutable::class => new TypeScriptType('{ date: string, timezone_type: number, timezone: string }'),
+        // Carbon\Carbon::class => new TypeScriptType('{ date: string, timezone_type: number, timezone: string }'),
+        Carbon\CarbonImmutable::class => new TypeScriptType('string'),
+        Carbon\Carbon::class => new TypeScriptType('string'),
+        DateTime::class => new TypeScriptType('{ date: string, timezone_type: number, timezone: string }'),
+        DateTimeImmutable::class => new TypeScriptType('{ date: string, timezone_type: number, timezone: string }'),
+        UuidInterface::class => new TypeScriptType('string'),
+      ])
+      // try inject default TypeScriptTransformer
+      ->defaultInlineTypeReplacements([
+        // 'mixed' => 'unknown',
+        // 'array' => new TypeScriptType('Record<string|number, unknown>'),
+        // Carbon\CarbonImmutable::class => new TypeScriptType('{ date: string, timezone_type: number, timezone: string }'),
+        // Carbon\Carbon::class => new TypeScriptType('{ date: string, timezone_type: number, timezone: string }'),
+        // UuidInterface::class => new TypeScriptType('string'),
+      ])
+      // file where TypeScript type definitions will be written
+      ->outputFile($outputFile);
 
-      $config = TransformerConfig::create()
-        ->appNamespace($namespacePrefix)
-        ->scopedNamespacePrefix($scopedNamespacePrefix)
-        ->scopedNamespaces($this->scopedNamespaces) // in particular
-        // path where your PHP classes are
-        ->autoDiscoverTypes(...array_map(fn(string $path) => $sourcePrefix . $path, $outputInfo['paths']))
-        ->autoDiscoverExcludePaths(...array_map(fn(string $path) => $sourcePrefix . $path, $excludes))
-        ->autoDiscoverExcludeRegExp('/.*~$|\\/\\.#.+/')
-        ->nullToOptional(true)
-        // ->transformToNativeEnums(true)
-        // list of transformers
-        ->transformers($outputInfo['transformers'])
-        ->collectors([
-          // transform all abstract DTOs
-          DTOCollector::class,
-          // transform all native enums
-          EnumCollector::class,
-          // transfrom all database entities
-          DatabaseEntityCollector::class,
-        ])
-        // try inject default TypeScriptTransformer
-        ->defaultTypeReplacements([
-          // Carbon actually just by default emits a simple strings
-          // Carbon\CarbonImmutable::class => new TypeScriptType('{ date: string, timezone_type: number, timezone: string }'),
-          // Carbon\Carbon::class => new TypeScriptType('{ date: string, timezone_type: number, timezone: string }'),
-          Carbon\CarbonImmutable::class => new TypeScriptType('string'),
-          Carbon\Carbon::class => new TypeScriptType('string'),
-          DateTime::class => new TypeScriptType('{ date: string, timezone_type: number, timezone: string }'),
-          DateTimeImmutable::class => new TypeScriptType('{ date: string, timezone_type: number, timezone: string }'),
-          UuidInterface::class => new TypeScriptType('string'),
-        ])
-        // try inject default TypeScriptTransformer
-        ->defaultInlineTypeReplacements([
-          // 'mixed' => 'unknown',
-          // 'array' => new TypeScriptType('Record<string|number, unknown>'),
-          // Carbon\CarbonImmutable::class => new TypeScriptType('{ date: string, timezone_type: number, timezone: string }'),
-          // Carbon\Carbon::class => new TypeScriptType('{ date: string, timezone_type: number, timezone: string }'),
-          // UuidInterface::class => new TypeScriptType('string'),
-        ])
-        // file where TypeScript type definitions will be written
-        ->outputFile($outputFile);
-
-      switch ($input->getOption(self::OPTION_CONSTANTS)) {
-        case self::OPTION_CONSTANTS_AS_CONSTANTS:
-          $config->constantsAsConstants(true);
-          break;
-        case self::OPTION_CONSTANTS_AS_PROPERTIES:
-          $config->constantsAsProperties(true);
-          break;
-        default:
-          $config->constantsAsConstants(true);
-          break;
-      }
-
-      $types = TypeScriptTransformer::create($config)->transform();
-
-      if (!empty($tsNamespacePrefix)) {
-        $output->writeln('<info>' . 'Stripping namespace ' . $tsNamespacePrefix . '</>');
-        $this->fixupTypeScriptTransformer($tsNamespacePrefix, $outputFile, $output);
-      }
-
-      if ($input->getOption(self::OPTION_AS_MODULES)) {
-        $metadataGenerator = new GenerateEntityMetadata(
-          phpNamespacePrefix: $input->getOption(self::OPTION_NS_PREFIX),
-          outputPrefix: $outputPrefix . self::TS_MODULES_DIR,
-          output: $output,
-          devScriptsFolder: $this->devScriptsFolder,
-        );
-        $metadataGenerator->generateSparseMetadata();
-        $entityMapNamespace = $metadataGenerator->exportEntityMap();
-        $tsData = file_get_contents($outputFile);
-        $tsData = $entityMapNamespace . "\n" . $tsData;
-        file_put_contents($outputFile, $tsData);
-
-        $this->generateTypeScriptModules($outputPrefix, $outputFile, $output);
-
-        $metadataGenerator->dumpTypeScriptData();
-      }
+    switch ($input->getOption(self::OPTION_CONSTANTS)) {
+      case self::OPTION_CONSTANTS_AS_CONSTANTS:
+        $config->constantsAsConstants(true);
+        break;
+      case self::OPTION_CONSTANTS_AS_PROPERTIES:
+        $config->constantsAsProperties(true);
+        break;
+      default:
+        $config->constantsAsConstants(true);
+        break;
     }
 
+    $types = TypeScriptTransformer::create($config)->transform();
+
+    if (!empty($tsNamespacePrefix)) {
+      $output->writeln('<info>' . 'Stripping namespace ' . $tsNamespacePrefix . '</>');
+      $this->fixupTypeScriptTransformer($tsNamespacePrefix, $outputFile, $output);
+    }
+
+    if ($input->getOption(self::OPTION_AS_MODULES)) {
+      $metadataGenerator = new GenerateEntityMetadata(
+        phpNamespacePrefix: $input->getOption(self::OPTION_NS_PREFIX),
+        outputPrefix: $outputPrefix . self::TS_MODULES_DIR,
+        output: $output,
+        devScriptsFolder: $this->devScriptsFolder,
+      );
+      $metadataGenerator->generateSparseMetadata();
+      $entityMapNamespace = $metadataGenerator->exportEntityMap();
+      $tsData = file_get_contents($outputFile);
+      $tsData = $entityMapNamespace . "\n" . $tsData;
+      file_put_contents($outputFile, $tsData);
+
+      $this->generateTypeScriptModules($outputPrefix, $outputFile, $output);
+
+      $metadataGenerator->dumpTypeScriptData();
+    }
 
     if ($output->getVerbosity() >= OutputInterface::VERBOSITY_VERBOSE) {
       $output->writeln('');
