@@ -50,6 +50,7 @@ abstract class AbstractApplication extends App implements IBootstrap
   {
     self::getAppName();
     parent::__construct(self::$appName);
+    self::$appContainer = $this->getContainer();
   }
   // phpcs:enable Squiz.Commenting.FunctionComment.Missing
 
@@ -86,16 +87,6 @@ abstract class AbstractApplication extends App implements IBootstrap
       throw new Exception('Dependency injection not possible, app-container is empty.');
     }
     return self::$appContainer->get($service);
-  }
-
-  /**
-   * {@inheritdoc}
-   *
-   * Called later than "register".
-   */
-  public function boot(IBootContext $context): void
-  {
-    self::$appContainer = $this->getContainer();
   }
 
   /**
