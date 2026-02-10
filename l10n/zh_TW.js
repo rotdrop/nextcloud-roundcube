@@ -13,6 +13,11 @@ OC.L10N.register(
     "The personal setting \"%1$s\" is read-only" : "個人設定「%1$s」是唯讀的",
     "Unknown personal setting: \"%s\"." : "未知的個人設定：「%s」。",
     "RoundCube Integration" : "RoundCube 整合",
+    "Exactly one of query-parameters \"%1$s\" and \"%2$s\" have to be specified." : "必須且只能指定查詢參數「%1$s」或「%2$s」的其中一個。",
+    "Unable to find the entity \"%1$s\" identified by \"%2$s\"." : "找不到以「%2$s」辨識的實體「%1$s」。",
+    "Unable to determine the identifier values for an instance of \"%s\"." : "無法確認「%s」站台的識別字串。",
+    "Collection \"%1$s\" in entity of type \"%2$s\" is null." : "類型為「%2$s」的實體中，集合「%1$s」為空值。",
+    "Unable to compute a serialization for an instance of \"%s\"." : "無法為「%s」的站台計算序列化。",
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "安裝問題；伺服器上沒有安裝必要的類型為「%2$s」的資源「%1$s」，請聯絡系統管理員！",
     "User" : "使用者",
     "Password" : "密碼",
@@ -93,6 +98,8 @@ OC.L10N.register(
     "Email password for RoundCube, if needed." : "Roundcube 的電子郵件密碼（若需要）。",
     "Embedded RoundCube, Personal Settings" : "嵌入式 Roundcube，個人設定",
     "Email Login Name" : "電子郵件登入名稱",
-    "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "無法存取包裝 {wrappedApp} 站台的內容。\n這可能是因為跨網域存取限制造成的。\n請檢查您的 Nextcloud 站台 ({nextcloudUrl}) 與包裝的 {wrappedApp} 站台 ({iFrameUrl}) 是否來自同一個網域。"
+    "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "無法存取包裝 {wrappedApp} 站台的內容。\n這可能是因為跨網域存取限制造成的。\n請檢查您的 Nextcloud 站台 ({nextcloudUrl}) 與包裝的 {wrappedApp} 站台 ({iFrameUrl}) 是否來自同一個網域。",
+    "Unable to search for entities \"{entityName}\" with identifier \"{criteria}\"." : "無法使用識別字串「{criteria}」搜尋實體「{entityName}」。",
+    "Unable to fetch entity \"{entityName}\" with identifier \"{identifier}\"." : "無法使用識別字串「{identifier}」擷取實體「{entityName}」。"
 },
 "nplurals=1; plural=0;");
