@@ -30,6 +30,7 @@
       - [Enable SSL Verification](#enable-ssl-verification)
       - [Per-User Encryption of Config-Values](#per-user-encryption-of-config-values)
       - [CardDAV Integration](#carddav-integration)
+      - [RoundCube Bridge](#roundcube-bridge)
   - [Personal Settings](#personal-settings)
     - [Email Login Name](#email-login-name)
     - [Email Password](#email-password)
@@ -347,6 +348,39 @@ generate a suitable app-token automatically and register it with the
 RoundCube CardDAV plugin -- which may work or not. In order to have
 auto-configuration working it is vital to **not** include "username" and
 "password" into the "fixed" array.
+
+##### RoundCube Bridge
+
+This app provides a communication bridge for compatible RoundCube plugins, allowing seamless integration with Nextcloud services (files, calendar) from within the email interface.
+
+**How it works:**
+
+When enabled in admin settings, the app establishes a communication bridge between RoundCube (running in an iframe) and Nextcloud using the postMessage API. This allows compatible plugins to use Nextcloud's native file picker, calendar, and other services. All operations are executed by Nextcloud itself - RoundCube only sends requests via postMessage.
+
+**Example Implementation: NextBridge Plugin**
+
+The [NextBridge Roundcube plugin](https://github.com/Gecka-Apps/NextBridge) is the first plugin to use this bridge. It allows users to:
+- Attach files from Nextcloud storage to emails
+- Save email attachments directly to Nextcloud files
+- Insert public share links into email body
+- Add calendar invitations (.ics) to Nextcloud Calendar
+
+**Setup:**
+
+1. Enable "RoundCube bridge" in Nextcloud admin settings (disabled by default)
+
+2. Install the NextBridge plugin in your Roundcube installation:
+   ```bash
+   cd /path/to/roundcube/plugins/
+   git clone https://github.com/Gecka-Apps/NextBridge.git nextbridge
+   ```
+
+3. Enable the plugin in Roundcube's `config/config.inc.php`:
+   ```php
+   $config['plugins'] = array('nextbridge', /* other plugins */);
+   ```
+
+4. **That's it!** When users access Roundcube through Nextcloud, the bridge is automatically available.
 
 ### Personal Settings
 

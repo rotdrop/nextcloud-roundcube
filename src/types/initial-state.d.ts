@@ -25,4 +25,5 @@ export interface InitialState {
   emailUserId: string|null,
   externalLocation: string|null,
   showTopLine: boolean,
+  enableBridge: boolean,
 }

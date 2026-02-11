@@ -184,6 +184,20 @@
       >
         {{ t(appName, 'Per-user encryption of config values.') }}
       </label>
+      <input id="enable-bridge"
+             v-model="settings.enableBridge"
+             class="checkbox"
+             type="checkbox"
+             name="enableBridge"
+             value="1"
+             :disabled="loading"
+             @change="saveSetting('enableBridge')"
+      >
+      <label for="enable-bridge"
+             :title="t(appName, 'When enabled, allows RoundCube to integrate with Nextcloud for file operations (attach/save) and calendar (add events).')"
+      >
+        {{ t(appName, 'Enable RoundCube bridge.') }}
+      </label>
       <TextField :value.sync="settings.cardDavProvisioningTag"
                  :label="t(appName, 'RoundCube CardDAV Tag')"
                  :helper-text="t(appName, 'Tag of a preconfigured CardDAV account pointing to the cloud addressbook. See the documentation of the RCMCardDAV plugin.')"
@@ -268,6 +282,7 @@ const settings = reactive({
   enableSSLVerify: true,
   personalEncryption: false,
   cardDavProvisioningTag: '',
+  enableBridge: false,
 })
 
 const addressBookUrl = computed(() => generateRemoteUrl('dav') + '/addressbooks/users/%l')
