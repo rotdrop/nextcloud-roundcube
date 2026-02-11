@@ -452,6 +452,10 @@ class PhpToTypeScript extends Command
     if (!empty($topLevelTypes)) {
       $allNamespaces[] = self::ROOT_NS;
     }
+    // Sort $allNamespaces s.t. the longest namespaces come first. This avoids
+    // having spurious unused imports.
+    rsort($allNamespaces);
+
     // Second run: emit typedefs, replace namespaces as appropriate
     $templateString = false;
     $currentFullNS = null;
