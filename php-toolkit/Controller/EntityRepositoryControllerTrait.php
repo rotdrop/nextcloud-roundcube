@@ -22,6 +22,8 @@
 
 namespace OCA\RotDrop\Toolkit\Controller;
 
+use Spatie\TypeScriptTransformer\Attributes as TSAttributes;
+
 use Throwable;
 
 use OCP\AppFramework\Http\Attribute as CoreAttributes;
@@ -38,9 +40,12 @@ use OCA\RotDrop\Toolkit\Exceptions;
  * Export entities to the frontend. This is a trait as it seem controllers
  * have to live in the Controller namespace.
  */
+#[TSAttributes\TypeScript]
 trait EntityRepositoryControllerTrait
 {
   use \OCA\RotDrop\Toolkit\Traits\LoggerTrait;
+
+  public const END_POINT = 'v1/entities';
 
   private AbstractEntityManager $entityManager;
 
@@ -80,7 +85,7 @@ trait EntityRepositoryControllerTrait
   #[CoreAttributes\NoAdminRequired]
   #[CoreAttributes\ApiRoute(
     verb: 'GET',
-    url: '/v1/entities/{entityName}/{depth}',
+    url: '/' . self::END_POINT . '/{entityName}/{depth}',
     defaults: ['depth' => 0],
   )]
   public function getEntities(
