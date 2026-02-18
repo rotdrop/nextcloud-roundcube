@@ -430,6 +430,8 @@ class PhpToTypeScript extends Command
       $progressBar->advance();
       $line = rtrim($line, PHP_EOL);
       $backticksCount = substr_count($line, '`');
+      preg_match_all("/'[^'`]*(`)[^'`]*'|" . '"[^"`]*(`)[^"`]*"/', $line, $matches, PREG_PATTERN_ORDER);
+      $backticksCount -= count(array_filter(array_merge($matches[1], $matches[2])));
       if (!$templateString && $backticksCount == 0) {
         if (str_starts_with($line, self::NS_DECLARATION)) {
           $namespaces = explode('.', trim(substr($line, strlen(self::NS_DECLARATION)), ' {'));
@@ -468,6 +470,8 @@ class PhpToTypeScript extends Command
       $progressBar->advance();
       $line = rtrim($line, PHP_EOL);
       $backticksCount = substr_count($line, '`');
+      preg_match_all("/'[^'`]*(`)[^'`]*'|" . '"[^"`]*(`)[^"`]*"/', $line, $matches, PREG_PATTERN_ORDER);
+      $backticksCount -= count(array_filter(array_merge($matches[1], $matches[2])));
       if (!$templateString && $backticksCount == 0) {
         if (str_starts_with($line, self::NS_DECLARATION)) {
           $namespaces = explode('.', trim(substr($line, strlen(self::NS_DECLARATION)), ' {'));

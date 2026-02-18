@@ -28,6 +28,7 @@ use ReflectionClass;
 use ReflectionClassConstant;
 use ReflectionProperty;
 
+use Spatie\TypeScriptTransformer\Attributes\Hidden;
 use Spatie\TypeScriptTransformer\Structures\TransformedType;
 use Spatie\TypeScriptTransformer\Structures\TypesCollection;
 use Spatie\TypeScriptTransformer\Transformers\Transformer;
@@ -59,6 +60,12 @@ class ClassConstantsTransformer implements Transformer
 
       /** @var ReflectionClassConstant $constant */
       foreach ($constants as $constant) {
+        $isHidden = !empty($constant->getAttributes(Hidden::class));
+
+        if ($isHidden) {
+          continue;
+        }
+
         $name = $constant->getName();
         $value = $constant->getValue();
         $value = self::convertValueToTypeScript($value);
@@ -113,7 +120,9 @@ class ClassConstantsTransformer implements Transformer
           if (str_contains($key, ' ')) {
             $key = "'{$key}'";
           }
-          $result .= str_pad('', ($level + 1) * 2) . "{$key}: {$member} as const," . PHP_EOL;
+          // avoid invalid or duplicate "as const"
+          $asConst = $member == 'null' || str_ends_with($member, 'as const') ? '' : ' as const';
+          $result .= str_pad('', ($level + 1) * 2) . "{$key}: {$member}{$asConst}," . PHP_EOL;
         }
         $result .= str_pad('', $level * 2) . '}';
       }

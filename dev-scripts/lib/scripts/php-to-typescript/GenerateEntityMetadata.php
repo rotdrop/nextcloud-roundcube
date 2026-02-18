@@ -211,6 +211,12 @@ type EntityFieldId<N extends EntityNames, F extends EntityFieldNames<N> = Entity
         ? (EntityMetadataMap[N][F]['id'] extends boolean ? EntityMetadataMap[N][F]['id'] : never)
         : never)
     : never;
+type EntityFieldType<N extends EntityNames, F extends EntityFieldNames<N> = EntityFieldNames<N> > =
+  F extends keyof EntityMetadataMap[N]
+    ? ('type' extends keyof EntityMetadataMap[N][F]
+        ? (EntityMetadataMap[N][F]['type'] extends string ? EntityMetadataMap[N][F]['type'] : never)
+        : never)
+    : never;
 export type EntityAssociationFieldType<N extends EntityNames, F extends EntityFieldNames<N> = EntityFieldNames<N> > =
   F extends keyof EntityMetadataMap[N]
     ? ('type' extends keyof EntityMetadataMap[N][F]
@@ -223,7 +229,7 @@ export type EntityFieldMapping<N extends EntityNames, F extends EntityFieldNames
         ? EntityMetadataMap[N][F]['mapping']
         : never)
     : never;
-export type EntityFieldNullable<N extends EntityNames, F extends EntityFieldNames<N> = EntitiyFieldNames<N> > =
+export type EntityFieldNullable<N extends EntityNames, F extends EntityFieldNames<N> = EntityFieldNames<N> > =
   F extends keyof EntityMetadataMap[N]
     ? ('nullable' extends keyof EntityMetadataMap[N][F]
         ? EntityMetadataMap[N][F]['nullable']
