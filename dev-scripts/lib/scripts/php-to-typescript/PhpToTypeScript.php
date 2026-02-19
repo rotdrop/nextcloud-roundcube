@@ -520,10 +520,13 @@ EOF;
           $currentFullNS = null;
           $headerData = [];
         } else {
-          [,$typeSpec] = explode(':', $line);
-          foreach (array_keys($topLevelTypes) as $type) {
-            if (preg_match('/[[:^alnum:]]' . $type . '[[:^alnum:]]/', $typeSpec)) {
-              $line = str_replace($type, self::ROOT_NS . '.' . $type, $line);
+          $typeSpec = strrchr($line, ':');
+          if ($typeSpec) {
+            $typeSpec = substr($typeSpec, 1); // skip ':'
+            foreach (array_keys($topLevelTypes) as $type) {
+              if (preg_match('/[[:^alnum:]]' . $type . '[[:^alnum:]]/', $typeSpec)) {
+                $line = str_replace($type, self::ROOT_NS . '.' . $type, $line);
+              }
             }
           }
           $line = str_replace($currentFullNS . '.', '', $line);
