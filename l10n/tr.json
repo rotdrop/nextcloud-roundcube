@@ -11,6 +11,11 @@
     "The personal setting \"%1$s\" is read-only" : "\"%1$s\" kişisel ayarı salt okunur",
     "Unknown personal setting: \"%s\"." : "\"%s\" kişisel ayarı bilinmiyor",
     "RoundCube Integration" : "Roundcube bütünleştirmesi",
+    "Exactly one of query-parameters \"%1$s\" and \"%2$s\" have to be specified." : "\"%1$s\" ve \"%2$s\" sorgu parametrelerinden biri belirtilmelidir.",
+    "Unable to find the entity \"%1$s\" identified by \"%2$s\"." : "\"%2$s\" tarafından tanımlanmış \"%1$s\" birimi bulunamadı.",
+    "Unable to determine the identifier values for an instance of \"%s\"." : "\"%s\" kopyasının tanımlayıcı değerleri belirlenemedi.",
+    "Collection \"%1$s\" in entity of type \"%2$s\" is null." : "Birimde \"%2$s\" türündeki \"%1$s\" derlemesi null.",
+    "Unable to compute a serialization for an instance of \"%s\"." : "\"%s\" kopyasının serileştirmesi hesaplanamadı.",
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Kurulum sorunu. Gereken \"%2$s\" türündeki \"%1$s\" kaynağı sunucu üzerine kurulmamış.\nLütfen sistem yöneticisi ile görüşün!",
     "User" : "Kullanıcı adı",
     "Password" : "Parola",
@@ -91,6 +96,8 @@
     "Email password for RoundCube, if needed." : "Gerekiyorsa, Roundcube e-posta parolası.",
     "Embedded RoundCube, Personal Settings" : "Eklenmiş Roundcube, kişisel ayarlar",
     "Email Login Name" : "E-posta kullanıcı adı",
-    "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "{wrappedApp} sarmalanmış kopyasının içeriğine erişilemedi.\nBu durum, etki alanları arası erişim kısıtlamalarından kaynaklanabilir.\nLütfen Nextcloud kopyanızın ({nextcloudUrl}) ve sarmalanmış {wrappedApp} kopyanızın ({iFrameUrl}) aynı etki alanından sunulduğundan emin olun."
+    "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "{wrappedApp} sarmalanmış kopyasının içeriğine erişilemedi.\nBu durum, etki alanları arası erişim kısıtlamalarından kaynaklanabilir.\nLütfen Nextcloud kopyanızın ({nextcloudUrl}) ve sarmalanmış {wrappedApp} kopyanızın ({iFrameUrl}) aynı etki alanından sunulduğundan emin olun.",
+    "Unable to search for entities \"{entityName}\" with identifier \"{criteria}\"." : "\"{criteria}\" tanımlayıcısı ile \"{entityName}\" birimleri aranamadı.",
+    "Unable to fetch entity \"{entityName}\" with identifier \"{identifier}\"." : "\"{identifier}\" tanımlayıcısı ile \"{entityName}\" birimi alınamadı."
 },"pluralForm" :"nplurals=2; plural=(n > 1);"
 }
