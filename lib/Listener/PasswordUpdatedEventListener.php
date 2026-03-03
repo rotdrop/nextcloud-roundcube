@@ -27,7 +27,7 @@ use Throwable;
 
 use Psr\Log\LoggerInterface as ILogger;
 
-use OCP\AppFramework\IAppContainer;
+use Psr\Container\ContainerInterface;
 use OCP\EventDispatcher\Event;
 use OCP\EventDispatcher\IEventListener;
 use OCP\IL10N;
@@ -44,7 +44,7 @@ class PasswordUpdatedEventListener implements IEventListener
   const EVENT = HandledEvent::class;
 
   // phpcs:disable Squiz.Commenting.FunctionComment.Missing
-  public function __construct(protected IAppContainer $appContainer)
+  public function __construct(protected ContainerInterface $appContainer)
   {
   }
   // phpcs:enable Squiz.Commenting.FunctionComment.Missing
