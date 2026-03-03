@@ -28,7 +28,7 @@ use OCP\AppFramework\App;
 use OCP\AppFramework\Bootstrap\IBootContext;
 use OCP\AppFramework\Bootstrap\IBootstrap;
 use OCP\AppFramework\Bootstrap\IRegistrationContext;
-use OCP\AppFramework\IAppContainer;
+use Psr\Container\ContainerInterface;
 
 use OCA\RotDrop\Toolkit\Service\AppInfoService;
 
@@ -41,7 +41,7 @@ require_once __DIR__ . '/../Service/AppInfoService.php';
  */
 abstract class AbstractApplication extends App implements IBootstrap
 {
-  protected static ?IAppContainer $appContainer = null;
+  protected static ?ContainerInterface $appContainer = null;
 
   protected static ?string $appName;
 
@@ -67,9 +67,9 @@ abstract class AbstractApplication extends App implements IBootstrap
   /**
    * Static query of a service through the app container.
    *
-   * @return ?IAppContainer
+   * @return ?ContainerInterface
    */
-  public static function getAppContainer(): ?IAppContainer
+  public static function getAppContainer(): ?ContainerInterface
   {
     return self::$appContainer ?? null;
   }
@@ -83,7 +83,7 @@ abstract class AbstractApplication extends App implements IBootstrap
    */
   public static function get(string $service): mixed
   {
-    if (!(self::$appContainer instanceof IAppContainer)) {
+    if (!(self::$appContainer instanceof ContainerInterface)) {
       throw new Exception('Dependency injection not possible, app-container is empty.');
     }
     return self::$appContainer->get($service);

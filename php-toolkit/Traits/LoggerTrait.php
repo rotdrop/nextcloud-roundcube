@@ -29,7 +29,7 @@ use Psr\Log\LogLevel;
 
 use OCP\EventDispatcher\IEventDispatcher;
 use OCP\ILogger;
-use OCP\AppFramework\IAppContainer;
+use Psr\Container\ContainerInterface;
 
 use OCA\RotDrop\Toolkit\Listener\BeforeMessageLoggedEventListener;
 
@@ -41,8 +41,8 @@ trait LoggerTrait
   /** @var LoggerInterface */
   protected LoggerInterface $logger;
 
-  /** @var IAppContainer */
-  protected IAppContainer $appContainer;
+  /** @var ContainerInterface */
+  protected ContainerInterface $appContainer;
 
   /**
    * Return the stored logger class
@@ -57,9 +57,9 @@ trait LoggerTrait
   /**
    * Return the stored appConmtainer instance.
    *
-   * @return IAppContainer
+   * @return ContainerInterface
    */
-  protected function appContainer():IAppContainer
+  protected function appContainer():ContainerInterface
   {
     return $this->appContainer;
   }

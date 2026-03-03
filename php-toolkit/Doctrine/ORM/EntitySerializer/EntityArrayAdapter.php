@@ -30,7 +30,7 @@ use JsonSerializable;
 use ReflectionClass;
 use UnexpectedValueException;
 
-use OCP\AppFramework\IAppContainer;
+use Psr\Container\ContainerInterface;
 
 /**
  * Convert a database entity "virtually" to a flat array without recursions.
@@ -66,7 +66,7 @@ class EntityArrayAdapter implements ArrayAccess, Iterator, JsonSerializable
    * unit-testing with (partly) mocked objects. The object will be cloned
    * s.t. that each top-level array-adapter has its own caching instance.
    *
-   * @param ?IAppContainer $appContainer
+   * @param ?ContainerInterface $appContainer
    */
   protected function __construct(
     private mixed $entity,
@@ -74,7 +74,7 @@ class EntityArrayAdapter implements ArrayAccess, Iterator, JsonSerializable
     private ?self $root = null,
     private ?string $flatIdentifier = null,
     ?EntitySerializer $entitySerializer = null,
-    ?IAppContainer $appContainer = null,
+    ?ContainerInterface $appContainer = null,
   ) {
     if ($root === null) {
       $this->entitySerializer = clone ($entitySerializer ?? \OCP\Server::get(EntitySerializer::class));

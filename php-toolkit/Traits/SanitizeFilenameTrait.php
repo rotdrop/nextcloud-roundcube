@@ -24,7 +24,7 @@ namespace OCA\RotDrop\Toolkit\Traits;
 
 use Throwable;
 
-use OCP\AppFramework\IAppContainer;
+use Psr\Container\ContainerInterface;
 use OC\Files\FilenameValidator;
 
 use OCA\RotDrop\Toolkit\Exceptions;
@@ -37,7 +37,7 @@ trait SanitizeFilenameTrait
   use FakeTranslationTrait;
   use LoggerTrait;
 
-  protected IAppContainer $appContainer;
+  protected ContainerInterface $appContainer;
 
   /**
    * Remove "forbidden" characters as configured in order to achieve a
