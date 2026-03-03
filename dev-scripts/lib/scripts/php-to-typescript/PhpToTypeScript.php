@@ -41,7 +41,7 @@ use Spatie\TypeScriptTransformer\TypeScriptTransformer;
 use Spatie\TypeScriptTransformer\TypeScriptTransformerConfig;
 use Spatie\TypeScriptTransformer\Types\TypeScriptType;
 
-use OCP\AppFramework\IAppContainer;
+use Psr\Container\ContainerInterface;
 
 use Carbon;
 use Ramsey\Uuid\UuidInterface;
