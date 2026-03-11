@@ -24,6 +24,7 @@ namespace OCA\RotDrop\Toolkit\Doctrine\ORM;
 
 use Doctrine\ORM\Configuration;
 use Doctrine\ORM\Decorator\EntityManagerDecorator;
+use Doctrine\ORM\EntityManagerInterface;
 use Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter;
 
 /**
@@ -85,5 +86,13 @@ abstract class AbstractEntityManager extends EntityManagerDecorator implements S
       $this->getFilters()->disable($filterName);
     }
     return $oldState;
+  }
+
+  /**
+   * @return EntityManagerInterface The wrapped entity manager.
+   */
+  public function getWrappedObject(): EntityManagerInterface
+  {
+    return $this->wrapped;
   }
 }

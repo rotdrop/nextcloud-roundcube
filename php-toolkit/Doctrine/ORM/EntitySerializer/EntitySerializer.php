@@ -118,6 +118,21 @@ class EntitySerializer
   }
 
   /**
+   * If $object is a decorator and implements the method getWrappedObject()
+   * then return the wrapped object, otherwise return $object.
+   *
+   * @param object $object
+   *
+   * @return object
+   */
+  private function getWrappedObject(object $object): object
+  {
+    return (method_exists($object, 'getWrappedObject'))
+      ? $object->getWrappedObject()
+      : $object;
+  }
+
+  /**
    * @param ClassMetadataInterface $classMetaData
    *
    * @param array $id
@@ -126,10 +141,7 @@ class EntitySerializer
    */
   private function flattenIdentifier(ClassMetadataInterface $classMetaData, array $id): string
   {
-    if (method_exists($classMetaData, 'getWrappedObject')) {
-      $classMetaData = $classMetaData->getWrappedObject();
-    }
-    $ids = $this->identifierFlattener->flattenIdentifier($classMetaData, $id);
+    $ids = $this->identifierFlattener->flattenIdentifier($this->getWrappedObject($classMetaData), $id);
 
     return implode(':', $ids);
   }
@@ -249,7 +261,7 @@ class EntitySerializer
               $keyConvert = function(mixed $value, mixed $metaData) use ($indexField, $targetMetaData, $field, $entityClassName) {
                 $fieldType = PersisterHelper::getTypeOfColumn(
                   $indexField,
-                  $targetMetaData->getWrappedObject(),
+                  $this->getWrappedObject($targetMetaData),
                   $this->entityManager->getWrappedObject(),
                 );
                 $phpValue = $this->entityManager->getConnection()->convertToPHPValue($value, $fieldType);
