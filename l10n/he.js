@@ -5,6 +5,7 @@ OC.L10N.register(
     "Password" : "ססמה",
     "bytes" : "בתים",
     "Show password" : "הצגת ססמה",
+    "User ID" : "זיהוי משתמש",
     "Email Address" : "כתובת דוא״ל",
     "Advanced Settings" : "הגדרות מתקדמות"
 },
