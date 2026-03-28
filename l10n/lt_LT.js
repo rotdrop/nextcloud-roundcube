@@ -3,6 +3,8 @@ OC.L10N.register(
     {
     "User" : "Naudotojas",
     "Password" : "Slaptažodis",
+    "%1$s (renamed)" : "%1$s (pervadinta)",
+    "renamed file" : "pervadintas failas",
     "bytes" : "baitų",
     "Custom Color" : "Tinkinta spalva",
     "Show password" : "Rodyti slaptažodį",
