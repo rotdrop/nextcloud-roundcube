@@ -20,7 +20,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace OCA\RotDrop\Toolkit\Traits;
+namespace OCA\RotDrop\Toolkit;
 
 use OCP\AppFramework\Http\TemplateResponse;
 
@@ -52,4 +52,24 @@ class Constants
   public const RENDER_AS_USER = TemplateResponse::RENDER_AS_USER;
   public const RENDER_AS_ERROR = TemplateResponse::RENDER_AS_ERROR;
   public const RENDER_AS_PUBLIC = TemplateResponse::RENDER_AS_PUBLIC;
+
+  /**
+   * @var int
+   *
+   * Precision for monetary values. This corresponds to the MariaDB type
+   * DECIMAL(7,2), but is also used in non-DB related places. The precision is
+   * the total number of digits, the scale is the number of digits after the
+   * decimal separator, so the range is from [-99999.99, +99999.99].
+   */
+  public const MONETARY_PRECISION = 7;
+
+  /**
+   * @var int
+   *
+   * Decimal scale for monetary values. This corresponds to the MariaDB type
+   * DECIMAL(7,2), but is also used in non-DB related places. The precision is
+   * the total number of digits, the scale is the number of digits after the
+   * decimal separator, so the range is from [-99999.99, +99999.99].
+   */
+  public const MONETARY_SCALE = 2;
 }

@@ -3,7 +3,7 @@
  * Some PHP utility functions for Nextcloud apps.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022, 2024 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022, 2024, 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -29,7 +29,7 @@ use Psr\Log\LoggerInterface;
 use OCP\Files\IMimeTypeDetector;
 
 use OCA\RotDrop\Toolkit\Backend\ArchiveFormats;
-use OCA\RotDrop\Toolkit\Traits\Constants;
+use OCA\RotDrop\Toolkit\Constants;
 
 /** Tweak the Nextcloud server to support all MIME-types needed by this app. */
 class MimeTypeService

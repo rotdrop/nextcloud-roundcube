@@ -33,7 +33,7 @@ use OCP\Share\IManager as IShareManager;
 use OCP\Share\IShare;
 use Psr\Log\LoggerInterface;
 
-use OCA\RotDrop\Toolkit\Traits\Constants;
+use OCA\RotDrop\Toolkit\Constants;
 
 /**
  * Support class for the creating cloud shared, currently only web-links can

@@ -3,7 +3,7 @@
  * Some PHP utility functions for Nextcloud apps.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022, 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022, 2023, 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -24,6 +24,7 @@ namespace OCA\RotDrop\Toolkit\Traits;
 
 use OCP\IL10N;
 
+use OCA\RotDrop\Toolkit\Constants;
 use OCA\RotDrop\Toolkit\Exceptions;
 
 /**
