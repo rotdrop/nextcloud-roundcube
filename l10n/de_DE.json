@@ -13,6 +13,7 @@
     "RoundCube Integration" : "RoundCube-Einbindung",
     "Exactly one of query-parameters \"%1$s\" and \"%2$s\" have to be specified." : "Genau einer der Abfrageparameter \"%1$s\" und \"%2$s\" muss angegeben werden.",
     "Unable to find the entity \"%1$s\" identified by \"%2$s\"." : "Die Entität \"%1$s\", die durch \"%2$s\" identifiziert wird, konnte nicht gefunden werden.",
+    "Unable to register types with DBAL." : "Typen können nicht bei DBAL registriert werden",
     "Unable to determine the identifier values for an instance of \"%s\"." : "Die Bezeichnerwerte für eine Instanz von \"%s\" konnten nicht ermittelt werden.",
     "Collection \"%1$s\" in entity of type \"%2$s\" is null." : "Sammlung \"%1$s\" in der Entität vom Typ \"%2$s\" ist null.",
     "Unable to compute a serialization for an instance of \"%s\"." : "Eine Serialisierung für eine Instanz von \"%s\" kann nicht berechnet werden.",
