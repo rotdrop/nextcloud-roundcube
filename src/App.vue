@@ -117,7 +117,8 @@ const onIFrameLoaded = async (event: { query: Record<string, string> }) => {
       routerLocation,
       currentQuery: JSON.stringify(currentRoute.query),
       targetQuery: JSON.stringify(routerLocation.query),
-    })
+    }
+    )
     try {
       await router.push(routerLocation)
     } catch (error) {
@@ -159,6 +160,16 @@ router.onReady(async () => {
       //
       // DO NOT ALLOW THIS!
       overflow: hidden !important;
+  }
+  // NcAppContent (@nextcloud/vue) sets `flex-basis: 100vw` on .app-content
+  // via a scoped style. In a column flex container flex-basis controls the
+  // *height* axis, so on narrow portrait screens main#app-content-vue ends
+  // up with height ≈ viewport-width, making the embedded Roundcube iframe
+  // appear square (e.g. 466 × 482 px on a 482 × 835 device).
+  :deep(.#{$roundCubeAppName}-content-container.app-content) {
+    flex: 1 1 auto !important;
+    flex-basis: auto !important;
+    min-height: 0 !important;
   }
   .empty-content::v-deep {
     h2 ~ p {
