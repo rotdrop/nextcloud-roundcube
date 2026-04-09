@@ -156,6 +156,20 @@
       <label for="show-top-line">
         {{ t(appName, 'Show RoundCube top information bar (shows logout button).') }}
       </label>
+      <input id="allow-manual-login"
+             v-model="settings.allowManualLogin"
+             class="checkbox"
+             type="checkbox"
+             name="allowManualLogin"
+             value="1"
+             :disabled="loading"
+             @change="saveSetting('allowManualLogin')"
+      >
+      <label for="allow-manual-login"
+             :title="t(appName, 'Allow users to login manually to RoundCube without pre-configured credentials. Useful for shared mailboxes or when SSO is not available.')"
+      >
+        {{ t(appName, 'Allow manual RoundCube login (skip credential check).') }}
+      </label>
       <input id="enable-ssl-verify"
              v-model="settings.enableSSLVerify"
              class="checkbox"
@@ -265,6 +279,7 @@ const settings = reactive({
   fixedSingleEmailPassword: '',
   forceSSO: false,
   showTopLine: false,
+  allowManualLogin: false,
   enableSSLVerify: true,
   personalEncryption: false,
   cardDavProvisioningTag: '',
