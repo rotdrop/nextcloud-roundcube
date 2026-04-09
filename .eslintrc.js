@@ -1,7 +1,7 @@
 module.exports = {
-  // extends: [
-  //   '@nextcloud',
-  // ],
+  extends: [
+    '@nextcloud',
+  ],
   // some unused toolgit files
   ignorePatterns: [
     'src/toolkit/util/file-download.js',
@@ -38,13 +38,25 @@ module.exports = {
   },
   overrides: [
     {
+      // Vue files with TypeScript need the TypeScript parser
       files: ['*.vue'],
+      parser: 'vue-eslint-parser',
+      parserOptions: {
+        parser: '@typescript-eslint/parser',
+        sourceType: 'module',
+        ecmaVersion: 2022,
+      },
       rules: {
         semi: ['error', 'never'],
+        // False positive with TypeScript generics like defineEmits<{...}>()
+        'func-call-spacing': 'off',
+        '@typescript-eslint/func-call-spacing': 'off',
+        // Webpack ?raw query not recognized by eslint resolver
+        'import/no-unresolved': ['error', { ignore: ['\\?raw$'] }],
       },
     },
     {
-      files: ['*.ts', '*.cts', '*.mts', '*.tsx', '*.vue'],
+      files: ['*.ts', '*.cts', '*.mts', '*.tsx'],
       rules: {
         '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
       },
