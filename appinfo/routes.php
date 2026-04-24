@@ -66,5 +66,11 @@ return [
       'verb' => 'GET',
       'postfix' => '.all',
     ],
+    // Calendar API
+    [
+      'name' => 'calendar#add_event',
+      'url' => '/api/calendar/event',
+      'verb' => 'POST',
+    ],
   ]
 ];

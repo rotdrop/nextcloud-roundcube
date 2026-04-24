@@ -20,6 +20,7 @@
   <RoundCubeWrapper v-bind="$attrs"
                     :external-location="externalLocation"
                     :query="routeQuery"
+                    :enable-bridge="enableBridge"
                     v-on="$listeners"
   />
 </template>
@@ -44,6 +45,7 @@ const routeQuery = ref<Route['query']>({})
 
 const initialState = getInitialState<InitialState>()
 const externalLocation = ref<string>(initialState?.externalLocation || '')
+const enableBridge = ref<boolean>(initialState?.enableBridge ?? false)
 
 const onRouteChange = (to: Route) => {
   routeQuery.value = to.query
