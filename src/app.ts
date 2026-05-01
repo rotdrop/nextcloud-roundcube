@@ -28,6 +28,9 @@ import router from './router/router.ts';
 import Vue from 'vue';
 import App from './App.vue';
 
+// Import dialogs styles for FilePicker component
+import '@nextcloud/dialogs/style.css';
+
 // CSP config for webpack dynamic chunk loading
 // eslint-disable-next-line
 __webpack_nonce__ = btoa(getRequestToken() || '')

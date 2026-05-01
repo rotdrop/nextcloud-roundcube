@@ -70,6 +70,8 @@ class Config
   public const PERSONAL_ENCRYPTION_DEFAULT = false;
   public const CARDDAV_PROVISIONG_TAG = 'cardDavProvisioningTag';
   public const CARDDAV_PROVISIONG_TAG_DEFAULT = '';
+  public const ENABLE_BRIDGE = 'enableBridge';
+  public const ENABLE_BRIDGE_DEFAULT = false;
 
   const SETTINGS = [
     self::EXTERNAL_LOCATION => self::EXTERNAL_LOCATION_DEFAULT,
@@ -80,6 +82,7 @@ class Config
     self::ENABLE_SSL_VERIFY => self::ENABLE_SSL_VERIFY_DEFAULT,
     self::PERSONAL_ENCRYPTION => self::PERSONAL_ENCRYPTION_DEFAULT,
     self::CARDDAV_PROVISIONG_TAG => self::CARDDAV_PROVISIONG_TAG_DEFAULT,
+    self::ENABLE_BRIDGE => self::ENABLE_BRIDGE_DEFAULT,
   ];
 
   /** @var \OCP\IUser */

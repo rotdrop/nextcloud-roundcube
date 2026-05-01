@@ -106,6 +106,7 @@ class PageController extends Controller
       'emailUserId' => $credentials['userId'] ?? null,
       Config::EXTERNAL_LOCATION => $roundCubeUrl,
       Config::SHOW_TOP_LINE => $this->config->getAppValue(Config::SHOW_TOP_LINE),
+      Config::ENABLE_BRIDGE => $this->config->getAppValue(Config::ENABLE_BRIDGE),
     ]);
 
     Util::addScript($this->appName, $this->assetService->getJSAsset(self::MAIN_ASSET)['asset']);
