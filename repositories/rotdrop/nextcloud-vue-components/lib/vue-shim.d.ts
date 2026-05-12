@@ -4,7 +4,7 @@
  * CAFEVDB -- Camerata Academica Freiburg e.V. DataBase.
  *
  * @author Claus-Justus Heine
- * @copyright 2024, 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2024, 2025, 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -23,7 +23,7 @@
 
 declare module '@nextcloud/vue' {
   import Vue from 'vue';
-  import { VTooltip } from 'floating-vue';
+  import { vTooltip } from 'floating-vue';
 
   const NcActionButton: Vue;
   const NcActionCaption: Vue;
@@ -71,7 +71,7 @@ declare module '@nextcloud/vue' {
   };
 
   const NcActionCheckbox: Vue;
-  const Tooltip: typeof VTooltip;
+  const Tooltip: typeof vTooltip;
 
   export {
     NcActionButton,

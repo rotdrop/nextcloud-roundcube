@@ -1,5 +1,5 @@
 <!--
- - @copyright Copyright (c) 2019, 2022, 2023, 2024, 2025 Julius Härtl <jus@bitgrid.net>
+ - @copyright Copyright (c) 2019, 2022, 2023, 2024, 2025, 2026 Julius Härtl <jus@bitgrid.net>
  - @copyright Copyright (c) 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
  -
  - @author Julius Härtl <jus@bitgrid.net>
@@ -110,7 +110,7 @@ export default {
     font-style:italic;
   }
   // Tweak the submit button of the NcTextField
-  .input-field::v-deep { // wrapper
+  :deep(.input-field) { // wrapper
     margin-block-start: 0;
     &.input-field--trailing-icon .input-field__input,
     .input-field__input.input-field__input--trailing-icon {
@@ -147,7 +147,7 @@ export default {
       }
     }
   }
-  &::v-deep .alignment-wrapper {
+  :deep(.alignment-wrapper) {
     margin-block-start: 10px;
     display: flex;
     flex-grow: 1;

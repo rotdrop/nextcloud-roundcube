@@ -1,6 +1,6 @@
 <!--
  - @author Claus-Justus Heine
- - @copyright 2024, 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
+ - @copyright 2024, 2025, 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  - @license AGPL-3.0-or-later
  -
  - This program is free software: you can redistribute it and/or modify
@@ -250,7 +250,7 @@ export default {
   flex-direction: column;
   width: 100%;
   margin: 0 0 var(--default-grid-baseline);
-  &::v-deep .alignment-wrapper {
+  :deep(&) .alignment-wrapper {
     display: flex;
     flex-grow: 1;
     max-width: 100%;
@@ -303,7 +303,7 @@ export default {
       max-width:100%;
       margin: 0 0 0;
     }
-    &.submit-button::v-deep .v-select.select {
+    &.submit-button :deep(.v-select.select) {
       .vs__dropdown-toggle {
         // substract the round borders for the overlay
         padding-right: calc(var(--default-clickable-area) - var(--vs-border-radius));
@@ -337,7 +337,7 @@ export default {
     }
   }
   &.empty.required:not(.loading) {
-    .v-select.select::v-deep .vs__dropdown-toggle {
+    .v-select.select :deep(.vs__dropdown-toggle) {
       border-color: red;
     }
   }
