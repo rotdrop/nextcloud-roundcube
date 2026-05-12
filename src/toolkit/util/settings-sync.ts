@@ -1,5 +1,5 @@
 /**
- * @copyright Copyright (c) 2022, 2023, 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright Copyright (c) 2022, 2023, 2025, 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
@@ -18,7 +18,6 @@
  */
 
 import { appName } from '../../config.ts';
-import { set as vueSet } from 'vue';
 import {
   showError,
   showSuccess,
@@ -57,7 +56,7 @@ async function fetchSettings({ section, settings }: FetchSettingsArgs) {
     // Object.assign(settings, response.data);
     for (const [key, value] of Object.entries(response.data)) {
       if (!equals(settings[key], value)) {
-        vueSet(settings, key, value);
+        settings[key] = value;
       }
     }
     return true;
@@ -99,7 +98,7 @@ async function fetchSetting({ settingsKey, section, settings }: FetchSettingArgs
   try {
     const response = await axios.get(generateUrl('apps/' + appName + '/settings/' + section + '/' + settingsKey), {});
     if (!equals(settings[settingsKey], response.data.value)) {
-      vueSet(settings, settingsKey, response.data.value);
+      settings[settingsKey] = response.data.value;
     }
     return true;
   } catch (e) {
@@ -145,6 +144,9 @@ interface SaveSimpleSettingArgs {
  * @return Result.
  */
 async function saveSimpleSetting({ settingsKey, section, onSuccess, settings }: SaveSimpleSettingArgs) {
+  if (settingsKey.length === 0) {
+    return false;
+  }
   const value = settings[settingsKey];
   try {
     const response = await axios.post(generateUrl('apps/' + appName + '/settings/' + section + '/' + settingsKey), { value });
@@ -154,14 +156,14 @@ async function saveSimpleSetting({ settingsKey, section, onSuccess, settings }: 
     if (responseData) {
       if (responseData.newValue !== undefined) {
         if (!equals(settings[settingsKey], responseData.newValue)) {
-          vueSet(settings, settingsKey, responseData.newValue);
+          settings[settingsKey] = responseData.newValue;
         }
         displayValue = settings[settingsKey];
       }
       if (responseData.humanValue !== undefined) {
-        const humanKey = 'human' + settingsKey[0].toUpperCase() + settingsKey.substring(1);
+        const humanKey = 'human' + settingsKey.charAt(0).toUpperCase() + settingsKey.substring(1);
         if (!equals(settings[humanKey], responseData.humanValue)) {
-          vueSet(settings, humanKey, responseData.humanValue);
+          settings[humanKey] = responseData.humanValue;
         }
         displayValue = settings[humanKey];
       }
@@ -274,14 +276,14 @@ const saveConfirmedSetting = async ({
       if (responseData) {
         if (responseData.newValue !== undefined) {
           if (!equals(settings[settingsKey], responseData.newValue)) {
-            vueSet(settings, settingsKey, responseData.newValue);
+            settings[settingsKey] = responseData.newValue;
           }
           displayValue = settings[settingsKey];
         }
         if (responseData.humanValue !== undefined) {
-          const humanKey = 'human' + settingsKey[0].toUpperCase() + settingsKey.substring(1);
+          const humanKey = 'human' + settingsKey.charAt(0).toUpperCase() + settingsKey.substring(1);
           if (!equals(settings[humanKey], responseData.humanValue)) {
-            vueSet(settings, humanKey, responseData.humanValue);
+            settings[humanKey] = responseData.humanValue;
           }
           displayValue = settings[humanKey];
           if (Array.isArray(displayValue)) {
