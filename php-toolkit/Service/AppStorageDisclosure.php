@@ -3,7 +3,7 @@
  * Some PHP utility functions for Nextcloud apps.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2024, 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2024-2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -33,7 +33,7 @@ use OCP\Files\IRootFolder;
 use OCP\Files\Folder;
 use OCP\Files\NotFoundException as FileNotFoundException;
 
-use OCA\RotDrop\Toolkit\Traits\Constants;
+use OCA\RotDrop\Toolkit\Constants;
 
 /**
  * Disclose the app-storage folder as ordinary file-system Folder instance

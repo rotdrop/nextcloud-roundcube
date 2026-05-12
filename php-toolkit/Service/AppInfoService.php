@@ -26,7 +26,7 @@ use SimpleXMLElement;
 
 use OCP\App\IAppManager;
 
-use OCA\RotDrop\Toolkit\Traits\Constants;
+use OCA\RotDrop\Toolkit\Constants;
 
 /**
  * Access info from the appinfo/info.xml.

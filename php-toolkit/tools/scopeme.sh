@@ -15,6 +15,7 @@ WRAPPER_NS=$(echo "$3"|sed -E -e 's/([^\\])\\([^\\])/\1\\\\\2/g')
 WRAPPED_NAMESPACES=(
     Doctrine
     Gedmo
+    'Ramsey\\Uuid'
 )
 WRAPPER_REPLACEMENTS=()
 if [ -n "$WRAPPER_NS" ]; then
