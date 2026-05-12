@@ -33,7 +33,7 @@ use Symfony\Component\Process\Exception as ProcessExceptions;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 
-use OCA\RotDrop\Toolkit\Traits\Constants;
+use OCA\RotDrop\Toolkit\Constants;
 
 /**
  * Generate enough meta-data for TypeScript to be able to define getters for
