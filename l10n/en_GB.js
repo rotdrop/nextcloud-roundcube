@@ -15,6 +15,7 @@ OC.L10N.register(
     "RoundCube Integration" : "RoundCube Integration",
     "Exactly one of query-parameters \"%1$s\" and \"%2$s\" have to be specified." : "Exactly one of query-parameters \"%1$s\" and \"%2$s\" have to be specified.",
     "Unable to find the entity \"%1$s\" identified by \"%2$s\"." : "Unable to find the entity \"%1$s\" identified by \"%2$s\".",
+    "Unable to register types with DBAL." : "Unable to register types with DBAL.",
     "Unable to determine the identifier values for an instance of \"%s\"." : "Unable to determine the identifier values for an instance of \"%s\".",
     "Collection \"%1$s\" in entity of type \"%2$s\" is null." : "Collection \"%1$s\" in entity of type \"%2$s\" is null.",
     "Unable to compute a serialization for an instance of \"%s\"." : "Unable to compute a serialization for an instance of \"%s\".",

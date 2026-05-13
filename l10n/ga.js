@@ -15,6 +15,7 @@ OC.L10N.register(
     "RoundCube Integration" : "Comhtháthú RoundCube",
     "Exactly one of query-parameters \"%1$s\" and \"%2$s\" have to be specified." : "Caithfear ceann amháin go díreach de na paraiméadair fiosrúcháin \"%1$s\" agus \"%2$s\" a shonrú.",
     "Unable to find the entity \"%1$s\" identified by \"%2$s\"." : "Ní féidir an t-eintiteas \"%1$s\" a aimsiú a shainaithnítear le \"%2$s\".",
+    "Unable to register types with DBAL." : "Ní féidir cineálacha a chlárú le DBAL.",
     "Unable to determine the identifier values for an instance of \"%s\"." : "Ní féidir luachanna aitheantais an sampla \"%s\" a chinneadh.",
     "Collection \"%1$s\" in entity of type \"%2$s\" is null." : "Tá an bailiúchán \"%1$s\" san eintiteas de chineál \"%2$s\" neamhní.",
     "Unable to compute a serialization for an instance of \"%s\"." : "Ní féidir sraithiú a ríomh le haghaidh sampla de \"%s\".",
