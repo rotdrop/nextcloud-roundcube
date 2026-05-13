@@ -20,12 +20,11 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-import './webpack-setup.ts';
 import { createApp } from 'vue';
-
+import App from './App.vue';
 import router from './router/router.ts';
 
-import App from './App.vue';
+import './webpack-setup.ts';
 
 const app = createApp(App);
 app.use(router);

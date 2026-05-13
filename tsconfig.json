@@ -18,6 +18,7 @@
   "compilerOptions": {
     "types": ["jest", "jquery", "jqeryui", "node", "vue", "vue-router"],
     "lib": [ "ES2024", "DOM", "DOM.Iterable" ],
+    "rootDir": "./",
     "outDir": "./dist/",
     "target": "ESNext",
     "module": "esnext",

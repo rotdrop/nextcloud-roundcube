@@ -1,5 +1,5 @@
 <!--
- - @copyright Copyright (c) 2022-2025 Claus-Justus Heine <himself@claus-justus-heine.de>
+ - @copyright Copyright (c) 2022-2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  - @author Claus-Justus Heine <himself@claus-justus-heine.de>
  - @license AGPL-3.0-or-later
  -
@@ -17,17 +17,17 @@
  - along with this program. If not, see <http://www.gnu.org/licenses/>.
  -->
 <template>
-  <div :class="['templateroot', appName, ...cloudVersionClasses]">
+  <div class="templateroot" :class="[appName, ...cloudVersionClasses]">
     <h1 class="title">
       {{ t(appName, 'Embedded RoundCube, Admin Settings') }}
     </h1>
     <NcSettingsSection :name="t(appName, 'Roundcube Installation')"
                        class="flex-container flex-column"
     >
-      <TextField :value.sync="settings.externalLocation"
+      <TextField v-model:value="settings.externalLocation"
                  type="text"
                  :label="t(appName, 'RoundCube Installation Path')"
-                 :helper-text="t(appName, 'RoundCube path can be entered relative to the Nextcloud server')"
+                 :helperText="t(appName, 'RoundCube path can be entered relative to the Nextcloud server')"
                  :disabled="loading"
                  @submit="saveTextInput('externalLocation')"
       />
@@ -48,8 +48,8 @@
         <label for="user-id-email">
           {{ t(appName, 'Cloud Login-Id') }}
         </label>
-        <span :class="['user-id-email-placeholder', { disabled: loading || (settings.emailAddressChoice !== 'userIdEmail')}]">{{ t(appName, 'User ID') }}@</span>
-        <TextField :value.sync="settings.emailDefaultDomain"
+        <span class="user-id-email-placeholder" :class="{ disabled: loading || (settings.emailAddressChoice !== 'userIdEmail')}">{{ t(appName, 'User ID') }}@</span>
+        <TextField v-mode:value="settings.emailDefaultDomain"
                    class="email-default-domain"
                    :disabled="loading || (settings.emailAddressChoice !== 'userIdEmail')"
                    :placeholder="t(appName, 'Email Domain')"
@@ -98,17 +98,17 @@
           {{ t(appName, 'Fixed Single Address') }}
         </label>
         <div v-if="settings.emailAddressChoice === 'fixedSingleAddress'">
-          <TextField :value.sync="settings.fixedSingleEmailAddress"
+          <TextField v-model:value="settings.fixedSingleEmailAddress"
                      type="text"
                      :label="t(appName, 'Global Email Login')"
-                     :helper-text="t(appName, 'Global email user-name for Roundcube for all users')"
+                     :helperText="t(appName, 'Global email user-name for Roundcube for all users')"
                      :disabled="loading || (settings.emailAddressChoice !== 'fixedSingleAddress')"
                      :placeholder="t(appName, 'Email Address')"
                      @submit="saveTextInput('fixedSingleEmailAddress'); saveTextInput('fixedSingleEmailPassword')"
           />
-          <TextField :value.sync="protectedFixedSingleEmailPassword"
+          <TextField v-model:value="protectedFixedSingleEmailPassword"
                      :type="isPasswordHidden ? 'password' : 'text'"
-                     :helper-text="t(appName, 'Global email password for Roundcube for all users')"
+                     :helperText="t(appName, 'Global email password for Roundcube for all users')"
                      :label="t(appName, 'Global Email Password')"
                      :disabled="loading || (settings.emailAddressChoice !== 'fixedSingleAddress')"
                      :placeholder="t(appName, 'Email Password')"
@@ -184,9 +184,9 @@
       >
         {{ t(appName, 'Per-user encryption of config values.') }}
       </label>
-      <TextField :value.sync="settings.cardDavProvisioningTag"
+      <TextField v-model:value="settings.cardDavProvisioningTag"
                  :label="t(appName, 'RoundCube CardDAV Tag')"
-                 :helper-text="t(appName, 'Tag of a preconfigured CardDAV account pointing to the cloud addressbook. See the documentation of the RCMCardDAV plugin.')"
+                 :helperText="t(appName, 'Tag of a preconfigured CardDAV account pointing to the cloud addressbook. See the documentation of the RCMCardDAV plugin.')"
                  :disabled="loading"
                  :placeholder="t(appName, 'Email Password')"
                  @submit="saveTextInput('cardDavProvisioningTag')"
@@ -221,34 +221,36 @@ at the explanations in the README.md file.`) }}
     </NcSettingsSection>
   </div>
 </template>
+
 <script setup lang="ts">
-import { appName } from './config.ts'
-import { generateRemoteUrl } from '@nextcloud/router'
-import {
-  computed,
-  ref,
-  reactive,
-} from 'vue'
+import type { EmailAddressChoice } from './types/settings.d.ts'
+
+import { showError, showSuccess } from '@nextcloud/dialogs'
 import { translate as t } from '@nextcloud/l10n'
+import { generateRemoteUrl } from '@nextcloud/router'
 import {
   NcActionButton,
   NcButton,
   NcListItem,
   NcSettingsSection,
 } from '@nextcloud/vue'
+import {
+  computed,
+  reactive,
+  ref,
+} from 'vue'
 import TextField from '@rotdrop/nextcloud-vue-components/lib/components/TextFieldWithSubmitButton.vue'
-import { showSuccess, showError } from '@nextcloud/dialogs'
 import ClipBoard from 'vue-material-design-icons/Clipboard.vue'
+import Eye from 'vue-material-design-icons/Eye.vue'
+import EyeOff from 'vue-material-design-icons/EyeOff.vue'
+import { appName } from './config.ts'
+import logger from './logger.ts'
 import cloudVersionClassesImport from './toolkit/util/cloud-version-classes.ts'
-import type { EmailAddressChoice } from './types/settings.d.ts'
 import {
   fetchSettings,
   saveConfirmedSetting,
   saveSimpleSetting,
 } from './toolkit/util/settings-sync.ts'
-import Eye from 'vue-material-design-icons/Eye.vue'
-import EyeOff from 'vue-material-design-icons/EyeOff.vue'
-import logger from './logger.ts'
 
 const loading = ref(true)
 
@@ -331,6 +333,7 @@ const copyCardDavConfig = () => {
   })
 }
 </script>
+
 <style lang="scss" scoped>
 .cloud-version {
   --cloud-icon-info: var(--icon-info-dark);

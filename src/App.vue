@@ -17,11 +17,11 @@
  - along with this program. If not, see <http://www.gnu.org/licenses/>.
  -->
 <template>
-  <NcContent :app-name="appName" :class="['app-container', state]">
+  <NcContent :appName="appName" class="app-container" :class="[state]">
     <NcAppContent :class="[appName + '-content-container', { 'icon-loading': loading }]">
       <RouterView v-show="!loading && state !== 'error'"
-                  :loading.sync="loading"
-                  @iframe-loaded="onIFrameLoaded($event)"
+                  v-model:loading="loading"
+                  @iframeLoaded="onIFrameLoaded($event)"
                   @error="onError"
       />
       <NcEmptyContent v-if="state === 'error'">
@@ -40,8 +40,11 @@
     </NcAppContent>
   </NcContent>
 </template>
+
 <script setup lang="ts">
-import { appName } from './config.ts'
+import type { InitialState } from './types/initial-state.d.ts'
+
+import { translate as t } from '@nextcloud/l10n'
 import {
   NcAppContent,
   NcContent,
@@ -51,17 +54,17 @@ import {
   computed,
   ref,
 } from 'vue'
-import DynamicSvgIcon from '@rotdrop/nextcloud-vue-components/lib/components/DynamicSvgIcon.vue'
-import appIcon from '../img/app.svg?raw'
-import { translate as t } from '@nextcloud/l10n'
-import getInitialState from './toolkit/util/initial-state.ts'
-import type { InitialState } from './types/initial-state.d.ts'
 import {
+  type RouteLocationRaw as RouterLocation,
+
   useRoute,
   useRouter,
-  type RouteLocationRaw as RouterLocation,
 } from 'vue-router'
+import DynamicSvgIcon from '@rotdrop/nextcloud-vue-components/lib/components/DynamicSvgIcon.vue'
+import appIcon from '../img/app.svg?raw'
+import { appName } from './config.ts'
 import logger from './logger.ts'
+import getInitialState from './toolkit/util/initial-state.ts'
 
 type TranslationVariables = Parameters<typeof t>[2]
 
@@ -81,21 +84,21 @@ const errorMessage = computed(() => {
     return null
   }
   switch (reason.value) {
-  case 'norcurl':
-    return t(appName, `You did not tell me where to find your configured Roundcube
+    case 'norcurl':
+      return t(appName, `You did not tell me where to find your configured Roundcube
 instance. Please head over to the admin-settings and configure this
 app, thank you! It might also be a good idea to have a look at the
 README.md file which is distributed together with this app.`)
-  case 'login':
-    return t(appName, `Unable to login into Roundcube, there are login errors. Please check
+    case 'login':
+      return t(appName, `Unable to login into Roundcube, there are login errors. Please check
 your personal Roundcube settings. Maybe a re-login to Nextcloud
 helps. Otherwise contact your system administrator.`)
-  case 'carddav':
-    return t(appName, 'Unable to configure the CardDAV integration for "{emailUserId}".', initialState as TranslationVariables)
-  case 'noemail':
-    return t(appName, 'Unable to obtain email credentials for "{emailUserId}". Please check your personal Roundcube settings.', initialState as TranslationVariables)
-  default:
-    return errorHint.value || null
+    case 'carddav':
+      return t(appName, 'Unable to configure the CardDAV integration for "{emailUserId}".', initialState as TranslationVariables)
+    case 'noemail':
+      return t(appName, 'Unable to obtain email credentials for "{emailUserId}". Please check your personal Roundcube settings.', initialState as TranslationVariables)
+    default:
+      return errorHint.value || null
   }
 })
 
@@ -147,6 +150,7 @@ router.isReady().then(async () => {
   }
 })
 </script>
+
 <style lang="scss" scoped>
 .app-container {
   display: flex;

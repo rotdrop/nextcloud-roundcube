@@ -54,6 +54,7 @@
     "stacktrace-gps": "github:stacktracejs/stacktrace-gps#62f6967fc85e6fdd5fb9cea1a056b935d9b07a9a",
     "stacktrace-js": "^2.0.2",
     "svgo-loader": "^5.0.0",
+    "typescript": "^6.0.3",
     "vue": "^3.5.34",
     "vue-material-design-icons": "*",
     "vue-router": "^5.0.6",

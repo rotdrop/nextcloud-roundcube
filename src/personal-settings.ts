@@ -19,13 +19,12 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-import { appName } from './config.ts';
-import './webpack-setup.ts';
-import { createApp } from 'vue';
-
-import PersonalSettings from './PersonalSettings.vue';
-
 import Tooltip from '@rotdrop/nextcloud-vue-components/lib/directives/Tooltip';
+import { createApp } from 'vue';
+import PersonalSettings from './PersonalSettings.vue';
+import { appName } from './config.ts';
+
+import './webpack-setup.ts';
 
 const app = createApp(PersonalSettings);
 app.directive('tooltip', Tooltip);

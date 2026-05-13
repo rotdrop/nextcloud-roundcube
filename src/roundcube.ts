@@ -2,7 +2,7 @@
  * Nextcloud RoundCube App.
  *
  * @author Claus-Justus Heine
- * @copyright 2020-2025 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2020-2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  *
  * Nextcloud RoundCube App is free software: you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -22,10 +22,10 @@
 type RoundCubeWindow = Window & {
   rcmail?: {
     env: {
-      skin: string,
-    },
-  },
-}
+      skin: string;
+    };
+  };
+};
 
 /**
  * @param rcf RoundCubeFrame.
@@ -37,10 +37,10 @@ export const hideTopLine = (rcf: HTMLIFrameElement) => {
   const skin = frameWindow.rcmail!.env.skin;
   if (skin.includes('classic')) {
     // just remove the logout button
-    frameDocument.querySelectorAll('.button-logout').forEach(el => el.remove());
+    frameDocument.querySelectorAll('.button-logout').forEach((el) => el.remove());
   } else if (skin.includes('elastic')) {
     // just remove the logout button
-    frameDocument.querySelectorAll(':scope .special-buttons .logout').forEach(el => el.remove());
+    frameDocument.querySelectorAll(':scope .special-buttons .logout').forEach((el) => el.remove());
   } else if (skin.includes('larry')) {
     // User shouldn't be able to logout from rc, but from outer app:
     // 1. #topline has a logout button which we don't want, so remove it and

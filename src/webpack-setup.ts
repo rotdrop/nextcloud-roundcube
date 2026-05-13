@@ -17,12 +17,11 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
- *
  */
 
-import { appName } from './config.ts';
+import { getRequestToken, onRequestTokenUpdate } from '@nextcloud/auth';
 import { generateFilePath } from '@nextcloud/router';
-import { onRequestTokenUpdate, getRequestToken } from '@nextcloud/auth';
+import { appName } from './config.ts';
 
 declare global {
   var __webpack_public_path__: string;

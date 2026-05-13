@@ -20,19 +20,19 @@
   <NcSettingsSection :name="t(appName, 'Embedded RoundCube, Personal Settings')"
                      :class="[...cloudVersionClasses, appName]"
   >
-    <TextField :value.sync="settings.emailAddress"
+    <TextField v-model:value="settings.emailAddress"
                :label="t(appName, 'Email Login Name')"
-               :helper-text="emailAddressHint"
+               :helperText="emailAddressHint"
                :placeholder="t(appName, 'Email Address')"
                :disabled="emailAddressDisabled"
                @submit="saveTextInput('emailAddress')"
     />
-    <TextField :value.sync="protectedEmailPassword"
+    <TextField v-mode:value="protectedEmailPassword"
                :type="isPasswordHidden ? 'password' : 'text'"
                :label="t(appName, 'Email Password')"
                :disabled="emailPasswordDisabled"
                :placeholder="t(appName, 'Email Password')"
-               :helper-text="emailPasswordHint"
+               :helperText="emailPasswordHint"
                class="password"
                @submit="saveTextInput('emailPassword')"
     >
@@ -50,28 +50,30 @@
     </TextField>
   </NcSettingsSection>
 </template>
+
 <script setup lang="ts">
-import { appName } from './config.ts'
+import type { EmailAddressChoice } from './types/settings.d.ts'
+
+import { translate as t } from '@nextcloud/l10n'
 import {
   NcButton,
   NcSettingsSection,
 } from '@nextcloud/vue'
-import { translate as t } from '@nextcloud/l10n'
 import {
   computed,
-  ref,
   reactive,
+  ref,
 } from 'vue'
 import TextField from '@rotdrop/nextcloud-vue-components/lib/components/TextFieldWithSubmitButton.vue'
+import Eye from 'vue-material-design-icons/Eye.vue'
+import EyeOff from 'vue-material-design-icons/EyeOff.vue'
+import { appName } from './config.ts'
+import logger from './logger.ts'
 import cloudVersionClassesImport from './toolkit/util/cloud-version-classes.ts'
 import {
   fetchSettings,
   saveConfirmedSetting,
 } from './toolkit/util/settings-sync.ts'
-import Eye from 'vue-material-design-icons/Eye.vue'
-import EyeOff from 'vue-material-design-icons/EyeOff.vue'
-import logger from './logger.ts'
-import type { EmailAddressChoice } from './types/settings.d.ts'
 
 const loading = ref(true)
 
@@ -94,51 +96,52 @@ const protectedEmailPassword = computed({
   set(newValue) { settings.emailPassword = newValue },
 })
 
+// eslint-disable-next-line vue/return-in-computed-property
 const emailAddressDisabled = computed(() => {
   if (loading.value) {
     return true
   }
   switch (settings.emailAddressChoiceAdmin) {
-  case 'userIdEmail':
-    return true
-  case 'userPreferencesEmail':
-    return true
-  case 'userChosenEmail':
-    return false
-  case 'fixedSingleAddress':
-    return true
+    case 'userIdEmail':
+      return true
+    case 'userPreferencesEmail':
+      return true
+    case 'userChosenEmail':
+      return false
+    case 'fixedSingleAddress':
+      return true
   }
 })
 
 const emailAddressHint = computed(() => {
   switch (settings.emailAddressChoiceAdmin) {
-  case 'userIdEmail':
-    if (settings.emailDefaultDomainAdmin) {
+    case 'userIdEmail':
+      if (settings.emailDefaultDomainAdmin) {
+        // TRANSLATORS: a hint for the user about what is used as login-name to the email-server
+        return t(
+          appName,
+          'Globally configured as NEXTCLOUD_USER_ID@{emailDefaultDomainAdmin}',
+          // @ts-expect-error settings does serve as data provider for the substitution
+          settings,
+        )
+      } else {
+        // TRANSLATORS: a hint for the user about what is used as login-name to the email-server
+        return t(appName, 'Globally configured as NEXTCLOUD_USER_ID')
+      }
+    case 'userPreferencesEmail':
+      // TRANSLATORS: a hint for the user about what is used as login-name to the email-server
+      return t(appName, 'Globally configured as user\'s email address, see user\'s personal settings.')
+    case 'fixedSingleAddress':
       // TRANSLATORS: a hint for the user about what is used as login-name to the email-server
       return t(
         appName,
-        'Globally configured as NEXTCLOUD_USER_ID@{emailDefaultDomainAdmin}',
+        'Globally configured as {fixedSingleEmailAddressAdmin}',
         // @ts-expect-error settings does serve as data provider for the substitution
         settings,
       )
-    } else {
-      // TRANSLATORS: a hint for the user about what is used as login-name to the email-server
-      return t(appName, 'Globally configured as NEXTCLOUD_USER_ID')
-    }
-  case 'userPreferencesEmail':
-    // TRANSLATORS: a hint for the user about what is used as login-name to the email-server
-    return t(appName, 'Globally configured as user\'s email address, see user\'s personal settings.')
-  case 'fixedSingleAddress':
-    // TRANSLATORS: a hint for the user about what is used as login-name to the email-server
-    return t(
-      appName,
-      'Globally configured as {fixedSingleEmailAddressAdmin}',
-      // @ts-expect-error settings does serve as data provider for the substitution
-      settings,
-    )
-  case 'userChosenEmail':
-  default:
-    return t(appName, 'Please specify an email address to use with RoundCube.')
+    case 'userChosenEmail':
+    default:
+      return t(appName, 'Please specify an email address to use with RoundCube.')
   }
 })
 
@@ -147,16 +150,16 @@ const emailPasswordDisabled = computed(() => {
     return true
   }
   switch (settings.emailAddressChoiceAdmin) {
-  case 'userIdEmail':
-    return false
-  case 'userPreferencesEmail':
-    return false
-  case 'userChosenEmail':
-    return false
-  case 'fixedSingleAddress':
-    return true
-  default:
-    return false
+    case 'userIdEmail':
+      return false
+    case 'userPreferencesEmail':
+      return false
+    case 'userChosenEmail':
+      return false
+    case 'fixedSingleAddress':
+      return true
+    default:
+      return false
   }
 })
 
@@ -189,6 +192,7 @@ const saveTextInput = async (settingsKey: string, value?: string, force?: boolea
   saveConfirmedSetting({ value, section: 'personal', settingsKey, force, settings })
 }
 </script>
+
 <style lang="scss" scoped>
 .cloud-version {
   --cloud-icon-info: var(--icon-info-dark);

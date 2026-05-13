@@ -18,12 +18,17 @@
  -->
 <template>
   <RoundCubeWrapper v-bind="$attrs"
-                    :external-location="externalLocation"
+                    :externalLocation="externalLocation"
                     :query="routeQuery"
   />
 </template>
+
 <script setup lang="ts">
-import RoundCubeWrapper from './RoundCubeWrapper.vue'
+import type {
+  RouteLocationNormalizedGeneric,
+} from 'vue-router'
+import type { InitialState } from './types/initial-state.d.ts'
+
 import {
   onBeforeMount,
   ref,
@@ -32,12 +37,9 @@ import {
   onBeforeRouteUpdate,
   useRoute,
 } from 'vue-router'
-import type {
-  RouteLocationNormalizedGeneric,
-} from 'vue-router'
-import getInitialState from './toolkit/util/initial-state.ts'
-import type { InitialState } from './types/initial-state.d.ts'
+import RoundCubeWrapper from './RoundCubeWrapper.vue'
 import logger from './logger.ts'
+import getInitialState from './toolkit/util/initial-state.ts'
 
 const currentRoute = useRoute()
 
