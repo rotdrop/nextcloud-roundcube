@@ -1,5 +1,5 @@
 <!--
- - @copyright Copyright (c) 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
+ - @copyright Copyright (c) 2025, 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  - @author Claus-Justus Heine <himself@claus-justus-heine.de>
  - @license AGPL-3.0-or-later
  -
@@ -20,7 +20,6 @@
   <RoundCubeWrapper v-bind="$attrs"
                     :external-location="externalLocation"
                     :query="routeQuery"
-                    v-on="$listeners"
   />
 </template>
 <script setup lang="ts">
@@ -32,20 +31,22 @@ import {
 import {
   onBeforeRouteUpdate,
   useRoute,
-} from 'vue-router/composables'
-import type { Route } from 'vue-router'
+} from 'vue-router'
+import type {
+  RouteLocationNormalizedGeneric,
+} from 'vue-router'
 import getInitialState from './toolkit/util/initial-state.ts'
 import type { InitialState } from './types/initial-state.d.ts'
 import logger from './logger.ts'
 
 const currentRoute = useRoute()
 
-const routeQuery = ref<Route['query']>({})
+const routeQuery = ref<RouteLocationNormalizedGeneric['query']>({})
 
 const initialState = getInitialState<InitialState>()
 const externalLocation = ref<string>(initialState?.externalLocation || '')
 
-const onRouteChange = (to: Route) => {
+const onRouteChange = (to: RouteLocationNormalizedGeneric) => {
   routeQuery.value = to.query
 }
 

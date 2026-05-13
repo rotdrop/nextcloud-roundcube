@@ -52,7 +52,7 @@ const svgoOptions = {
         overrides: {
           // viewBox is required to resize SVGs with CSS.
           // @see https://github.com/svg/svgo/issues/1128
-          removeViewBox: false,
+          // removeViewBox: false,
         },
       },
     },

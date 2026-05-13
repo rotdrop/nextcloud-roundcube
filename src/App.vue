@@ -1,5 +1,5 @@
 <!--
- - @copyright Copyright (c) 2022-2025 Claus-Justus Heine <himself@claus-justus-heine.de>
+ - @copyright Copyright (c) 2022-2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  - @author Claus-Justus Heine <himself@claus-justus-heine.de>
  - @license AGPL-3.0-or-later
  -
@@ -59,9 +59,11 @@ import type { InitialState } from './types/initial-state.d.ts'
 import {
   useRoute,
   useRouter,
-} from 'vue-router/composables'
+  type RouteLocationRaw as RouterLocation,
+} from 'vue-router'
 import logger from './logger.ts'
-import type { Location as RouterLocation } from 'vue-router'
+
+type TranslationVariables = Parameters<typeof t>[2]
 
 const loading = ref(true)
 const errorHint = ref<string | undefined>(undefined)
@@ -89,9 +91,9 @@ README.md file which is distributed together with this app.`)
 your personal Roundcube settings. Maybe a re-login to Nextcloud
 helps. Otherwise contact your system administrator.`)
   case 'carddav':
-    return t(appName, 'Unable to configure the CardDAV integration for "{emailUserId}".', initialState)
+    return t(appName, 'Unable to configure the CardDAV integration for "{emailUserId}".', initialState as TranslationVariables)
   case 'noemail':
-    return t(appName, 'Unable to obtain email credentials for "{emailUserId}". Please check your personal Roundcube settings.', initialState)
+    return t(appName, 'Unable to obtain email credentials for "{emailUserId}". Please check your personal Roundcube settings.', initialState as TranslationVariables)
   default:
     return errorHint.value || null
   }
@@ -129,7 +131,7 @@ const onIFrameLoaded = async (event: { query: Record<string, string> }) => {
 // The initial route is not named and consequently does not load the
 // wrapper component, so just replace it by the one and only named
 // route.
-router.onReady(async () => {
+router.isReady().then(async () => {
   if (!currentRoute.name) {
     logger.debug('FORCING NAMED ROUTE', { currentRoute })
     const routerLocation: RouterLocation = {
@@ -160,7 +162,7 @@ router.onReady(async () => {
       // DO NOT ALLOW THIS!
       overflow: hidden !important;
   }
-  .empty-content::v-deep {
+  :deep(.empty-content) {
     h2 ~ p {
       text-align: center;
       width: 72ex;

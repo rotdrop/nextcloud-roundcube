@@ -1,5 +1,5 @@
 <!--
- - @copyright Copyright (c) 2022-2025 Claus-Justus Heine <himself@claus-justus-heine.de>
+ - @copyright Copyright (c) 2022-2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  - @author Claus-Justus Heine <himself@claus-justus-heine.de>
  - @license AGPL-3.0-or-later
  -
@@ -108,7 +108,6 @@ const emailAddressDisabled = computed(() => {
   case 'fixedSingleAddress':
     return true
   }
-  return false
 })
 
 const emailAddressHint = computed(() => {
@@ -224,7 +223,7 @@ const saveTextInput = async (settingsKey: string, value?: string, force?: boolea
     }
   }
   // Tweak the submit button of the NcTextField
-  .input-field::v-deep {
+  :deep(.input-field) {
     &.email-default-domain {
       width:unset !important;
     }
