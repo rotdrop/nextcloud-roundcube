@@ -4,7 +4,7 @@
  - CAFEVDB -- Camerata Academica Freiburg e.V. DataBase.
  -
  - @author Claus-Justus Heine
- - @copyright 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
+ - @copyright 2025, 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  - @license AGPL-3.0-or-later
  -
  - This program is free software: you can redistribute it and/or modify
@@ -27,10 +27,11 @@
        @click="$emit('click', $event)"
   />
 </template>
+
 <script setup lang="ts">
+import { translate as t } from '@nextcloud/l10n'
 import { onMounted, ref, watch } from 'vue'
 import { appName } from '../config.ts'
-import { translate as t } from '@nextcloud/l10n'
 import sanitzeSVG from '../util/sanitize-inline-svg.ts'
 // import Console from '../util/console.ts'
 
@@ -45,13 +46,14 @@ import sanitzeSVG from '../util/sanitize-inline-svg.ts'
 
 const props = withDefaults(
   defineProps<{
-    size?: number,
-    width?: number,
-    height?: number,
-    viewBox?: [number, number, number, number],
-    title?: string,
-    data: string, // the svg image data
-  }>(), {
+    size?: number
+    width?: number
+    height?: number
+    viewBox?: [number, number, number, number]
+    title?: string
+    data: string // the svg image data
+  }>(),
+  {
     size: undefined,
     width: undefined,
     height: undefined,
@@ -120,6 +122,7 @@ watch(props, () => {
   }
 })
 </script>
+
 <style scoped lang="scss">
 .container.dynamic-svg-icon {
   display: flex;
