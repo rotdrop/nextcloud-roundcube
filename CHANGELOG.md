@@ -4,6 +4,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [1.3.0] - unreleased
+
+### Added
+
+- support NC v33 and up
+- support PHP 8.5 and up
+
+### Changed
+
+- use Vue3
+
+### Dropped
+
+- support for NC v32 and below
+- support for PHP 8.3 and below
+
 ## [1.2.2] - 2025-10-15
 
 ### Changed

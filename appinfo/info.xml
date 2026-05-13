@@ -7,7 +7,7 @@
   <description>
     Integrates an existing Roundcube standalone email-webapp into Nextcloud, with optional SSO.
   </description>
-  <version>1.2.2</version>
+  <version>1.3.0</version>
   <licence>agpl</licence>
   <author mail="himself@claus-justus-heine.de">Claus-Justus Heine</author>
   <author>Martin Reinhardt</author>
@@ -17,8 +17,8 @@
   <category>integration</category>
   <category>social</category>+
   <dependencies>
-    <php min-version="8.1" max-version="8.4" />
-    <nextcloud min-version="30" max-version="32" />
+    <php min-version="8.4" max-version="8.5" />
+    <nextcloud min-version="33" max-version="33" />
   </dependencies>
   <bugs>https://github.com/rotdrop/nextcloud-roundcube/issues</bugs>
   <website>https://github.com/rotdrop/nextcloud-roundcube/</website>
