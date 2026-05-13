@@ -21,10 +21,10 @@ import { getDialogBuilder } from '@nextcloud/dialogs';
 import { translate as t } from '@nextcloud/l10n';
 
 export interface DialogConfirmArgs {
-  title: string,
-  text: string,
-  allowHtml?: boolean,
-  defaultNo?: boolean,
+  title: string;
+  text: string;
+  allowHtml?: boolean;
+  defaultNo?: boolean;
 }
 
 const dialogConfirm = async ({ title, text, allowHtml, defaultNo }: DialogConfirmArgs): Promise<boolean|undefined> => {

@@ -17,14 +17,14 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { appName } from '../../config.ts';
 import { getDialogBuilder } from '@nextcloud/dialogs';
 import { translate as t } from '@nextcloud/l10n';
+import { appName } from '../../config.ts';
 
 export interface DialogAlertArgs {
-  title: string,
-  text: string,
-  allowHtml: boolean,
+  title: string;
+  text: string;
+  allowHtml?: boolean;
 }
 
 const dialogAlert = async ({ title, text, allowHtml }: DialogAlertArgs) => {

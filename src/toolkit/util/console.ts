@@ -1,6 +1,6 @@
 /**
  * @author Claus-Justus Heine
- * @copyright 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2025, 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -17,27 +17,28 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import StackTrace from 'stacktrace-js';
 import type { StackFrame } from 'stacktrace-js';
+
+import StackTrace from 'stacktrace-js';
 
 export const stackTraceOptions = {
   sourceMapConsumerCache: {},
   sourceCache: {},
 };
 
-const syncStackFrames = (offset: number, depth: number) =>
-  StackTrace.getSync(stackTraceOptions).slice(offset + 1, offset + 1 + depth);
+const syncStackFrames = (offset: number, depth: number) => StackTrace
+  .getSync(stackTraceOptions).slice(offset + 1, offset + 1 + depth);
 
 const asyncStackFrames = async (offset: number, depth: number) => {
   const stackFrames = await StackTrace.get(stackTraceOptions);
   return stackFrames.slice(offset + 1, offset + 1 + depth);
 };
 
-type ConsoleMethods = 'debug'|'info'|'error'|'trace';
+type ConsoleMethods = 'debug' | 'info' | 'error' | 'trace';
 
 export interface ConsoleOptions {
-  smaps?: { debug?: boolean, info?: boolean, error?: boolean, trace?: boolean },
-  stackDepth?: number,
+  smaps?: { debug?: boolean; info?: boolean; error?: boolean; trace?: boolean };
+  stackDepth?: number;
 }
 
 const defaultConsoleOptions = {
@@ -55,7 +56,7 @@ class Console {
   }
 
   private prefix: string;
-  private smaps: { debug: boolean, info: boolean, error: boolean, trace: boolean };
+  private smaps: { debug: boolean; info: boolean; error: boolean; trace: boolean };
   private stackDepth: number;
   private timestamp() {
     return (new Date()).toLocaleTimeString('en-gb', { hour: '2-digit', minute: '2-digit', second: '2-digit', fractionalSecondDigits: 3 });
@@ -79,7 +80,7 @@ class Console {
 
   private locationObject(stack: StackFrame[], time: string) {
     const prefix = time + ' ' + this.prefix + (stack.length > 0 ? (' ' + stack[0].toString()) : '');
-    return stack.length > 1 ? [prefix, { stack: stack.map(entry => entry.toString()) }] : [prefix];
+    return stack.length > 1 ? [prefix, { stack: stack.map((entry) => entry.toString()) }] : [prefix];
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -87,10 +88,10 @@ class Console {
     const time = this.timestamp();
     const depth = Math.max(1, (args.length > 0 && typeof args[0] === 'number') ? args.shift() : this.stackDepth);
     if (this.smaps[method]) {
-      // eslint-disable-next-line no-console
-      this.asyncStackFrames(depth).then(stack => { console[method](...this.locationObject(stack, time), ...args); });
+      this.asyncStackFrames(depth).then((stack) => {
+        console[method](...this.locationObject(stack, time), ...args);
+      });
     } else {
-      // eslint-disable-next-line no-console
       console[method](...this.locationObject(this.syncStackFrames(depth), time), ...args);
     }
   }
@@ -115,11 +116,11 @@ class Console {
     return this.emitMessage('trace', ...args);
   }
 
-  enableSourceMaps(method: 'debug'|'info'|'error'|'trace', state: boolean = true) {
+  enableSourceMaps(method: 'debug' | 'info' | 'error' | 'trace', state: boolean = true) {
     this.smaps[method] = state;
   }
 
-  disableSourceMaps(method: 'debug'|'info'|'error'|'trace') {
+  disableSourceMaps(method: 'debug' | 'info' | 'error' | 'trace') {
     this.enableSourceMaps(method, false);
   }
 

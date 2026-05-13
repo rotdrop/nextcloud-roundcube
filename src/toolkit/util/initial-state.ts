@@ -1,5 +1,5 @@
 /**
- * @copyright Copyright (c) 2022, 2023, 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright Copyright (c) 2022, 2023, 2025, 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
  *
@@ -19,15 +19,14 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import { loadState } from '@nextcloud/initial-state';
 import { appName } from '../../config.ts';
 
-import { loadState } from '@nextcloud/initial-state';
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export interface GetInitialStateArgs<D = Record<string, any> > {
-  section: string,
-  defaults?: D|null,
-  onError?: 'throw',
+export interface GetInitialStateArgs<D = Record<string, any>> {
+  section: string;
+  defaults?: D|null;
+  onError?: 'throw';
 }
 
 /**
@@ -44,9 +43,8 @@ export interface GetInitialStateArgs<D = Record<string, any> > {
    thrown on error. Otherwise the function return just null on error.
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const getInitialState = <D = Record<string, any> >({ section, defaults, onError }: GetInitialStateArgs<D> = { section: 'config' }) => {
+const getInitialState = <D = Record<string, any>>({ section, defaults, onError }: GetInitialStateArgs<D> = { section: 'config' }) => {
   try {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const result = loadState(appName, section) as D;
     return result;
   } catch (err) {

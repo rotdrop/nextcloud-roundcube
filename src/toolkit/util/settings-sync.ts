@@ -17,24 +17,24 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { appName } from '../../config.ts';
+import axios from '@nextcloud/axios';
 import {
   showError,
-  showSuccess,
   showInfo,
+  showSuccess,
   TOAST_PERMANENT_TIMEOUT,
 } from '@nextcloud/dialogs';
-import axios from '@nextcloud/axios';
-import { generateUrl } from '@nextcloud/router';
 import { translate as t } from '@nextcloud/l10n';
+import { generateUrl } from '@nextcloud/router';
+import deepEqual from 'deep-equal';
+import { appName } from '../../config.ts';
 import { isAxiosErrorResponse } from '../types/axios-type-guards.ts';
 import dialogConfirm from './dialog-confirm.ts';
-import deepEqual from 'deep-equal';
 
 interface FetchSettingsArgs {
-  section: 'admin'|'personal',
+  section: 'admin'|'personal';
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  settings: Record<string, any>,
+  settings: Record<string, any>;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -77,10 +77,10 @@ async function fetchSettings({ section, settings }: FetchSettingsArgs) {
 }
 
 interface FetchSettingArgs {
-  settingsKey: string,
-  section: 'admin'|'personal',
+  settingsKey: string;
+  section: 'admin'|'personal';
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  settings: Record<string, any>,
+  settings: Record<string, any>;
 }
 
 /**
@@ -121,12 +121,12 @@ async function fetchSetting({ settingsKey, section, settings }: FetchSettingArgs
 }
 
 interface SaveSimpleSettingArgs {
-  settingsKey: string,
-  section: 'admin'|'personal',
+  settingsKey: string;
+  section: 'admin'|'personal';
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onSuccess?: (responseData: any, value: any, section: 'admin'|'personal', settingsKey: string) => any,
+  onSuccess?: (responseData: any, value: any, section: 'admin'|'personal', settingsKey: string) => any;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  settings: Record<string, any>,
+  settings: Record<string, any>;
 }
 
 /**
@@ -214,16 +214,16 @@ async function saveSimpleSetting({ settingsKey, section, onSuccess, settings }: 
 
 interface SaveConfirmedSettingArgs {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  value: any,
-  section: 'admin'|'personal',
-  settingsKey: string,
-  force?: boolean,
+  value: any;
+  section: 'admin'|'personal';
+  settingsKey: string;
+  force?: boolean;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onSuccess?: (responseData: any, value: any, section: 'admin'|'personal', settingsKey: string, force?: boolean) => any,
+  onSuccess?: (responseData: any, value: any, section: 'admin'|'personal', settingsKey: string, force?: boolean) => any;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  settings: Record<string, any>
+  settings: Record<string, any>;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  resetData?: () => any,
+  resetData?: () => any;
 }
 
 /**
@@ -267,7 +267,9 @@ const saveConfirmedSetting = async ({
         return saveConfirmedSetting({ value, section, settingsKey, force: true, settings, resetData });
       } else {
         showInfo(t(appName, 'Unconfirmed, reverting to old value.'));
-        resetData && await resetData();
+        if (resetData) {
+          await resetData();
+        }
         return false;
       }
     } else {
@@ -311,11 +313,15 @@ const saveConfirmedSetting = async ({
       }
     }
     showError(t(appName, 'Could not set value for "{settingsKey}" to "{value}": {message}', {
-      settingsKey, value, message,
+      settingsKey,
+      value,
+      message,
     }), {
       timeout: TOAST_PERMANENT_TIMEOUT,
     });
-    resetData && resetData();
+    if (resetData) {
+      resetData();
+    }
     return false;
   }
 };
