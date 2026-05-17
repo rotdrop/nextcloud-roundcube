@@ -1,6 +1,6 @@
 /**
  * @author Claus-Justus Heine
- * @copyright 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2025, 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -17,28 +17,38 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+// The core window.d.ts seems to be ignored (why?) so we duplicate the defs here
+import type Tab from '../../../../files/src/models/Tab.js';
+import type Settings from '../../../../files/src/services/Settings.js';
+import type Sidebar from '../../../../files/src/services/Sidebar.js';
+
+import '@nextcloud/typings';
+
+type SidebarAPI = Sidebar & {
+  open: (path: string) => Promise<void>;
+  close: () => void;
+  setFullScreenMode: (fullScreen: boolean) => void;
+  setShowTagsDefault: (showTagsDefault: boolean) => void;
+  Tab: typeof Tab;
+};
+
 declare global {
-  const OC: {
-    config: {
-      versionstring: string,
-    }
-    dialogs: {
-      confirm: (
-        text: string,
-        title: string,
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        callback: (answer: boolean) => any,
-        modal: boolean,
-      ) => void,
-      alert: (text: string, title: string) => void,
-    },
-  };
+  const OC: Nextcloud.v31.OC;
+  // Private Files namespace
   const OCA: {
     Files: {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      [key: string]: any,
-    },
-  };
+      Settings: Settings;
+      Sidebar: SidebarAPI;
+    };
+  } & Record<string, any>; // eslint-disable-line @typescript-eslint/no-explicit-any
+  // const OCA: Window.OCA;
+  // {
+  //    Files: {
+  //      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  //      [key: string]: any;
+  //    };
+  //  };
+  const OCP: Nextcloud.v31.OCP;
 }
 
 export {};

@@ -1,5 +1,5 @@
 /**
- * @copyright Copyright (c) 2022, 2023, 2024, 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright Copyright (c) 2022-2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
  *
@@ -17,16 +17,16 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
- *
  */
 
-import axios from '@nextcloud/axios';
-import fileDownload from 'js-file-download';
-import { generateUrl as generateAppUrl } from './generate-url.ts';
-import { generateUrl, generateRemoteUrl } from '@nextcloud/router';
-import { parse as parseContentDisposition } from 'content-disposition';
 import type { ResponseType } from 'axios';
+
+import axios from '@nextcloud/axios';
+import { generateRemoteUrl, generateUrl } from '@nextcloud/router';
+import { parse as parseContentDisposition } from 'content-disposition';
+import fileDownload from 'js-file-download';
 import { isAxiosErrorResponse } from '../types/axios-type-guards.ts';
+import { generateUrl as generateAppUrl } from './generate-url.ts';
 
 /**
  * Place a download request by posting to the given Ajax URL.
@@ -40,8 +40,7 @@ import { isAxiosErrorResponse } from '../types/axios-type-guards.ts';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const axiosFileDownload = async (url: string, post?: Record<string, any>) => {
 
-  const downloadUrl = (url.startsWith(generateUrl(''))
-                       || url.startsWith(generateRemoteUrl('')))
+  const downloadUrl = (url.startsWith(generateUrl('')) || url.startsWith(generateRemoteUrl('')))
     ? url
     : generateAppUrl(url);
 
@@ -67,9 +66,9 @@ const axiosFileDownload = async (url: string, post?: Record<string, any>) => {
     fileDownload(response.data, fileName, contentType);
   } catch (error) {
     if (isAxiosErrorResponse(error)
-        && error.response.data
-        && error.response.data instanceof Blob
-        && error.response.data.type === 'application/json') {
+      && error.response.data
+      && error.response.data instanceof Blob
+      && error.response.data.type === 'application/json') {
       try {
         const text = await error.response.data.text();
         const data = JSON.parse(text);
