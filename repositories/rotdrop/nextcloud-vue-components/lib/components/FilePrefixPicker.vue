@@ -1,6 +1,6 @@
 <!--
  - @author Claus-Justus Heine <himself@claus-justus-heine.de>
- - @copyright 2022, 2023, 2024, 2025 Claus-Justus Heine
+ - @copyright 2022-2026 Claus-Justus Heine
  - @license AGPL-3.0-or-later
  -
  - This program is free software: you can redistribute it and/or modify
@@ -45,38 +45,44 @@
     </div>
   </div>
 </template>
+
 <script setup lang="ts">
-import { appName } from '../config.ts'
-import {
-  computed,
-  onBeforeMount,
-  reactive,
-  set as vueSet,
-  watch,
-} from 'vue'
 import {
   getFilePickerBuilder,
   showError,
   showInfo,
   TOAST_PERMANENT_TIMEOUT,
-  FilePickerType,
 } from '@nextcloud/dialogs'
-import TextFieldWithSubmitButton from './TextFieldWithSubmitButton.vue'
 import { translate as t } from '@nextcloud/l10n'
+import { basename } from '@nextcloud/paths'
+import {
+  computed,
+  onBeforeMount,
+  reactive,
+  watch,
+} from 'vue'
+import TextFieldWithSubmitButton from './TextFieldWithSubmitButton.vue'
+import { appName } from '../config.ts'
+
 import '@nextcloud/dialogs/style.css' // still needed?
+
+defineOptions({
+  name: 'FilePrefixPicker',
+})
 
 const props = withDefaults(
   defineProps<{
-    modelValue?: { baseName: string, dirName: string },
-    baseName?: string,
-    dirName?: string,
+    modelValue?: { baseName: string, dirName: string }
+    baseName?: string
+    dirName?: string
     onlyDirName?: boolean
-    hint: string,
-    placeholder?: string,
-    readonly?: boolean|string,
-    disabled?: boolean,
-    filePickerTitle?: string,
-  }>(), {
+    hint?: string
+    placeholder?: string
+    readonly?: boolean|string
+    disabled?: boolean
+    filePickerTitle?: string
+  }>(),
+  {
     modelValue: () => { return { baseName: '', dirName: '' } },
     baseName: undefined,
     dirName: undefined,
@@ -84,15 +90,16 @@ const props = withDefaults(
     hint: undefined,
     placeholder: undefined,
     readonly: undefined,
+    // eslint-disable-next-line vue/no-boolean-default
     disabled: undefined,
     filePickerTitle: undefined,
-  }
+  },
 )
 
 const emit = defineEmits([
   'input',
   'submit',
-  'error:invalid-dir-name',
+  'error:invalidDirName',
   'update:dirName',
   'update:modelValue',
   'update:model-value',
@@ -101,19 +108,20 @@ const emit = defineEmits([
 
 const pathInfo = reactive(props.modelValue)
 
-const pathName = computed(() =>
-  (pathInfo.dirName ? pathInfo.dirName + '/' : '') + (props.onlyDirName ? '' : pathInfo.baseName)
+const pathName = computed(
+  () =>
+    (pathInfo.dirName ? pathInfo.dirName + '/' : '') + (props.onlyDirName ? '' : pathInfo.baseName),
 )
 
-const displayDirName = computed(() =>
-  !pathInfo.dirName
-  ? './'
-  : pathInfo.dirName + (pathInfo.dirName !== '/' ? '/' : '')
+const displayDirName = computed(
+  () => !pathInfo.dirName
+    ? './'
+    : pathInfo.dirName + (pathInfo.dirName !== '/' ? '/' : ''),
 )
 
-const filePickerTitle = computed(() =>
-  props.filePickerTitle
-  || props.onlyDirName ? t(appName, 'Choose a folder') : t(appName, 'Choose a prefix-folder')
+const filePickerTitle = computed(
+  () => props.filePickerTitle
+    || (props.onlyDirName ? t(appName, 'Choose a folder') : t(appName, 'Choose a prefix-folder')),
 )
 
 watch(pathName, () => {
@@ -125,15 +133,15 @@ watch(pathName, () => {
 
 onBeforeMount(() => {
   pathInfo.dirName = props.modelValue?.dirName || ''
-  pathInfo.baseName = props.value?.baseName || ''
+  pathInfo.baseName = props.modelValue?.baseName || ''
   if (!pathInfo.baseName && props.baseName) {
-    vueSet(pathInfo, 'baseName', props.baseName)
+    pathInfo.baseName = props.baseName
   }
   if (!pathInfo.dirName && props.dirName) {
-    vueSet(pathInfo, 'dirName', props.dirName)
+    pathInfo.dirName = props.dirName
   }
   if (!pathInfo.dirName) {
-    vueSet(pathInfo, 'dirName', '/')
+    pathInfo.dirName = '/'
   }
 })
 
@@ -141,7 +149,20 @@ const openFilePicker = async () => {
   const picker = getFilePickerBuilder(filePickerTitle.value)
     .startAt(pathInfo.dirName)
     .setMultiSelect(false)
-    .setType(FilePickerType.Choose)
+    .setButtonFactory(
+      (nodes, path) => {
+        const node = nodes[0]
+        const target = node?.displayname || basename(path)
+        const label = nodes.length === 1
+          ? t(appName, 'Choose {file}', { file: target })
+          : t(appName, 'Choose')
+        return [{
+          callback: () => {},
+          label,
+          variant: 'primary',
+        }]
+      },
+    )
     .setMimeTypeFilter(['httpd/unix-directory'])
     .allowDirectories()
     .build()
@@ -156,14 +177,14 @@ const openFilePicker = async () => {
   }
   if (!dir.startsWith('/')) {
     showError(t(appName, 'Invalid path selected: "{dir}".', { dir }), { timeout: TOAST_PERMANENT_TIMEOUT })
-    emit('error:invalid-dir-name', dir)
+    emit('error:invalidDirName', dir)
   } else {
     if (dir === '/') {
       dir = ''
     }
     showInfo(t(appName, 'Selected path: "{dir}/{base}/".', { dir, base: pathInfo.baseName }))
     emit('update:dirName', dir, pathInfo.baseName)
-    vueSet(pathInfo, 'dirName', dir)
+    pathInfo.dirName = dir
     if (props.onlyDirName) {
       emit('submit', pathInfo)
     }
@@ -181,15 +202,7 @@ const unclippedPopup = (content: string, html = true) => {
   }
 }
 </script>
-<script lang="ts">
-export default {
-  name: 'FilePrefixPicker',
-  model: {
-    prop: 'modelValue',
-    event: 'update:modelValue',
-  },
-}
-</script>
+
 <style lang="scss">
 [csstag="vue-tooltip-unclipped-popup"].v-popper--theme-tooltip {
   .v-popper__inner {
@@ -197,6 +210,7 @@ export default {
   }
 }
 </style>
+
 <style lang="scss" scoped>
 .input-wrapper {
   .dirname {

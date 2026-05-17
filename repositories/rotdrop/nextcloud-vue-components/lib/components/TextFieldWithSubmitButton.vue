@@ -28,7 +28,7 @@
       <NcTextField v-model="model"
                    v-bind="$attrs"
                    :showTrailingButton="true"
-                   trailingButtonIcon="arrowRight"
+                   trailingButtonIcon="arrowEnd"
                    @trailingButtonClick="$emit('submit', model)"
       >
         <!-- pass through slots -->

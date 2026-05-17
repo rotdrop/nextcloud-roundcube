@@ -1,5 +1,5 @@
 /**
- * SPDX-FileCopyrightText: 2019 Nextcloud GmbH and Nextcloud contributors
+ * SPDX-FileCopyrightText: 2019, 2026 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
@@ -12,11 +12,11 @@ export class Color {
    * @param [name] The name of the color
    */
   constructor(r: number, g: number, b: number, name?: string) {
-    this.r = r
-    this.g = g
-		this.b = b
+    this.r = r;
+    this.g = g;
+    this.b = b;
     if (name) {
-      this.name = name
+      this.name = name;
     }
   }
 
@@ -26,12 +26,12 @@ export class Color {
   name?: string;
 
   get color() {
-    const toHex = (num: number) => `00${num.toString(16)}`.slice(-2)
-    return `#${toHex(this.r)}${toHex(this.g)}${toHex(this.b)}`
+    const toHex = (num: number) => `00${num.toString(16)}`.slice(-2);
+    return `#${toHex(this.r)}${toHex(this.g)}${toHex(this.b)}`;
   }
 
   toString() {
-    return this.color + (this.name ? ' (' + this.name + ')' : '')
+    return this.color + (this.name ? ' (' + this.name + ')' : '');
   }
 
   toJSON() {
