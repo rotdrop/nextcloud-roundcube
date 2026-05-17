@@ -1,5 +1,7 @@
 # nextcloud-app-toolkit-js
 
+**This is the legacy version for Vue2**
+
 ## Description
 
 Some common javascript code for some of my Nextcloud apps. The Idea is to use `git
