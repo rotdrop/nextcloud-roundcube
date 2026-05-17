@@ -88,8 +88,9 @@ trait BackedEnumTrait
         $ctor = $class->getConstructor();
         $ctor->invoke($t, $t->getMessage(), $t->getCode(), $e);
         $invalid = $instanceOrCaseOrValue ?? 'NULL';
+        $self = self::class;
         throw new InvalidArgumentException(
-          "{$invalid} is neither a value nor a key of {self::class}: " . print_r(self::toArray(), true),
+          "{$invalid} is neither a value nor a key of {$self}: " . print_r(self::toArray(), true),
           previous: $t,
         );
       }
