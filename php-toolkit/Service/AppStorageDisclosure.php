@@ -71,7 +71,7 @@ class AppStorageDisclosure
     $instanceId = $this->cloudConfig->getSystemValue('instanceid', null);
     if ($instanceId === null) {
       // can this be at this point?
-      throw new RuntimeException($this->l->t('Cloud installation problem: instance id is missing.'));
+      throw new RuntimeException($this->l->t('Cloud installation problem: instance ID is missing.'));
     }
     return self::APP_DATA_PREFIX . $instanceId;
   }
@@ -88,7 +88,7 @@ class AppStorageDisclosure
     if ($storage->file_exists($internalPath)) {
       $folder = $this->rootFolder->get($path);
     } else {
-      throw new RuntimeException($this->l->t('App-data root-folder does not exist.'));
+      throw new RuntimeException($this->l->t('App-data root folder does not exist.'));
     }
     return $folder;
   }
