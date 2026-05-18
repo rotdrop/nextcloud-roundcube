@@ -12,6 +12,8 @@ OC.L10N.register(
     "bytes" : "byte",
     "submit" : "skicka",
     "Choose a folder" : "Välj en mapp",
+    "Choose {file}" : "Välj {file}",
+    "Choose" : "Välj",
     "Show password" : "Visa lösenord",
     "User ID" : "Användar-ID",
     "Email Address" : "E-postadress",

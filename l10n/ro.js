@@ -3,6 +3,8 @@ OC.L10N.register(
     {
     "User" : "Utilizator",
     "Password" : "Parolă",
+    "Choose {file}" : "Selectați {file}",
+    "Choose" : "Alege",
     "Show password" : "Arată parola",
     "User ID" : "ID-ul utilizatorului",
     "Email Address" : "Adresă de mail",

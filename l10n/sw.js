@@ -35,6 +35,8 @@ OC.L10N.register(
     "Provided data is not a valid SVG image: \"{data}\"." : "Data iliyotolewa si picha halali ya SVG: \"{data}\".",
     "Choose a folder" : "Chagua folda",
     "Choose a prefix-folder" : "Chagua folda ya kiambishi awali",
+    "Choose {file}" : "Chagua {file}",
+    "Choose" : "Chagua",
     "Invalid path selected: \"{dir}\"." : "Njia batili imechaguliwa: \"{dir}\".",
     "Selected path: \"{dir}/{base}/\"." : "Njia iliyochaguliwa: \"{dir}/{base}/\".",
     "Please select an item!" : "Tafadhali chagua kipengee!",

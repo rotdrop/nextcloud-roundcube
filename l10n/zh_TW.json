@@ -42,6 +42,8 @@
     "Provided data is not a valid SVG image: \"{data}\"." : "提供的資料不是有效的 SVG 影像：「{data}」。",
     "Choose a folder" : "選擇資料夾",
     "Choose a prefix-folder" : "選擇前綴資料夾",
+    "Choose {file}" : "選擇 {file}",
+    "Choose" : "選擇",
     "Invalid path selected: \"{dir}\"." : "選取了無效路徑：「{dir}」。",
     "Selected path: \"{dir}/{base}/\"." : "已選取的路徑：「{dir}/{base}/」。",
     "Please select an item!" : "請選取項目！",

@@ -28,6 +28,8 @@
     "Provided data is not a valid SVG image: \"{data}\"." : "I dati forniti non sono un'immagine SVG valida: \"{data}\".",
     "Choose a folder" : "Scegli una cartella",
     "Choose a prefix-folder" : "Scegli una cartella predefinita",
+    "Choose {file}" : "Scegli {file}",
+    "Choose" : "Scegli",
     "Invalid path selected: \"{dir}\"." : "Selezionato percorso non valido: \"{dir}\".",
     "Selected path: \"{dir}/{base}/\"." : "Percorso selezionato: \"{dir}/{base}/\".",
     "Please select an item!" : "Seleziona un articolo!",

@@ -42,6 +42,8 @@
     "Provided data is not a valid SVG image: \"{data}\"." : "Ar choinníoll nach íomhá bailí SVG iad na sonraí: \"{data}\".",
     "Choose a folder" : "Roghnaigh fillteán",
     "Choose a prefix-folder" : "Roghnaigh fillteán réimír",
+    "Choose {file}" : "Roghnaigh {file}",
+    "Choose" : "Roghnaigh",
     "Invalid path selected: \"{dir}\"." : "Conair neamhbhailí roghnaithe: \"{dir}\".",
     "Selected path: \"{dir}/{base}/\"." : "Conair roghnaithe: \"{dir}/{base}/\".",
     "Please select an item!" : "Roghnaigh mír le do thoil!",

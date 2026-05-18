@@ -42,6 +42,8 @@
     "Provided data is not a valid SVG image: \"{data}\"." : "Pateikti duomenys nėra galiojantis SVG vaizdas: „{data}“.",
     "Choose a folder" : "Pasirinkti aplanką",
     "Choose a prefix-folder" : "Pasirinkite prefikso aplanką",
+    "Choose {file}" : "Pasirinkti {file}",
+    "Choose" : "Pasirinkti",
     "Invalid path selected: \"{dir}\"." : "Pasirinktas neteisingas kelias: „{dir}“.",
     "Selected path: \"{dir}/{base}/\"." : "Pasirinktas kelias: „{dir}/{base}/“.",
     "Please select an item!" : "Prašome pasirinkti elementą!",

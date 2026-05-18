@@ -9,6 +9,8 @@ OC.L10N.register(
     "open" : "отвори",
     "submit" : "испрати",
     "Choose a folder" : "Избери папка",
+    "Choose {file}" : "Избери {file}",
+    "Choose" : "Избери",
     "Show password" : "Прикажи лозинка",
     "Hide password" : "Сокриј лозинка",
     "Advanced Settings" : "Напредни параметри"

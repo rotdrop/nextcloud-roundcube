@@ -32,6 +32,8 @@ OC.L10N.register(
     "Provided data is not a valid SVG image: \"{data}\"." : "Os dados fornecidos não são uma imagem SVG válida: \"{data}\".",
     "Choose a folder" : "Escolher uma pasta",
     "Choose a prefix-folder" : "Escolha uma pasta-prefixo",
+    "Choose {file}" : "Escolher {file}",
+    "Choose" : "Escolher",
     "Invalid path selected: \"{dir}\"." : "Selecionado caminho inválido: \"{dir}\".",
     "Selected path: \"{dir}/{base}/\"." : "Caminho selecionado: \"{dir}/{base}/\".",
     "Please select an item!" : "Por favor, selecione um item!",

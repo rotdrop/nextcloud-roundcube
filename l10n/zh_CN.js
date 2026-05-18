@@ -20,6 +20,8 @@ OC.L10N.register(
     "open" : "打开",
     "submit" : "提交",
     "Choose a folder" : "选择一个文件夹",
+    "Choose {file}" : "选择 {file}",
+    "Choose" : "选择",
     "Invalid path selected: \"{dir}\"." : "选择了无效路径：“{dir}”。",
     "Selected path: \"{dir}/{base}/\"." : "选择的路径：\"{dir}/{base}/\"。",
     "Clear Selection" : "清除选择",

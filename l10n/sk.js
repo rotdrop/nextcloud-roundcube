@@ -37,6 +37,8 @@ OC.L10N.register(
     "Provided data is not a valid SVG image: \"{data}\"." : "Poskytnuté dáta nie sú validným obrázkom SVG: \"{data}\".",
     "Choose a folder" : "Vybrať priečinok",
     "Choose a prefix-folder" : "Vyberte prefix-adresár",
+    "Choose {file}" : "Vyberte {file}",
+    "Choose" : "Vybrať",
     "Invalid path selected: \"{dir}\"." : "Bola vybraná neplatná cesta: \"{dir}\".",
     "Selected path: \"{dir}/{base}/\"." : "Vybraná cesta: \"{dir}/{base}/\".",
     "Please select an item!" : "Prosím vyberte položku!",

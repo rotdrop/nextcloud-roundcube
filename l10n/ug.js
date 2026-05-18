@@ -38,6 +38,8 @@ OC.L10N.register(
     "Provided data is not a valid SVG image: \"{data}\"." : "تەمىنلەنگەن سانلىق-مەلۇمات بىر ئىناۋەتلىك SVG سۈرىتى ئەمەس: \"{data}\".",
     "Choose a folder" : "قىسقۇچنى تاللاڭ",
     "Choose a prefix-folder" : "ئالدى قىسقۇچنى تاللاڭ",
+    "Choose {file}" : "{file} نى تاللاڭ",
+    "Choose" : "تاللاڭ",
     "Invalid path selected: \"{dir}\"." : "تاللانغان ئىناۋەتسىز يول: \"{dir}\".",
     "Selected path: \"{dir}/{base}/\"." : "تاللانغان يول: \"{dir} / {base} /\".",
     "Please select an item!" : "بىر تۈرنى تاللاڭ!",

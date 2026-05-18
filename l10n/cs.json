@@ -41,6 +41,8 @@
     "Provided data is not a valid SVG image: \"{data}\"." : "Poskytnutá data není platný SVG obrázek: „{data}“.",
     "Choose a folder" : "Zvolit složku",
     "Choose a prefix-folder" : "Zvolte složku-předponu",
+    "Choose {file}" : "Zvolit {file}",
+    "Choose" : "Vybrat",
     "Invalid path selected: \"{dir}\"." : "Vybrán neplatný popis umístění: „{dir}“.",
     "Selected path: \"{dir}/{base}/\"." : "Vyberte popis umístění: „{dir}/{base}/“.",
     "Please select an item!" : "Vyberte položku!",

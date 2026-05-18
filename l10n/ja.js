@@ -10,6 +10,8 @@ OC.L10N.register(
     "renamed file" : "リネーム済みファイル",
     "bytes" : "バイト",
     "submit" : "送信",
+    "Choose {file}" : "{file}を選択",
+    "Choose" : "選択",
     "Clear Selection" : "セッションクリア",
     "Show password" : "パスワードを表示",
     "Hide password" : "パスワードを隠す",

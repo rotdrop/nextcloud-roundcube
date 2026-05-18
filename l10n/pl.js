@@ -22,6 +22,8 @@ OC.L10N.register(
     "pick a color" : "wybierz kolor",
     "submit" : "zatwierdź",
     "Choose a folder" : "Wybierz katalog",
+    "Choose {file}" : "Wybierz {file}",
+    "Choose" : "Wybierz",
     "Click to submit your changes." : "Kliknij, aby przesłać zmiany.",
     "Clear Selection" : "Wyczyść zaznaczenie",
     "Show password" : "Pokaż hasło",

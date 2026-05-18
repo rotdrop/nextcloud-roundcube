@@ -7,6 +7,8 @@ OC.L10N.register(
     "renamed file" : "нэр өөрчлөгдсөн файл",
     "bytes" : "байт",
     "submit" : "илгээх",
+    "Choose {file}" : "{file} сонгох",
+    "Choose" : "–°–æ–Ω–≥–æ—Ö",
     "Clear Selection" : "Сонголтыг арилгах",
     "Show password" : "Нууц үг харуулах",
     "User ID" : "Хэрэглэгчийн ID"

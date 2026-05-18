@@ -6,6 +6,8 @@ OC.L10N.register(
     "%1$s (renamed)" : "%1$s (endurnefnd)",
     "renamed file" : "endurnefndi skrá",
     "bytes" : "bæti",
+    "Choose {file}" : "Veldu {file}",
+    "Choose" : "Velja",
     "Show password" : "Sýna lykilorð",
     "Hide password" : "Fela lykilorð",
     "Email Address" : "Tölvupóstfang",

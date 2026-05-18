@@ -40,6 +40,8 @@ OC.L10N.register(
     "Provided data is not a valid SVG image: \"{data}\"." : "Näidatud andmed pole korrektne svg-vormingus pilt: „{data}“.",
     "Choose a folder" : "Vali kaust",
     "Choose a prefix-folder" : "Vali eesliite kaust",
+    "Choose {file}" : "Vali „{file}“",
+    "Choose" : "Vali",
     "Invalid path selected: \"{dir}\"." : "Vigane asukoht on valitud: „{dir}“.",
     "Selected path: \"{dir}/{base}/\"." : "Valitud asukoht: „{dir}/{base}/“.",
     "Please select an item!" : "Palun vali objekt!",

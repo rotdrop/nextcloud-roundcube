@@ -18,6 +18,8 @@ OC.L10N.register(
     "restore palette" : "obnovi paleto",
     "factory reset palette" : "povrni privzeto paleto",
     "Choose a folder" : "Izbor mape",
+    "Choose {file}" : "Izberite datoteko {file}",
+    "Choose" : "Izbor",
     "Invalid path selected: \"{dir}\"." : "Neveljavna izbrana pot: »{dir}«.",
     "Selected path: \"{dir}/{base}/\"." : "Izbrana pot: »{dir}/{base}/«.",
     "Clear Selection" : "Počisti izbor",

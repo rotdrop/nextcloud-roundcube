@@ -35,6 +35,8 @@ OC.L10N.register(
     "Provided data is not a valid SVG image: \"{data}\"." : "Достављени подаци нису исправна SVG слика: „{data}”.",
     "Choose a folder" : "Изаберите фолдер",
     "Choose a prefix-folder" : "Изаберите префикс-фолдер",
+    "Choose {file}" : "Изабери {file}",
+    "Choose" : "Изаберите",
     "Invalid path selected: \"{dir}\"." : "Изабрана је неисправна путања: „{dir}”.",
     "Selected path: \"{dir}/{base}/\"." : "Изабрана путања: „{dir}/{base}/”.",
     "Please select an item!" : "Молимо вас да изаберете ставку!",

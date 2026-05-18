@@ -31,6 +31,8 @@ OC.L10N.register(
     "factory reset palette" : "paletta gyári visszaállítása",
     "Choose a folder" : "Válasszon mappát",
     "Choose a prefix-folder" : "Előtagmappa kiválasztása",
+    "Choose {file}" : "{file} kiválasztása",
+    "Choose" : "Válasszon",
     "Invalid path selected: \"{dir}\"." : "Érvénytelen kiválasztott útvonal: „{dir}”.",
     "Selected path: \"{dir}/{base}/\"." : "Kiválasztott útvonal: „{dir}/{base}/”.",
     "Please select an item!" : "Válasszon egy elemet!",

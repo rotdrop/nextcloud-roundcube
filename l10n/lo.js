@@ -29,6 +29,8 @@ OC.L10N.register(
     "Provided data is not a valid SVG image: \"{data}\"." : "ຂໍ້ມູນທີ່ໃຫ້ມາບໍ່ແມ່ນຮູບພາບ SVG ທີ່ຖືກຕ້ອງ: \"{data}\".",
     "Choose a folder" : "ເລືອກໂຟນເດີ",
     "Choose a prefix-folder" : "ເລືອກໂຟນເດີນຳໜ້າ",
+    "Choose {file}" : "ເລືອກ {file}",
+    "Choose" : "ເລືອກ",
     "Invalid path selected: \"{dir}\"." : "ເສັ້ນທາງທີ່ເລືອກບໍ່ຖືກຕ້ອງ: \"{dir}\".",
     "Selected path: \"{dir}/{base}/\"." : "ເສັ້ນທາງທີ່ເລືອກ: \"{dir}/{base}/\".",
     "Please select an item!" : "ກະລຸນາເລືອກລາຍການ!",

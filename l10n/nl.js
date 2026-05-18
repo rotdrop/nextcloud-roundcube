@@ -15,6 +15,8 @@ OC.L10N.register(
     "renamed file" : "bestand hernoemd",
     "bytes" : "bytes",
     "submit" : "versturen",
+    "Choose {file}" : "Kies {file}",
+    "Choose" : "Kies",
     "Show password" : "Toon wachtwoord",
     "User ID" : "Gebruiker-ID",
     "Email Address" : "E-mailadres",
