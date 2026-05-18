@@ -204,7 +204,7 @@ class GroupFoldersServicePreNC32
   {
     $folderInfo = $this->folderManager->getFolder($id, $this->getRootFolderStorageId());
     if (empty($folderInfo)) {
-      throw new RuntimeException($this->l->t('Shared folder with id "%1$s" does not exist.', [ $id ]));
+      throw new RuntimeException($this->l->t('Shared folder with ID "%1$s" does not exist.', [ $id ]));
     }
     foreach ($this->sharedFolders as $mountPoint => $cachedInfo) {
       if ($cachedInfo['id'] == $folderInfo['id']) {

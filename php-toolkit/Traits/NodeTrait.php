@@ -3,7 +3,7 @@
  * A collection of reusable traits classes for Nextcloud apps.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2024 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2024, 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -71,7 +71,7 @@ trait NodeTrait
       $topLevelFolder = $topLevelFolder->getPath();
     }
     return [
-      'fileid' => $node->getId(),
+      'fileid' => (string)$node->getId(), // avoid integer overflow with Javascript, convert to string
       'path' => $path,
       'topLevelFolder' => $topLevelFolder,
       'relativePath' => $relativePath,
