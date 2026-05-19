@@ -29,6 +29,8 @@ OC.L10N.register(
     "factory reset palette" : "възстановяване до фабричните настройки на палитрата",
     "Choose a folder" : "Избор на папка",
     "Choose a prefix-folder" : "Избор на префикс-папка",
+    "Choose {file}" : "Изберете {file}",
+    "Choose" : "Изберете",
     "Invalid path selected: \"{dir}\"." : "Избран е невалиден път: \"{dir}\".",
     "Selected path: \"{dir}/{base}/\"." : "Избран път: \"{dir}/{base}/\".",
     "Show password" : "Показване на парола",

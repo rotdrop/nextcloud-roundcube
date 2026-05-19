@@ -32,6 +32,8 @@ OC.L10N.register(
     "Provided data is not a valid SVG image: \"{data}\"." : "البيانات المُعطَاة لاتمثل صورة SVG صحيحة: \"{data}\".",
     "Choose a folder" : "اختر مجلد",
     "Choose a prefix-folder" : "إختر مُجلّداً بادئاً",
+    "Choose {file}" : "إختر {file}",
+    "Choose" : "إختر",
     "Invalid path selected: \"{dir}\"." : "المسار المختار غير صحيح: \"{dir}\"",
     "Selected path: \"{dir}/{base}/\"." : "المسار المختار: \"{dir}/{base}/\".",
     "Please select an item!" : "من فضلك، قم بتحديد عنصر",
