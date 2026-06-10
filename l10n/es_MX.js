@@ -4,6 +4,8 @@ OC.L10N.register(
     "User" : "Usuario",
     "Password" : "Contraseña",
     "bytes" : "bytes",
+    "Choose {file}" : "Elegir {file}",
+    "Choose" : "Elegir",
     "Show password" : "Mostrar contraseña",
     "Hide password" : "Ocultar contraseña",
     "User ID" : "ID de usuario",

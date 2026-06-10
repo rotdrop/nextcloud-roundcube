@@ -1,5 +1,5 @@
 /**
- * @copyright Copyright (c) 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright Copyright (c) 2025, 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
@@ -17,37 +17,34 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {
-  getDialogBuilder,
-  DialogSeverity,
-} from '@nextcloud/dialogs';
+import { getDialogBuilder } from '@nextcloud/dialogs';
 import { translate as t } from '@nextcloud/l10n';
 
 export interface DialogConfirmArgs {
-  title: string,
-  text: string,
-  allowHtml?: boolean,
-  defaultNo?: boolean,
+  title: string;
+  text: string;
+  allowHtml?: boolean;
+  defaultNo?: boolean;
 }
 
 const dialogConfirm = async ({ title, text, allowHtml, defaultNo }: DialogConfirmArgs): Promise<boolean|undefined> => {
   let answer: boolean|undefined;
   const dialog = getDialogBuilder(title)
-    .setSeverity(DialogSeverity.Info)
+    .setSeverity('info')
     .setText(allowHtml === true ? '' : text)
     .addButton({
       label: t('core', 'No'),
-      type: defaultNo ? 'primary' : 'secondary',
+      variant: defaultNo ? 'primary' : 'secondary',
       callback() { answer = false; },
     })
     .addButton({
       label: t('core', 'Yes'),
-      type: defaultNo ? 'secondary' : 'primary',
+      variant: defaultNo ? 'secondary' : 'primary',
       callback() { answer = true; },
     })
     .build();
   if (allowHtml === true) {
-    dialog.setHTML(text);
+    // dialog.setHTML(text);
   }
   await dialog.show();
   if (answer === undefined) {

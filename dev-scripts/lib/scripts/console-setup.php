@@ -28,9 +28,9 @@
  *
  */
 
-$corePrefix = '/../../../../..';
+$coreFolder = ROT_DROP_DEV_SCRIPTS_APP_DIR . '/../..';
 
-require_once __DIR__ . $corePrefix . '/lib/versioncheck.php';
+require_once $coreFolder . '/lib/versioncheck.php';
 
 // use OC\Console\Application;
 
@@ -50,7 +50,7 @@ function exceptionHandler(Throwable $exception):void
   exit(1);
 }
 try {
-  require_once __DIR__ . $corePrefix . '/lib/base.php';
+  require_once $coreFolder . '/lib/base.php';
 
   // set to run indefinitely if needed
   if (strpos(@ini_get('disable_functions'), 'set_time_limit') === false) {

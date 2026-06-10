@@ -30,6 +30,8 @@ OC.L10N.register(
     "factory reset palette" : "Fabrikkinnstilt palett",
     "Choose a folder" : "Velg en mappe",
     "Choose a prefix-folder" : "Velg en prefiksmappe",
+    "Choose {file}" : "Velg {file}",
+    "Choose" : "Velg",
     "Invalid path selected: \"{dir}\"." : "Ugyldig bane valgt: \"{dir}\".",
     "Selected path: \"{dir}/{base}/\"." : "Merket bane: \"{dir}/{base}/\".",
     "Please select an item!" : "Vennligst velg et element!",

@@ -1,5 +1,5 @@
 <!--
- - @copyright Copyright (c) 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
+ - @copyright Copyright (c) 2025, 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  - @author Claus-Justus Heine <himself@claus-justus-heine.de>
  - @license AGPL-3.0-or-later
  -
@@ -35,10 +35,11 @@
     </div>
   </div>
 </template>
+
 <script setup lang="ts">
-import { appName } from './config.ts'
+import type { RouteQueryAndHash } from 'vue-router'
+
 import { translate as t } from '@nextcloud/l10n'
-import { hideTopLine as removeTopLine } from './roundcube.ts'
 import {
   computed,
   onBeforeMount,
@@ -47,46 +48,49 @@ import {
   ref,
   watch,
 } from 'vue'
+import { appName } from './config.ts'
 import logger from './logger.ts'
-import type { Route } from 'vue-router'
+import { hideTopLine as removeTopLine } from './roundcube.ts'
 
-const wrappedApp = 'RoundCube'
+interface IFrameLoadedEventData {
+  query: Record<string, string>
+  iFrame: HTMLIFrameElement
+  window: Window
+  document: Document
+}
+
+interface ErrorEventData {
+  error: Error
+  hint: string
+}
 
 const props = withDefaults(defineProps<{
-  externalLocation: string,
-  fullScreen?: boolean,
-  hideTopLine?: boolean,
-  query?: Route['query'],
+  externalLocation: string
+  fullScreen?: boolean
+  hideTopLine?: boolean
+  query?: RouteQueryAndHash['query']
 }>(), {
+  // eslint-disable-next-line vue/no-boolean-default
   fullScreen: true,
+  // eslint-disable-next-line vue/no-boolean-default
   hideTopLine: true,
   query: () => ({
     _task: 'mail',
   }),
 })
 
-interface IFrameLoadedEventData {
-  query: Record<string, string>,
-  iFrame: HTMLIFrameElement,
-  window: Window,
-  document: Document,
-}
-
-interface ErrorEventData {
-  error: Error,
-  hint: string,
-}
-
 const emit = defineEmits<{
-  (event: 'iframe-loaded', eventData: IFrameLoadedEventData): void,
-  (event: 'iframe-resize', eventData: ResizeObserverEntry): void,
-  (event: 'update-loading', loading: boolean): void,
-  (event: 'error', eventData: ErrorEventData): void,
+  (event: 'iframeLoaded', eventData: IFrameLoadedEventData): void
+  (event: 'iframeResize', eventData: ResizeObserverEntry): void
+  (event: 'updateLoading', loading: boolean): void
+  (event: 'error', eventData: ErrorEventData): void
 }>()
+
+const wrappedApp = 'RoundCube'
 
 const loading = ref(true)
 
-watch(loading, (value) => emit('update-loading', value))
+watch(loading, (value) => emit('updateLoading', value))
 
 const queryString = computed(() => (new URLSearchParams(props.query as Record<string, string>)).toString().replace(/\+/g, '%20'))
 
@@ -116,27 +120,6 @@ const frameWrapper = ref<null|HTMLDivElement>(null)
 const externalFrame = ref<null|HTMLIFrameElement>(null)
 let iFrameBody: undefined | HTMLBodyElement
 
-const contentObserver = new MutationObserver((entries) => {
-  logger.info('MUTATION OBSERVED', { entries })
-  const iFrame = externalFrame.value!
-  emitLoaded(iFrame)
-})
-
-watch(queryString, (_value) => {
-  if (requestedLocation.value !== currentLocation.value) {
-    logger.debug('TRIGGER IFRAME REFRESH', { request: requestedLocation.value, current: currentLocation.value })
-    loading.value = true
-    contentObserver.disconnect()
-    iFrameLocation.value = requestedLocation.value
-    const iFrame = externalFrame.value
-    if (iFrame?.contentWindow) {
-      iFrame.contentWindow.location.href = requestedLocation.value
-    }
-  } else {
-    logger.debug('NOT CHANGING IFRAME SOURCE', { request: requestedLocation.value, current: currentLocation.value })
-  }
-})
-
 const setIFrameSize = ({ width, height }: DOMRectReadOnly) => {
   if (!externalFrame.value) {
     return
@@ -149,7 +132,7 @@ const setIFrameSize = ({ width, height }: DOMRectReadOnly) => {
 const resizeObserver = new ResizeObserver((entries) => {
   for (const entry of entries) {
     if (entry.target === iFrameBody) {
-      emit('iframe-resize', entry)
+      emit('iframeResize', entry)
       continue
     }
     if (props.fullScreen && entry.target === container.value) {
@@ -181,14 +164,35 @@ const emitLoaded = (iFrame: HTMLIFrameElement) => {
   const iFrameDocument = iFrame.contentDocument!
   currentLocation.value = iFrameWindow.location.href
   const search = iFrameWindow.location.search
-  const query = Object.fromEntries((new URLSearchParams(search)).entries())
-  emit('iframe-loaded', {
+  const query = Object.fromEntries((new URLSearchParams(search)).entries()) as (Record<string, string>)
+  emit('iframeLoaded', {
     query,
     iFrame,
     window: iFrameWindow,
     document: iFrameDocument,
   })
 }
+
+const contentObserver = new MutationObserver((entries) => {
+  logger.info('MUTATION OBSERVED', { entries })
+  const iFrame = externalFrame.value!
+  emitLoaded(iFrame)
+})
+
+watch(queryString, (_value) => {
+  if (requestedLocation.value !== currentLocation.value) {
+    logger.debug('TRIGGER IFRAME REFRESH', { request: requestedLocation.value, current: currentLocation.value })
+    loading.value = true
+    contentObserver.disconnect()
+    iFrameLocation.value = requestedLocation.value
+    const iFrame = externalFrame.value
+    if (iFrame?.contentWindow) {
+      iFrame.contentWindow.location.href = requestedLocation.value
+    }
+  } else {
+    logger.debug('NOT CHANGING IFRAME SOURCE', { request: requestedLocation.value, current: currentLocation.value })
+  }
+})
 
 const loadHandler = () => {
   logger.debug('GOT LOAD EVENT')
@@ -291,6 +295,7 @@ defineExpose({
 })
 
 </script>
+
 <style scoped lang="scss">
 .#{$roundCubeAppName}-container {
   display: flex;

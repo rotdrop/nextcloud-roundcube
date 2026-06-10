@@ -15,39 +15,19 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
- *
  */
 
 // import type { Event } from '@nextcloud/event-bus';
 
 import type { Folder, Node, View } from '@nextcloud/files';
+import type { components as NotificationComponents } from '../../../build/ts-types/notification-api.d.ts';
 
 /**
  * Define the type used by the notifications app as Event. These are
  * just the properties for Notification.vue from the notifications
  * app.
  */
-export interface Notification {
-  notificationId: number;
-  datetime: string;
-  app: string;
-  icon: string;
-  link: string;
-  externalLink: string;
-  user: string;
-  message: string;
-  messageRich: string;
-  messageRichParameters: Record<string, unknown>;
-  subject: string;
-  subjectRich: string;
-  subjectRichParameters: Record<string, unknown>;
-  objectType: string;
-  objectId: string;
-  shouldNotify: boolean;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  actions: Array<any>;
-  index: number;
-}
+export type Notification = NotificationComponents['schemas']['Notification'];
 
 export interface NotificationEvent /* extends Event */ {
   notification: Notification;
@@ -55,15 +35,15 @@ export interface NotificationEvent /* extends Event */ {
 
 declare module '@nextcloud/event-bus' {
   interface NextcloudEvents {
-    'notifications:notification:received': NotificationEvent,
-    'files:node:deleted': Node,
-    'files:node:renamed': Node,
+    'notifications:notification:received': NotificationEvent;
+    'files:node:deleted': Node;
+    'files:node:renamed': Node;
     'files:list:updated': {
-      folder: Folder,
-      contents: Node[],
-      view: View,
-    },
-    'toggle-navigation': { open: boolean },
+      folder: Folder;
+      contents: Node[];
+      view: View;
+    };
+    'toggle-navigation': { open: boolean };
   }
 }
 

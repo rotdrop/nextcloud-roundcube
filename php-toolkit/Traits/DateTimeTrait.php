@@ -3,7 +3,7 @@
  * A collection of reusable traits classes for Nextcloud apps.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022, 2023, 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022, 2023, 2025, 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -46,7 +46,11 @@ trait DateTimeTrait
   }
 
   /**
-   * @param null|string|int|float|\DateTimeInterface $dateTime
+   * Convert the given argument to a DateTimeImmutable object. allowed are
+   * timestamps, other DateTimeInterface instances and strings which are
+   * understood by the constructor or DateTimeImmutable (see PHP manual).
+   *
+   * @param null|string|int|float|DateTimeInterface $dateTime
    *
    * @return ?DateTimeImmutable
    */

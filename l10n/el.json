@@ -33,6 +33,8 @@
     "Provided data is not a valid SVG image: \"{data}\"." : "Τα παρεχόμενα δεδομένα δεν είναι έγκυρη εικόνα SVG: \"{data}\".",
     "Choose a folder" : "Επιλογή φακέλου",
     "Choose a prefix-folder" : "Επιλογή προθέματος φακέλου",
+    "Choose {file}" : "Επιλέξτε {file}",
+    "Choose" : "Επιλογή",
     "Invalid path selected: \"{dir}\"." : "Επιλέχθηκε μη έγκυρη διαδρομή: \"{dir}\".",
     "Selected path: \"{dir}/{base}/\"." : "Επιλεγμένη διαδρομή: \"{dir}/{base}/\".",
     "Please select an item!" : "Παρακαλώ επιλέξτε ένα αντικείμενο!",

@@ -3,7 +3,7 @@
  * A collection of reusable traits classes for Nextcloud apps.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022, 2023, 2024 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022, 2023, 2024, 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -26,6 +26,8 @@ use OCP\Files\IRootFolder;
 use OCP\Files\FileInfo;
 use OCP\Files\Folder;
 use OCP\Files\NotFoundException as FileNotFoundException;
+
+use OCA\RotDrop\Toolkit\Constants;
 
 /**
  * The actual user folder is USER_ROOT/files/. This trait provides some

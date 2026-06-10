@@ -29,6 +29,8 @@
     "factory reset palette" : "Berrezarri paleta hasierako baliotara",
     "Choose a folder" : "Aukeratu karpeta bat",
     "Choose a prefix-folder" : "Aukeratu karpeta lehenetsi bat",
+    "Choose {file}" : "Aukeratu {file}",
+    "Choose" : "Aukeratu",
     "Invalid path selected: \"{dir}\"." : "Bide-izen baliogabea hautatu da: \"{dir}\".",
     "Selected path: \"{dir}/{base}/\"." : "Hautatutako bide-izena: \"{dir}/{base}/\".",
     "Please select an item!" : "Mesedez hautatu elementu bat!",

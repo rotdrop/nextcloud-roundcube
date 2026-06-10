@@ -4,7 +4,7 @@
  * CAFEVDB -- Camerata Academica Freiburg e.V. DataBase.
  *
  * @author Claus-Justus Heine
- * @copyright 2024, 2025, 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2024-2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -22,8 +22,8 @@
  */
 
 declare module '@nextcloud/vue' {
-  import Vue from 'vue';
-  import { VTooltip } from 'floating-vue';
+  import type { VTooltip } from 'floating-vue';
+  import type { Component as Vue } from 'vue';
 
   const NcActionButton: Vue;
   const NcActionCaption: Vue;
@@ -34,24 +34,23 @@ declare module '@nextcloud/vue' {
   const NcActionSeparator: Vue;
   const NcActionTextEditable: Vue;
   const NcActions: Vue & {
-    open: boolean,
-    opened: boolean,
-    closeMenu(returnFocus?: boolean):void,
-    openMenu(event?: Event):void,
+    open: boolean;
+    opened: boolean;
+    closeMenu(returnFocus?: boolean): void;
+    openMenu(event?: Event): void;
     $refs: Record<string, Vue> & {
-      menuButton: Vue,
-    },
+      menuButton: Vue;
+    };
   };
   const NcActionCheckbox: Vue & {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    'onUpdate:checked': (value: boolean) => any,
+    'onUpdate:checked': (value: boolean) => any;
   };
   const NcButton: Vue;
 
   export declare class Color {
 
     constructor(r: number, g: number, b: number, name?: string);
-    // eslint-disable-next-line no-use-before-define
     declare ['constructor']: typeof Color;
     r: number;
     g: number;
@@ -61,7 +60,7 @@ declare module '@nextcloud/vue' {
 
   }
   const NcColorPicker: Vue & {
-    palette: Color[],
+    palette: Color[];
   };
 
   const NcCounterBubble: Vue;
@@ -69,10 +68,10 @@ declare module '@nextcloud/vue' {
   const NcDialog: Vue;
 
   const NcListItem: Vue & {
-    forceDisplayActions: true,
+    forceDisplayActions: true;
     $refs: Record<string, Vue> & {
-      actions: NcActions,
-    },
+      actions: NcActions;
+    };
   };
   const NcListItemIcon: Vue;
   const NcModal: Vue & {
@@ -81,7 +80,7 @@ declare module '@nextcloud/vue' {
   const NcProgressBar: Vue;
   const NcRichContenteditable: Vue;
   const NcRichText: Vue;
-  const NcSelect : Vue & {
+  const NcSelect: Vue & {
     localLabel: string;
     search: string;
   };
@@ -119,8 +118,8 @@ declare module '@nextcloud/vue' {
     NcActionLink,
     NcActionRadio,
     NcActionRouter,
-    NcActionSeparator,
     NcActions,
+    NcActionSeparator,
     NcActionTextEditable,
     NcAppContent,
     NcAppNavigation,

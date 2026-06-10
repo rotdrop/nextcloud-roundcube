@@ -35,6 +35,8 @@ OC.L10N.register(
     "Provided data is not a valid SVG image: \"{data}\"." : "Надані дані не є дійсним зображенням у форматі SVG: \"{data}\".",
     "Choose a folder" : "Виберіть каталог",
     "Choose a prefix-folder" : "Виберіть префікс каталогу",
+    "Choose {file}" : "Виберіть {file}",
+    "Choose" : "Вибрати",
     "Invalid path selected: \"{dir}\"." : "Вибрано невірний шлях: \"{dir}\".",
     "Selected path: \"{dir}/{base}/\"." : "Вибраний шлях: \"{dir}/{base}/\".",
     "Please select an item!" : "Будь ласка, оберіть товар!",

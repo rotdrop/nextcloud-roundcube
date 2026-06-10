@@ -28,7 +28,7 @@ import axios from '@nextcloud/axios';
 import { translate as t } from '@nextcloud/l10n';
 // eslint-disable-next-line n/no-missing-import
 import type { OCSResponse } from '@nextcloud/typings/ocs';
-import { generateOcsUrl } from '../util/generate-url.ts';
+import { generateOcsUrl as generateAppOcsUrl } from '../util/generate-url.ts';
 import { type EntityId, type EntityMap } from '../../../build/ts-types/php-modules/Toolkit/Doctrine/ORM/EntityMetadata.ts';
 import { type EntityResponse } from '../../../build/ts-types/php-modules/Toolkit/Doctrine/ORM/EntitySerializer.ts';
 import { EnumOrderByOptions } from '../../../build/ts-types/php-modules/Toolkit/Doctrine/ORM.ts';
@@ -36,6 +36,7 @@ import { QUERY_OPTIONS_KEY, QUERY_OPTION_WILDCARDS } from '../../../build/ts-typ
 import entityFactory, { type FrontEndEntity } from './entity-factory.ts';
 import { AppError } from '../types/errors.ts';
 import type { NonNegInt, NumberTuple, ObjectEntries } from '../types/type-traits.ts';
+import { END_POINT as controllerEndPoint } from '../../../build/ts-types/php-modules/Controller/EntityRepositoryController.ts';
 
 type EntityRepository<E extends keyof EntityMap> = {
   [Identifier: string]: FrontEndEntity<E>;
@@ -138,7 +139,7 @@ export const search = async <
   limit = null as L,
   offset = 0 as O,
 }: SearchArguments<N, D, L, O>) => {
-  const url = generateOcsUrl(`v1/entities/${entityName}/${depth}`);
+  const url = generateAppOcsUrl(`${controllerEndPoint}/${entityName}/${depth}`);
   const queryParams = {
     findBy: btoa(JSON.stringify(findBy)),
     orderBy: orderBy ? btoa(JSON.stringify(orderBy)) : null,
@@ -172,7 +173,7 @@ export const fetch = async <N extends keyof EntityMap, D extends number = 0>({
   identifier,
   depth = 0 as D,
 }: FetchArguments<N, D>) => {
-  const url = generateOcsUrl(`v1/entities/${entityName}/${depth}`);
+  const url = generateAppOcsUrl(`${controllerEndPoint}/${entityName}/${depth}`);
   const queryParams = {
     find: btoa(JSON.stringify(identifier)),
   };

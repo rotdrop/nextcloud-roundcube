@@ -7,6 +7,8 @@ OC.L10N.register(
     "renamed file" : "перайменаваны файл",
     "submit" : "адправіць",
     "Choose a folder" : "Выберыце папку",
+    "Choose {file}" : "Выбраць {file}",
+    "Choose" : "Выбраць",
     "Reset Changes" : "Скінуць змены",
     "Clear Selection" : "Ачысціць выбар",
     "Show password" : "Паказаць пароль",

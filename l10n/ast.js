@@ -12,6 +12,8 @@ OC.L10N.register(
     "open" : "abrir",
     "submit" : "unviar",
     "restore palette" : "restaurar la paleta",
+    "Choose {file}" : "Escoyer «{file}»",
+    "Choose" : "Escoyer",
     "Please select an item!" : "¡Seleiciona un elementu!",
     "Show password" : "Amosar la contraseña",
     "Email Address" : "Direición de corréu electrónicu",

@@ -28,7 +28,7 @@ use Psr\Log\LoggerInterface;
 use OC\Log\LogDetails;
 use OC\SystemConfig;
 
-use OCP\AppFramework\IAppContainer;
+use Psr\Container\ContainerInterface;
 use OCP\EventDispatcher\Event;
 use OCP\EventDispatcher\IEventDispatcher;
 use OCP\EventDispatcher\IEventListener;
@@ -45,11 +45,11 @@ class BeforeMessageLoggedEventListener implements IEventListener
   const EVENT = HandledEvent::class;
 
   /**
-   * @param IAppContainer $appContainer The only argument in order to have a
+   * @param ContainerInterface $appContainer The only argument in order to have a
    * small CTOR footprint.
    */
   public function __construct(
-    protected IAppContainer $appContainer,
+    protected ContainerInterface $appContainer,
   ) {
   }
 

@@ -31,7 +31,7 @@ class TransformerConfig extends TypeScriptTransformerConfig
 {
   private bool $constantsAsConstants = true;
 
-  private string $scopedNamespacePrefix = '';
+  private ?string $scopedNamespacePrefix = null;
 
   private array $scopedNamespaces = [];
 
@@ -58,11 +58,11 @@ class TransformerConfig extends TypeScriptTransformerConfig
   /**
    * The namespace prefix for classes wrapped by humbug/php-scoper.
    *
-   * @param string $scopedNamespacePrefix
+   * @param ?string $scopedNamespacePrefix
    *
    * @return static
    */
-  public function scopedNamespacePrefix(string $scopedNamespacePrefix): static
+  public function scopedNamespacePrefix(?string $scopedNamespacePrefix): static
   {
     $this->scopedNamespacePrefix = $scopedNamespacePrefix;
 
@@ -85,12 +85,14 @@ class TransformerConfig extends TypeScriptTransformerConfig
 
   public function defaultInlineTypeReplacements(array $replacements): static
   {
-    foreach ($replacements as $class => $replacement) {
-      foreach ($this->scopedNamespaces as $namespace) {
-        if (str_starts_with($class, $namespace)) {
-          $replacements[$this->scopedNamespacePrefix . '\\' . $class] = $replacement;
-          unset($replacements[$class]);
-          break;
+    if ($this->scopedNamespacePrefix !== null) {
+      foreach ($replacements as $class => $replacement) {
+        foreach ($this->scopedNamespaces as $namespace) {
+          if (str_starts_with($class, $namespace)) {
+            $replacements[$this->scopedNamespacePrefix . '\\' . $class] = $replacement;
+            unset($replacements[$class]);
+            break;
+          }
         }
       }
     }
@@ -100,12 +102,14 @@ class TransformerConfig extends TypeScriptTransformerConfig
 
   public function defaultTypeReplacements(array $replacements): static
   {
-    foreach ($replacements as $class => $replacement) {
-      foreach ($this->scopedNamespaces as $namespace) {
-        if (str_starts_with($class, $namespace)) {
-          $replacements[$this->scopedNamespacePrefix . '\\' . $class] = $replacement;
-          unset($replacements[$class]);
-          break;
+    if ($this->scopedNamespacePrefix !== null) {
+      foreach ($replacements as $class => $replacement) {
+        foreach ($this->scopedNamespaces as $namespace) {
+          if (str_starts_with($class, $namespace)) {
+            $replacements[$this->scopedNamespacePrefix . '\\' . $class] = $replacement;
+            unset($replacements[$class]);
+            break;
+          }
         }
       }
     }
@@ -152,9 +156,9 @@ class TransformerConfig extends TypeScriptTransformerConfig
   /**
    * Return the scoped namespace prefix.
    *
-   * @return string;
+   * @return ?string;
    */
-  public function getScopedNamespacePrefix(): string
+  public function getScopedNamespacePrefix(): ?string
   {
     return $this->scopedNamespacePrefix;
   }

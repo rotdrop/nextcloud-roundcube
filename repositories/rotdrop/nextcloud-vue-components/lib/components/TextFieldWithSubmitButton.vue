@@ -1,5 +1,5 @@
 <!--
- - @copyright Copyright (c) 2019, 2022, 2023, 2024, 2025 Julius Härtl <jus@bitgrid.net>
+ - @copyright Copyright (c) 2019, 2022, 2023, 2024, 2025, 2026 Julius Härtl <jus@bitgrid.net>
  - @copyright Copyright (c) 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
  -
  - @author Julius Härtl <jus@bitgrid.net>
@@ -21,28 +21,22 @@
  -->
 <template>
   <div class="component-wrapper">
-    <div :class="['alignment-wrapper', ...props.flexContainerClasses]">
-      <div v-if="$slots.alignedBefore" :class="['aligned-before', ...props.flexItemClasses]">
+    <div class="alignment-wrapper" :class="[...props.flexContainerClasses]">
+      <div v-if="$slots.alignedBefore" class="aligned-before" :class="[...props.flexItemClasses]">
         <slot name="alignedBefore" />
       </div>
-      <NcTextField ref="ncTextField"
-                   v-model="model"
+      <NcTextField v-model="model"
                    v-bind="$attrs"
-                   :show-trailing-button="true"
-                   trailing-button-icon="arrowRight"
-                   v-on="$listeners"
-                   @trailing-button-click="$emit('submit', model)"
+                   :showTrailingButton="true"
+                   trailingButtonIcon="arrowEnd"
+                   @trailingButtonClick="$emit('submit', model)"
       >
-        <!-- pass through scoped slots -->
-        <template v-for="(_, scopedSlotName) in $scopedSlots" #[scopedSlotName]="slotData">
-          <slot :name="scopedSlotName" v-bind="slotData" />
-        </template>
-        <!-- pass through normal slots -->
-        <template v-for="(_, slotName) in $slots" #[slotName]>
-          <slot :name="slotName" />
+        <!-- pass through slots -->
+        <template v-for="(_, slotName) in $slots" #[slotName]="slotData">
+          <slot :name="slotName" v-bind="slotData" />
         </template>
       </NcTextField>
-      <div v-if="$slots.alignedAfter" :class="['aligned-after', ...flexItemClasses]">
+      <div v-if="$slots.alignedAfter" class="aligned-after" :class="[...flexItemClasses]">
         <slot name="alignedAfter" />
       </div>
     </div>
@@ -52,16 +46,22 @@
     </p>
   </div>
 </template>
+
 <script setup lang="ts">
-import { ref, watch } from 'vue';
 import { NcTextField } from '@nextcloud/vue'
+import { ref, watch } from 'vue'
+
+defineOptions({
+  name: 'TextFieldWithSubmitButton',
+  inheritAttrs: false,
+})
 
 const props = withDefaults(defineProps<{
-  modelValue?: string|number,
-  value?: string|number,
-  hint?: string,
-  flexContainerClasses?: string[],
-  flexItemClasses?: string[],
+  modelValue?: string | number
+  value?: string | number
+  hint?: string
+  flexContainerClasses?: string[]
+  flexItemClasses?: string[]
 }>(), {
   modelValue: undefined,
   value: undefined,
@@ -81,10 +81,14 @@ const emit = defineEmits([
 // Keep a private data of the copy in order to support even missing
 // value or modelValue props. Still hitting the submit button should
 // present the current input value as event data.
-const model = ref<string|number|undefined>(props.modelValue || props.value || '')
+const model = ref<string | number | undefined>(props.modelValue || props.value || '')
 
-watch(() => props.value, (value) => { model.value = value })
-watch(() => props.modelValue, (value) => { model.value = value })
+watch(() => props.value, (value) => {
+  model.value = value
+})
+watch(() => props.modelValue, (value) => {
+  model.value = value
+})
 
 watch(model, (value) => {
   emit('update:modelValue', value)
@@ -93,16 +97,7 @@ watch(model, (value) => {
   emit('input', value)
 })
 </script>
-<script lang="ts">
-export default {
-  name: 'TextFieldWithSubmitButton',
-  inheritAttrs: false,
-  model: {
-    prop: 'modelValue',
-    event: 'update:modelValue',
-  },
-}
-</script>
+
 <style lang="scss" scoped>
 .component-wrapper {
   .hint {
@@ -110,7 +105,7 @@ export default {
     font-style:italic;
   }
   // Tweak the submit button of the NcTextField
-  .input-field::v-deep { // wrapper
+  :deep(.input-field) { // wrapper
     margin-block-start: 0;
     &.input-field--trailing-icon .input-field__input,
     .input-field__input.input-field__input--trailing-icon {
@@ -147,7 +142,7 @@ export default {
       }
     }
   }
-  &::v-deep .alignment-wrapper {
+  :deep(.alignment-wrapper) {
     margin-block-start: 10px;
     display: flex;
     flex-grow: 1;

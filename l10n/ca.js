@@ -18,6 +18,8 @@ OC.L10N.register(
     "The supplied color-string \"%s\" seems to be invalid." : "La cadena de color subministrada \"%s\" sembla que no és vàlida.",
     "The input color values are invalid." : "Els valors de color d'entrada no són vàlids.",
     "Choose a prefix-folder" : "Trieu una carpeta-prefix",
+    "Choose {file}" : "Tria {file}",
+    "Choose" : "Tria",
     "Invalid path selected: \"{dir}\"." : "El camí seleccionat no és vàlid: \"{dir}\".",
     "Selected path: \"{dir}/{base}/\"." : "Camí seleccionat: \"{dir}/{base}/\".",
     "Clear Selection" : "Buida la selecció",

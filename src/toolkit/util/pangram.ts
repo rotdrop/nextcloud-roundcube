@@ -1,5 +1,5 @@
 /**
- * @copyright Copyright (c) 2022, 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright Copyright (c) 2022, 2025, 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
@@ -17,8 +17,8 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { appName } from '../../config.ts';
 import { translate as t } from '@nextcloud/l10n';
+import { appName } from '../../config.ts';
 
 // TRANSLATORS: This should be a pangram in the target language, please have a look at
 // TRANSLATORS: https://en.wikipedia.org/wiki/Pangram where you can
