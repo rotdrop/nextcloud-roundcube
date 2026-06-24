@@ -62,6 +62,7 @@ class SettingsController extends Controller
     Config::ENABLE_SSL_VERIFY => [ 'rw' => true, 'default' => Config::ENABLE_SSL_VERIFY_DEFAULT, ],
     Config::PERSONAL_ENCRYPTION => [ 'rw' => true, 'default' => Config::PERSONAL_ENCRYPTION_DEFAULT, ],
     Config::CARDDAV_PROVISIONG_TAG => [ 'rw' => true, 'default' => Config::CARDDAV_PROVISIONG_TAG_DEFAULT, ],
+    Config::ALLOW_MANUAL_LOGIN => [ 'rw' => true, 'default' => Config::ALLOW_MANUAL_LOGIN_DEFAULT, ],
   ];
 
   public const EMAIL_ADDRESS = 'emailAddress';
@@ -162,6 +163,7 @@ class SettingsController extends Controller
       case Config::SHOW_TOP_LINE:
       case Config::ENABLE_SSL_VERIFY:
       case Config::PERSONAL_ENCRYPTION:
+      case Config::ALLOW_MANUAL_LOGIN:
         $newValue = filter_var($value, FILTER_VALIDATE_BOOLEAN, ['flags' => FILTER_NULL_ON_FAILURE]);
         if ($newValue === null) {
           return self::grumble($this->l->t(
@@ -249,6 +251,7 @@ class SettingsController extends Controller
         case Config::SHOW_TOP_LINE:
         case Config::ENABLE_SSL_VERIFY:
         case Config::PERSONAL_ENCRYPTION:
+        case Config::ALLOW_MANUAL_LOGIN:
           if ($humanValue !== null) {
             $humanValue = $humanValue ? $this->l->t('true') : $this->l->t('false');
           }

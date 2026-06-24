@@ -83,10 +83,13 @@ class PageController extends Controller
     $reason = null;
 
     $roundCubeUrl = $this->authenticator->externalURL();
+    $allowManualLogin = $this->config->getAppValue(Config::ALLOW_MANUAL_LOGIN);
+    $credentials = null;
     if (empty($roundCubeUrl)) {
       $state = self::ERROR_STATE;
       $reason = self::ERROR_NORCURL_REASON;
-    } else {
+    } elseif (!$allowManualLogin) {
+      // Only check credentials if manual login is not allowed
       $credentials = $this->config->emailCredentials();
       if (empty($credentials)) {
         $state = self::ERROR_STATE;
