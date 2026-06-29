@@ -10,6 +10,11 @@
     "Unknown personal setting: \"%1$s\"" : "Definição pessoal desconhecida: \"%1$s\"",
     "The personal setting \"%1$s\" is read-only" : "A definição pessoal \"%1$s\" é apenas de leitura",
     "Unknown personal setting: \"%s\"." : "Definição pessoal desconhecida: \"%s\".",
+    "Exactly one of query-parameters \"%1$s\" and \"%2$s\" have to be specified." : "É necessário especificar exatamente um dos parâmetros de consulta \"%1$s\" e \"%2$s\".",
+    "Unable to register types with DBAL." : "Não foi possível registrar tipos com DBAL.",
+    "Unable to determine the identifier values for an instance of \"%s\"." : "Não foi possível determinar os valores do identificador para um instância de \"%s\".",
+    "Collection \"%1$s\" in entity of type \"%2$s\" is null." : "A coleção \"%1$s\" na entidade do tipo \"%2$s\" é null.",
+    "Unable to compute a serialization for an instance of \"%s\"." : "Não é possível calcular uma serialização para uma instância de \"%s\".",
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Erro de instalação; o recurso necessário \"%1$s\" do tipo \"%2$s\" não está instalado no servidor, contacte o administrador do sistema.",
     "User" : "Utilizador",
     "Password" : "Password",
@@ -20,6 +25,7 @@
     "bytes" : "bytes",
     "The supplied color-string \"%s\" seems to be invalid." : "A string de cor fornecida \"%s\" parece ser inválida.",
     "The input color values are invalid." : "Os valores de cor introduzidos são inválidos.",
+    "RoundCube Web Mail" : "Webmail RoundCube",
     "pick a color" : "escolha uma cor",
     "open" : "abrir",
     "submit" : "submeter",
@@ -40,12 +46,16 @@
     "Reset Changes" : "Repor alterações",
     "Clear Selection" : "Limpar seleção",
     "Show password" : "Mostrar senha",
+    "Failed copying the config template to the clipboard: {reason}." : "Falha ao copiar o modelo de configuração para a área de transferência: {reason}.",
     "Email Address Selection" : "Seleção do Endereço de Correio Eletrónico",
     "Email Domain" : "Domínio do Correio Eletrónico",
     "User's Preferences" : "Preferências do Utilizador",
     "User's Choice" : "Escolha do Utilizador",
     "Email Address" : "Endereço de correio eletrónico",
     "Advanced Settings" : "Definições Avançadas ",
-    "Enable SSL verification." : "Ativa a verificação de SSL."
+    "Enable SSL verification." : "Ativa a verificação de SSL.",
+    "Unable to login into Roundcube, there are login errors. Please check\nyour personal Roundcube settings. Maybe a re-login to Nextcloud\nhelps. Otherwise contact your system administrator." : "Não é possível fazer login no Roundcube, há erros de login. Verifique\nsuas configurações pessoais do Roundcube. Talvez um novo login no Nextcloud\najude. Caso contrário, entre em contato com o administrador do sistema.",
+    "Globally configured as NEXTCLOUD_USER_ID@{emailDefaultDomainAdmin}" : "Configurado globalmente como NEXTCLOUD_USER_ID@{emailDefaultDomainAdmin}",
+    "Globally configured by the administrator" : "Configurado globalmente pelo administrador"
 },"pluralForm" :"nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
 }
