@@ -159,6 +159,7 @@ class EntitySerializer
     if (str_starts_with($entityName, $this->commonPrefix)) {
       return substr($entityName, strlen($this->commonPrefix));
     }
+    return $this->commonPrefix;
   }
 
   /**
