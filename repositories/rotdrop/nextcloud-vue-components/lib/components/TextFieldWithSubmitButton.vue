@@ -74,7 +74,6 @@ const emit = defineEmits([
   'submit',
   'input',
   'update:modelValue',
-  'update:model-value',
   'update:value',
 ])
 
@@ -92,7 +91,6 @@ watch(() => props.modelValue, (value) => {
 
 watch(model, (value) => {
   emit('update:modelValue', value)
-  emit('update:model-value', value)
   emit('update:value', value)
   emit('input', value)
 })

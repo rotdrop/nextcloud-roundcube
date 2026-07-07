@@ -64,6 +64,7 @@ import {
 import TextFieldWithSubmitButton from './TextFieldWithSubmitButton.vue'
 import { appName } from '../config.ts'
 
+// @ts-expect-error 2882 Blah.
 import '@nextcloud/dialogs/style.css' // still needed?
 
 defineOptions({
@@ -102,7 +103,6 @@ const emit = defineEmits([
   'error:invalidDirName',
   'update:dirName',
   'update:modelValue',
-  'update:model-value',
   'update:value',
 ])
 
@@ -126,7 +126,6 @@ const filePickerTitle = computed(
 
 watch(pathName, () => {
   emit('update:modelValue', pathInfo)
-  emit('update:model-value', pathInfo)
   emit('update:value', pathInfo)
   emit('input', pathInfo)
 })
