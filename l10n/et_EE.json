@@ -14,6 +14,7 @@
     "Exactly one of query-parameters \"%1$s\" and \"%2$s\" have to be specified." : "Täpselt üks päringuparameetritest peab olema valitud: „%1$s“ ja „%2$s“.",
     "Unable to find the entity \"%1$s\" identified by \"%2$s\"." : "Poel võimalik andmeolemit „%1$s“, mille tunnus on „%2$s“.",
     "Unable to register types with DBAL." : "Tüüpide registreerimine DBAL-is pole võimalik.",
+    "Unable to determine the identifier values for an instance of \"%s\"." : "„%s“ instantsi jaoks pole võimalik tuvastada tunnuste väärtusi.",
     "Collection \"%1$s\" in entity of type \"%2$s\" is null." : "„%2$s“ tüüpi andmeolemi kogumik „%1$s“ on tühi.",
     "Unable to compute a serialization for an instance of \"%s\"." : "Jadastamist pole võimalik arvutada „%s“ serveri jaoks.",
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Paigaldusviga: „%2$s“ tüüpi nõutav ressurss „%1$s“ pole serverisse paigaldatud. Palun võta ühendust süsteemi peakasutajaga!",
