@@ -63,6 +63,7 @@ import {
 } from 'vue'
 import TextFieldWithSubmitButton from './TextFieldWithSubmitButton.vue'
 import { appName } from '../config.ts'
+import vTooltip, { options as tooltipOptions } from '../directives/Tooltip/index.ts'
 
 // @ts-expect-error 2882 Blah.
 import '@nextcloud/dialogs/style.css' // still needed?
@@ -190,6 +191,10 @@ const openFilePicker = async () => {
   }
 }
 
+tooltipOptions.themes['unclipped-tooltip'] = {
+  $extend: 'tooltip',
+}
+
 const unclippedPopup = (content: string, html = true) => {
   return {
     content,
@@ -197,13 +202,13 @@ const unclippedPopup = (content: string, html = true) => {
     html,
     // shown: true,
     // triggers: [],
-    csstag: ['vue-tooltip-unclipped-popup'],
+    theme: 'unclipped-tooltip',
   }
 }
 </script>
 
 <style lang="scss">
-[csstag="vue-tooltip-unclipped-popup"].v-popper--theme-tooltip {
+.v-popper--theme-unclipped-tooltip {
   .v-popper__inner {
     max-width:unset!important;
   }

@@ -6,6 +6,7 @@
 
 import { options, vTooltip } from 'floating-vue';
 
+// @ts-expect-error 2882 I do not care.
 import './index.scss';
 
 options.themes.tooltip.html = false;
