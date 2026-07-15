@@ -66,8 +66,6 @@ class ExecutableFinder
    * @param ExecutableFinderBackend $executableFinder
    *
    * @param LoggerInterface $logger
-   *
-   * @param string $appName
    */
   public function __construct(
     ICacheFactory $cacheFactory,

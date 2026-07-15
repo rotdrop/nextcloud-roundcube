@@ -209,7 +209,7 @@ class GroupFoldersServiceNC32
     /** @var FolderWithMappingsAndCache $folderInfo */
     $folderInfo = $this->folderManager->getFolder($id);
     if ($folderInfo === null) {
-      throw new RuntimeException($this->l->t('Shared folder with id "%1$s" does not exist.', [ $id ]));
+      throw new RuntimeException($this->l->t('Shared folder with ID "%1$s" does not exist.', [ $id ]));
     }
     /** @var FolderWithMappingsAndCache $cachedInfo */
     foreach ($this->sharedFolders as $mountPoint => $cachedInfo) {

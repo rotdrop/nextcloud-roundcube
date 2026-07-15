@@ -169,7 +169,6 @@ class MimeTypeService
     // $this->logInfo('MIME MAPPINGS ' . print_r($this->allMimeTypeMappings, true));
 
     return $this->allMimeTypeMappings;
-
   }
 
   /** @return array Slurp in and cache the extension to mime-type mapping. */

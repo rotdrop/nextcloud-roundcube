@@ -37,6 +37,8 @@ trait FakeTranslationTrait
    *
    * @param string|array $parameters
    *
+   * @param ?IL10N $l
+   *
    * @return string
    */
   protected static function t(string $text, string|array $parameters = [], ?IL10N $l = null):string
