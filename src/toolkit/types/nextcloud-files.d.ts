@@ -4,7 +4,7 @@
  * CAFEVDB -- Camerata Academica Freiburg e.V. DataBase.
  *
  * @author Claus-Justus Heine
- * @copyright 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2025, 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -28,17 +28,17 @@ declare module '@nextcloud/files' {
      constructor for this thing. See core/src/files/fileinfo.js
    */
   export interface LegacyFileInfo {
-    id: number,
-    mimetype: string,
-    path: string,
-    name: string,
-    type: 'dir'|'file',
-    permissions: number,
-    mountType: string,
-    isDirectory: () => boolean,
-    canEdit: () => boolean,
+    id: number;
+    mimetype: string;
+    path: string;
+    name: string;
+    type: 'dir'|'file';
+    permissions: number;
+    mountType: string;
+    isDirectory: () => boolean;
+    canEdit: () => boolean;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    get: (key: string) => any,
+    get: (key: string) => any;
     // ... and a couple of other properties
   }
 }
