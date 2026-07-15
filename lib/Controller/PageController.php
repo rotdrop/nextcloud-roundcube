@@ -4,7 +4,7 @@
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
  * @author 2019 Leonardo R. Morelli github.com/LeonardoRM
- * @copyright 2020-2025 Claus-Justus Heine
+ * @copyright 2020-2026 Claus-Justus Heine
  * @license   AGPL-3.0-or-later
  *
  * Nextcloud RoundCube App is free software: you can redistribute it and/or
@@ -25,6 +25,7 @@
 namespace OCA\RoundCube\Controller;
 
 use OCP\AppFramework\Controller;
+use OCP\AppFramework\Http\Attribute as CoreAttributes;
 use OCP\AppFramework\Http\ContentSecurityPolicy;
 use OCP\AppFramework\Http\JSONResponse;
 use OCP\AppFramework\Http\TemplateResponse;
@@ -73,11 +74,11 @@ class PageController extends Controller
 
   /**
    * @return TemplateResponse
-   *
-   * @NoAdminRequired
-   * @NoCSRFRequired
    */
-  public function index()
+  #[CoreAttributes\NoAdminRequired]
+  #[CoreAttributes\NoCSRFRequired]
+  #[CoreAttributes\FrontpageRoute(verb: 'GET', url: '/')]
+  public function index(): TemplateResponse
   {
     $state = self::SUCCESS_STATE;
     $reason = null;

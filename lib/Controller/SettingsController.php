@@ -3,7 +3,7 @@
  * Nextcloud RoundCube App.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2023, 2024 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2023, 2024, 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -27,6 +27,7 @@ use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 
 use OCP\AppFramework\Controller;
+use OCP\AppFramework\Http\Attribute as CoreAttributes;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Http\Response;
 use OCP\IL10N;
@@ -104,9 +105,10 @@ class SettingsController extends Controller
    *
    * @return DataResponse
    *
-   * @AuthorizedAdminSetting(settings=OCA\RoundCube\Settings\Admin)
    * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
    */
+  #[CoreAttributes\AuthorizedAdminSetting(settings: \OCA\RoundCube\Settings\Admin::class)]
+  #[CoreAttributes\FrontpageRoute(verb: 'POST', url: '/settings/admin/{setting}')]
   public function setAdmin(string $setting, mixed $value, bool $force = false):DataResponse
   {
     if (!isset(self::ADMIN_SETTINGS[$setting])) {
@@ -212,10 +214,21 @@ class SettingsController extends Controller
    * @param string $setting
    *
    * @return DataResponse
-   *
-   * @AuthorizedAdminSetting(settings=OCA\RoundCube\Settings\Admin)
    */
-  public function getAdmin(?string $setting = null):DataResponse
+  #[CoreAttributes\AuthorizedAdminSetting(settings: \OCA\RoundCube\Settings\Admin::class)]
+  #[CoreAttributes\FrontpageRoute(
+    verb: 'GET',
+    url: '/settings/admin/{setting}',
+    requirements:  [
+      'setting' => '^.+$',
+    ],
+  )]
+  #[CoreAttributes\FrontpageRoute(
+    verb: 'GET',
+    url: '/settings/admin',
+    postfix: '.all',
+  )]
+  public function getAdmin(?string $setting = null): DataResponse
   {
     if ($setting === null) {
       $allSettings = self::ADMIN_SETTINGS;
@@ -282,6 +295,8 @@ class SettingsController extends Controller
    *
    * @NoAdminRequired
    */
+  #[CoreAttributes\NoAdminRequired]
+  #[CoreAttributes\FrontpageRoute(verb: 'POST', url: '/settings/personal/{setting}')]
   public function setPersonal(string $setting, mixed $value):Response
   {
     if (!isset(self::PERSONAL_SETTINGS[$setting])) {
@@ -336,10 +351,21 @@ class SettingsController extends Controller
    * requested one.
    *
    * @return Response
-   *
-   * @NoAdminRequired
    */
-  public function getPersonal(?string $setting = null):Response
+  #[CoreAttributes\NoAdminRequired]
+  #[CoreAttributes\FrontpageRoute(
+    verb: 'GET',
+    url: '/settings/personal/{setting}',
+    requirements:  [
+      'setting' => '^.+$',
+    ],
+  )]
+  #[CoreAttributes\FrontpageRoute(
+    verb: 'GET',
+    url: '/settings/personal',
+    postfix: '.all',
+  )]
+  public function getPersonal(?string $setting = null): Response
   {
     if ($setting === null) {
       $allSettings = self::PERSONAL_SETTINGS;
