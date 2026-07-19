@@ -21,12 +21,9 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {
-  type AxiosError,
-  type AxiosResponse,
+import type { AxiosError, AxiosResponse } from 'axios';
 
-  isAxiosError,
-} from 'axios';
+import { isAxiosError } from 'axios';
 
 export { isAxiosError } from 'axios';
 

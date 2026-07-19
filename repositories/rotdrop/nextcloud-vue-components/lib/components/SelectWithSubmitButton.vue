@@ -104,6 +104,7 @@ import {
   watch,
 } from 'vue'
 import { appName } from '../config.ts'
+import vTooltip from '../directives/Tooltip/index.ts'
 
 type ItemType = string|number|Record<string, unknown>
 type ValueType = ItemType|ItemType[]

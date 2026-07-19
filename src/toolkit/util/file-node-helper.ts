@@ -17,13 +17,10 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { getCurrentUser } from '@nextcloud/auth';
-import {
-  type IFileType,
+import type { IFileType, NodeData } from '@nextcloud/files';
 
-  File,
-  Folder,
-} from '@nextcloud/files';
+import { getCurrentUser } from '@nextcloud/auth';
+import { File, Folder } from '@nextcloud/files';
 import { generateRemoteUrl } from '@nextcloud/router';
 import { join } from 'path';
 
@@ -56,8 +53,8 @@ export const fileInfoToNode = (fileInfo: FileInfoDTO, owner?: string) => {
   if (fileInfo.topLevelFolder !== userFrontEndFolder) {
     throw new Error(`${fileInfo.path} is located outside of the front end user file space ${userFrontEndFolder}.`);
   }
-  const nodeData = {
-    id: fileInfo.fileid,
+  const nodeData: NodeData = {
+    id: parseInt(fileInfo.fileid, 10),
     source: generateRemoteUrl(join('dav/files', owner, fileInfo.relativePath)),
     root: `/files/${owner}`,
     mime: fileInfo.mime,

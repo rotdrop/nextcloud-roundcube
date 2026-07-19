@@ -35,4 +35,4 @@ export class AppError<C extends ErrorContext = ErrorContext> extends Error {
 
 }
 
-export type ErrorHandler = <C extends ErrorContext = ErrorContext, E extends AppError<C> = AppError<C> >(error: E) => void;
+export type ErrorHandler = <C extends ErrorContext = ErrorContext, E extends AppError<C> = AppError<C>>(error: E) => void;

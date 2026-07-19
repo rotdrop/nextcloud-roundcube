@@ -14,7 +14,10 @@ OC.L10N.register(
     "Unknown personal setting: \"%s\"." : "Tundmatu isiklik seadistus: „%s“.",
     "RoundCube Integration" : "RoundCube'i lõimimine",
     "Exactly one of query-parameters \"%1$s\" and \"%2$s\" have to be specified." : "Täpselt üks päringuparameetritest peab olema valitud: „%1$s“ ja „%2$s“.",
+    "Unable to find the entity \"%1$s\" identified by \"%2$s\"." : "Poel võimalik andmeolemit „%1$s“, mille tunnus on „%2$s“.",
     "Unable to register types with DBAL." : "Tüüpide registreerimine DBAL-is pole võimalik.",
+    "Unable to determine the identifier values for an instance of \"%s\"." : "„%s“ instantsi jaoks pole võimalik tuvastada tunnuste väärtusi.",
+    "Collection \"%1$s\" in entity of type \"%2$s\" is null." : "„%2$s“ tüüpi andmeolemi kogumik „%1$s“ on tühi.",
     "Unable to compute a serialization for an instance of \"%s\"." : "Jadastamist pole võimalik arvutada „%s“ serveri jaoks.",
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Paigaldusviga: „%2$s“ tüüpi nõutav ressurss „%1$s“ pole serverisse paigaldatud. Palun võta ühendust süsteemi peakasutajaga!",
     "User" : "Kasutaja",
@@ -84,6 +87,8 @@ OC.L10N.register(
     "Email password for RoundCube, if needed." : "Sisesta RoundCube'i salasõna, kui see peaks olema vajalik.",
     "Embedded RoundCube, Personal Settings" : "Lõimitud RoundCube'i isiklikud seadistused",
     "Email Login Name" : "E-posti kasutajanimi",
-    "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "{wrappedApp} liidese sisule pole võimalik ligi saada.\nSee võib olla seotud domeenide ristkasutuse piirangutega.\nPalun kontrolli, et sinu Nextcloudi server ({nextcloudUrl}) ja lõimitud {wrappedApp} ({iFrameUrl}) paikneksid samas domeenis."
+    "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "{wrappedApp} liidese sisule pole võimalik ligi saada.\nSee võib olla seotud domeenide ristkasutuse piirangutega.\nPalun kontrolli, et sinu Nextcloudi server ({nextcloudUrl}) ja lõimitud {wrappedApp} ({iFrameUrl}) paikneksid samas domeenis.",
+    "Unable to search for entities \"{entityName}\" with identifier \"{criteria}\"." : "Pole võimalik otsida andmeolemit „{entityName}“, mille tunnus on „{criteria}“.",
+    "Unable to fetch entity \"{entityName}\" with identifier \"{identifier}\"." : "Pole võimalik laadida andmeolemit „{entityName}“, mille tunnus on „{identifier}“."
 },
 "nplurals=2; plural=(n != 1);");

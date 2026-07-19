@@ -40,5 +40,4 @@ class Constants
   public const QUERY_OPTIONS_KEY = EntityRepository::QUERY_OPTIONS_KEY;
   public const QUERY_OPTION_WILDCARDS = EntityRepository::QUERY_OPTION_WILDCARDS;
   public const WILDCARD_QUERY_OPTIONS = EntityRepository::WILDCARD_QUERY_OPTIONS;
-
 }

@@ -3,8 +3,8 @@ OC.L10N.register(
     {
     "Unknown admin setting: \"%1$s\"" : "Okänd administratörsinställning: \"%1$s\"",
     "The admin setting \"%1$s\" is read-only" : "Administratörsinställningen \"%1$s\" är skrivskyddad",
-    "Scheme of external URL must be one of \"http\" or \"https\", but nothing was specified." : "Schemat för den externa URL:en måste vara \"http\" eller \"https\", men inget angavs.",
-    "Host-part of external URL seems to be empty" : "Värddelen i den externa URL:en verkar vara tom",
+    "Scheme of external URL must be one of \"http\" or \"https\", but nothing was specified." : "Den externa URL:ens schema måste vara ”http” eller ”https”, men inget angavs.",
+    "Host-part of external URL seems to be empty" : "Värddelen av den externa URL:en verkar vara tom",
     "User" : "Användare",
     "Password" : "Lösenord",
     "%1$s (renamed)" : "%1$s (omdöpt)",

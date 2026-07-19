@@ -11,6 +11,12 @@
     "The personal setting \"%1$s\" is read-only" : "Η προσωπική ρύθμιση \"%1$s\" είναι μόνο για ανάγνωση",
     "Unknown personal setting: \"%s\"." : "Άγνωστη προσωπική ρύθμιση: \"%s\".",
     "RoundCube Integration" : "Ενσωμάτωση RoundCube",
+    "Exactly one of query-parameters \"%1$s\" and \"%2$s\" have to be specified." : "Πρέπει να καθοριστεί ακριβώς μία από τις παραμέτρους ερωτήματος (query parameters) \"%1$s\" και \"%2$s\".",
+    "Unable to find the entity \"%1$s\" identified by \"%2$s\"." : "Αδυναμία εύρεσης της οντότητας (entity) \"%1$s\" που προσδιορίζεται από \"%2$s\".",
+    "Unable to register types with DBAL." : "Αδυναμία καταχώρησης τύπων στο DBAL.",
+    "Unable to determine the identifier values for an instance of \"%s\"." : "Αδυναμία προσδιορισμού των τιμών αναγνωριστικού για ένα στιγμιότυπο (instance) του \"%s\".",
+    "Collection \"%1$s\" in entity of type \"%2$s\" is null." : "Η συλλογή (collection) \"%1$s\" στην οντότητα τύπου \"%2$s\" είναι null.",
+    "Unable to compute a serialization for an instance of \"%s\"." : "Αδυναμία υπολογισμού σειριοποίησης (serialization) για ένα στιγμιότυπο του \"%s\".",
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Πρόβλημα εγκατάστασης· ο απαιτούμενος πόρος \"%1$s\" τύπου \"%2$s\" δεν είναι εγκατεστημένος στον διακομιστή, παρακαλώ επικοινωνήστε με τον διαχειριστή συστήματος!",
     "User" : "Χρήστης",
     "Password" : "Συνθηματικό",
@@ -90,6 +96,8 @@
     "Email password for RoundCube, if needed." : "Συνθηματικό email για το RoundCube, εάν απαιτείται.",
     "Embedded RoundCube, Personal Settings" : "Ενσωματωμένο RoundCube, Προσωπικές Ρυθμίσεις",
     "Email Login Name" : "Όνομα σύνδεσης Email",
-    "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "Αδυναμία πρόσβασης στα περιεχόμενα της περιεχόμενης εγκατάστασης {wrappedApp}.\nΑυτό μπορεί να προκληθεί από περιορισμούς πρόσβασης δια-τομέα.\nΠαρακαλώ ελέγξτε ότι η εγκατάσταση Nextcloud σας ({nextcloudUrl}) και η περιεχόμενη εγκατάσταση {wrappedApp} ({iFrameUrl}) εξυπηρετούνται από τον ίδιο τομέα."
+    "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "Αδυναμία πρόσβασης στα περιεχόμενα της περιεχόμενης εγκατάστασης {wrappedApp}.\nΑυτό μπορεί να προκληθεί από περιορισμούς πρόσβασης δια-τομέα.\nΠαρακαλώ ελέγξτε ότι η εγκατάσταση Nextcloud σας ({nextcloudUrl}) και η περιεχόμενη εγκατάσταση {wrappedApp} ({iFrameUrl}) εξυπηρετούνται από τον ίδιο τομέα.",
+    "Unable to search for entities \"{entityName}\" with identifier \"{criteria}\"." : "Αδυναμία αναζήτησης για οντότητες \"{entityName}\" με αναγνωριστικό \"{criteria}\".",
+    "Unable to fetch entity \"{entityName}\" with identifier \"{identifier}\"." : "Αδυναμία προσκόμισης (fetch) της οντότητας \"{entityName}\" με αναγνωριστικό \"{identifier}\"."
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
