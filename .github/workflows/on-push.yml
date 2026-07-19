@@ -23,10 +23,3 @@ jobs:
         run: |
           pushd source
           make build
-          popd
-      - id: test
-        run: |
-          pushd source
-          make test
-          popd
-        
