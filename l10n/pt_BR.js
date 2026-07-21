@@ -5,7 +5,7 @@ OC.L10N.register(
     "The admin setting \"%1$s\" is read-only" : "A configuração administrativa \"%1$s\" é somente leitura",
     "Scheme of external URL must be one of \"http\" or \"https\", but nothing was specified." : "O esquema do URL externo deve ser \"http\" ou \"https\", mas nada foi especificado.",
     "Scheme of external URL must be one of \"http\" or \"https\", \"%s\" given." : "O esquema do URL externo deve ser \"http\" ou \"https\", \"%s\" fornecido.",
-    "Host-part of external URL seems to be empty" : "A parte do host do URL externo parece estar vazia",
+    "Host-part of external URL seems to be empty" : "A parte do hospedeiro do URL externo parece estar vazia",
     "Value \"%1$s\" for setting \"%2$s\" is not convertible to boolean." : "Valor \"%1$s\" para a configuração \"%2$s\" não é convertível para boolean.",
     "true" : "verdadeiro",
     "false" : "falso",
