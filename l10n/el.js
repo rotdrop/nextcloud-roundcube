@@ -30,7 +30,10 @@ OC.L10N.register(
     "bytes" : "bytes",
     "The supplied color-string \"%s\" seems to be invalid." : "Η παρεχόμενη συμβολοσειρά χρώματος \"%s\" φαίνεται να είναι άκυρη.",
     "The input color values are invalid." : "Οι τιμές χρώματος εισόδου είναι άκυρες.",
+    "Roundcube Mail" : "Roundcube Mail",
     "RoundCube Web Mail" : "RoundCube Web Mail",
+    "Embed an installation of Roundcube into Nextcloud" : "Ενσωμάτωση μιας εγκατάστασης Roundcube στο Nextcloud",
+    "Integrates an existing Roundcube standalone email-webapp into Nextcloud, with optional SSO." : "Ενσωματώνει μια υπάρχουσα αυτόνομη εφαρμογή web email Roundcube στο Nextcloud, με προαιρετικό SSO.",
     "pick a color" : "επιλογή χρώματος",
     "open" : "άνοιγμα",
     "submit" : "υποβολή",
@@ -100,6 +103,6 @@ OC.L10N.register(
     "Email Login Name" : "Όνομα σύνδεσης Email",
     "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "Αδυναμία πρόσβασης στα περιεχόμενα της περιεχόμενης εγκατάστασης {wrappedApp}.\nΑυτό μπορεί να προκληθεί από περιορισμούς πρόσβασης δια-τομέα.\nΠαρακαλώ ελέγξτε ότι η εγκατάσταση Nextcloud σας ({nextcloudUrl}) και η περιεχόμενη εγκατάσταση {wrappedApp} ({iFrameUrl}) εξυπηρετούνται από τον ίδιο τομέα.",
     "Unable to search for entities \"{entityName}\" with identifier \"{criteria}\"." : "Αδυναμία αναζήτησης για οντότητες \"{entityName}\" με αναγνωριστικό \"{criteria}\".",
-    "Unable to fetch entity \"{entityName}\" with identifier \"{identifier}\"." : "Αδυναμία προσκόμισης (fetch) της οντότητας \"{entityName}\" με αναγνωριστικό \"{identifier}\"."
+    "Unable to fetch entity \"{entityName}\" with identifier \"{identifier}\"." : "Αδυναμία λήψης (fetch) της οντότητας \"{entityName}\" με αναγνωριστικό \"{identifier}\"."
 },
 "nplurals=2; plural=(n != 1);");
