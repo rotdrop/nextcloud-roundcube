@@ -13,6 +13,12 @@ OC.L10N.register(
     "The personal setting \"%1$s\" is read-only" : "Le paramètre personnel \"%1$s\" est en lecture seule",
     "Unknown personal setting: \"%s\"." : "Paramètre personnel inconnu : \"%s\".",
     "RoundCube Integration" : "Intégration de RoundCube",
+    "Exactly one of query-parameters \"%1$s\" and \"%2$s\" have to be specified." : " Exactement un des paramètres de requête \"%1$s\" et \"%2$s\" doit être spécifié.",
+    "Unable to find the entity \"%1$s\" identified by \"%2$s\"." : " Impossible de trouver l’entité \"%1$s\" identifiée par \"%2$s\".",
+    "Unable to register types with DBAL." : "Impossible d'enregistrer des types avec DBAL.",
+    "Unable to determine the identifier values for an instance of \"%s\"." : "Impossible de déterminer les valeurs d'identification pour une instance de \"%s\".",
+    "Collection \"%1$s\" in entity of type \"%2$s\" is null." : " La collection \"%1$s\" dans l’entité de type \"%2$s\" est nulle.",
+    "Unable to compute a serialization for an instance of \"%s\"." : " Impossible de générer une sérialisation pour une instance de \"%s\".",
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Problème d'installation, la ressource nécessaire \"%1$s\" du type \"%2$s\" n'est pas installée sur le serveur, merci de contacter l'administration système !",
     "User" : "Utilisateur",
     "Password" : "Mot de passe",
@@ -86,6 +92,9 @@ OC.L10N.register(
     "Single sign-on is globally forced \"on\"." : "L'authentification unique est globalement imposée.",
     "Email password for RoundCube, if needed." : "Mot de passe e-mail pour RoundCube, si nécessaire.",
     "Embedded RoundCube, Personal Settings" : "RoundCube intégré, paramètres personnels",
-    "Email Login Name" : "Identifiant e-mail"
+    "Email Login Name" : "Identifiant e-mail",
+    "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "Impossible d’accéder au contenu de l’instance {wrappedApp} encapsulée.\nCela peut être dû à des restrictions d’accès entre domaines.\nVeuillez vérifier que votre instance Nextcloud ({nextcloudUrl}) et l’instance {wrappedApp} encapsulée ({iFrameUrl}) sont servies depuis le même domaine.",
+    "Unable to search for entities \"{entityName}\" with identifier \"{criteria}\"." : " Impossible d’effectuer une recherche pour les entités \"{entityName}\" avec l’identifiant \"{criteria}\".",
+    "Unable to fetch entity \"{entityName}\" with identifier \"{identifier}\"." : " Impossible de récupérer l’entité \"{entityName}\" avec l’identifiant \"{identifier}\"."
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");
