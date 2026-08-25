@@ -3,7 +3,7 @@
  * Some PHP utility functions for Nextcloud apps.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2025, 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -42,7 +42,10 @@ use OCP\Server;
 class BeforeMessageLoggedEventListener implements IEventListener
 {
   use \OCA\RotDrop\Toolkit\Traits\LoggerTrait;
+
   const EVENT = HandledEvent::class;
+
+  private ?array $logEntry = null;
 
   /**
    * @param ContainerInterface $appContainer The only argument in order to have a
@@ -51,6 +54,26 @@ class BeforeMessageLoggedEventListener implements IEventListener
   public function __construct(
     protected ContainerInterface $appContainer,
   ) {
+  }
+
+  /**
+   * Clear a recently captuerd log-entry.
+   *
+   * @return void;
+   */
+  public function clearLogEntry(): void
+  {
+    $this->logEntry = null;
+  }
+
+  /**
+   * Return a recently captured log-entry if any.
+   *
+   * @return ?array
+   */
+  public function getLogEntry(): ?array
+  {
+    return $this->logEntry;
   }
 
   /**
@@ -79,11 +102,6 @@ class BeforeMessageLoggedEventListener implements IEventListener
       return;
     }
     $data = $event->getMessage();
-    $callback = $data[$appName]['callback'] ?? null;
-    if (!is_callable($callback)) {
-      return;
-    }
-    unset($data[$appName]['callback']);
     try {
       $systemConfig = $this->appContainer->get(SystemConfig::class);
       $logDetails = new class($systemConfig) extends LogDetails {
@@ -93,8 +111,7 @@ class BeforeMessageLoggedEventListener implements IEventListener
           parent::__construct($systemConfig);
         }
       };
-      $logEntry = $logDetails->logDetails($appName, $data, $event->getLevel());
-      $callback($logEntry);
+      $this->logEntry = $logDetails->logDetails($appName, $data, $event->getLevel());
     } catch (Throwable $t) {
       $this->logException($t);
     }

@@ -140,29 +140,21 @@ trait LoggerTrait
       } while ($showTrace && --$shift > 0);
     }
 
-    $logEntry = null;
+    $listener = null;
     if ($returnLogEntry) {
       /** @var IEventDispatcher $eventDispatcher */
       $eventDispatcher = $this->appContainer()->get(IEventDispatcher::class);
       /** @var BeforeMessageLoggedEventListener $listener */
       $listener = $this->appContainer()->get(BeforeMessageLoggedEventListener::class);
-      $appName = $this->appContainer()->get('AppName');
+      $listener->clearLogEntry();
       $eventDispatcher->addListener(
         BeforeMessageLoggedEventListener::EVENT,
         [$listener, 'handle'],
       );
-      $context = [
-        ...$context,
-        $appName => [
-          'callback' => function(array $logData) use (&$logEntry) {
-            $logEntry = $logData;
-          },
-        ],
-      ];
     }
     $this->logger()->log($level, $prefix . $message, $context);
 
-    return $logEntry;
+    return $listener?->getLogEntry();
   }
 
   /**
