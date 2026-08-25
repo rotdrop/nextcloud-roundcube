@@ -97,9 +97,12 @@ class GenerateEntityMetadata
     $entityMapNamespace = str_replace(Constants::PATH_SEP, '.', self::META_DATA_FORWARDER_FOLDER);
 
     return "declare namespace {$entityMapNamespace}." . self::META_DATA_NAME . " {
+
   // Ignore me: this is just here in order to inject the type for the sake
   // of namespace / type resolution during auto-generation of the php -> typescript
   // definition.
+
+  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
   export interface EntityMap {}
   export interface Type<N> { dummy: N }
 }

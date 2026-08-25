@@ -2,7 +2,7 @@
 
 WEBPACK_TARGETS = $(ABSSRCDIR)/js/asset-meta.json
 
-WEBPACK_DEPS := $(sort $(WEBPACK_DEPS) $(MAKEFILE_DEP) node_modules package-lock.json package.json webpack.config.js .eslintrc.js)
+WEBPACK_DEPS := $(sort $(WEBPACK_DEPS) $(MAKEFILE_DEP) node_modules package-lock.json package.json webpack.config.js eslint.config.mjs)
 
 #@private
 package-lock.json: package.json webpack.config.js $(MAKEFILE_DEP) $(THIRD_PARTY_NPM_DEPS)

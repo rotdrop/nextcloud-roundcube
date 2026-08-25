@@ -23,7 +23,7 @@ $(TS_TYPES_FILES): $(TS_TYPES_FILES_DEPS) $(TYPESCRIPT_CONVERTER) $(wildcard $(A
 	$(MAKE) dev-setup
 	$(TYPESCRIPT_CONVERTER) --output-prefix=$(TS_TYPES_DIR) $(PHP_SOURCES) --as-modules --ns-prefix='OCA\$(APP_NAMESPACE)' --scoped-ns-prefix=$(WRAPPER_NAMESPACE_POSTFIX)
 	$(PRETTIER_FORMATTER) --write --ignore-path /dev/null $(TS_TYPES_DIR)
-	[ -x "$(ESLINT)" ] && $(ESLINT) $(TS_TYPES_DIR)
+	[ -x "$(ESLINT)" ] && $(ESLINT) --fix $(TS_TYPES_DIR) && $(ESLINT) $(TS_TYPES_DIR)
 
 #@private
 ts-types-files: $(TS_TYPES_FILES)
