@@ -48,8 +48,7 @@
         {{ componentLabels.resetColorPalette }}
       </NcActionButton>
     </NcActions>
-    <NcColorPicker ref="colorPicker"
-                   v-model="rgbColorString"
+    <NcColorPicker v-model="rgbColorString"
                    v-model:shown="pickerVisible"
                    :palette="colorPickerPalette"
                    v-bind="$attrs"
@@ -92,9 +91,8 @@ import {
 } from 'vue'
 import { appName } from '../config.ts'
 import { Color as RGBColor } from '../util/color.ts'
+import defaultPalette from '../util/default-palette.ts'
 // import type { PropType } from 'vue'
-
-type NcColorPickerType = typeof NcColorPicker
 
 defineOptions({
   name: 'ColorPickerExtension',
@@ -174,7 +172,7 @@ const rgbColorString = computed({
   get: () => rgbColor.value?.color || '',
 })
 const pickerVisible = ref(false)
-const factoryColorPalette = ref<undefined|RGBColor[]>(undefined)
+const factoryColorPalette = ref<RGBColor[]>(defaultPalette)
 const colorPickerPalette = ref<undefined|RGBColor[]>(undefined)
 const savedState = reactive({
   rgbColor: undefined as undefined|RGBColor,
@@ -207,7 +205,7 @@ const revertColorPalette = () => {
 }
 
 const resetColorPalette = () => {
-  colorPickerPalette.value!.splice(0, Infinity, ...factoryColorPalette.value!)
+  colorPickerPalette.value!.splice(0, Infinity, ...factoryColorPalette.value)
 }
 
 /**
@@ -258,8 +256,6 @@ watch(() => props.modelValue, (newValue) => {
     emit('input', rgbColorString.value)
   }
 })
-
-const colorPicker = ref<null|NcColorPickerType>(null)
 
 let paletteIsUpdating = false
 
@@ -317,14 +313,10 @@ watch(rgbColorString, () => {
 })
 
 onMounted(() => {
-  // This seemingly stupid construct of having
-  // this.colorPickerPalette === undefined at start enables us to peek
-  // the default palette from the NC color picker widget.
-  factoryColorPalette.value = colorPicker.value!.palette.map((color) => anyToRgb(color))
   if (props.colorPalette && Array.isArray(props.colorPalette) && props.colorPalette.length > 0) {
     colorPickerPalette.value = props.colorPalette.map((color) => anyToRgb(color))
   } else {
-    colorPickerPalette.value = [...(factoryColorPalette.value ?? [])]
+    colorPickerPalette.value = [...factoryColorPalette.value]
   }
   console.debug('PALETTE IS NOW', {
     active: colorPickerPalette.value,

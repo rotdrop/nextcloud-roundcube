@@ -49,22 +49,20 @@
 
 <script setup lang="ts">
 import { NcTextField } from '@nextcloud/vue'
-import { ref, watch } from 'vue'
+import { watch } from 'vue'
 
 defineOptions({
   name: 'TextFieldWithSubmitButton',
   inheritAttrs: false,
 })
 
+const model = defineModel<string|number>({ default: undefined })
+
 const props = withDefaults(defineProps<{
-  modelValue?: string | number
-  value?: string | number
   hint?: string
   flexContainerClasses?: string[]
   flexItemClasses?: string[]
 }>(), {
-  modelValue: undefined,
-  value: undefined,
   hint: undefined,
   flexContainerClasses: () => ['flex-justify-left', 'flex-align-start'],
   flexItemClasses: () => ['flex-justify-left', 'flex-align-start'],
@@ -72,27 +70,13 @@ const props = withDefaults(defineProps<{
 
 const emit = defineEmits([
   'submit',
-  'input',
   'update:modelValue',
-  'update:value',
 ])
 
-// Keep a private data of the copy in order to support even missing
-// value or modelValue props. Still hitting the submit button should
-// present the current input value as event data.
-const model = ref<string | number | undefined>(props.modelValue || props.value || '')
-
-watch(() => props.value, (value) => {
-  model.value = value
-})
-watch(() => props.modelValue, (value) => {
-  model.value = value
-})
+model.value = props.modelValue ?? ''
 
 watch(model, (value) => {
   emit('update:modelValue', value)
-  emit('update:value', value)
-  emit('input', value)
 })
 </script>
 

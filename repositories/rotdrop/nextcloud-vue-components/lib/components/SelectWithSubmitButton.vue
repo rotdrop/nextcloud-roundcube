@@ -101,6 +101,7 @@ import { v4 as uuidv4 } from 'uuid'
 import {
   computed,
   ref,
+  useTemplateRef,
   watch,
 } from 'vue'
 import { appName } from '../config.ts'
@@ -117,11 +118,9 @@ defineOptions({
 const props = withDefaults(
   defineProps<{
     modelValue?: ValueType
-    // show an loading indicator on the wrapper select
-    loading?: boolean
+    loading?: boolean // show an loading indicator on the wrapper select
     disabled?: boolean
-    // clearable allows deselection of the last item
-    clearable?: boolean
+    clearable?: boolean // clearable allows deselection of the last item
     /**
      * Allow selection of multiple options
      *
@@ -181,7 +180,7 @@ const emit = defineEmits([
 
 const modelValue = ref<undefined|ValueType>(props.modelValue)
 const active = ref(false)
-const ncSelect = ref<null|typeof NcSelect>(null)
+const ncSelect = useTemplateRef<typeof NcSelect>('ncSelect')
 
 const actionClasses = computed(() => {
   const classes: string[] = []
@@ -235,6 +234,14 @@ const emitUpdate = () => {
     emit('update', modelValue.value)
   }
 }
+
+watch(modelValue, (newValue) => {
+  console.debug('SELECT WITH SUBMIT BUTTON', { newValue })
+  if (!props.submitButton) {
+    // without submit button we need to forward the value to the parent component immediately
+    emitUpdate()
+  }
+})
 
 const resetChanges = () => {
   emitInput(props.resetState)
