@@ -22,9 +22,9 @@
  */
 
 export type ObjectEntries<T, K extends keyof T = keyof T> =
-     (K extends unknown ? [K, T[K]] : never)[]
+  (K extends unknown ? [K, T[K]] : never)[];
 
-export type PickByValue<T, V> = Pick<T, { [K in keyof T]: T[K] extends V ? K : never }[keyof T]>
+export type PickByValue<T, V> = Pick<T, { [K in keyof T]: T[K] extends V ? K : never }[keyof T]>;
 
 // export type ObjectEntries<T> = {
 //     [K in keyof T]: [keyof PickByValue<T, T[K]>, T[K]]
@@ -38,27 +38,27 @@ export type Decrement<N extends NumberTuple> = N extends [...infer Decrement, nu
 export type DecToZero<N extends NumberTuple> = Decrement<N> extends never ? NonNegInt<0> : Decrement<N>;
 
 export type ArrayElement<A> = A extends readonly (infer T)[] ? T : never;
-type DeepWriteable<T, Limit extends NumberTuple = NonNegInt<999> > = {
-  -readonly [P in keyof T]: Limit extends NonNegInt<0> ? T[P] : DeepWriteable<T[P], Decrement<Limit> >;
+type DeepWriteable<T, Limit extends NumberTuple = NonNegInt<999>> = {
+  -readonly [P in keyof T]: Limit extends NonNegInt<0> ? T[P] : DeepWriteable<T[P], Decrement<Limit>>;
 };
 export type ShallowWriteable<T> = { -readonly [P in keyof T]: T[P] };
-export type Cast<X, Y> = X extends Y ? X : Y
+export type Cast<X, Y> = X extends Y ? X : Y;
 type FromEntries<T> = T extends [infer Key, unknown][]
   ? { [K in Cast<Key, string>]: Extract<ArrayElement<T>, [K, unknown]>[1]}
-  : { [key in string]: unknown }
+  : { [key in string]: unknown };
 
-export type FromEntriesWithReadOnly<T> = FromEntries<DeepWriteable<T, NonNegInt<1> > >
+export type FromEntriesWithReadOnly<T> = FromEntries<DeepWriteable<T, NonNegInt<1>>>;
 
 declare global {
-   interface ObjectConstructor {
-     fromEntries<T>(obj: T): FromEntriesWithReadOnly<T>
+  interface ObjectConstructor {
+    fromEntries<T>(obj: T): FromEntriesWithReadOnly<T>;
   }
 }
 
 /**
  * Helper to check if a type is undefined
  */
-export type IsUndefined<T> = [T] extends [undefined] ? true : false
+export type IsUndefined<T> = [T] extends [undefined] ? true : false;
 
 export type NullableIf<B, T> = true extends B ? null|T : T;
 
@@ -67,5 +67,5 @@ export const isOne = (x: any): x is 1 => x === 1;
 
 export const asKey = <T extends object, K extends keyof T = keyof T>(_arg: T, key: K): K => key;
 
-export const hasProperty = <T = unknown, K extends string = string>(property: K, arg: unknown)
-  : arg is { [key in K]: T } => typeof arg === 'object' && !!arg && property in arg;
+export const hasProperty = <T = unknown, K extends string = string>(property: K, arg: unknown): arg is { [key in K]: T } =>
+  typeof arg === 'object' && !!arg && property in arg;

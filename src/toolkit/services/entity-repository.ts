@@ -19,24 +19,24 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { appName } from '../../config.ts';
-import {
-  reactive,
-  set as vueSet,
-} from 'vue';
+import type { OCSResponse } from '@nextcloud/typings/ocs';
+import type { EnumOrderByOptions } from '../../../build/ts-types/php-modules/Toolkit/Doctrine/ORM.ts';
+import type { QUERY_OPTION_WILDCARDS, QUERY_OPTIONS_KEY } from '../../../build/ts-types/php-modules/Toolkit/Doctrine/ORM/Constants.ts';
+import type { EntityId, EntityMap } from '../../../build/ts-types/php-modules/Toolkit/Doctrine/ORM/EntityMetadata.ts';
+import type { EntityResponse } from '../../../build/ts-types/php-modules/Toolkit/Doctrine/ORM/EntitySerializer.ts';
+import type { NonNegInt, NumberTuple, ObjectEntries } from '../types/type-traits.ts';
+import type { FrontEndEntity } from './entity-factory.ts';
+
 import axios from '@nextcloud/axios';
 import { translate as t } from '@nextcloud/l10n';
-// eslint-disable-next-line n/no-missing-import
-import type { OCSResponse } from '@nextcloud/typings/ocs';
-import { generateOcsUrl as generateAppOcsUrl } from '../util/generate-url.ts';
-import { type EntityId, type EntityMap } from '../../../build/ts-types/php-modules/Toolkit/Doctrine/ORM/EntityMetadata.ts';
-import { type EntityResponse } from '../../../build/ts-types/php-modules/Toolkit/Doctrine/ORM/EntitySerializer.ts';
-import { EnumOrderByOptions } from '../../../build/ts-types/php-modules/Toolkit/Doctrine/ORM.ts';
-import { QUERY_OPTIONS_KEY, QUERY_OPTION_WILDCARDS } from '../../../build/ts-types/php-modules/Toolkit/Doctrine/ORM/Constants.ts';
-import entityFactory, { type FrontEndEntity } from './entity-factory.ts';
-import { AppError } from '../types/errors.ts';
-import type { NonNegInt, NumberTuple, ObjectEntries } from '../types/type-traits.ts';
+import {
+  reactive,
+} from 'vue';
 import { END_POINT as controllerEndPoint } from '../../../build/ts-types/php-modules/Controller/EntityRepositoryController.ts';
+import { appName } from '../../config.ts';
+import { AppError } from '../types/errors.ts';
+import { generateOcsUrl as generateAppOcsUrl } from '../util/generate-url.ts';
+import entityFactory from './entity-factory.ts';
 
 type EntityRepository<E extends keyof EntityMap> = {
   [Identifier: string]: FrontEndEntity<E>;
@@ -47,19 +47,20 @@ export const find = <N extends keyof EntityMap>(entityName: N, identifier: strin
   return repositories[entityName]?.[identifier] as FrontEndEntity<N>|undefined;
 };
 
-export const loadEntities = async <const N extends keyof EntityMap, D extends NumberTuple = NonNegInt<0> >(
+export const loadEntities = async <const N extends keyof EntityMap, D extends NumberTuple = NonNegInt<0>>(
   url: string,
-  queryParams: Record<string|number, null|number|string|(number|string)[]|Record<string|number, unknown> >,
+  queryParams: Record<string|number, null|number|string|(number|string)[]|Record<string|number, unknown>>,
 ) => {
-  const response = await axios.get<OCSResponse<EntityResponse<N> > >(url, { params: queryParams });
+  const response = await axios.get<OCSResponse<EntityResponse<N>>>(url, { params: queryParams });
   const responseRepositories = response.data.ocs.data.repositories;
   for (const entityName of Object.keys(responseRepositories) as N[]) {
     for (const [identifier, entityDto] of Object.entries(responseRepositories[entityName])) {
       const entity = await entityFactory<N, D>(entityName, entityDto);
       if (repositories[entityName] === undefined) {
-        vueSet(repositories, entityName, {});
+        repositories[entityName] = {};
       }
-      vueSet(repositories[entityName] as object, identifier, entity);
+      // @ts-expect-error 2322 Find out what the heck is going amiss here
+      repositories[entityName][identifier] = entity;
     }
   }
   const entities = response.data.ocs.data.entities;
@@ -69,19 +70,19 @@ export const loadEntities = async <const N extends keyof EntityMap, D extends Nu
         entityName,
         Object.fromEntries(
           identifiers!.map(
-            identifier => [identifier, find(entityName, identifier)!],
+            (identifier) => [identifier, find(entityName, identifier)!],
           ) as [string, FrontEndEntity<typeof entityName, D>][],
         ),
       ],
     ) as ObjectEntries<{
-      [K in N]: N extends K ? Record<string, FrontEndEntity<K, D> > : undefined|Record<string, FrontEndEntity<K, D> >;
+      [K in N]: N extends K ? Record<string, FrontEndEntity<K, D>> : undefined|Record<string, FrontEndEntity<K, D>>;
     }>,
   );
   return result;
 };
 
 export type FindByRecord = {
-  [QUERY_OPTIONS_KEY]: { [QUERY_OPTION_WILDCARDS]: boolean },
+  [QUERY_OPTIONS_KEY]: { [QUERY_OPTION_WILDCARDS]: boolean };
 } | {
   [K: string]: null|string|number|(string|number)[];
 } | {
@@ -95,11 +96,11 @@ export type SearchArguments<
   O extends number = 0,
 > = {
   entityName: N;
-  findBy: FindByRecord,
-  orderBy?: Record<string, EnumOrderByOptions>,
-  depth?: D,
-  limit?: L,
-  offset?: O,
+  findBy: FindByRecord;
+  orderBy?: Record<string, EnumOrderByOptions>;
+  depth?: D;
+  limit?: L;
+  offset?: O;
 };
 
 /**
@@ -147,12 +148,13 @@ export const search = async <
     offset,
   };
   try {
-    return await loadEntities<N, NonNegInt<D> >(url, queryParams);
+    return await loadEntities<N, NonNegInt<D>>(url, queryParams);
   } catch (e) {
     throw new AppError(
       { entityName, findBy, depth, limit, offset },
       t(appName, 'Unable to search for entities "{entityName}" with identifier "{criteria}".', {
-        entityName, criteria: JSON.stringify(findBy),
+        entityName,
+        criteria: JSON.stringify(findBy),
       }),
       { cause: e },
     );
@@ -164,8 +166,8 @@ export type FetchArguments<
   D extends number = 0,
 > = {
   entityName: N;
-  identifier: EntityId<N>,
-  depth?: D,
+  identifier: EntityId<N>;
+  depth?: D;
 };
 
 export const fetch = async <N extends keyof EntityMap, D extends number = 0>({
@@ -178,7 +180,7 @@ export const fetch = async <N extends keyof EntityMap, D extends number = 0>({
     find: btoa(JSON.stringify(identifier)),
   };
   try {
-    return await loadEntities<N, NonNegInt<D> >(url, queryParams);
+    return await loadEntities<N, NonNegInt<D>>(url, queryParams);
   } catch (e) {
     throw new AppError(
       { entityName, identifier, depth },

@@ -20,13 +20,13 @@
  */
 
 import type {
+  EntityAssociationFieldType,
   EntityDto,
   EntityFieldMapping,
   EntityFieldMappingType,
-  EntityFieldNullable,
   EntityFieldMetadata,
   EntityFieldNames,
-  EntityAssociationFieldType,
+  EntityFieldNullable,
   EntityMap,
   EntityNames,
 } from '../../../build/ts-types/php-modules/Toolkit/Doctrine/ORM/EntityMetadata.ts';
@@ -34,28 +34,29 @@ import type {
   EntityReference,
   EntityReferenceCollection,
 } from '../../../build/ts-types/php-modules/Toolkit/Doctrine/ORM/EntitySerializer.ts';
-import * as EntityRepository from './entity-repository.ts';
 import type { DecToZero, NonNegInt, NullableIf, NumberTuple, Zero } from '../types/type-traits.ts';
 
-export type FrontEndEntity<N extends EntityNames, D extends NumberTuple = NonNegInt<0> > = {
+import * as EntityRepository from './entity-repository.ts';
+
+export type FrontEndEntity<N extends EntityNames, D extends NumberTuple = NonNegInt<0>> = {
   [K in EntityFieldNames<N>]: EntityFieldMapping<N, K> extends 'owned'
     ? K extends keyof EntityMap[N]
       ? EntityMap[N][K]
       : never
     : EntityFieldMapping<N, K> extends 'to-one'
       ? Zero extends D
-        ? NullableIf<EntityFieldNullable<N, K>, Promise<FrontEndEntity<EntityAssociationFieldType<N, K>, DecToZero<D> > > >
-        : NullableIf<EntityFieldNullable<N, K>, FrontEndEntity<EntityAssociationFieldType<N, K>, DecToZero<D> > >
+        ? NullableIf<EntityFieldNullable<N, K>, Promise<FrontEndEntity<EntityAssociationFieldType<N, K>, DecToZero<D>>>>
+        : NullableIf<EntityFieldNullable<N, K>, FrontEndEntity<EntityAssociationFieldType<N, K>, DecToZero<D>>>
       : Zero extends D
-        ? Record<string|number, Promise<FrontEndEntity<EntityAssociationFieldType<N, K>, DecToZero<D> > > >
-        : Record<string|number, FrontEndEntity<EntityAssociationFieldType<N, K>, DecToZero<D> > >;
+        ? Record<string|number, Promise<FrontEndEntity<EntityAssociationFieldType<N, K>, DecToZero<D>>>>
+        : Record<string|number, FrontEndEntity<EntityAssociationFieldType<N, K>, DecToZero<D>>>;
 };
 
-const entityFactory = async <E extends keyof EntityMap, D extends NumberTuple = Zero>(entityName: E, entityDto: EntityDto<E>): Promise<FrontEndEntity<E, D> > => {
+const entityFactory = async <E extends keyof EntityMap, D extends NumberTuple = Zero>(entityName: E, entityDto: EntityDto<E>): Promise<FrontEndEntity<E, D>> => {
   const metadata: { [K in keyof EntityMap[E]]: EntityFieldMetadata<E> } =
     (await import(`../../../build/ts-types/php-modules/Toolkit/Doctrine/ORM/EntityMetadata/${entityName}Metadata.ts`)).default;
 
-  const dtoStructure = Object.fromEntries(Object.keys(entityDto).map(key => [key, true]));
+  const dtoStructure = Object.fromEntries(Object.keys(entityDto).map((key) => [key, true]));
   const entity: FrontEndEntity<E, D> = <FrontEndEntity<E, D> >{};
   for (const fieldName of Object.keys(metadata)) {
     delete dtoStructure[fieldName];
@@ -68,7 +69,8 @@ const entityFactory = async <E extends keyof EntityMap, D extends NumberTuple = 
           const identifier = reference.flatIdentifier;
           Object.defineProperty(
             entity,
-            fieldName, {
+            fieldName,
+            {
               get: () => {
                 const result = EntityRepository.find(targetEntity, identifier);
                 if (result !== undefined) {
@@ -90,7 +92,8 @@ const entityFactory = async <E extends keyof EntityMap, D extends NumberTuple = 
       case 'to-many': {
         const collection: EntityReferenceCollection<E> = entityDto[fieldName];
         const proxy = new Proxy(
-          collection.entities, {
+          collection.entities,
+          {
             get: (
               entities: EntityReferenceCollection<E>['entities'],
               field: string,
@@ -115,7 +118,8 @@ const entityFactory = async <E extends keyof EntityMap, D extends NumberTuple = 
         );
         Object.defineProperty(
           entity,
-          fieldName, {
+          fieldName,
+          {
             get: () => proxy,
           },
         );

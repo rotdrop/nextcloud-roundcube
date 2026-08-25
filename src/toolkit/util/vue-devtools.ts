@@ -1,6 +1,6 @@
 /**
  * @author Claus-Justus Heine
- * @copyright 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2025, 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -17,8 +17,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Vue from 'vue';
-
+// import Vue from 'vue';
 import Console from './console.ts';
 
 const logger = new Console('VUE-DEVTOOLS');
@@ -38,7 +37,8 @@ export const enableVueDevTools = () => {
       globalThis,
     });
     globalThis.__VUE_DEVTOOLS_GLOBAL_HOOK__.enabled = true;
-    globalThis.__VUE__ = Vue;
+    // TODO: check how this is supposed to work with Vue v3
+    // globalThis.__VUE__ = Vue;
   } else {
     logger.error('VUE-DEVTOOLS DOES NOT SEEM TO BE AVAILABLE', {
       globalThis,
