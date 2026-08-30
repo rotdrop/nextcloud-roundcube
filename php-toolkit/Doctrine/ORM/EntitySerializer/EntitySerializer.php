@@ -211,6 +211,9 @@ class EntitySerializer
 
       $flatEntity = [];
 
+      // Make sure lazy objects are initialized
+      $this->entityManager->initializeObject($entity);
+
       // ordinary non-associative fields
       /** @var Mapping\FieldMapping $mapping */
       foreach (array_keys($metaData->fieldMappings) as $field) {
