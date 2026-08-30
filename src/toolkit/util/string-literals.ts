@@ -23,12 +23,12 @@
 
 export type JoinLiterals<T extends string[], S extends string> =
   T extends []
-     ? ''
-     : T extends [string]
-       ? `${T[0]}`
-       : T extends [string, ...infer U extends string[]]
-         ? `${T[0]}${S}${JoinLiterals<U, S>}`
-         : string;
+    ? ''
+    : T extends [string]
+      ? `${T[0]}`
+      : T extends [string, ...infer U extends string[]]
+        ? `${T[0]}${S}${JoinLiterals<U, S>}`
+        : string;
 
 function joinLiterals(): <T extends string[]>(...strings: T) => JoinLiterals<T, ''>;
 function joinLiterals<Separator extends string>(separator: Separator): <T extends string[]>(...strings: T) => JoinLiterals<T, Separator>;

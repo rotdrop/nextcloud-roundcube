@@ -17,10 +17,12 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Vue, { getCurrentInstance } from 'vue';
-import { NodeStatus } from '@nextcloud/files';
-import { emit } from '@nextcloud/event-bus';
 import type { Node } from '@nextcloud/files';
+import type Vue from 'vue';
+
+import { emit } from '@nextcloud/event-bus';
+import { NodeStatus } from '@nextcloud/files';
+import { getCurrentInstance } from 'vue';
 
 let currentInstance: null|Vue = null;
 
