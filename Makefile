@@ -95,7 +95,7 @@ L10N_FILES = $(wildcard l10n/*.js l10n/*.json)
 JS_FILES = $(shell find $(ABSSRCDIR)/src -name "*.js" -o -name "*.ts" -o -name "*.vue")
 
 NPM_INIT_DEPS =\
- Makefile package-lock.json package.json webpack.config.js .eslintrc.js
+ Makefile package-lock.json package.json webpack.config.js eslint.config.mjs
 
 WEBPACK_DEPS =\
  $(NPM_INIT_DEPS)\
