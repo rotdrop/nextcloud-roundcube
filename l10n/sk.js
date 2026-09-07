@@ -13,6 +13,12 @@ OC.L10N.register(
     "The personal setting \"%1$s\" is read-only" : "Osobné nastavenie \"%1$s\" je iba na čítanie",
     "Unknown personal setting: \"%s\"." : "Neznáme osobné nastavenie: \"%s\".",
     "RoundCube Integration" : "Integrácia RoundCube",
+    "Exactly one of query-parameters \"%1$s\" and \"%2$s\" have to be specified." : "Musí byť zadaný presne jeden z parametrov dotazu „%1$s“ a „%2$s“.",
+    "Unable to find the entity \"%1$s\" identified by \"%2$s\"." : "Entitu „%1$s“ identifikovanú pomocou „%2$s“ sa nepodarilo nájsť.",
+    "Unable to register types with DBAL." : "Typy sa nepodarilo zaregistrovať v DBAL.",
+    "Unable to determine the identifier values for an instance of \"%s\"." : "Nepodarilo sa určiť hodnoty identifikátora pre inštanciu „%s“.",
+    "Collection \"%1$s\" in entity of type \"%2$s\" is null." : "Kolekcia „%1$s“ v entite typu „%2$s“ má hodnotu null.",
+    "Unable to compute a serialization for an instance of \"%s\"." : "Nepodarilo sa vypočítať serializáciu pre inštanciu „%s“.",
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Problém s inštaláciou; požadovaný zdroj \"%1$s\" typu \"%2$s\" nie je nainštalovaný na serveri, kontaktujte správcu systému!",
     "User" : "Používateľ",
     "Password" : "Heslo",
@@ -20,6 +26,7 @@ OC.L10N.register(
     "Login failed." : "Prihlásenie zlyhalo.",
     "%1$s (renamed)" : "%1$s (premenovaný)",
     "renamed file" : "premenovaný súbor",
+    "Unable to sanitize filename \"%s\"." : "Názov súboru „%s“ sa nepodarilo očistiť.",
     "bytes" : "bajty",
     "The supplied color-string \"%s\" seems to be invalid." : "Zdá sa, že dodaný reťazec farby \"%s“ je neplatný.",
     "The input color values are invalid." : "Hodnoty vstupných farieb sú neplatné.",
@@ -92,6 +99,8 @@ OC.L10N.register(
     "Single sign-on is globally forced \"on\"." : "Jednotné prihlásenie je globálne vynútené ako „zapnuté“.",
     "Email password for RoundCube, if needed." : "E-mailové heslo pre RoundCube, ak je to potrebné.",
     "Embedded RoundCube, Personal Settings" : "Vložený RoundCube, Osobné Nastavenia",
-    "Email Login Name" : "Prihlasovacie meno e-mailu"
+    "Email Login Name" : "Prihlasovacie meno e-mailu",
+    "Unable to search for entities \"{entityName}\" with identifier \"{criteria}\"." : "Nepodarilo sa vyhľadať entity „{entityName}“ s identifikátorom „{criteria}“.",
+    "Unable to fetch entity \"{entityName}\" with identifier \"{identifier}\"." : "Nepodarilo sa načítať entitu „{entityName}“ s identifikátorom „{identifier}“."
 },
 "nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);");
