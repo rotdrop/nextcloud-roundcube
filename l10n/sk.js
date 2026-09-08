@@ -91,6 +91,7 @@ OC.L10N.register(
     "Unable to configure the CardDAV integration for \"{emailUserId}\"." : "Nie je možné nakonfigurovať integráciu CardDAV pre \"{emailUserId}\".",
     "Unable to obtain email credentials for \"{emailUserId}\". Please check your personal Roundcube settings." : "Nie je možné získať prihlasovacie údaje pre e-mail \"{emailUserId}\". Skontrolujte svoje osobné nastavenia Roundcube.",
     "RoundCube Wrapper for Nextcloud" : "RoundCube Wrapper pre Nextcloud",
+    "Globally configured as NEXTCLOUD_USER_ID@{emailDefaultDomainAdmin}" : "Globálne nakonfigurované ako NEXTCLOUD_USER_ID@{emailDefaultDomainAdmin}",
     "Globally configured as NEXTCLOUD_USER_ID" : "Globálne nakonfigurované ako NEXTCLOUD_USER_ID",
     "Globally configured as user's email address, see user's personal settings." : "Globálne nakonfigurované ako e-mailová adresa užívateľa, pozrite si osobné nastavenia užívateľa.",
     "Globally configured as {fixedSingleEmailAddressAdmin}" : "Globálne nakonfigurované ako {fixedSingleEmailAddressAdmin}",
@@ -100,6 +101,7 @@ OC.L10N.register(
     "Email password for RoundCube, if needed." : "E-mailové heslo pre RoundCube, ak je to potrebné.",
     "Embedded RoundCube, Personal Settings" : "Vložený RoundCube, Osobné Nastavenia",
     "Email Login Name" : "Prihlasovacie meno e-mailu",
+    "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "Nepodarilo sa získať prístup k obsahu zabudovanej inštancie {wrappedApp}.\nMôže to byť spôsobené obmedzeniami prístupu medzi doménami.\nSkontrolujte, či sú vaša inštancia Nextcloud ({nextcloudUrl}) a zabudovaná inštancia {wrappedApp} ({iFrameUrl}) poskytované z rovnakej domény.",
     "Unable to search for entities \"{entityName}\" with identifier \"{criteria}\"." : "Nepodarilo sa vyhľadať entity „{entityName}“ s identifikátorom „{criteria}“.",
     "Unable to fetch entity \"{entityName}\" with identifier \"{identifier}\"." : "Nepodarilo sa načítať entitu „{entityName}“ s identifikátorom „{identifier}“."
 },
