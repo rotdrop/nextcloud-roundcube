@@ -131,12 +131,12 @@ class RationalNumber extends Rational implements JsonSerializable
    */
   public function round(int $precision = 0): static
   {
-    $rollIn = pow(10, $precision + 1);
+    $rollIn = 10 ** ($precision + 1);
     $roundInc = ($this->getWholePart() + $this->getNumerator() < 0) ? -5 : 5;
     $integralPart = $this->getWholePart();
     // this should in principle reduce the chance of overflow ...
     $fractional = $this->sub($integralPart);
-    return new static($integralPart, intdiv($fractional->mul($rollIn)->whole + $roundInc, 10), $rollIn / 10);
+    return new static($integralPart, intdiv((int)($fractional->mul($rollIn)->whole + $roundInc), 10), (int)($rollIn / 10));
   }
 
   /**
@@ -189,8 +189,8 @@ class RationalNumber extends Rational implements JsonSerializable
       $result .= '.' . $fractionalPart;
       return $sign < 0 ? '-' . $result : $result;
     }
-    $rollIn = pow(10, $scale + 1);
-    $fixedPoint = str_pad(intdiv($abs->mul($rollIn)->whole + 5, 10), $scale + 1, '0', STR_PAD_LEFT);
+    $rollIn = 10 ** ($scale + 1);
+    $fixedPoint = str_pad((string)intdiv((int)($abs->mul($rollIn)->whole + 5), 10), $scale + 1, '0', STR_PAD_LEFT);
     $integralPart = substr($fixedPoint, 0, -$scale);
     $fractionalPart = substr($fixedPoint, -$scale);
     $result = $integralPart . '.' . $fractionalPart;
@@ -229,7 +229,7 @@ class RationalNumber extends Rational implements JsonSerializable
     $sign = $matches[1][0] == '-' ? -1 : 1;
     $integralPart = empty($matches[2]) ? 0 : (int)$matches[2][0];
     $numerator = empty($matches[3]) ? 0 : (int)$matches[3][0];
-    $denominator = pow(10, strlen($matches[3][0] ?? ''));
+    $denominator = 10 ** strlen($matches[3][0] ?? '');
     return new static($sign * $integralPart, $sign * $numerator, $denominator);
   }
 
