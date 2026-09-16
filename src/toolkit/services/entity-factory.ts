@@ -56,14 +56,14 @@ const entityFactory = async <E extends keyof EntityMap, D extends NumberTuple = 
   const metadata: { [K in keyof EntityMap[E]]: EntityFieldMetadata<E> } =
     (await import(`../../../build/ts-types/php-modules/Toolkit/Doctrine/ORM/EntityMetadata/${entityName}Metadata.ts`)).default;
 
-  const dtoStructure = Object.fromEntries(Object.keys(entityDto).map((key) => [key, true]));
+  const dtoStructure = Object.fromEntries(Object.keys(entityDto).map((key) => [key, true])) as Record<keyof EntityDto<E>, true>;
   const entity: FrontEndEntity<E, D> = <FrontEndEntity<E, D> >{};
-  for (const fieldName of Object.keys(metadata)) {
+  for (const fieldName of Object.keys(metadata) as (keyof EntityMap[E])[]) {
     delete dtoStructure[fieldName];
     const fieldInfo: EntityFieldMetadata<E> = metadata[fieldName];
     switch (fieldInfo.mapping as EntityFieldMappingType) {
       case 'to-one': {
-        const reference: null|EntityReference<E> = entityDto[fieldName];
+        const reference = entityDto[fieldName] as null|EntityReference<E>;
         if (reference) {
           const targetEntity = reference.entityClassName as keyof EntityMap;
           const identifier = reference.flatIdentifier;
@@ -90,7 +90,7 @@ const entityFactory = async <E extends keyof EntityMap, D extends NumberTuple = 
         break;
       }
       case 'to-many': {
-        const collection: EntityReferenceCollection<E> = entityDto[fieldName];
+        const collection = entityDto[fieldName] as EntityReferenceCollection<E>;
         const proxy = new Proxy(
           collection.entities,
           {
@@ -131,7 +131,7 @@ const entityFactory = async <E extends keyof EntityMap, D extends NumberTuple = 
     }
   }
   // also include any extra data
-  for (const extra of Object.keys(dtoStructure)) {
+  for (const extra of Object.keys(dtoStructure) as (keyof EntityDto<E>)[]) {
     entity[extra] = entityDto[extra];
   }
   return entity;

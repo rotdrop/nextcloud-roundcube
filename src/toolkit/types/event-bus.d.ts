@@ -19,7 +19,7 @@
 
 // import type { Event } from '@nextcloud/event-bus';
 
-import type { Folder, Node, View } from '@nextcloud/files';
+import type { IFolder, INode, IView } from '@nextcloud/files';
 import type { components as NotificationComponents } from '../../../build/ts-types/notification-api.d.ts';
 
 /**
@@ -36,14 +36,16 @@ export interface NotificationEvent /* extends Event */ {
 declare module '@nextcloud/event-bus' {
   interface NextcloudEvents {
     'notifications:notification:received': NotificationEvent;
-    'files:node:deleted': Node;
-    'files:node:renamed': Node;
+    'files:node:deleted': INode;
+    'files:node:renamed': INode;
     'files:list:updated': {
-      folder: Folder;
-      contents: Node[];
-      view: View;
+      folder: IFolder;
+      contents: INode[];
+      view: IView;
     };
     'toggle-navigation': { open: boolean };
+    'files:sidebar:opened': INode;
+    'files:sidebar:closed': undefined;
   }
 }
 

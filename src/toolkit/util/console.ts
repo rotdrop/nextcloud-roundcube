@@ -34,15 +34,15 @@ const asyncStackFrames = async (offset: number, depth: number) => {
   return stackFrames.slice(offset + 1, offset + 1 + depth);
 };
 
-type ConsoleMethods = 'debug' | 'info' | 'error' | 'trace';
+export type ConsoleMethod = 'debug' | 'info' | 'warn' | 'error' | 'trace';
 
 export interface ConsoleOptions {
-  smaps?: { debug?: boolean; info?: boolean; error?: boolean; trace?: boolean };
+  smaps?: { [x in ConsoleMethod]?: boolean };
   stackDepth?: number;
 }
 
-const defaultConsoleOptions = {
-  smaps: { debug: true, info: true, error: true, trace: true },
+export const defaultConsoleOptions = {
+  smaps: { debug: true, info: true, warn: true, error: true, trace: true },
   stackDepth: 0,
 };
 
@@ -51,12 +51,12 @@ class Console {
   constructor(prefix: string, options?: ConsoleOptions) {
     this.prefix = prefix;
     options = { ...defaultConsoleOptions, ...(options || {}) };
-    this.smaps = { ...{ debug: true, info: true, error: true, trace: true }, ...(options?.smaps || {}) };
+    this.smaps = { ...{ debug: true, info: true, warn: true, error: true, trace: true }, ...(options?.smaps || {}) };
     this.stackDepth = options?.stackDepth || 0;
   }
 
-  private prefix: string;
-  private smaps: { debug: boolean; info: boolean; error: boolean; trace: boolean };
+  readonly prefix: string;
+  private smaps: { debug: boolean; info: boolean; warn: boolean; error: boolean; trace: boolean };
   private stackDepth: number;
   private timestamp() {
     return (new Date()).toLocaleTimeString('en-gb', { hour: '2-digit', minute: '2-digit', second: '2-digit', fractionalSecondDigits: 3 });
@@ -84,7 +84,7 @@ class Console {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private emitMessage(method: ConsoleMethods, ...args: any[]) {
+  private emitMessage(method: ConsoleMethod, ...args: any[]) {
     const time = this.timestamp();
     const depth = Math.max(1, (args.length > 0 && typeof args[0] === 'number') ? args.shift() : this.stackDepth);
     if (this.smaps[method]) {
@@ -107,6 +107,11 @@ class Console {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  warn(...args: any[]) {
+    return this.emitMessage('warn', ...args);
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   error(...args: any[]) {
     return this.emitMessage('error', ...args);
   }
@@ -116,11 +121,11 @@ class Console {
     return this.emitMessage('trace', ...args);
   }
 
-  enableSourceMaps(method: 'debug' | 'info' | 'error' | 'trace', state: boolean = true) {
+  enableSourceMaps(method: ConsoleMethod, state: boolean = true) {
     this.smaps[method] = state;
   }
 
-  disableSourceMaps(method: 'debug' | 'info' | 'error' | 'trace') {
+  disableSourceMaps(method: ConsoleMethod) {
     this.enableSourceMaps(method, false);
   }
 
@@ -131,7 +136,6 @@ class Console {
   withoutStack() {
     this.stackDepth = 0;
   }
-
 }
 
 export default Console;
