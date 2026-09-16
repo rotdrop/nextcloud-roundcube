@@ -3,7 +3,7 @@
  * A collection of reusable traits classes for Nextcloud apps.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2025, 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -35,8 +35,6 @@ use OCA\RotDrop\Toolkit\Exceptions;
  */
 trait SanitizeFilenameTrait
 {
-  use LoggerTrait;
-
   protected ContainerInterface $appContainer;
 
   protected IL10N $l;
