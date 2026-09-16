@@ -2,10 +2,14 @@
 
 WEBPACK_TARGETS = $(ABSSRCDIR)/js/asset-meta.json
 
-WEBPACK_DEPS := $(sort $(WEBPACK_DEPS) $(MAKEFILE_DEP) node_modules package-lock.json package.json webpack.config.js eslint.config.mjs)
+ifeq ($(BUNDLER_CONFIG),)
+BUNDLER_CONFIG = webpack.config.js
+endif
+
+WEBPACK_DEPS := $(sort $(WEBPACK_DEPS) $(MAKEFILE_DEP) node_modules package-lock.json package.json $(BUNDLER_CONFIG) eslint.config.mjs)
 
 #@private
-package-lock.json: package.json webpack.config.js $(MAKEFILE_DEP) $(THIRD_PARTY_NPM_DEPS)
+package-lock.json: package.json $(BUNDLER_CONFIG) $(MAKEFILE_DEP) $(THIRD_PARTY_NPM_DEPS)
 	{ [ -d package-lock.json ] && [ test -d node_modules ]; } || $(NPM) install
 	$(NPM) update
 	touch package-lock.json
