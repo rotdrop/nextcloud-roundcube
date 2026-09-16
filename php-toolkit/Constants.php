@@ -38,8 +38,6 @@ class Constants
   public const USER_FOLDER_PREFIX = 'files';
   public const JS = 'js';
   public const CSS = 'css';
-  public const ASSET = 'asset';
-  public const HASH = 'hash';
   public const WEB_ASSET_META = self::JS . self::PATH_SEPARATOR . 'asset-meta.json';
   public const INFO_FILE = 'appinfo' . self::PATH_SEPARATOR . 'info.xml';
 
