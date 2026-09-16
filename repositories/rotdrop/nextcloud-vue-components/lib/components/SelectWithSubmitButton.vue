@@ -235,7 +235,7 @@ const emitUpdate = () => {
   }
 }
 
-watch(modelValue, (newValue) => {
+watch(modelValue, () => {
   if (!props.submitButton) {
     // without submit button we need to forward the value to the parent component immediately
     emitUpdate()
