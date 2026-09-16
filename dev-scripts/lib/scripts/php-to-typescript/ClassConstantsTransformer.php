@@ -129,6 +129,9 @@ class ClassConstantsTransformer implements Transformer
       return $result;
     }
     if (is_string($value)) {
+      if (str_contains($value, '\\')) {
+        $value = str_replace('\\', '\\\\', $value);
+      }
       if (str_contains($value, "\n")) {
         return '`' . $value . '`';
       } else {
