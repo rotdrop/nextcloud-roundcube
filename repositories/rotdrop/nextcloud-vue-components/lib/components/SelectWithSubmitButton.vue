@@ -236,7 +236,6 @@ const emitUpdate = () => {
 }
 
 watch(modelValue, (newValue) => {
-  console.debug('SELECT WITH SUBMIT BUTTON', { newValue })
   if (!props.submitButton) {
     // without submit button we need to forward the value to the parent component immediately
     emitUpdate()
