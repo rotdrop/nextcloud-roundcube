@@ -1,6 +1,8 @@
 /**
- * @copyright Copyright (c) 2023, 2025, 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright Copyright (c) 2022, 2023, 2025, 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
+ *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
+ *
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -17,12 +19,19 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-export const cloudVersion = OC.config.versionstring.split('.').map((x) => +x);
-const cloudVersionClasses = [
-  'cloud-version',
-  'cloud-version-major-' + cloudVersion[0],
-  'cloud-version-minor-' + cloudVersion[1],
-  'cloud-version-patch-' + cloudVersion[2],
-];
+import { getRequestToken, onRequestTokenUpdate } from '@nextcloud/auth';
+import { generateFilePath } from '@nextcloud/router';
+import { appName } from '../../config.ts';
 
-export default cloudVersionClasses;
+declare global {
+  var __webpack_public_path__: string;
+  var __webpack_nonce__: string;
+}
+
+__webpack_public_path__ = generateFilePath(appName, '', '');
+__webpack_nonce__ = btoa(getRequestToken() || '');
+
+// this may not be necessary as the actual secret value does not change
+onRequestTokenUpdate(function(token) {
+  __webpack_nonce__ = btoa(token);
+});
