@@ -24,8 +24,6 @@ import { createApp } from 'vue';
 import PersonalSettings from './PersonalSettings.vue';
 import { appName } from './config.ts';
 
-import './webpack-setup.ts';
-
 const app = createApp(PersonalSettings);
 app.directive('tooltip', Tooltip);
 app.mount(`#${appName}-personal-settings`);
