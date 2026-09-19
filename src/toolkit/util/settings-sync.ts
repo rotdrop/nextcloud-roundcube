@@ -18,26 +18,18 @@
  */
 
 import axios from '@nextcloud/axios';
-import {
-  showError,
-  showInfo,
-  showSuccess,
-  TOAST_PERMANENT_TIMEOUT,
-} from '@nextcloud/dialogs';
 import { translate as t } from '@nextcloud/l10n';
 import { generateUrl } from '@nextcloud/router';
 import deepEqual from 'deep-equal';
 import { appName } from '../../config.ts';
 import { isAxiosErrorResponse } from '../types/axios-type-guards.ts';
-import { cloudVersion } from './cloud-version-classes.ts';
 import dialogConfirm from './dialog-confirm.ts';
-
-import '@nextcloud/dialogs/style.css';
-
-if (cloudVersion[0] >= 32 && cloudVersion[0] <= 34) {
-  // @ts-expect-error 2307 Just eat it ...
-  import('./toast-position.css');
-}
+import {
+  showError,
+  showInfo,
+  showSuccess,
+  TOAST_PERMANENT_TIMEOUT,
+} from './toasts.ts';
 
 interface FetchSettingsArgs {
   section: 'admin'|'personal';
