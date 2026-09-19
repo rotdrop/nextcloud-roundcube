@@ -15,15 +15,7 @@
   "author": "Claus-Justus Heine <himself@claus-justus-heine.de>",
   "scripts": {
     "build": "webpack --node-env production --progress",
-    "cs:check": "vendor/bin/php-cs-fixer fix --dry-run --diff",
-    "cs:fix": "vendor/bin/php-cs-fixer fix",
-    "dev": "webpack --node-env development --progress",
-    "lint": "eslint --ext .js,.ts,.vue src",
-    "lint:fix": "eslint --ext .js,.ts,.vue src --fix",
-    "serve": "webpack --node-env development serve --progress",
-    "stylelint": "stylelint css/*.css css/*.scss src/**/*.scss src/**/*.vue",
-    "stylelint:fix": "stylelint css/*.css css/*.scss src/**/*.scss src/**/*.vue --fix",
-    "watch": "webpack --node-env development --progress --watch"
+    "dev": "webpack --node-env development --progress"
   },
   "browserslist": [
     "extends @nextcloud/browserslist-config"
