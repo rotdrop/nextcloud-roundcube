@@ -19,11 +19,10 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-import Tooltip from '@rotdrop/nextcloud-vue-components/lib/directives/Tooltip';
 import { createApp } from 'vue';
 import PersonalSettings from './PersonalSettings.vue';
 import { appName } from './config.ts';
 
 const app = createApp(PersonalSettings);
-app.directive('tooltip', Tooltip);
+app.config.performance = !!(import.meta?.env?.DEV);
 app.mount(`#${appName}-personal-settings`);

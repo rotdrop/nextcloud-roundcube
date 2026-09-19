@@ -24,4 +24,5 @@ import AdminSettings from './AdminSettings.vue';
 import { appName } from './config.ts';
 
 const app = createApp(AdminSettings);
+app.config.performance = !!(import.meta?.env?.DEV);
 app.mount(`#${appName}-admin-settings`);

@@ -23,17 +23,20 @@ xml2js.parseString(fs.readFileSync(infoFile), function(err, result) {
 const appName = appInfo.info.id[0];
 const productionMode = process.env.NODE_ENV === 'production';
 
-const webpackSetup = path.join('toolkit', 'util', 'webpack-setup');
-const entryPoints = {
-  'admin-settings': 'admin-settings',
-  'personal-settings': 'personal-settings',
-  app: 'app',
-};
+// This is used by @nextcloud/webpack-vue-config.
+process.env.__VUE_PROD_DEVTOOLS__ = !productionMode;
 
-webpackConfig.entry = Object.keys(entryPoints).reduce((acc, key) => {
+const webpackSetup = path.join('toolkit', 'util', 'webpack-setup');
+const entryPoints = [
+  'admin-settings',
+  'personal-settings',
+  'app',
+];
+
+webpackConfig.entry = entryPoints.reduce((acc, key) => {
   acc[key] = [
     path.join(__dirname, 'src', `${webpackSetup}.ts`),
-    path.join(__dirname, 'src', `${entryPoints[key]}.ts`),
+    path.join(__dirname, 'src', `${key}.ts`),
   ];
   return acc;
 }, {});

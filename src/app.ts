@@ -25,5 +25,6 @@ import App from './App.vue';
 import router from './router/router.ts';
 
 const app = createApp(App);
+app.config.performance = !!(import.meta?.env?.DEV);
 app.use(router);
 app.mount('#content');
