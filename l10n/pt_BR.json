@@ -88,6 +88,7 @@
     "Unable to login into Roundcube, there are login errors. Please check\nyour personal Roundcube settings. Maybe a re-login to Nextcloud\nhelps. Otherwise contact your system administrator." : "Não é possível fazer login no Roundcube, há erros de login. Verifique\nsuas configurações pessoais do Roundcube. Talvez um novo login no Nextcloud\najude. Caso contrário, entre em contato com o administrador do sistema.",
     "Unable to configure the CardDAV integration for \"{emailUserId}\"." : "Não foi possível configurar a integração CardDAV para \"{emailUserId}\".",
     "Unable to obtain email credentials for \"{emailUserId}\". Please check your personal Roundcube settings." : "Não foi possível obter as credenciais de e-mail para \"{emailUserId}\". Verifique suas configurações pessoais do Roundcube.",
+    "The email user id is not configured. Please check your personal Roundcube settings." : "O ID do usuário de e-mail não está configurado. Verifique suas configurações pessoais do Roundcube.",
     "RoundCube Wrapper for Nextcloud" : "Wrapper do RoundCube para o Nextcloud",
     "Globally configured as NEXTCLOUD_USER_ID@{emailDefaultDomainAdmin}" : "Configurado globalmente como NEXTCLOUD_USER_ID@{emailDefaultDomainAdmin}",
     "Globally configured as NEXTCLOUD_USER_ID" : "Configurado globalmente como NEXTCLOUD_USER_ID",

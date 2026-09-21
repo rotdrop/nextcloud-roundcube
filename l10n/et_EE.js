@@ -78,6 +78,7 @@ OC.L10N.register(
     "Enable SSL verification." : "Lülita SSL-i kontrollimine sisse",
     "RCMCardDAV Plugin Configuration" : "Lisamooduli seadistus: RCMCardDAV",
     "ClipBoard" : "Lõikelaud",
+    "The email user id is not configured. Please check your personal Roundcube settings." : "E-posti kasutajatunnus on seadistamata. Palun kontrolli oma isiklike Roundcube'i seadistuste õigsust.",
     "RoundCube Wrapper for Nextcloud" : "RoundCube'i kest Nextcloudi jaoks",
     "Globally configured as NEXTCLOUD_USER_ID@{emailDefaultDomainAdmin}" : "Seadistatud üldisena, kui NEXTCLOUD_USER_ID@{emailDefaultDomainAdmin}",
     "Globally configured as NEXTCLOUD_USER_ID" : "Seadistatud üldisena, kui NEXTCLOUD_USER_ID",

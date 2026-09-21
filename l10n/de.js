@@ -90,6 +90,7 @@ OC.L10N.register(
     "Unable to login into Roundcube, there are login errors. Please check\nyour personal Roundcube settings. Maybe a re-login to Nextcloud\nhelps. Otherwise contact your system administrator." : "Die Anmeldung bei Roundcube ist nicht möglich. Es liegen Anmeldefehler vor. Bitte überprüfe\ndeine persönlichen Roundcube-Einstellungen. Möglicherweise hilft eine erneute Anmeldung bei Nextcloud.\nAndernfalls wende dich an deine Systemadministration.",
     "Unable to configure the CardDAV integration for \"{emailUserId}\"." : "Die CardDAV-Integration für \"{emailUserId}\" kann nicht eingerichtet werden.",
     "Unable to obtain email credentials for \"{emailUserId}\". Please check your personal Roundcube settings." : "E-Mail-Anmeldeinformationen für \"{emailUserId}\" konnten nicht abgerufen werden. Bitte überprüfe deine persönlichen Roundcube-Einstellungen.",
+    "The email user id is not configured. Please check your personal Roundcube settings." : "Die E-Mail-Benutzer-ID ist nicht eingerichtet. Bitte deine persönlichen Roundcube-Einstellungen überprüfen.",
     "RoundCube Wrapper for Nextcloud" : "RoundCube-Wrapper für Nextcloud",
     "Globally configured as NEXTCLOUD_USER_ID@{emailDefaultDomainAdmin}" : "Global konfiguriert als NEXTCLOUD_USER_ID@{emailDefaultDomainAdmin}",
     "Globally configured as NEXTCLOUD_USER_ID" : "Global konfiguriert als NEXTCLOUD_USER_ID",

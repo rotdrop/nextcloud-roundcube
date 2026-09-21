@@ -90,6 +90,7 @@ OC.L10N.register(
     "Unable to login into Roundcube, there are login errors. Please check\nyour personal Roundcube settings. Maybe a re-login to Nextcloud\nhelps. Otherwise contact your system administrator." : "由於錯誤無法登入至 Roundcube。\n請檢查您個人的 Roundcube 設定。\n或許重新登入 Nextcloud 會有所幫助。否則請聯絡您的系統管理員。",
     "Unable to configure the CardDAV integration for \"{emailUserId}\"." : "無法為「{emailUserId}」設定 CardDAV 整合。",
     "Unable to obtain email credentials for \"{emailUserId}\". Please check your personal Roundcube settings." : "無法擷取「{emailUserId}」的電子郵件身份驗證。請檢查您的個人 Roundcube 設定。",
+    "The email user id is not configured. Please check your personal Roundcube settings." : "電子郵件使用者 ID 尚未設定。請檢查您的個人 Roundcube 設定。",
     "RoundCube Wrapper for Nextcloud" : "Nextcloud 的 RoundCube Wrapper",
     "Globally configured as NEXTCLOUD_USER_ID@{emailDefaultDomainAdmin}" : "全域設定為 NEXTCLOUD_USER_ID@{emailDefaultDomainAdmin}",
     "Globally configured as NEXTCLOUD_USER_ID" : "全域設定為 NEXTCLOUD_USER_ID",
