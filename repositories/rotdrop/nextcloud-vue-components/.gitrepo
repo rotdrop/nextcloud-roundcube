@@ -6,7 +6,7 @@
 [subrepo]
 	remote = git@github.com:rotdrop/nextcloud-vue-components.git
 	branch = main
-	commit = ffc0a52438599b660bc08f01d1d2ab0c3a004b61
-	parent = e9be7778ab6a470401a623a4ed45285a3c35df01
+	commit = ab01cd90909ca2fa4895c25a1ffc6828e70596a6
+	parent = 0bcba523d7679d9ad277d9490d4f045d4c454b8b
 	method = merge
 	cmdver = 0.4.9
