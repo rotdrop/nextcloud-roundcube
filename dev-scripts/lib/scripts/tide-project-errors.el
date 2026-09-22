@@ -1,7 +1,11 @@
+;;; tide-project-errors -- run tide server in batch mode.
+;;;
+;;; Commentary:
 ;;; This is expected to be loaded in batch mode together like this:
 ;;;
 ;;; emacs --batch --file FILE.ts -l THIS_SCRIPT.el
-
+;;;
+;;; Code:
 (require 'package)
 (add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/") t)
@@ -29,7 +33,7 @@
         (error-buffer-size 0)
         (same-size-rounds 0)
         (sleep-seconds 2)
-        (timeout-seconds 30)
+        (timeout-seconds 600)
         )
     (while (and (< (* wait-states sleep-seconds) timeout-seconds) (< same-size-rounds 4))
       (message ".")
@@ -54,3 +58,6 @@
             (princ (buffer-substring-no-properties (point-min) (point-max))))))
     )
   )
+
+(provide 'tide-project-errors)
+;;; tide-project-errors.el ends here
