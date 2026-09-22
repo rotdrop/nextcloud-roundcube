@@ -35,15 +35,17 @@ use OCA\RotDrop\Toolkit\Doctrine\ORM;
  * entityClassName is not allowed to be null.
  */
 #[TSAttributes\TemplateParameters('K extends keyof ' . ORM::class . '.EntityMetadata.EntityMap')]
-class EntityReference extends EntityReferenceIdentifier
+class EntityReference extends CollectionEntityReference
 {
+  public readonly string $entityClassName;
+
   /** {@inheritdoc} */
   public function __construct(
     string $flatIdentifier,
     #[TSAttributes\LiteralTypeScriptType('K')]
-    public readonly string $entityClassName,
+    string $entityClassName,
   ) {
-    parent::__construct(flatIdentifier: $flatIdentifier);
+    parent::__construct(flatIdentifier: $flatIdentifier, entityClassName: $entityClassName);
   }
 
   /**

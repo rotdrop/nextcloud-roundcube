@@ -290,7 +290,7 @@ class EntitySerializer
                 $entityName = null;
               }
               $flatTargetIdentifier = $this->flattenIdentifier($targetMetaData, $targetId);
-              $flatCollection[$key] = new EntityReference(
+              $flatCollection[$key] = new CollectionEntityReference(
                 flatIdentifier: $flatTargetIdentifier,
                 entityClassName: $entityName,
               );

@@ -39,7 +39,6 @@ use MathPHP\Number\Rational;
 #[TSAttributes\TypeScript]
 #[TSAttributes\LiteralTypeScriptType('string')]
 #[TSAttributes\TypeScriptTransformer(DtoTransformer::class)]
-#[Attributes\UsesClass(\OCA\CAFEVDB\Common\RationalNumber::class)]
 class RationalNumber extends Rational implements JsonSerializable
 {
   /**
