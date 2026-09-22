@@ -17,7 +17,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-export const cloudVersion = OC.config.versionstring.split('.').map((x) => +x);
+export const cloudVersion = OC.config.versionstring.split('.').map((x: string|number) => +x);
 const cloudVersionClasses = [
   'cloud-version',
   'cloud-version-major-' + cloudVersion[0],

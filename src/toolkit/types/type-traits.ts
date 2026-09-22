@@ -24,6 +24,9 @@
 export type ObjectEntries<T, K extends keyof T = keyof T> =
   (K extends unknown ? [K, T[K]] : never)[];
 
+export type ObjectKeys<T, K extends keyof T = keyof T> =
+  (K extends unknown ? K : never)[];
+
 export type PickByValue<T, V> = Pick<T, { [K in keyof T]: T[K] extends V ? K : never }[keyof T]>;
 
 // export type ObjectEntries<T> = {

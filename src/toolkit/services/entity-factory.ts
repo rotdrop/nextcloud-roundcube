@@ -23,12 +23,13 @@ import type {
   EntityAssociationFieldType,
   EntityDto,
   EntityFieldMapping,
-  EntityFieldMappingType,
   EntityFieldMetadata,
   EntityFieldNames,
   EntityFieldNullable,
+  EntityId,
   EntityMap,
   EntityNames,
+  ExtraFieldNames,
 } from '../../../build/ts-types/php-modules/Toolkit/Doctrine/ORM/EntityMetadata.ts';
 import type {
   EntityReference,
@@ -39,52 +40,56 @@ import type { DecToZero, NonNegInt, NullableIf, NumberTuple, Zero } from '../typ
 import * as EntityRepository from './entity-repository.ts';
 
 export type FrontEndEntity<N extends EntityNames, D extends NumberTuple = NonNegInt<0>> = {
-  [K in EntityFieldNames<N>]: EntityFieldMapping<N, K> extends 'owned'
-    ? K extends keyof EntityMap[N]
-      ? EntityMap[N][K]
-      : never
-    : EntityFieldMapping<N, K> extends 'to-one'
-      ? Zero extends D
-        ? NullableIf<EntityFieldNullable<N, K>, Promise<FrontEndEntity<EntityAssociationFieldType<N, K>, DecToZero<D>>>>
-        : NullableIf<EntityFieldNullable<N, K>, FrontEndEntity<EntityAssociationFieldType<N, K>, DecToZero<D>>>
-      : Zero extends D
-        ? Record<string|number, Promise<FrontEndEntity<EntityAssociationFieldType<N, K>, DecToZero<D>>>>
-        : Record<string|number, FrontEndEntity<EntityAssociationFieldType<N, K>, DecToZero<D>>>;
+  [K in keyof EntityMap[N]['entity']]: K extends keyof EntityMap[N]['metadata']
+    ? EntityFieldMapping<N, K> extends 'owned'
+      ? K extends keyof EntityMap[N]['entity']
+        ? EntityMap[N]['entity'][K]
+        : never
+      : EntityFieldMapping<N, K> extends 'to-one'
+        ? Zero extends D
+          ? NullableIf<EntityFieldNullable<N, K>, Promise<FrontEndEntity<EntityAssociationFieldType<N, K>, DecToZero<D>>>>
+          : NullableIf<EntityFieldNullable<N, K>, FrontEndEntity<EntityAssociationFieldType<N, K>, DecToZero<D>>>
+        : Zero extends D
+          ? Record<string|number, Promise<FrontEndEntity<EntityAssociationFieldType<N, K>, DecToZero<D>>>>
+          : Record<string|number, FrontEndEntity<EntityAssociationFieldType<N, K>, DecToZero<D>>>
+    : EntityMap[N]['entity'][K];
 };
 
-const entityFactory = async <E extends keyof EntityMap, D extends NumberTuple = Zero>(entityName: E, entityDto: EntityDto<E>): Promise<FrontEndEntity<E, D>> => {
-  const metadata: { [K in keyof EntityMap[E]]: EntityFieldMetadata<E> } =
+const entityFactory = async <E extends EntityNames, D extends NumberTuple = Zero>(entityName: E, entityDto: EntityDto<E>): Promise<FrontEndEntity<E, D>> => {
+  // const metadata: EntityMap[E]['metadata'] =
+  const metadata: { [K in EntityFieldNames<E>]: EntityFieldMetadata<E, K>; } =
     (await import(`../../../build/ts-types/php-modules/Toolkit/Doctrine/ORM/EntityMetadata/${entityName}Metadata.ts`)).default;
 
   const dtoStructure = Object.fromEntries(Object.keys(entityDto).map((key) => [key, true])) as Record<keyof EntityDto<E>, true>;
   const entity: FrontEndEntity<E, D> = <FrontEndEntity<E, D> >{};
-  for (const fieldName of Object.keys(metadata) as (keyof EntityMap[E])[]) {
+  for (const fieldName of Object.keys(metadata) as (EntityFieldNames<E>)[]) {
     delete dtoStructure[fieldName];
-    const fieldInfo: EntityFieldMetadata<E> = metadata[fieldName];
-    switch (fieldInfo.mapping as EntityFieldMappingType) {
+    const fieldInfo = metadata[fieldName];
+    switch (fieldInfo.mapping) {
       case 'to-one': {
         const reference = entityDto[fieldName] as null|EntityReference<E>;
         if (reference) {
-          const targetEntity = reference.entityClassName as keyof EntityMap;
+          const targetEntity = reference.entityClassName;
           const identifier = reference.flatIdentifier;
           Object.defineProperty(
             entity,
             fieldName,
             {
               get: () => {
-                const result = EntityRepository.find(targetEntity, identifier);
+                const result = EntityRepository.find(targetEntity!, identifier);
                 if (result !== undefined) {
                   return result;
                 }
                 // @todo: this will not work for composite keys and complicated foreign keys
                 return EntityRepository.fetch({
                   entityName: targetEntity,
-                  identifier,
-                }).then(() => Promise.resolve(EntityRepository.find(targetEntity, identifier)));
+                  identifier: { id: identifier } as EntityId<E>,
+                }).then(() => Promise.resolve(EntityRepository.find(targetEntity!, identifier)));
               },
             },
           );
         } else {
+          // @ts-expect-error 2322 Null is allowed here but difficult to deduce via type hints.
           entity[fieldName] = null;
         }
         break;
@@ -126,12 +131,14 @@ const entityFactory = async <E extends keyof EntityMap, D extends NumberTuple = 
         break;
       }
       case 'owned':
+        // @ts-expect-error 2322 This is ok, but proper type-deductions are really a nightmare.
         entity[fieldName] = entityDto[fieldName];
         break;
     }
   }
   // also include any extra data
-  for (const extra of Object.keys(dtoStructure) as (keyof EntityDto<E>)[]) {
+  for (const extra of Object.keys(dtoStructure) as ExtraFieldNames<E>[]) {
+    // @ts-expect-error 2719 Obscure. I really tried hard to satisfy TS, but it did not work out.
     entity[extra] = entityDto[extra];
   }
   return entity;
