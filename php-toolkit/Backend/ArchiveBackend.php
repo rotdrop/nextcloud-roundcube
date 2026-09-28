@@ -3,7 +3,7 @@
  * Some PHP utility functions for Nextcloud apps.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022, 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -23,6 +23,7 @@
 namespace OCA\RotDrop\Toolkit\Backend;
 
 use InvalidArgumentException;
+use SensitiveParameter;
 use wapmorgan\UnifiedArchive;
 use wapmorgan\UnifiedArchive\Abilities;
 
@@ -56,7 +57,7 @@ class ArchiveBackend extends UnifiedArchive\UnifiedArchive
    * to determine its MIME-type if it could not be determined by its file
    * extension.
    */
-  public static function open($fileName, $abilities = [], $password = null, bool $contentCheck = true)
+  public static function open($fileName, $abilities = [], #[SensitiveParameter] $password = null, bool $contentCheck = true)
   {
     if (!file_exists($fileName) || !is_readable($fileName)) {
       throw new InvalidArgumentException('Could not open file: ' . $fileName.' is not readable');

@@ -22,10 +22,12 @@
 
 namespace OCA\RotDrop\Toolkit\Traits;
 
-use OCP\IPreview;
-use OCP\Files\Node;
 use OCP\Files\IRootFolder;
 use OCP\Files\Mount\IMovableMount;
+use OCP\Files\Node;
+use OCP\IPreview;
+
+use OCA\RotDrop\Toolkit\DTO\LegacyFileInfo;
 
 /** Helper trait for file-system nodes. */
 trait NodeTrait
@@ -46,12 +48,12 @@ trait NodeTrait
    *
    * @param Node $node
    *
-   * @return array
+   * @return LegacyFileInfo
    *
    * @throws NotFoundException
    * @throws \OCP\Files\InvalidPathException
    */
-  protected function formatNode(Node $node):array
+  protected function formatNode(Node $node): LegacyFileInfo
   {
     $mount = $node->getMountPoint();
     $mountType = $mount->getMountType();
@@ -70,7 +72,7 @@ trait NodeTrait
       $relativePath = $topLevelFolder->getRelativePath($path);
       $topLevelFolder = $topLevelFolder->getPath();
     }
-    return [
+    return LegacyFileInfo::fromArray([
       'fileid' => (string)$node->getId(), // avoid integer overflow with Javascript, convert to string
       'path' => $path,
       'topLevelFolder' => $topLevelFolder,
@@ -82,8 +84,8 @@ trait NodeTrait
       'type' => $node->getType(),
       'hasPreview' => $this->previewManager->isAvailable($node),
       'permissions' => $node->getPermissions() | $extraPermissions,
-      'mount-type' => $mountType,
+      'mountType' => $mountType,
       'etag' => $node->getEtag(),
-    ];
+    ]);
   }
 }
