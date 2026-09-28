@@ -121,11 +121,17 @@ class Console {
     return this.emitMessage('trace', ...args);
   }
 
-  enableSourceMaps(method: ConsoleMethod, state: boolean = true) {
-    this.smaps[method] = state;
+  enableSourceMaps(method?: ConsoleMethod, state: boolean = true) {
+    if (!method) {
+      for (const key of Object.keys(this.smaps)) {
+        this.smaps[key] = state;
+      }
+    } else {
+      this.smaps[method] = state;
+    }
   }
 
-  disableSourceMaps(method: ConsoleMethod) {
+  disableSourceMaps(method?: ConsoleMethod) {
     this.enableSourceMaps(method, false);
   }
 

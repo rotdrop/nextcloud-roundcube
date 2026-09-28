@@ -36,6 +36,7 @@ export interface NotificationEvent /* extends Event */ {
 declare module '@nextcloud/event-bus' {
   interface NextcloudEvents {
     'notifications:notification:received': NotificationEvent;
+    'files:node:created': INode;
     'files:node:deleted': INode;
     'files:node:renamed': INode;
     'files:list:updated': {
