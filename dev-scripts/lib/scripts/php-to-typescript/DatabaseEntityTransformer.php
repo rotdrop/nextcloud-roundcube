@@ -44,7 +44,7 @@ class DatabaseEntityTransformer extends DtoTransformer
     TransformerConfig $config,
   ) {
     parent::__construct($config);
-    $this->classConstantsTransformer = new ClassConstantsTransformer($config);
+    $this->classConstantsTransformer = new ClassConstantsTransformer($config, forceCanTransform: true);
   }
 
   /** {@inheritdoc} */
@@ -55,7 +55,7 @@ class DatabaseEntityTransformer extends DtoTransformer
       |ReflectionProperty::IS_PRIVATE;
     $properties = array_filter(
       $class->getProperties($visibility),
-      fn (ReflectionProperty $property) => ! $property->isStatic()
+      fn(ReflectionProperty $property) => !str_starts_with($property->getName(), '_') && !$property->isStatic()
     );
 
     return array_values($properties);
@@ -103,5 +103,20 @@ class DatabaseEntityTransformer extends DtoTransformer
     }
 
     return $dtoType;
+  }
+
+  /** {@inheritdoc} */
+  protected function transformPropertyName(
+    ReflectionProperty $property,
+    MissingSymbolsCollection $missingSymbols
+  ): string {
+    $attributes = $property->getAttributes(TypeScriptPropertyName::class);
+    if (empty($attributes)) {
+      return parent::transformPropertyName($property, $missingSymbols);
+    }
+    $reflectionAttribute = array_shift($attributes);
+    /** @var TypeScriptPropertyName $attribute */
+    $attribute = $reflectionAttribute->newInstance();
+    return $attribute->getPropertyName();
   }
 }

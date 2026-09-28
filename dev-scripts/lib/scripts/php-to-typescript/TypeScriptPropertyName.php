@@ -24,21 +24,15 @@ namespace OCA\RotDrop\DevScripts\PhpToTypeScript;
 
 use Attribute;
 
-use Spatie\TypeScriptTransformer\Types\StructType;
-use Spatie\TypeScriptTransformer\Types\TypeScriptType;
-use phpDocumentor\Reflection\Type;
-
 /**
- * Define additional properties which should be present in the TS output.
+ * Rename a property. Purpose is to track mutations in jsonSerialize().
  */
-#[Attribute(Attribute::IS_REPEATABLE|Attribute::TARGET_CLASS)]
-class LiteralTypeScriptProperty
+#[Attribute(Attribute::TARGET_PROPERTY)]
+class TypeScriptPropertyName
 {
   /** {@inheritdoc} */
   public function __construct(
     private string $propertyName,
-    private null|string|array $typeScript,
-    private bool $optional = false,
   ) {
   }
 
@@ -46,26 +40,5 @@ class LiteralTypeScriptProperty
   public function getPropertyName(): string
   {
     return $this->propertyName;
-  }
-
-  /** @return bool */
-  public function getOptional(): bool
-  {
-    return $this->optional;
-  }
-
-  /** @return Type */
-  public function getType(): Type
-  {
-    if (is_string($this->typeScript)) {
-      return new TypeScriptType($this->typeScript);
-    }
-
-    $types = array_map(
-      fn (string $type) => new TypeScriptType($type),
-      $this->typeScript
-    );
-
-    return new StructType($types);
   }
 }

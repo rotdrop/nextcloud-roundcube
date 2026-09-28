@@ -40,11 +40,12 @@ class ClassConstantsTransformer implements Transformer
   /** {@inheritdoc} */
   public function __construct(
     protected TransformerConfig $config,
+    protected bool $forceCanTransform = false,
   ) {
   }
 
   /** {@inheritdoc} */
-  public function transform(ReflectionClass $class, string $name):null|TransformedType|TypesCollection
+  public function transform(ReflectionClass $class, string $name): null|TransformedType|TypesCollection
   {
     if (!$this->canTransform($class)) {
       return null;
@@ -179,7 +180,7 @@ class ClassConstantsTransformer implements Transformer
   protected function canTransform(ReflectionClass $class): bool
   {
     // This is for const-only classes.
-    return true && count($this->resolveProperties($class)) == 0;
+    return $this->forceCanTransform || count($this->resolveProperties($class)) == 0;
   }
 
   /** {@inheritdoc} */

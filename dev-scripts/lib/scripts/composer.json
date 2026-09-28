@@ -1,0 +1,26 @@
+{
+  "require-dev": {
+    "cweagans/composer-patches": "^2.0",
+    "nextcloud/ocp": "dev-stable35",
+    "symfony/console": "^7.0.0"
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "OCP\\": "vendor/nextcloud/ocp/OCP/"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "config": {
+    "allow-plugins": {
+      "cweagans/composer-patches": true
+    }
+  },
+  "extra": {
+    "patches": {
+      "nextcloud/ocp": {
+        "Fix server version at 35.0.0.0": "composer-patches/nextcloud/ocp/get-version.patch"
+      }
+    }
+  }
+}
