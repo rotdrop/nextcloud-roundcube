@@ -9,9 +9,10 @@ APP_INFO = $(SRCDIR)/appinfo/info.xml
 XPATH = $(shell which xpath 2> /dev/null)
 ifneq ($(XPATH),)
 APP_NAME = $(shell $(XPATH) -q -e '/info/id/text()' $(APP_INFO))
+APP_VERSION = $(shell $(XPATH) -q -e '/info/version/text()' $(APP_INFO))
+APP_NAMESPACE = $(shell $(XPATH) -q -e '/info/namespace/text()' $(APP_INFO))
 else
-$(warning The xpath binary could not be found, falling back to using the CWD as app-name)
-APP_NAME = $(notdir $(CURDIR))
+$(error The xpath binary could not be found, falling back to using the CWD as app-name)
 endif
 DEV_LIB_DIR = $(ABSSRCDIR)/dev-scripts/lib
 BUILDDIR = ./build
@@ -55,7 +56,7 @@ include $(MAKE_HELP_DIR)/MakeHelp.mk
 
 APPSTORE_BUILD_DIR = $(BUILDDIR)/artifacts/appstore
 APPSTORE_COMPRESSION = z
-APPSTORE_PACKAGE_FILE := $(APPSTORE_BUILD_DIR)/$(APP_NAME).tar
+APPSTORE_PACKAGE_FILE := $(APPSTORE_BUILD_DIR)/$(APP_NAME)-$(APP_VERSION).tar
 ifeq ($(APPSTORE_COMPRESSION),z)
   APPSTORE_PACKAGE_FILE := $(APPSTORE_PACKAGE_FILE).gz
 else ifeq ($(APPSTORE_COMPRESSION),J)
