@@ -422,7 +422,9 @@ class PhpToTypeScript extends Command
     $progressSection = $output->section();
     $generator = basename(__FILE__);
     $modulesDir = $outputPrefix . '/' . self::TS_MODULES_DIR . '/';
-    mkdir($modulesDir);
+    if (!file_exists($modulesDir)) {
+      mkdir($modulesDir);
+    }
     $tsData = file_get_contents($outputFile);
     $topLevelTypes = [];
     $currentModule = null;
