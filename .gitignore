@@ -1,5 +1,5 @@
 assets/
-build/
+/build/
 signing/
 css/**
 js/**
@@ -15,5 +15,7 @@ build-flavour
 stamp.composer-core-versions
 lib/Toolkit/[A-Z]*
 *-build-hash
+/vendor-bin/**/.ac-php*
 /vendor-bin/**/vendor/
 /vendor-bin/**/composer.lock
+.vite/

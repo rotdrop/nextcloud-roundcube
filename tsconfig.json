@@ -1,14 +1,14 @@
 {
   "extends": "@vue/tsconfig/tsconfig.dom.json",
   "include": [
-    "../../custom.d.ts",
+    "./src/toolkit/types/custom.d.ts",
     "./build/ts-types/app-config.ts",
     "./node_modules/@nextcloud/**.ts",
     "./node_modules/@types/**.ts",
     "./node_modules/axios/**.ts",
     "./node_modules/vue-router/**.ts",
     "./node_modules/vue/**.ts",
-    "./node_modules/webpack/**.ts",
+    "./node_modules/vite/**/*.ts",
     "./src/**/*.ts",
     "./src/**/*.vue",
     "./src/*-shim.d.ts",

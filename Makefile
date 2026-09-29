@@ -18,6 +18,9 @@ DEV_LIB_DIR = $(ABSSRCDIR)/dev-scripts/lib
 BUILDDIR = ./build
 ABSBUILDDIR = $(CURDIR)/build
 BUILD_TOOLS_DIR = $(BUILDDIR)/tools
+TYPESCRIPT_CONVERTER = $(ABSSRCDIR)/dev-scripts/php-to-typescript.php
+TS_TYPES_DIR = $(ABSBUILDDIR)/ts-types
+TS_PHP_SOURCE_DIRS = lib
 DOWNLOADS_DIR = ./downloads
 
 SILENT = @
@@ -26,6 +29,7 @@ SILENT = @
 RSYNC = $(shell which rsync 2> /dev/null)
 PHP = $(shell which php 2> /dev/null)
 NPM = $(shell which npm 2> /dev/null)
+BUNDLER_CONFIG = vite.config.ts
 WGET = $(shell which wget 2> /dev/null)
 OPENSSL = $(shell which openssl 2> /dev/null)
 PHPUNIT = ./vendor/bin/phpunit
@@ -91,17 +95,19 @@ APP_TOOLKIT_NS = RoundCube
 
 include $(APP_TOOLKIT_DIR)/tools/scopeme.mk
 include $(DEV_LIB_DIR)/makefile/ts-app-config.mk
+include $(DEV_LIB_DIR)/makefile/ts-types-files.mk
 
 L10N_FILES = $(wildcard l10n/*.js l10n/*.json)
 JS_FILES = $(shell find $(ABSSRCDIR)/src -name "*.js" -o -name "*.ts" -o -name "*.vue")
 
 NPM_INIT_DEPS =\
- Makefile package-lock.json package.json webpack.config.js eslint.config.mjs
+ Makefile package-lock.json package.json $(BUNDLER_CONFIG) eslint.config.mjs
 
 WEBPACK_DEPS =\
  $(NPM_INIT_DEPS)\
  $(JS_FILES)\
- $(TS_APP_CONFIG)
+ $(TS_APP_CONFIG)\
+ ts-types-files
 
 include $(DEV_LIB_DIR)/makefile/npm.mk
 
@@ -216,3 +222,12 @@ unit-tests:
 integration-tests:
 	$(PHPUNIT) -c phpunit.integration.xml
 .PHONY: integration-tests
+
+#@private
+run-tide:
+	$(EMACS) --batch --file $(SRCDIR)/src/vue-app.ts  -l $(DEV_LIB_DIR)/scripts/tide-project-errors.el|tee tide-errors.log
+.PHONY: run-tide
+
+#@@ Runs the Emacs Tide IDE in batch mode and diagnoses TypeScript errors.
+tide: dev-setup ts-app-config ts-types-files run-tide
+.PHONY: tide

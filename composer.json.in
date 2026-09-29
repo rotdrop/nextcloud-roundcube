@@ -16,10 +16,7 @@
     "symfony/process": "*"
   },
   "require-dev": {
-    "bamarni/composer-bin-plugin": "^1.8",
-    "phpmd/phpmd" : "@stable",
-    "squizlabs/php_codesniffer": "3.*",
-    "zebra-north/phpcs-short-types": "^1.0"
+    "bamarni/composer-bin-plugin": "^1.8"
   },
   "config": {
     "optimize-autoloader": true,
@@ -32,10 +29,13 @@
     }
   },
   "repositories": [],
-  "scripts": {
-    "lint": "find . -name \\*.php -not -path './vendor/*' -not -path './build/*' -print0 | xargs -0 -n1 php -l",
-    "cs:check": "php-cs-fixer fix --dry-run --diff",
-    "cs:fix": "php-cs-fixer fix"
+  "autoload-dev": {
+    "psr-4": {
+      "OCA\\Roundcube\\": "lib/",
+      "OCA\\RotDrop\\Toolkit\\": "php-toolkit/",
+      "OCA\\RotDrop\\DevScripts\\PhpToTypeScript\\": "dev-scripts/lib/scripts/php-to-typescript/",
+      "Spatie\\TypeScriptTransformer\\": "vendor-bin/typescript-transformer/vendor/spatie/typescript-transformer/src/"
+    }
   },
   "extra": {
     "bamarni-bin": {

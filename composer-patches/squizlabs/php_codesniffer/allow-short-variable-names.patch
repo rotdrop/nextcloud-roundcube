@@ -1,0 +1,13 @@
+--- php_codesniffer/src/Util/Common.php.orig	2025-11-10 17:43:36.000000000 +0100
++++ php_codesniffer/src/Util/Common.php	2025-12-21 16:27:13.643603146 +0100
+@@ -24,8 +24,10 @@
+     public const ALLOWED_TYPES = [
+         'array'    => 'array',
+         'boolean'  => 'boolean',
++        'bool'     => 'bool',
+         'float'    => 'float',
+         'integer'  => 'integer',
++        'int'      => 'int',
+         'mixed'    => 'mixed',
+         'object'   => 'object',
+         'string'   => 'string',
