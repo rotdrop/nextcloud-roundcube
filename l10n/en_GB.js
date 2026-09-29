@@ -19,6 +19,7 @@ OC.L10N.register(
     "Unable to determine the identifier values for an instance of \"%s\"." : "Unable to determine the identifier values for an instance of \"%s\".",
     "Collection \"%1$s\" in entity of type \"%2$s\" is null." : "Collection \"%1$s\" in entity of type \"%2$s\" is null.",
     "Unable to compute a serialization for an instance of \"%s\"." : "Unable to compute a serialization for an instance of \"%s\".",
+    "Unable to serve request to \"%1$s\": %2$s" : "Unable to serve request to \"%1$s\": %2$s",
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!",
     "User" : "User",
     "Password" : "Password",

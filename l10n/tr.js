@@ -19,6 +19,7 @@ OC.L10N.register(
     "Unable to determine the identifier values for an instance of \"%s\"." : "\"%s\" kopyasının tanımlayıcı değerleri belirlenemedi.",
     "Collection \"%1$s\" in entity of type \"%2$s\" is null." : "Birimde \"%2$s\" türündeki \"%1$s\" derlemesi null.",
     "Unable to compute a serialization for an instance of \"%s\"." : "\"%s\" kopyasının serileştirmesi hesaplanamadı.",
+    "Unable to serve request to \"%1$s\": %2$s" : "İstek \"%1$s\" üzerine sunulamadı: %2$s",
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Kurulum sorunu. Gereken \"%2$s\" türündeki \"%1$s\" kaynağı sunucu üzerine kurulmamış.\nLütfen sistem yöneticisi ile görüşün!",
     "User" : "Kullanıcı adı",
     "Password" : "Parola",

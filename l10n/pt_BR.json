@@ -17,6 +17,7 @@
     "Unable to determine the identifier values for an instance of \"%s\"." : "Não foi possível determinar os valores do identificador para um instância de \"%s\".",
     "Collection \"%1$s\" in entity of type \"%2$s\" is null." : "A coleção \"%1$s\" na entidade do tipo \"%2$s\" é null.",
     "Unable to compute a serialization for an instance of \"%s\"." : "Não é possível calcular uma serialização para uma instância de \"%s\".",
+    "Unable to serve request to \"%1$s\": %2$s" : "Não foi possível atender à solicitação para “%1$s”: %2$s",
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Problema de instalação; o recurso necessário \"%1$s\" do tipo \"%2$s\" não está instalado no servidor, entre em contato com o administrador do sistema!",
     "User" : "Usuário",
     "Password" : "Senha",

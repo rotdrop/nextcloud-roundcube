@@ -17,6 +17,7 @@
     "Unable to determine the identifier values for an instance of \"%s\"." : "Ní féidir luachanna aitheantais an sampla \"%s\" a chinneadh.",
     "Collection \"%1$s\" in entity of type \"%2$s\" is null." : "Tá an bailiúchán \"%1$s\" san eintiteas de chineál \"%2$s\" neamhní.",
     "Unable to compute a serialization for an instance of \"%s\"." : "Ní féidir sraithiú a ríomh le haghaidh sampla de \"%s\".",
+    "Unable to serve request to \"%1$s\": %2$s" : "Ní féidir freastal ar an iarratas chuig \"%1$s\": %2$s",
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Fadhb suiteála; níl an acmhainn riachtanach \"%1$s\" de chineál \"%2$s\" suiteáilte ar an bhfreastalaí, téigh i dteagmháil le riarthóir an chórais!",
     "User" : "Úsáideoir",
     "Password" : "Pasfhocal",
