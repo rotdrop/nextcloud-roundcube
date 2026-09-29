@@ -94,6 +94,18 @@ abstract class AbstractApplication extends App implements IBootstrap
   /**
    * {@inheritdoc}
    *
+   * Dummy boot() method.
+   *
+   * @param IBootContext $context
+   */
+  public function boot(IBootContext $context): void
+  {
+    // nothing
+  }
+
+  /**
+   * {@inheritdoc}
+   *
    * Called earlier than boot, so anything initialized in the
    * "boot()" method must not be used here.
    */
