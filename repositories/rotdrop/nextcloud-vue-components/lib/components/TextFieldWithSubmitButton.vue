@@ -80,7 +80,7 @@ watch(model, (value) => {
 })
 </script>
 
-<style lang="scss" scoped>
+<style scoped lang="scss">
 .component-wrapper {
   .hint {
     color: var(--color-text-lighter);

@@ -251,8 +251,8 @@ const clearSelection = () => {
 }
 </script>
 
-<style lang="scss" scoped>
-.input-wrapper :deep() {
+<style scoped lang="scss">
+.input-wrapper {
   position:relative;
   display: flex;
   flex-wrap: wrap;
