@@ -44,6 +44,7 @@ require_once __DIR__ . '/../Service/AppInfoService.php';
 abstract class AbstractApplication extends App implements IBootstrap
 {
   public const APP_ROOT_FOLDER = 'appRootFolder';
+  public const MIDDLEWARE_OPTIONS = 'middelwareOptions';
 
   protected static ?ContainerInterface $appContainer = null;
 

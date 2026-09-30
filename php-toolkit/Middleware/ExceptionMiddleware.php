@@ -50,6 +50,22 @@ class ExceptionMiddleware extends Middleware
   use \OCA\RotDrop\Toolkit\Traits\HasAnnotationOrAttributeTrait;
   use \OCA\RotDrop\Toolkit\Traits\LoggerTrait;
 
+  public const DEFAULT_HTTP_STATUS_CODE_MAPPING = [
+    InvalidArgumentException::class => Http::STATUS_BAD_REQUEST,
+    'default' => Http::STATUS_INTERNAL_SERVER_ERROR,
+  ];
+
+  /**
+   * @va
+   *
+   * By default only EnduserNotificationException exceptions are
+   * intercepted. Set this to \true to intercept all exceptions and wrap any
+   * non-EnduserNotificationException into an EnduserNotificationException.
+   */
+  private bool $catchAll = false;
+
+  private array $httpStatusCodeMapping = self::DEFAULT_HTTP_STATUS_CODE_MAPPING;
+
   // phpcs:disable Squiz.Commenting.FunctionComment.Missing
   public function __construct(
     protected ContainerInterface $appContainer,
@@ -57,7 +73,13 @@ class ExceptionMiddleware extends Middleware
     protected IL10N $l,
     protected IRequest $request,
     protected LoggerInterface $logger,
+    protected ?array $middlewareOptions = null,
   ) {
+    $this->catchAll = $middlewareOptions[__CLASS__]['catchAll'] ?? false;
+    $this->httpStatusCodeMapping = [
+      ...self::DEFAULT_HTTP_STATUS_CODE_MAPPING,
+      ...($middlewareOptions[__CLASS__]['httpStatusCodeMapping'] ?? []),
+    ];
   }
   // phpcs:enable
 
@@ -113,7 +135,7 @@ class ExceptionMiddleware extends Middleware
       throw $exception;
     }
     if (!($exception instanceof EnduserNotificationException)) {
-      if (!$wrap) {
+      if (!($this->catchAll || $wrap)) {
         throw $exception;
       }
       try {
@@ -131,14 +153,9 @@ class ExceptionMiddleware extends Middleware
       $exceptionMessage = str_replace($folderPrefix, '...', $exceptionMessage);
 
       $context = [];
-      switch (get_class($originalException)) {
-        case InvalidArgumentException::class:
-          $httpStatusCode = Http::STATUS_BAD_REQUEST;
-          break;
-        default:
-          $httpStatusCode = Http::STATUS_INTERNAL_SERVER_ERROR;
-          break;
-      }
+      $httpStatusCode = $this->httpStatusCodeMapping[get_class($originalException)]
+        ?? $this->httpStatusCodeMapping['default']
+        ?? Http::STATUS_INTERNAL_SERVER_ERROR;
 
       $exception = new EnduserNotificationException(
         $exceptionMessage, 0, $originalException,
