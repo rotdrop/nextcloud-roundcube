@@ -29,22 +29,8 @@ namespace OCA\RoundCube\AppInfo;
  *
  */
 
-use OCP\AppFramework\Bootstrap\IBootstrap;
 use OCP\AppFramework\Bootstrap\IRegistrationContext;
-use OCP\AppFramework\Bootstrap\IBootContext;
-use OCP\AppFramework\App;
-use OCP\IConfig;
-use OCP\IInitialStateService;
 
-/*
- *
- **********************************************************
- *
- * Events and listeners
- *
- */
-
-use OCP\EventDispatcher\IEventDispatcher;
 use OCA\RoundCube\Listener\Registration as ListenerRegistration;
 use OCA\RoundCube\Toolkit\AppInfo\AbstractApplication;
 
