@@ -47,7 +47,6 @@ use OCP\IInitialStateService;
 use OCP\EventDispatcher\IEventDispatcher;
 use OCA\RoundCube\Listener\Registration as ListenerRegistration;
 use OCA\RoundCube\Toolkit\AppInfo\AbstractApplication;
-use OCA\RoundCube\Toolkit\Middleware\ExceptionMiddleware;
 
 include_once __DIR__ . '/../Toolkit/AppInfo/AbstractApplication.php';
 
