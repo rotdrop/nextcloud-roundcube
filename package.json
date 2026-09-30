@@ -40,6 +40,7 @@
     "@rotdrop/nextcloud-vue-components": "file:repositories/rotdrop/nextcloud-vue-components",
     "@trivago/prettier-plugin-sort-imports": "^6.0.2",
     "deep-equal": "^2.2.3",
+    "esbuild": "^0.28.2",
     "floating-vue": "^5.2.2",
     "is-plain-object": "^5.0.0",
     "prettier": "^3.9.9",
