@@ -159,7 +159,7 @@ class ExceptionMiddleware extends Middleware
       shift: PHP_INT_MIN, // do not decorate with prefix
     );
     if (is_array($logEntry)) {
-      array_walk_recursive($logEntry, fn(&$value) => $value = str_replace(\OC::$SERVERROOT, '', mb_scrub($value, $value)));
+      array_walk_recursive($logEntry, fn(&$value) => $value = str_replace(\OC::$SERVERROOT, '', mb_scrub($value, 'UTF-8')));
     } else {
       $this->logError('Log entry is null');
     }
