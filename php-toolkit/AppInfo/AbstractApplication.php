@@ -30,6 +30,8 @@ use OCP\AppFramework\Bootstrap\IBootstrap;
 use OCP\AppFramework\Bootstrap\IRegistrationContext;
 use Psr\Container\ContainerInterface;
 
+use OCA\RotDrop\Toolkit\Exceptions;
+use OCA\RotDrop\Toolkit\Middleware\ExceptionMiddleware;
 use OCA\RotDrop\Toolkit\Service\AppInfoService;
 
 // phpcs:disable PSR1.Files.SideEffects
@@ -100,7 +102,7 @@ abstract class AbstractApplication extends App implements IBootstrap
    */
   public function boot(IBootContext $context): void
   {
-    // nothing
+    // nothing, override as needed
   }
 
   /**
@@ -111,9 +113,22 @@ abstract class AbstractApplication extends App implements IBootstrap
    */
   public function register(IRegistrationContext $context): void
   {
+    $context->registerMiddleware(ExceptionMiddleware::class);
+
     $appFolderPath = AppInfoService::getAppFolderPath();
     if ((include_once $appFolderPath . '/vendor/autoload.php') === false) {
-      throw new Exception('Cannot include autoload. Did you run install dependencies using composer?');
+      throw new Exceptions\EnduserNotificationException(
+        'Cannot include "vendor/autoload.php". The app has not been installed properly.',
+      );
+    }
+    $infoXML = AppInfoService::getAppInfoXML();
+    if (!empty($infoXML->scopednamespace)) {
+      $scopedAutoload = 'vendor-' . strtolower((string)$infoXML->scopednamespace) . '/autoload.php';
+      if ((include_once $appFolderPath . '/' . $scopedAutoload) === false) {
+        throw new Exceptions\EnduserNotificationException(
+          'Cannot include "' . $scopedAutoload. '". The app has not been installed properly.',
+        );
+      }
     }
 
     $context->registerService(self::APP_ROOT_FOLDER, fn($context) => $appFolderPath);
