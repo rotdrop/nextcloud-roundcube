@@ -21,5 +21,6 @@ jobs:
 
       - id: build
         run: |
+          apt install -y libxml-xpath-perl
           pushd source
           make build
