@@ -18,18 +18,18 @@
  */
 
 import axios from '@nextcloud/axios';
-import {
-  showError,
-  showInfo,
-  showSuccess,
-  TOAST_PERMANENT_TIMEOUT,
-} from '@nextcloud/dialogs';
 import { translate as t } from '@nextcloud/l10n';
 import { generateUrl } from '@nextcloud/router';
 import deepEqual from 'deep-equal';
 import { appName } from '../../config.ts';
 import { isAxiosErrorResponse } from '../types/axios-type-guards.ts';
 import dialogConfirm from './dialog-confirm.ts';
+import {
+  showError,
+  showInfo,
+  showSuccess,
+  TOAST_PERMANENT_TIMEOUT,
+} from './toasts.ts';
 
 interface FetchSettingsArgs {
   section: 'admin'|'personal';

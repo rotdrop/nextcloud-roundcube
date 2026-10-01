@@ -19,13 +19,10 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-import Tooltip from '@rotdrop/nextcloud-vue-components/lib/directives/Tooltip';
 import { createApp } from 'vue';
 import AdminSettings from './AdminSettings.vue';
 import { appName } from './config.ts';
 
-import './webpack-setup.ts';
-
 const app = createApp(AdminSettings);
-app.directive('tooltip', Tooltip);
+app.config.performance = !!(import.meta?.env?.DEV);
 app.mount(`#${appName}-admin-settings`);

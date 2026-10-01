@@ -1,0 +1,17 @@
+/*
+ * Borrowed from
+ *
+ * https://github.com/luflow/attendance/pull/202
+ *
+ * @nextcloud/dialogs 7.5.0 moved toasts to the bottom left and dropped the
+ * position option. The server (NC 32-34) still shows its own toasts top right,
+ * so ours would sit in a different corner of the same screen.
+ *
+ * The class is a CSS module, so its name carries a per-release hash — match it
+ * by substring, and outrank the library's own two rules via `body`.
+ */
+body [class*="_toastContainer_"] {
+	inset-block: calc(var(--header-height, 50px) + var(--body-container-margin, 8px)) auto;
+	inset-inline: auto var(--body-container-margin, 8px);
+	align-items: flex-end;
+}

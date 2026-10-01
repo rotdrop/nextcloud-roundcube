@@ -30,7 +30,7 @@
 
 <script setup lang="ts">
 import { translate as t } from '@nextcloud/l10n'
-import { onMounted, ref, watch } from 'vue'
+import { onMounted, useTemplateRef, watch } from 'vue'
 import { appName } from '../config.ts'
 import sanitzeSVG from '../util/sanitize-inline-svg.ts'
 // import Console from '../util/console.ts'
@@ -110,16 +110,14 @@ const makeSVGElement = () => {
   return svg
 }
 
-const container = ref<HTMLDivElement|null>(null)
+const container = useTemplateRef<HTMLDivElement>('container')
 
 onMounted(() => {
   container.value!.replaceChildren(makeSVGElement())
 })
 
 watch(props, () => {
-  if (container.value) {
-    container.value!.replaceChildren(makeSVGElement())
-  }
+  container.value?.replaceChildren(makeSVGElement())
 })
 </script>
 

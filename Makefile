@@ -9,14 +9,18 @@ APP_INFO = $(SRCDIR)/appinfo/info.xml
 XPATH = $(shell which xpath 2> /dev/null)
 ifneq ($(XPATH),)
 APP_NAME = $(shell $(XPATH) -q -e '/info/id/text()' $(APP_INFO))
+APP_VERSION = $(shell $(XPATH) -q -e '/info/version/text()' $(APP_INFO))
+APP_NAMESPACE = $(shell $(XPATH) -q -e '/info/namespace/text()' $(APP_INFO))
 else
-$(warning The xpath binary could not be found, falling back to using the CWD as app-name)
-APP_NAME = $(notdir $(CURDIR))
+$(error The xpath binary could not be found, falling back to using the CWD as app-name)
 endif
 DEV_LIB_DIR = $(ABSSRCDIR)/dev-scripts/lib
 BUILDDIR = ./build
 ABSBUILDDIR = $(CURDIR)/build
 BUILD_TOOLS_DIR = $(BUILDDIR)/tools
+TYPESCRIPT_CONVERTER = $(ABSSRCDIR)/dev-scripts/php-to-typescript.php
+TS_TYPES_DIR = $(ABSBUILDDIR)/ts-types
+TS_PHP_SOURCE_DIRS = lib
 DOWNLOADS_DIR = ./downloads
 
 SILENT = @
@@ -25,6 +29,7 @@ SILENT = @
 RSYNC = $(shell which rsync 2> /dev/null)
 PHP = $(shell which php 2> /dev/null)
 NPM = $(shell which npm 2> /dev/null)
+BUNDLER_CONFIG = vite.config.ts
 WGET = $(shell which wget 2> /dev/null)
 OPENSSL = $(shell which openssl 2> /dev/null)
 PHPUNIT = ./vendor/bin/phpunit
@@ -55,7 +60,7 @@ include $(MAKE_HELP_DIR)/MakeHelp.mk
 
 APPSTORE_BUILD_DIR = $(BUILDDIR)/artifacts/appstore
 APPSTORE_COMPRESSION = z
-APPSTORE_PACKAGE_FILE := $(APPSTORE_BUILD_DIR)/$(APP_NAME).tar
+APPSTORE_PACKAGE_FILE := $(APPSTORE_BUILD_DIR)/$(APP_NAME)-$(APP_VERSION).tar
 ifeq ($(APPSTORE_COMPRESSION),z)
   APPSTORE_PACKAGE_FILE := $(APPSTORE_PACKAGE_FILE).gz
 else ifeq ($(APPSTORE_COMPRESSION),J)
@@ -90,17 +95,19 @@ APP_TOOLKIT_NS = RoundCube
 
 include $(APP_TOOLKIT_DIR)/tools/scopeme.mk
 include $(DEV_LIB_DIR)/makefile/ts-app-config.mk
+include $(DEV_LIB_DIR)/makefile/ts-types-files.mk
 
 L10N_FILES = $(wildcard l10n/*.js l10n/*.json)
 JS_FILES = $(shell find $(ABSSRCDIR)/src -name "*.js" -o -name "*.ts" -o -name "*.vue")
 
 NPM_INIT_DEPS =\
- Makefile package-lock.json package.json webpack.config.js .eslintrc.js
+ Makefile package-lock.json package.json $(BUNDLER_CONFIG) eslint.config.mjs
 
 WEBPACK_DEPS =\
  $(NPM_INIT_DEPS)\
  $(JS_FILES)\
- $(TS_APP_CONFIG)
+ $(TS_APP_CONFIG)\
+ ts-types-files
 
 include $(DEV_LIB_DIR)/makefile/npm.mk
 
@@ -133,10 +140,9 @@ APPSTORE_FILES =\
 # .htaccess is blacklisted by the app-store installer, so we have to remove it
 APPSTORE_BLACKLISTED = foobar .git* .*keep .htaccess *~
 
-#@private
-appstore: COMPOSER_OPTIONS := $(COMPOSER_OPTIONS) --no-dev
 #@@ Prepare appstore archive
 appstore: clean dev-setup npm-build
+	$(COMPOSER) update --no-dev
 	mkdir -p $(APPSTORE_SIGN_DIR)/$(APP_NAME)
 	$(RSYNC) -a -L $(APPSTORE_BLACKLISTED:%=--exclude '%') $(APPSTORE_FILES) $(APPSTORE_SIGN_DIR)/$(APP_NAME)
 	mkdir -p $(BUILD_CERT_DIR)
@@ -215,3 +221,12 @@ unit-tests:
 integration-tests:
 	$(PHPUNIT) -c phpunit.integration.xml
 .PHONY: integration-tests
+
+#@private
+run-tide:
+	$(EMACS) --batch --file $(SRCDIR)/src/vue-app.ts  -l $(DEV_LIB_DIR)/scripts/tide-project-errors.el|tee tide-errors.log
+.PHONY: run-tide
+
+#@@ Runs the Emacs Tide IDE in batch mode and diagnoses TypeScript errors.
+tide: dev-setup ts-app-config ts-types-files run-tide
+.PHONY: tide

@@ -58,7 +58,7 @@ trait UserRootFolderTrait
   protected ?Folder $userFolder;
 
   /** @return Folder The user-folder*/
-  public function getUserFolder():Folder
+  public function getUserFolder(): Folder
   {
     if (empty($this->userFolder)) {
       $this->userFolder = $this->rootFolder->getUserFolder($this->userId);
@@ -67,7 +67,7 @@ trait UserRootFolderTrait
   }
 
   /** @return Folder The parent of the user-folder. */
-  public function getUserRootFolder():Folder
+  public function getUserRootFolder(): Folder
   {
     if (empty($this->userRootFolder)) {
       $this->userRootFolder = $this->getUserFolder()->getParent();
@@ -76,7 +76,7 @@ trait UserRootFolderTrait
   }
 
   /** @return Folder The app folder in the user's root-storage */
-  public function getUserAppFolder():Folder
+  public function getUserAppFolder(): Folder
   {
     return $this->getUserTopLevelFolder($this->appName);
   }
@@ -89,7 +89,7 @@ trait UserRootFolderTrait
    *
    * @return Folder
    */
-  public function getUserTopLevelFolder(string $name):Folder
+  public function getUserTopLevelFolder(string $name): Folder
   {
     $userRootFolder = $this->getUserRootFolder();
     try {
@@ -108,7 +108,7 @@ trait UserRootFolderTrait
    * an existing folder. The returned path is relative to the root-folder
    * without a leading slash, e.g. "jane.doe/files".
    */
-  public function getUserFolderPath(?string $userId = null):string
+  public function getUserFolderPath(?string $userId = null): string
   {
     return ($userId ?? $this->userId) . Constants::PATH_SEPARATOR . Constants::USER_FOLDER_PREFIX;
   }
@@ -129,7 +129,7 @@ trait UserRootFolderTrait
    *
    * @return int The number of files found during the walk.
    */
-  public function folderWalk(mixed $pathOrFolder, ?callable $callback = null, int $depth = 0):int
+  public function folderWalk(mixed $pathOrFolder, ?callable $callback = null, int $depth = 0): int
   {
     /** @var \OCP\Files\File $node */
     if (!($pathOrFolder instanceof Folder)) {

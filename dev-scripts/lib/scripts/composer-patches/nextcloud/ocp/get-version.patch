@@ -1,0 +1,11 @@
+--- ./OCP/Util.php.orig	2026-09-28 04:27:01.000000000 +0200
++++ ./OCP/Util.php	2026-09-28 12:11:04.124151794 +0200
+@@ -40,7 +40,7 @@
+ 	 * @deprecated 31.0.0 Use \OCP\ServerVersion::getVersion
+ 	 */
+ 	public static function getVersion() {
+-		return Server::get(ServerVersion::class)->getVersion();
++		return [35, 0, 0, 0];
+ 	}
+ 
+ 	/**

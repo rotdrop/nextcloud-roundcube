@@ -1,0 +1,19 @@
+--- php_codesniffer/src/Standards/Squiz/Sniffs/Commenting/FunctionCommentSniff.php.orig	2025-11-10 17:43:36.000000000 +0100
++++ php_codesniffer/src/Standards/Squiz/Sniffs/Commenting/FunctionCommentSniff.php	2025-12-21 17:12:01.433050228 +0100
+@@ -415,12 +415,15 @@
+                 }
+ 
+                 // Strip nullable operator.
++                $prefix = '';
+                 if ($typeName[0] === '?') {
+                     $typeName = substr($typeName, 1);
++                    $prefix = '?';
+                 }
+ 
+                 $suggestedName        = Common::suggestType($typeName);
+-                $suggestedTypeNames[] = $suggestedName;
++
++                $suggestedTypeNames[] = $prefix . $suggestedName;
+ 
+                 if (count($typeNames) > 1) {
+                     continue;

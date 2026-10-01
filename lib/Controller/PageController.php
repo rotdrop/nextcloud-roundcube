@@ -109,8 +109,8 @@ class PageController extends Controller
       Config::SHOW_TOP_LINE => $this->config->getAppValue(Config::SHOW_TOP_LINE),
     ]);
 
-    Util::addScript($this->appName, $this->assetService->getJSAsset(self::MAIN_ASSET)['asset']);
-    Util::addStyle($this->appName, $this->assetService->getCSSAsset(self::MAIN_ASSET)['asset']);
+    Util::addScript($this->appName, $this->assetService->getJSAsset(self::MAIN_ASSET));
+    Util::addStyle($this->appName, $this->assetService->getCSSAsset(self::MAIN_ASSET));
 
     $tpl = new TemplateResponse($this->appName, self::MAIN_TEMPLATE, []);
 

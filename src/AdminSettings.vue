@@ -24,7 +24,7 @@
     <NcSettingsSection :name="t(appName, 'Roundcube Installation')"
                        class="flex-container flex-column"
     >
-      <TextField v-model:value="settings.externalLocation"
+      <TextField v-model="settings.externalLocation"
                  type="text"
                  :label="t(appName, 'RoundCube Installation Path')"
                  :helperText="t(appName, 'RoundCube path can be entered relative to the Nextcloud server')"
@@ -98,7 +98,7 @@
           {{ t(appName, 'Fixed Single Address') }}
         </label>
         <div v-if="settings.emailAddressChoice === 'fixedSingleAddress'">
-          <TextField v-model:value="settings.fixedSingleEmailAddress"
+          <TextField v-model="settings.fixedSingleEmailAddress"
                      type="text"
                      :label="t(appName, 'Global Email Login')"
                      :helperText="t(appName, 'Global email user-name for Roundcube for all users')"
@@ -106,7 +106,7 @@
                      :placeholder="t(appName, 'Email Address')"
                      @submit="saveTextInput('fixedSingleEmailAddress'); saveTextInput('fixedSingleEmailPassword')"
           />
-          <TextField v-model:value="protectedFixedSingleEmailPassword"
+          <TextField v-model="protectedFixedSingleEmailPassword"
                      :type="isPasswordHidden ? 'password' : 'text'"
                      :helperText="t(appName, 'Global email password for Roundcube for all users')"
                      :label="t(appName, 'Global Email Password')"
@@ -184,7 +184,7 @@
       >
         {{ t(appName, 'Per-user encryption of config values.') }}
       </label>
-      <TextField v-model:value="settings.cardDavProvisioningTag"
+      <TextField v-model="settings.cardDavProvisioningTag"
                  :label="t(appName, 'RoundCube CardDAV Tag')"
                  :helperText="t(appName, 'Tag of a preconfigured CardDAV account pointing to the cloud addressbook. See the documentation of the RCMCardDAV plugin.')"
                  :disabled="loading"

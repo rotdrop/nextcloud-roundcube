@@ -3,7 +3,7 @@
  * A collection of reusable traits classes for Nextcloud apps.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2025, 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -24,8 +24,9 @@ namespace OCA\RotDrop\Toolkit\Traits;
 
 use Throwable;
 
-use Psr\Container\ContainerInterface;
+use OCP\IL10N;
 use OC\Files\FilenameValidator;
+use Psr\Container\ContainerInterface;
 
 use OCA\RotDrop\Toolkit\Exceptions;
 
@@ -34,10 +35,9 @@ use OCA\RotDrop\Toolkit\Exceptions;
  */
 trait SanitizeFilenameTrait
 {
-  use FakeTranslationTrait;
-  use LoggerTrait;
-
   protected ContainerInterface $appContainer;
+
+  protected IL10N $l;
 
   /**
    * Remove "forbidden" characters as configured in order to achieve a
@@ -89,7 +89,7 @@ trait SanitizeFilenameTrait
       $name = str_replace($forbiddenCharacter, $charReplacement, $name);
     } catch (Throwable $t) {
       throw new Exceptions\EnduserNotificationException(
-        self::t('Unable to sanitize filename "%s".', $oldName),
+        $this->l->t('Unable to sanitize filename "%s".', $oldName),
         previous: $t,
       );
     }

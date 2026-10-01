@@ -81,6 +81,15 @@ class PhpToTypeScript extends Command
     Transformers\DtoTransformer::class,
   ];
 
+  private const DEFAULT_COLLECTORS = [
+    // transform all abstract DTOs
+    DTOCollector::class,
+    // transform all native enums
+    EnumCollector::class,
+    // transfrom all database entities
+    DatabaseEntityCollector::class,
+  ];
+
   /**
    * CTOR.
    *
@@ -95,6 +104,7 @@ class PhpToTypeScript extends Command
     protected string $devScriptsFolder,
     protected array $excludes = [],
     protected array $scopedNamespaces = [],
+    protected array $collectors = self::DEFAULT_COLLECTORS,
   ) {
     parent::__construct();
   }
@@ -254,6 +264,22 @@ class PhpToTypeScript extends Command
 
     $outputFile = $outputPrefix . self::TS_TYPES_FILE;
 
+    $typeReplacements = [
+      // Carbon actually just by default emits a simple strings
+      // Carbon\CarbonImmutable::class => new TypeScriptType('{ date: string, timezone_type: number, timezone: string }'),
+      // Carbon\Carbon::class => new TypeScriptType('{ date: string, timezone_type: number, timezone: string }'),
+      Carbon\CarbonImmutable::class => new TypeScriptType('string'),
+      Carbon\Carbon::class => new TypeScriptType('string'),
+      DateTime::class => new TypeScriptType('{ date: string, timezone_type: number, timezone: string }'),
+      DateTimeImmutable::class => new TypeScriptType('{ date: string, timezone_type: number, timezone: string }'),
+      UuidInterface::class => new TypeScriptType('string'),
+    ];
+    $typeReplacements = array_filter(
+      $typeReplacements,
+      fn(string $class) => class_exists($class, autoload: true),
+      ARRAY_FILTER_USE_KEY,
+    );
+
     $config = TransformerConfig::create()
       ->appNamespace($namespacePrefix)
       ->scopedNamespacePrefix($scopedNamespacePrefix)
@@ -266,25 +292,9 @@ class PhpToTypeScript extends Command
       // ->transformToNativeEnums(true)
       // list of transformers
       ->transformers(self::TRANSFORMERS)
-      ->collectors([
-        // transform all abstract DTOs
-        DTOCollector::class,
-        // transform all native enums
-        EnumCollector::class,
-        // transfrom all database entities
-        DatabaseEntityCollector::class,
-      ])
+      ->collectors($this->collectors ?? self::DEFAULT_COLLECTORS)
       // try inject default TypeScriptTransformer
-      ->defaultTypeReplacements([
-        // Carbon actually just by default emits a simple strings
-        // Carbon\CarbonImmutable::class => new TypeScriptType('{ date: string, timezone_type: number, timezone: string }'),
-        // Carbon\Carbon::class => new TypeScriptType('{ date: string, timezone_type: number, timezone: string }'),
-        Carbon\CarbonImmutable::class => new TypeScriptType('string'),
-        Carbon\Carbon::class => new TypeScriptType('string'),
-        DateTime::class => new TypeScriptType('{ date: string, timezone_type: number, timezone: string }'),
-        DateTimeImmutable::class => new TypeScriptType('{ date: string, timezone_type: number, timezone: string }'),
-        UuidInterface::class => new TypeScriptType('string'),
-      ])
+      ->defaultTypeReplacements($typeReplacements)
       // try inject default TypeScriptTransformer
       ->defaultInlineTypeReplacements([
         // 'mixed' => 'unknown',
@@ -316,26 +326,30 @@ class PhpToTypeScript extends Command
     }
 
     if ($input->getOption(self::OPTION_AS_MODULES)) {
-      $metadataGenerator = new GenerateEntityMetadata(
-        phpNamespacePrefix: $input->getOption(self::OPTION_NS_PREFIX),
-        outputPrefix: $outputPrefix . self::TS_MODULES_DIR,
-        output: $output,
-        devScriptsFolder: $this->devScriptsFolder,
-      );
-      $metadataGenerator->generateSparseMetadata();
-      $entityMapNamespace = $metadataGenerator->exportEntityMap();
-      $tsData = file_get_contents($outputFile);
-      $tsData = $entityMapNamespace . "\n" . $tsData;
-      file_put_contents($outputFile, $tsData);
+      if (in_array(DatabaseEntityCollector::class, $this->collectors)) {
+        $metadataGenerator = new GenerateEntityMetadata(
+          phpNamespacePrefix: $input->getOption(self::OPTION_NS_PREFIX),
+          outputPrefix: $outputPrefix . self::TS_MODULES_DIR,
+          output: $output,
+          devScriptsFolder: $this->devScriptsFolder,
+        );
+        $metadataGenerator->generateSparseMetadata();
+        $entityMapNamespace = $metadataGenerator->exportEntityMap();
+        $tsData = file_get_contents($outputFile);
+        $tsData = $entityMapNamespace . "\n" . $tsData;
+        file_put_contents($outputFile, $tsData);
 
-      $this->generateTypeScriptModules($outputPrefix, $outputFile, $output);
+        $this->generateTypeScriptModules($outputPrefix, $outputFile, $output);
 
-      $metadataGenerator->dumpTypeScriptData();
+        $metadataGenerator->dumpTypeScriptData();
+      } else {
+        $this->generateTypeScriptModules($outputPrefix, $outputFile, $output);
+      }
     }
 
     if ($output->getVerbosity() >= OutputInterface::VERBOSITY_VERBOSE) {
       $output->writeln('');
-      $output->writeln('<info> *** ' . $outputName . ' *** </info>');
+      $output->writeln('<info> *** PhpToTypeScript *** </info>');
       /** @var TransformedType $type */
       foreach ($types as $class => $type) {
         $output->writeln('<info>' . $class . ' -> ' . $type->getTypeScriptName() . '</info>');
@@ -408,7 +422,9 @@ class PhpToTypeScript extends Command
     $progressSection = $output->section();
     $generator = basename(__FILE__);
     $modulesDir = $outputPrefix . '/' . self::TS_MODULES_DIR . '/';
-    mkdir($modulesDir);
+    if (!file_exists($modulesDir)) {
+      mkdir($modulesDir);
+    }
     $tsData = file_get_contents($outputFile);
     $topLevelTypes = [];
     $currentModule = null;
@@ -484,7 +500,7 @@ class PhpToTypeScript extends Command
               $nextNs = reset($namespaces);
               $currentModule = $modulesPath . $currentNs . '.ts';
               $newData = "export * as {$nextNs} from './{$currentNs}/{$nextNs}.ts';";
-              $currentData = file_get_contents($currentModule);
+              $currentData = file_exists($currentModule) ? file_get_contents($currentModule) : null;
               if (!empty($currentData) && !str_contains($currentData, $newData)) {
                 $currentData .= $newData . PHP_EOL;
               } elseif (empty($currentData)) {
@@ -497,7 +513,9 @@ EOF;
               }
               file_put_contents($currentModule, $currentData);
               $modulesPath .= $currentNs . '/';
-              mkdir($modulesPath);
+              if (!file_exists($modulesPath)) {
+                mkdir($modulesPath);
+              }
             } else {
               // emit the current's namespace module
               $currentModule = $modulesPath . $currentNs . '.ts';

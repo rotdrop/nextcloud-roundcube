@@ -3,7 +3,7 @@
  * Nextcloud RoundCube App.
  *
  * @author Claus-Justus Heine
- * @copyright 2020-2025 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2020-2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * Nextcloud RoundCube App is free software: you can redistribute it and/or
@@ -46,8 +46,8 @@ class Personal implements ISettings
   /** {@inheritdoc} */
   public function getForm()
   {
-    Util::addScript($this->appName, $this->assetService->getJSAsset(self::ASSET_NAME)['asset']);
-    Util::addStyle($this->appName, $this->assetService->getCSSAsset(self::ASSET_NAME)['asset']);
+    Util::addScript($this->appName, $this->assetService->getJSAsset(self::ASSET_NAME));
+    Util::addStyle($this->appName, $this->assetService->getCSSAsset(self::ASSET_NAME));
 
     return new TemplateResponse($this->appName, self::TEMPLATE, [ 'appName' => $this->appName ]);
   }

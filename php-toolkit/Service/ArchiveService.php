@@ -3,7 +3,7 @@
  * Some PHP utility functions for Nextcloud apps.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022, 2023, 2024, 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022-2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -22,8 +22,11 @@
 
 namespace OCA\RotDrop\Toolkit\Service;
 
+use Spatie\TypeScriptTransformer\Attributes as TSAttributes;
+
 use DateTimeInterface;
 use Normalizer;
+use SensitiveParameter;
 
 use wapmorgan\UnifiedArchive\Abilities as DriverAbilities;
 use wapmorgan\UnifiedArchive\ArchiveEntry;
@@ -38,11 +41,13 @@ use OCP\Util as CloudUtil;
 use OCA\RotDrop\Toolkit\Backend\ArchiveFormats;
 use OCA\RotDrop\Toolkit\Backend\ArchiveBackend;
 use OCA\RotDrop\Toolkit\Exceptions;
+use OCA\RotDrop\Toolkit\Service\ArchiveService\ArchiveInfo;
 
 /**
  * Wrapper around the actual archive backend class in order to interface with
  * the virtual storage and actual archive extraction controllers.
  */
+#[TSAttributes\Typescript]
 class ArchiveService
 {
   use \OCA\RotDrop\Toolkit\Traits\LoggerTrait;
@@ -154,17 +159,34 @@ class ArchiveService
   /** @var array */
   private $archiveFiles;
 
-  /** @var array */
-  private $archiveInfo;
+  /** @var */
+  private ?ArchiveInfo $archiveInfo;
 
   /** @var array */
   private array $savedProcessEnvironment;
 
   /**
-   * @var int
-   * Normalization convention used inside the archive.
+   * @var array<string, string>
+   *
+   * Map from the NFC-normalized member name (as seen by Nextcloud, which
+   * normalizes all paths to NFC) to the raw member name as actually stored in
+   * the backend archive. Built in open(). Resolving each member individually
+   * allows archives which mix Unicode normalization forms (e.g. some names in
+   * NFC, some in NFD as produced by macOS) to be extracted correctly instead
+   * of failing or silently losing members.
    */
-  private int $unicodeNormalization;
+  private array $memberNameMap = [];
+
+  /**
+   * @var array<string, string[]>
+   *
+   * Map from the NFC-normalized member name to the list of distinct raw member
+   * names which collapse onto it. A non-empty entry means several archive
+   * members would map to the same file name after Unicode normalization and
+   * therefore cannot all be extracted as distinct files; without reporting
+   * this the surplus members would be lost silently.
+   */
+  private array $collidingMembers = [];
 
   // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
   public function __construct(
@@ -347,7 +369,7 @@ class ArchiveService
    *
    * @return null|ArchiveService
    */
-  public function open(File $fileNode, ?int $sizeLimit = null, ?string $password = null):?ArchiveService
+  public function open(File $fileNode, ?int $sizeLimit = null, #[SensitiveParameter] ?string $password = null):?ArchiveService
   {
     if (!$this->canOpen($fileNode)) {
       throw new Exceptions\ArchiveCannotOpenException($this->t('Unable to open archive file %s (%s)', [
@@ -371,7 +393,7 @@ class ArchiveService
     }
     $this->fileNode = $fileNode;
     $archiveInfo = $this->getArchiveInfo();
-    $archiveSize = $archiveInfo['originalSize'];
+    $archiveSize = $archiveInfo->originalSize;
     if ($sizeLimit !== null && $archiveSize > $sizeLimit) {
       $this->archiver = null;
       $this->fileNode = null;
@@ -384,19 +406,33 @@ class ArchiveService
       );
     }
 
-    $this->unicodeNormalization = Normalizer::NFC;
-    foreach ($this->archiver->getFileNames() as $fileName) {
-      if (!Normalizer::isNormalized($fileName)) {
-        $this->unicodeNormalization = Normalizer::NFD;
-        break;
+    // Build a per-member map from the NFC-normalized name to the raw name as
+    // stored in the archive. Nextcloud normalizes every path to NFC, so this
+    // is the key by which members will be requested again on read. Resolving
+    // each member on its own avoids choosing a single normalization for the
+    // whole archive, which breaks archives that mix NFC and NFD names.
+    $this->memberNameMap = [];
+    $this->collidingMembers = [];
+    foreach ($this->archiver->getFileNames() as $rawName) {
+      $key = Normalizer::normalize($rawName, Normalizer::NFC);
+      if ($key === false) {
+        // The name is not valid UTF-8 (e.g. a legacy DOS/codepage name stored
+        // without the UTF-8 flag). Keep the raw bytes as key so the member
+        // stays addressable instead of being dropped.
+        $key = $rawName;
       }
+      if (array_key_exists($key, $this->memberNameMap) && $this->memberNameMap[$key] !== $rawName) {
+        $this->collidingMembers[$key] ??= [ $this->memberNameMap[$key] ];
+        $this->collidingMembers[$key][] = $rawName;
+      }
+      $this->memberNameMap[$key] = $rawName;
     }
 
     return $this;
   }
 
-  /** @return array Archive information, meta-data. */
-  public function getArchiveInfo():array
+  /** @return ArchiveInfo Archive information, meta-data. */
+  public function getArchiveInfo(): ArchiveInfo
   {
     if (empty($this->archiver)) {
       throw new Exceptions\ArchiveNotOpenException(
@@ -419,7 +455,7 @@ class ArchiveService
 
     // $this->logInfo('MIME ' .  $this->fileNode->getMimeType());
 
-    $this->archiveInfo = [
+    $this->archiveInfo = ArchiveInfo::fromArray([
       self::ARCHIVE_INFO_FORMAT => $this->archiver->getFormat(),
       self::ARCHIVE_INFO_MIME_TYPE => $this->fileNode->getMimeType(),
       self::ARCHIVE_INFO_SIZE => $this->archiver->getSize(),
@@ -430,7 +466,7 @@ class ArchiveService
       self::ARCHIVE_INFO_DEFAULT_MOUNT_POINT => self::getArchiveFolderName($this->fileNode->getName()),
       self::ARCHIVE_INFO_COMMON_PATH_PREFIX => $this->getCommonDirectoryPrefix(),
       self::ARCHIVE_INFO_BACKEND_DRIVER => $this->getClassBaseName($this->archiver->getDriverType()),
-    ];
+    ]);
 
     $this->restoreProcessEnvironment();
 
@@ -515,7 +551,7 @@ class ArchiveService
 
     $this->setProcessEnvironment();
 
-    $result = $this->archiver->getFileContent(Normalizer::normalize($fileName, $this->unicodeNormalization));
+    $result = $this->archiver->getFileContent($this->resolveMemberName($fileName));
 
     $this->restoreProcessEnvironment();
 
@@ -536,11 +572,47 @@ class ArchiveService
 
     $this->setProcessEnvironment();
 
-    $result = $this->archiver->getFileStream(Normalizer::normalize($fileName, $this->unicodeNormalization));
+    $result = $this->archiver->getFileStream($this->resolveMemberName($fileName));
 
     $this->restoreProcessEnvironment();
 
     return $result;
+  }
+
+  /**
+   * Resolve a member name as requested by the virtual storage (normalized to
+   * NFC by Nextcloud) back to the raw member name as actually stored in the
+   * backend archive.
+   *
+   * @param string $fileName
+   *
+   * @return string
+   */
+  private function resolveMemberName(string $fileName):string
+  {
+    $key = Normalizer::normalize($fileName, Normalizer::NFC);
+    if ($key === false) {
+      $key = $fileName;
+    }
+    return $this->memberNameMap[$key] ?? $fileName;
+  }
+
+  /**
+   * Return the groups of archive members which collapse onto the same name
+   * after Unicode (NFC) normalization. The array is keyed by the colliding
+   * normalized name, the values are the lists of raw member names. Only one
+   * member of each group can be extracted as a distinct file; the callers
+   * should report the others instead of dropping them silently.
+   *
+   * @return array<string, string[]>
+   */
+  public function getCollidingMembers():array
+  {
+    if (empty($this->archiver)) {
+      throw new Exceptions\ArchiveNotOpenException(
+        $this->t('There is no archive file associated with this archiver instance.'));
+    }
+    return $this->collidingMembers;
   }
 
   /**

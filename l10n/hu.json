@@ -11,6 +11,10 @@
     "The personal setting \"%1$s\" is read-only" : "A(z) „%1$s” személyes beállítás csak olvasható",
     "Unknown personal setting: \"%s\"." : "Ismeretlen személyes beállítás: „%s”.",
     "RoundCube Integration" : "RoundCube integráció ",
+    "Unable to register types with DBAL." : "Nem sikerült a típusok regisztrációja a DBAL-lel.",
+    "Unable to determine the identifier values for an instance of \"%s\"." : "Nem határozhatóak meg a(z) „%s” példányának azonosító értékei.",
+    "Collection \"%1$s\" in entity of type \"%2$s\" is null." : "A(z) „%2$s” típusú entitásban található „%1$s” gyűjtemény értéke null.",
+    "Unable to compute a serialization for an instance of \"%s\"." : "A(z) „%s” példányának szerializációja nem számítható ki.",
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Telepítési probléma; a kért „%1$s” „%2$s” típusú erőforrás nincs a kiszolgálóra telepítve, lépjen kapcsolatba a rendszergazdával.",
     "User" : "Felhasználó",
     "Password" : "Jelszó",
@@ -18,6 +22,7 @@
     "Login failed." : "Belépés sikertelen.",
     "%1$s (renamed)" : "%1$s (átnevezve)",
     "renamed file" : "átnevezett fájl",
+    "Unable to sanitize filename \"%s\"." : "A(z) „%s” fájlnév nem tisztítható meg.",
     "bytes" : "bájt",
     "The supplied color-string \"%s\" seems to be invalid." : "A megadott „%s” színkód érvénytelennek tűnik.",
     "The input color values are invalid." : "A bemeneti színértékeke érvénytelenek.",
@@ -25,8 +30,11 @@
     "pick a color" : "szín kiválasztása",
     "open" : "megnyitás",
     "submit" : "elküldés",
+    "undo color choice" : "színválasztás visszavonása",
     "restore palette" : "paletta helyreállítása",
     "factory reset palette" : "paletta gyári visszaállítása",
+    "Custom Color" : "Egyéni szín",
+    "Provided data is not a valid SVG image: \"{data}\"." : "A megadott adatok nem érvényes SVG-képet tartalmaznak: „{data}”.",
     "Choose a folder" : "Válasszon mappát",
     "Choose a prefix-folder" : "Előtagmappa kiválasztása",
     "Choose {file}" : "{file} kiválasztása",
@@ -70,6 +78,8 @@
     "Single sign-on is globally forced \"on\"." : "Egyszeri bejelentkezés globálisan bekapcsolatra kényszerítve.",
     "Email password for RoundCube, if needed." : "Email jelszó RoundCubehoz, ha szükséges",
     "Embedded RoundCube, Personal Settings" : "RoundCube beágyazott, Egyedi Beállítások",
-    "Email Login Name" : "Emailes Bejelentkezési Név"
+    "Email Login Name" : "Emailes Bejelentkezési Név",
+    "Unable to search for entities \"{entityName}\" with identifier \"{criteria}\"." : "Nem lehet megkeresni a(z) „{criteria}” azonosítójú „{entityName}” entitásokat.",
+    "Unable to fetch entity \"{entityName}\" with identifier \"{identifier}\"." : "Nem lehet lekérni a(z) „{identifier}” azonosítójú „{entityName}” entitást."
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

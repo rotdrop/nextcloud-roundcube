@@ -59,9 +59,7 @@ declare module '@nextcloud/vue' {
     readonly color: string;
 
   }
-  const NcColorPicker: Vue & {
-    palette: Color[];
-  };
+  const NcColorPicker: Vue;
 
   const NcCounterBubble: Vue;
   const NcDateTimePicker: Vue;

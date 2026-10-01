@@ -16,6 +16,7 @@ WRAPPED_NAMESPACES=(
     Doctrine
     Gedmo
     'Ramsey\\Uuid'
+    wapmorgan
 )
 WRAPPER_REPLACEMENTS=()
 if [ -n "$WRAPPER_NS" ]; then

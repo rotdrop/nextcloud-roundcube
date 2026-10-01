@@ -3,7 +3,7 @@
  * A collection of reusable traits classes for Nextcloud apps.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022, 2023 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022, 2023, 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -24,9 +24,12 @@ namespace OCA\RotDrop\Toolkit\Traits;
 
 use \RuntimeException;
 
+use OCP\Console\ExitCode;
+use OCP\Console\IInput;
+use OCP\Console\IOutput;
 use OCP\IL10N;
-use OCP\IUserSession;
 use OCP\IUserManager;
+use OCP\IUserSession;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -58,7 +61,7 @@ trait AuthenticatedCommandTrait
    *
    * @see execute()
    */
-  protected function authenticate(InputInterface $input, OutputInterface $output):int
+  protected function authenticate(InputInterface|IInput $input, OutputInterface|IOutput $output): int
   {
     $helper = $this->getHelper('question');
     $question = new Question($this->l->t('User') . ': ', '');

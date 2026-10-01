@@ -211,6 +211,9 @@ class EntitySerializer
 
       $flatEntity = [];
 
+      // Make sure lazy objects are initialized
+      $this->entityManager->initializeObject($entity);
+
       // ordinary non-associative fields
       /** @var Mapping\FieldMapping $mapping */
       foreach (array_keys($metaData->fieldMappings) as $field) {
@@ -287,7 +290,7 @@ class EntitySerializer
                 $entityName = null;
               }
               $flatTargetIdentifier = $this->flattenIdentifier($targetMetaData, $targetId);
-              $flatCollection[$key] = new EntityReference(
+              $flatCollection[$key] = new CollectionEntityReference(
                 flatIdentifier: $flatTargetIdentifier,
                 entityClassName: $entityName,
               );

@@ -1,0 +1,15 @@
+{
+  "require-dev": {
+    "spatie/typescript-transformer": "dev-production/cafevdb",
+    "symfony/finder": "^7.3"
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/rotdrop/typescript-transformer.git",
+      "options": {
+        "symlink": true
+      }
+    }
+  ]
+}

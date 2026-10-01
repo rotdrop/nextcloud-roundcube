@@ -39,6 +39,8 @@ class AppInfoService
 
   private static array $appInfo;
 
+  private static SimpleXMLElement $appInfoXML;
+
   /**
    * Determine the path to the app's info.xml file assuming that the app PHP
    * files start at lib/ from the app directory.
@@ -86,10 +88,22 @@ class AppInfoService
    */
   public static function getAppInfoAppName(): ?string
   {
-    // we do not try-catch here as this file MUST be there and parseable.
-    $infoXml = new SimpleXMLElement(file_get_contents(self::getAppInfoPath()));
+    $infoXml = self::getAppInfoXML();
 
     return !empty($infoXml->id) ? (string)$infoXml->id : null;
+  }
+
+  /**
+   * @return SimpleXMLElement The parse app-info file.
+   */
+  public static function getAppInfoXML(): SimpleXMLElement
+  {
+    if (self::$appInfoXML ?? null) {
+      return self::$appInfoXML;
+    }
+    // we do not try-catch here as this file MUST be there and parseable.
+    self::$appInfoXML = new SimpleXMLElement(file_get_contents(self::getAppInfoPath()));
+    return self::$appInfoXML;
   }
 
   /**

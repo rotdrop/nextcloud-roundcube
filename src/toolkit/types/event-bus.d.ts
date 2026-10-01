@@ -19,7 +19,7 @@
 
 // import type { Event } from '@nextcloud/event-bus';
 
-import type { Folder, Node, View } from '@nextcloud/files';
+import type { IFolder, INode, IView } from '@nextcloud/files';
 import type { components as NotificationComponents } from '../../../build/ts-types/notification-api.d.ts';
 
 /**
@@ -33,17 +33,49 @@ export interface NotificationEvent /* extends Event */ {
   notification: Notification;
 }
 
+/** See NavigationManager */
+export interface INavigationEntry {
+  /** Navigation id */
+  id: string;
+  /** If this is the currently active app */
+  active: boolean;
+  /** Order where this entry should be shown */
+  order: number;
+  /** Target of the navigation entry */
+  href: string;
+  /** The icon used for the naviation entry */
+  icon: string;
+  /** CSS color of the action indicator, only used by entries of type 'action' */
+  color?: string;
+  /** Type of the navigation entry ('link' vs 'settings' vs 'action') */
+  type: 'link' | 'settings' | 'action';
+  /** Localized name of the navigation entry */
+  name: string;
+  /** Whether this is the default app */
+  default?: boolean;
+  /** App that registered this navigation entry (not necessarly the same as the id) */
+  app?: string;
+  /** If this app has unread notification */
+  unread: number;
+  /** True when the link should be opened in a new tab */
+  target?: boolean;
+}
+
 declare module '@nextcloud/event-bus' {
   interface NextcloudEvents {
-    'notifications:notification:received': NotificationEvent;
-    'files:node:deleted': Node;
-    'files:node:renamed': Node;
+    'core:navigation:action': INavigationEntry;
     'files:list:updated': {
-      folder: Folder;
-      contents: Node[];
-      view: View;
+      folder: IFolder;
+      contents: INode[];
+      view: IView;
     };
+    'files:node:created': INode;
+    'files:node:deleted': INode;
+    'files:node:renamed': INode;
     'toggle-navigation': { open: boolean };
+    'files:sidebar:opened': INode;
+    'files:sidebar:closed': undefined;
+    'notifications:notification:received': NotificationEvent;
   }
 }
 

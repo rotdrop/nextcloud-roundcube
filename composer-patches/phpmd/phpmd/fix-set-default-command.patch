@@ -1,0 +1,10 @@
+--- phpmd/phpmd/bin/phpmd.orig	2026-01-11 18:05:00.565712241 +0100
++++ phpmd/phpmd/bin/phpmd	2026-01-11 18:05:09.818865359 +0100
+@@ -53,6 +53,6 @@
+ } else {
+     $application->add($command);
+ }
+-$application->setDefaultCommand($command->getName());
++$application->setDefaultCommand($command->getName(), true);
+ // Run command line interface
+ $application->run();

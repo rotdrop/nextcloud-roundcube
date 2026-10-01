@@ -30,6 +30,8 @@ use OCP\AppFramework\Bootstrap\IBootstrap;
 use OCP\AppFramework\Bootstrap\IRegistrationContext;
 use Psr\Container\ContainerInterface;
 
+use OCA\RotDrop\Toolkit\Exceptions;
+use OCA\RotDrop\Toolkit\Middleware\ExceptionMiddleware;
 use OCA\RotDrop\Toolkit\Service\AppInfoService;
 
 // phpcs:disable PSR1.Files.SideEffects
@@ -41,6 +43,9 @@ require_once __DIR__ . '/../Service/AppInfoService.php';
  */
 abstract class AbstractApplication extends App implements IBootstrap
 {
+  public const APP_ROOT_FOLDER = 'appRootFolder';
+  public const MIDDLEWARE_OPTIONS = 'middelwareOptions';
+
   protected static ?ContainerInterface $appContainer = null;
 
   protected static ?string $appName;
@@ -92,14 +97,41 @@ abstract class AbstractApplication extends App implements IBootstrap
   /**
    * {@inheritdoc}
    *
+   * Dummy boot() method.
+   *
+   * @param IBootContext $context
+   */
+  public function boot(IBootContext $context): void
+  {
+    // nothing, override as needed
+  }
+
+  /**
+   * {@inheritdoc}
+   *
    * Called earlier than boot, so anything initialized in the
    * "boot()" method must not be used here.
    */
   public function register(IRegistrationContext $context): void
   {
+    $context->registerMiddleware(ExceptionMiddleware::class);
+
     $appFolderPath = AppInfoService::getAppFolderPath();
     if ((include_once $appFolderPath . '/vendor/autoload.php') === false) {
-      throw new Exception('Cannot include autoload. Did you run install dependencies using composer?');
+      throw new Exceptions\EnduserNotificationException(
+        'Cannot include "vendor/autoload.php". The app has not been installed properly.',
+      );
     }
+    $infoXML = AppInfoService::getAppInfoXML();
+    if (!empty($infoXML->scopednamespace)) {
+      $scopedAutoload = 'vendor-' . strtolower((string)$infoXML->scopednamespace) . '/autoload.php';
+      if ((include_once $appFolderPath . '/' . $scopedAutoload) === false) {
+        throw new Exceptions\EnduserNotificationException(
+          'Cannot include "' . $scopedAutoload. '". The app has not been installed properly.',
+        );
+      }
+    }
+
+    $context->registerService(self::APP_ROOT_FOLDER, fn($context) => $appFolderPath);
   }
 }

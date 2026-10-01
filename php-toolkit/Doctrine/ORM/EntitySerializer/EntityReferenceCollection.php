@@ -44,7 +44,7 @@ class EntityReferenceCollection extends \OCA\RotDrop\Toolkit\DTO\AbstractDTO
      *
      * The array key is whatever has been specified by "indexBy".
      */
-    #[TSAttributes\LiteralTypeScriptType('{ [index: string|number]: ' . EntityReference::class . '<keyof ' . ORM::class . '.EntityMetadata.EntityMap> }')]
+    #[TSAttributes\LiteralTypeScriptType('{ [index: string|number]: ' . CollectionEntityReference::class . '<keyof ' . ORM::class . '.EntityMetadata.EntityMap> }')]
     public readonly array $entities,
   ) {
   }

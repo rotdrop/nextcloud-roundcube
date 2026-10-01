@@ -18,9 +18,7 @@
  */
 
 // The core window.d.ts seems to be ignored (why?) so we duplicate the defs here
-import type Tab from '../../../../files/src/models/Tab.js';
 import type Settings from '../../../../files/src/services/Settings.js';
-import type Sidebar from '../../../../files/src/services/Sidebar.js';
 
 import '@nextcloud/typings';
 
@@ -33,9 +31,11 @@ type SidebarAPI = Sidebar & {
 };
 
 declare global {
-  const OC: Nextcloud.v31.OC;
+  var OC: Nextcloud.v32.OC & { config: { versionstring: string } };
+  // eslint-disable-next-line camelcase
+  var _oc_webroot: string;
   // Private Files namespace
-  const OCA: {
+  var OCA: {
     Files: {
       Settings: Settings;
       Sidebar: SidebarAPI;
@@ -48,7 +48,7 @@ declare global {
   //      [key: string]: any;
   //    };
   //  };
-  const OCP: Nextcloud.v31.OCP;
+  var OCP: Nextcloud.v32.OCP;
 }
 
 export {};

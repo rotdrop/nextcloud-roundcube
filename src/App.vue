@@ -65,8 +65,6 @@ import { appName } from './config.ts'
 import logger from './logger.ts'
 import getInitialState from './toolkit/util/initial-state.ts'
 
-type TranslationVariables = Parameters<typeof t>[2]
-
 const loading = ref(true)
 const errorHint = ref<string | undefined>(undefined)
 
@@ -74,6 +72,8 @@ const router = useRouter()
 const currentRoute = useRoute()
 
 const initialState = getInitialState<InitialState>()
+
+console.info('INITIAL STATE', { ...initialState })
 
 const state = computed(() => errorHint.value ? 'error' : initialState?.state)
 const reason = computed(() => initialState?.reason)
@@ -93,9 +93,15 @@ README.md file which is distributed together with this app.`)
 your personal Roundcube settings. Maybe a re-login to Nextcloud
 helps. Otherwise contact your system administrator.`)
     case 'carddav':
-      return t(appName, 'Unable to configure the CardDAV integration for "{emailUserId}".', initialState as TranslationVariables)
+      return t(appName, 'Unable to configure the CardDAV integration for "{emailUserId}".', {
+        emailUserId: initialState?.emailUserId ?? '',
+      })
     case 'noemail':
-      return t(appName, 'Unable to obtain email credentials for "{emailUserId}". Please check your personal Roundcube settings.', initialState as TranslationVariables)
+      return typeof emailUserId === 'string'
+        ? t(appName, 'Unable to obtain email credentials for "{emailUserId}". Please check your personal Roundcube settings.', {
+          emailUserId: initialState?.emailUserId ?? '',
+        })
+        : t(appName, 'The email user id is not configured. Please check your personal Roundcube settings.')
     default:
       return errorHint.value || null
   }

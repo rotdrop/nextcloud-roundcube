@@ -37,7 +37,7 @@ class LiteralTypeScriptProperty
   /** {@inheritdoc} */
   public function __construct(
     private string $propertyName,
-    private string | array $typeScript,
+    private null|string|array $typeScript,
     private bool $optional = false,
   ) {
   }

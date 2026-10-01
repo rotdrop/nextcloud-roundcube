@@ -1,0 +1,10 @@
+--- zippy/src/Resource/TeleporterContainer.php.orig	2026-05-14 22:26:05.241496139 +0200
++++ zippy/src/Resource/TeleporterContainer.php	2026-05-14 22:26:18.126726275 +0200
+@@ -182,6 +182,7 @@
+         throw new \BadMethodCallException();
+     }
+ 
++    #[\ReturnTypeWillChange]
+     public function count()
+     {
+         return count($this->teleporters);

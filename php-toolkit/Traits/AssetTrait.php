@@ -68,24 +68,24 @@ trait AssetTrait
   {
     $nestingLevel = count(explode('\\', __CLASS__)) - 2;
     $pathPrefix = str_repeat(Constants::PATH_SEPARATOR . '..', $nestingLevel);
-    $assetMetaFile = $classDir . $pathPrefix . Constants::PATH_SEPARATOR .Constants::WEB_ASSET_META;
+    $assetMetaFile = $classDir . $pathPrefix . Constants::PATH_SEPARATOR . Constants::WEB_ASSET_META;
 
     $metaJson = file_get_contents($assetMetaFile);
     $assetMeta = json_decode($metaJson, true);
+    if (!array_key_exists(Constants::JS, $assetMeta)) {
+      $this->assets = $assetMeta;
+      return;
+    }
     foreach ([Constants::JS, Constants::CSS] as $type) {
       $this->assets[$type] = [];
       foreach (($assetMeta[$type] ?? []) as $assetFileName) {
         $assetFileName = basename($assetFileName, '.' . $type);
         if (preg_match('/^(.*)-([a-f0-9]+)$/', $assetFileName, $matches)) {
-          ${Constants::ASSET} = $matches[0];
           $base = $matches[1];
-          ${Constants::HASH} = $matches[2];
         } else {
-          ${Constants::ASSET} = $assetFileName;
           $base = $assetFileName;
-          ${Constants::HASH} = '';
         }
-        $this->assets[$type][$base] = compact(Constants::ASSET, Constants::HASH);
+        $this->assets[$base][$type] = $assetFileName;
       }
     }
   }
@@ -95,26 +95,26 @@ trait AssetTrait
    *
    * @param string $baseName
    *
-   * @return array
+   * @return string
    */
-  protected function getAsset(string $type, string $baseName):array
+  protected function getAsset(string $type, string $baseName): string
   {
-    if (empty($this->assets[$type][$baseName])) {
+    if (empty($this->assets[$baseName][$type])) {
       throw new Exceptions\EnduserNotificationException($this->l->t(
         'Installation problem; the required resource "%1$s" of type "%2$s" is not installed on the server, please contact the system administrator!', [
           $baseName,
           $type,
         ]));
     }
-    return $this->assets[$type][$baseName];
+    return pathinfo($this->assets[$baseName][$type], PATHINFO_FILENAME);
   }
 
   /**
    * @param string $baseName
    *
-   * @return array
+   * @return string
    */
-  protected function getJSAsset(string $baseName):array
+  protected function getJSAsset(string $baseName): string
   {
     return $this->getAsset(Constants::JS, $baseName);
   }
@@ -122,9 +122,9 @@ trait AssetTrait
   /**
    * @param string $baseName
    *
-   * @return array
+   * @return string
    */
-  protected function getCSSAsset(string $baseName):array
+  protected function getCSSAsset(string $baseName): string
   {
     return $this->getAsset(Constants::CSS, $baseName);
   }

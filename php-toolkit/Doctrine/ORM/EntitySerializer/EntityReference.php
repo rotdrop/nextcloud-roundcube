@@ -30,17 +30,20 @@ use Spatie\TypeScriptTransformer\Attributes as TSAttributes;
 use OCA\RotDrop\Toolkit\Doctrine\ORM;
 
 /**
- * Simple entity reference with optional class name and flattened identifier.
+ * Simple entity reference with optional class name and flattened
+ * identifier. The difference to the CollectionEntityReference is that the
+ * entityClassName is not allowed to be null.
  */
 #[TSAttributes\TemplateParameters('K extends keyof ' . ORM::class . '.EntityMetadata.EntityMap')]
-class EntityReference extends \OCA\RotDrop\Toolkit\DTO\AbstractDTO
+class EntityReference extends EntityReferenceIdentifier
 {
   /** {@inheritdoc} */
   public function __construct(
-    public readonly string $flatIdentifier,
+    string $flatIdentifier,
     #[TSAttributes\LiteralTypeScriptType('K')]
-    public readonly ?string $entityClassName = null,
+    public readonly string $entityClassName,
   ) {
+    parent::__construct(flatIdentifier: $flatIdentifier);
   }
 
   /**
@@ -59,7 +62,7 @@ class EntityReference extends \OCA\RotDrop\Toolkit\DTO\AbstractDTO
     extract(array_intersect_key($data, array_flip(static::$keys[__CLASS__])));
     return new self(
       flatIdentifier: $flatIdentifier,
-      entityClassName: $entityClassName ?? null,
+      entityClassName: $entityClassName,
     );
   }
 }

@@ -23,7 +23,7 @@
 
 declare module '@nextcloud/vue' {
   import type { VTooltip } from 'floating-vue';
-  import type { Component as Vue } from 'vue';
+  import type { ComponentPublicInstance as Vue } from 'vue';
 
   const NcActionButton: Vue;
   const NcActionCaption: Vue;
