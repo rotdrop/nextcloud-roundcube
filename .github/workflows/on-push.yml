@@ -8,11 +8,8 @@
 name: CI
 
 on:
-  pull_request: {}
+  pull_request:
   push:
-    branches:
-      - main
-      - ci
 
 concurrency:
   group: ci-${{ github.head_ref || github.run_id }}
