@@ -1,26 +1,44 @@
-name: Build and test
+# SPDX-License-Identifier: AGPL-3.0-or-later
+#
+# Basic checks on pull requests and pushes to main: eslint over the
+# frontend sources, php -l over the PHP sources for every supported PHP
+# version, and a full production build of the app archive via the
+# reusable build-appstore.yml workflow (the same build the release
+# workflow ships, so regressions in it surface before tagging).
+name: CI
 
 on:
+  pull_request: {}
   push:
     branches:
-      - "*"
-    tags:
-      - "*"
+      - main
+      - ci
+
+concurrency:
+  group: ci-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
 
 jobs:
+  php-lint:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-versions: ['8.4', '8.5']
+    name: php-lint (${{ matrix.php-versions }})
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Set up PHP ${{ matrix.php-versions }}
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+
+      - name: Lint PHP files
+        run: find lib appinfo templates php-toolkit -name '*.php' -print0 | xargs -0 -n1 -P4 php -l
 
   build:
-    runs-on: ubuntu-latest
-
-    steps:
-            
-      - id: checkout-code
-        uses: actions/checkout@v3
-        with:
-          path: source
-
-      - id: build
-        run: |
-          apt install -y libxml-xpath-perl
-          pushd source
-          make build
+    uses: ./.github/workflows/build-appstore.yml
