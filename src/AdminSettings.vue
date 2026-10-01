@@ -184,24 +184,24 @@
       >
         {{ t(appName, 'Enable TLS Client Certificate support (mutual TLS)') }}
       </label>
-      <TextField :value.sync="settings.clientTLSKeyFile"
+      <TextField v-model="settings.clientTLSKeyFile"
                  type="text"
                  :label="t(appName, 'Filename for the client TLS private key')"
-                 :helper-text="t(appName, 'This is the filename of the private key that this addon will use to connect to roundcube to login with, it does not need to match the user but it needs to be accepted by the webserver as a valid client certificate.')"
+                 :helperText="t(appName, 'This is the filename of the private key that this addon will use to connect to roundcube to login with, it does not need to match the user but it needs to be accepted by the webserver as a valid client certificate.')"
                  :disabled="loading"
                  @submit="saveTextInput('clientTLSKeyFile')"
       />
-      <TextField :value.sync="settings.clientTLSCertificateFile"
+      <TextField v-model="settings.clientTLSCertificateFile"
                  type="text"
                  :label="t(appName, 'Filename for the client TLS certificate')"
-                 :helper-text="t(appName, 'This is the filename of the matching certificate for the above private key')"
+                 :helperText="t(appName, 'This is the filename of the matching certificate for the above private key')"
                  :disabled="loading"
                  @submit="saveTextInput('clientTLSCertificateFile')"
       />
-      <TextField :value.sync="settings.clientTLSKeyPassword"
+      <TextField v-model="settings.clientTLSKeyPassword"
                  type="text"
                  :label="t(appName, 'Password for the TLS private key file')"
-                 :helper-text="t(appName, 'The password used to protect the private key, this can be blank')"
+                 :helperText="t(appName, 'The password used to protect the private key, this can be blank')"
                  :disabled="loading"
                  @submit="saveTextInput('clientTLSKeyPassword')"
       />
