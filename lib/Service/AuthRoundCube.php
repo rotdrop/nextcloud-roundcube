@@ -471,7 +471,6 @@ class AuthRoundCube
         $curlOpts[CURLOPT_SSLCERT] = $this->clientTLSCertificateFile;
         $curlOpts[CURLOPT_SSLKEYPASSWD] = $this->clientTLSKeyPassword;
       }
-
       curl_setopt_array($curl, $curlOpts);
 
       $rawResponse = curl_exec($curl);
