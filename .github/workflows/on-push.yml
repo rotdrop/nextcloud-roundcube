@@ -8,8 +8,10 @@
 name: CI
 
 on:
-  pull_request:
+  pull_request: {}
   push:
+    branches:
+      - main
 
 concurrency:
   group: ci-${{ github.head_ref || github.run_id }}
@@ -19,6 +21,24 @@ permissions:
   contents: read
 
 jobs:
+  eslint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: '24'
+
+      - name: Install dependencies
+        # package-lock.json is not tracked, so `npm ci` is not available.
+        run: npm install
+
+      - name: Run eslint
+        run: npm run lint
+
   php-lint:
     runs-on: ubuntu-latest
     strategy:
