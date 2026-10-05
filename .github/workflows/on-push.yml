@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 #
-# Basic checks on pull requests and pushes to main: eslint over the
+# Basic checks on pull requests and pushes to master: eslint over the
 # frontend sources, php -l over the PHP sources for every supported PHP
 # version, and a full production build of the app archive via the
 # reusable build-appstore.yml workflow (the same build the release
@@ -11,7 +11,7 @@ on:
   pull_request: {}
   push:
     branches:
-      - main
+      - master
 
 concurrency:
   group: ci-${{ github.head_ref || github.run_id }}
