@@ -27,7 +27,7 @@
                :disabled="emailAddressDisabled"
                @submit="saveTextInput('emailAddress')"
     />
-    <TextField v-mode="protectedEmailPassword"
+    <TextField v-model="protectedEmailPassword"
                :type="isPasswordHidden ? 'password' : 'text'"
                :label="t(appName, 'Email Password')"
                :disabled="emailPasswordDisabled"
