@@ -114,6 +114,21 @@ const configOptions = [
       //   tryExtensions: ['.js', '.json', '.node', '.css', '.scss', '.ts', '.xml', '.vue'],
       // }],
       'antfu/top-level-function': 'off',
+      '@stylistic/operator-linebreak': [
+        'error',
+        'after',
+        {
+          overrides: {
+            '=': 'after',
+            '|': 'before',
+            '||': 'before',
+            '&&': 'before',
+            '?': 'before',
+            '+': 'before',
+            ':': 'before',
+          },
+        },
+      ],
     },
   },
   globalIgnores([
