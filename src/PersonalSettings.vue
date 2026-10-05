@@ -20,14 +20,14 @@
   <NcSettingsSection :name="t(appName, 'Embedded RoundCube, Personal Settings')"
                      :class="[...cloudVersionClasses, appName]"
   >
-    <TextField v-model:value="settings.emailAddress"
+    <TextField v-model="settings.emailAddress"
                :label="t(appName, 'Email Login Name')"
                :helperText="emailAddressHint"
                :placeholder="t(appName, 'Email Address')"
                :disabled="emailAddressDisabled"
                @submit="saveTextInput('emailAddress')"
     />
-    <TextField v-mode:value="protectedEmailPassword"
+    <TextField v-mode="protectedEmailPassword"
                :type="isPasswordHidden ? 'password' : 'text'"
                :label="t(appName, 'Email Password')"
                :disabled="emailPasswordDisabled"
