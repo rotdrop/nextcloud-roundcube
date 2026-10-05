@@ -1,0 +1,77 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Reusable workflow building the ready-to-use app archive (the same
+# artifact as `make appstore`) and uploading it as a workflow artifact.
+# It serves both as the build stage of the release workflow and as a
+# check on pull requests, so the two can never drift apart.
+name: Build app archive
+
+on:
+  workflow_call:
+    outputs:
+      version:
+        description: The app version read from appinfo/info.xml
+        value: ${{ jobs.build.outputs.version }}
+      artifact:
+        description: Name of the uploaded tarball artifact
+        value: mail_roundcube-${{ jobs.build.outputs.version }}
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.meta.outputs.version }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          # dev-scripts/MakeHelp is a git submodule required by the Makefile.
+          submodules: recursive
+
+      - name: Install xpath
+        # dev-scripts/lib/makefile/setup.mk needs the xpath binary to parse
+        # the app name and the supported cloud versions out of
+        # appinfo/info.xml; its fallback path only works inside a server tree.
+        run: sudo apt-get install -y libxml-xpath-perl
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          tools: composer
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: '24'
+
+      - name: Read app version
+        id: meta
+        run: |
+          version=$(php -r 'echo (string)simplexml_load_file("appinfo/info.xml")->version;')
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+      - name: Build app archive
+        # APP_VERSION is not derived from info.xml by the Makefile, so pass it
+        # explicitly to get it embedded into the generated app-config files.
+        run: make appstore APP_VERSION=${{ steps.meta.outputs.version }}
+
+      - name: Sanity-check the build
+        # `make appstore` exits 0 even when the webpack build emits nothing, so
+        # guard against shipping a tarball without JS bundles.
+        run: |
+          count=$(tar tzf build/artifacts/appstore/mail_roundcube-${{ steps.meta.outputs.version }}.tar.gz | grep -Ec 'mail_roundcube/js/.*\.m?js$' || true)
+          echo "JS bundles in archive: $count"
+          test "$count" -gt 0 || { echo "::error::No JS bundles in the archive - the webpack build produced nothing"; exit 1; }
+
+      - name: Name the artifact after the version
+        run: cp build/artifacts/appstore/mail_roundcube-${{ steps.meta.outputs.version }}.tar.gz "mail_roundcube-${{ steps.meta.outputs.version }}.tar.gz"
+
+      - name: Upload as workflow artifact
+        uses: actions/upload-artifact@v5
+        with:
+          name: mail_roundcube-${{ steps.meta.outputs.version }}
+          path: mail_roundcube-${{ steps.meta.outputs.version }}.tar.gz
+          if-no-files-found: error
