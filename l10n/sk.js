@@ -72,7 +72,7 @@ OC.L10N.register(
     "Global Email Login" : "Globálne prihlasovacie meno e-mailu",
     "Global email user-name for Roundcube for all users" : "Globálne prihlasovacie meno e-mailu k RoundCube pre všetkých užívateľov",
     "Email Address" : "E-mailová adresa",
-    "Global email password for Roundcube for all users" : "Globálne heslo e-mailu k RoundCube pre všetkých užívateľov",
+    "Global email password for Roundcube for all users" : "Globálne heslo e-mailu k RoundCube pre všetkých používateľov",
     "Global Email Password" : "Globálne heslo k e-mailu",
     "Email Password" : "Heslo k e-mailu",
     "Advanced Settings" : "Rozšírené nastavenia",
