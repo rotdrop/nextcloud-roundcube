@@ -29,14 +29,6 @@
     }
   },
   "repositories": [],
-  "autoload-dev": {
-    "psr-4": {
-      "OCA\\Roundcube\\": "lib/",
-      "OCA\\RotDrop\\Toolkit\\": "php-toolkit/",
-      "OCA\\RotDrop\\DevScripts\\PhpToTypeScript\\": "dev-scripts/lib/scripts/php-to-typescript/",
-      "Spatie\\TypeScriptTransformer\\": "vendor-bin/typescript-transformer/vendor/spatie/typescript-transformer/src/"
-    }
-  },
   "extra": {
     "bamarni-bin": {
       "bin-links": true,

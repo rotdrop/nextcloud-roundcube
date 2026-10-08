@@ -39,8 +39,8 @@ try {
 
 // can also be achieved by "autoload-dev" in composer.json
 $autoloader->addPsr4(
-  \OCA\Roundcube::class . '\\',
-  __DIR__ . '(/../lib',
+  \OCA\RoundCube::class . '\\',
+  __DIR__ . '/../lib',
   true,
 );
 $autoloader->addPsr4(
