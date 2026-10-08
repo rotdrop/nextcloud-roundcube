@@ -296,13 +296,7 @@ class PhpToTypeScript extends Command
       // try inject default TypeScriptTransformer
       ->defaultTypeReplacements($typeReplacements)
       // try inject default TypeScriptTransformer
-      ->defaultInlineTypeReplacements([
-        // 'mixed' => 'unknown',
-        // 'array' => new TypeScriptType('Record<string|number, unknown>'),
-        // Carbon\CarbonImmutable::class => new TypeScriptType('{ date: string, timezone_type: number, timezone: string }'),
-        // Carbon\Carbon::class => new TypeScriptType('{ date: string, timezone_type: number, timezone: string }'),
-        // UuidInterface::class => new TypeScriptType('string'),
-      ])
+      ->defaultInlineTypeReplacements($typeReplacements)
       // file where TypeScript type definitions will be written
       ->outputFile($outputFile);
 
