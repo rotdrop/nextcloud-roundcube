@@ -23,6 +23,8 @@
 namespace OCA\RotDrop\Toolkit\Doctrine\ORM;
 
 use BackedEnum;
+use SortDirection;
+use UnexpectedValueException;
 
 use Doctrine\Common\Collections;
 use Doctrine\ORM;
@@ -137,10 +139,11 @@ trait FindLikeTrait
       if (is_string($dir)) {
         $dir = EnumOrderByOptions::get(strtoupper($dir));
       }
+      $dir = $dir->asSortDirection();
       if (strpos($key, '.') === false && !empty($alias)) {
         $key = $alias . '.' . $key;
       }
-      $qb->addOrderBy($key, $dir->value);
+      $qb->addOrderBy($key, $dir);
     }
     if (!empty($limit)) {
       $qb->setMaxResults($limit);
@@ -341,7 +344,7 @@ trait FindLikeTrait
       unset($criteria[self::QUERY_OPTIONS_KEY]);
     }
 
-    $orderBy = $orderBy?:[];
+    $orderBy = $orderBy ?: [];
 
     // filter out instances of criteria
     $collectionCriteria = [];

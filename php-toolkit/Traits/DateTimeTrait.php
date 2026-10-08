@@ -30,6 +30,9 @@ use DateTimeInterface;
 use DateTimeZone;
 use InvalidArgumentException;
 
+use OCP\IDateTimeZone;
+use OCP\AppFramework\Utility\ITimeFactory;
+
 /** Support traits for date-time stuff */
 trait DateTimeTrait
 {
@@ -40,7 +43,7 @@ trait DateTimeTrait
    *
    * @return DateTimeInterface
    */
-  protected static function ensureDate(?DateTimeInterface $dateTime):DateTimeInterface
+  protected static function ensureDate(?DateTimeInterface $dateTime): DateTimeInterface
   {
     return $dateTime ?? new DateTimeImmutable('@1');
   }
@@ -93,10 +96,30 @@ trait DateTimeTrait
   protected static function convertToTimezoneDate(
     DateTimeInterface $date,
     ?DateTimeZone $timeZone = null,
-  ):DateTimeImmutable {
+  ): DateTimeImmutable {
     if ($timeZone === null) {
       $timeZone = $date->getTimezone();
     }
     return DateTimeImmutable::createFromFormat('Y-m-d|', $date->format('Y-m-d'), $timeZone);
+  }
+
+  /**
+   * Return the current date according to the given or the current user's
+   * timezone and return it as DateTime object at midnight according to the
+   * timeozone.
+   *
+   * @param ?DateTimeZone $timeZone
+   *
+   * @return DateTimeImmutable
+   */
+  protected static function getCurrentDate(?DateTimeZone $timeZone = null): DateTimeImmutable
+  {
+    if ($timeZone === null) {
+      $timeZone = \OCP\Server::get(IDateTimeZone::class)->getTimeZone();
+    }
+    $now = \OCP\Server::get(ITimeFactory::class)->getDateTime(timezone: $timeZone);
+    $now = self::convertToTimezoneDate($now, $timeZone);
+
+    return $now;
   }
 }

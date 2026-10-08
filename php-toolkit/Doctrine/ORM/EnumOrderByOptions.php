@@ -24,6 +24,9 @@
 
 namespace OCA\RotDrop\Toolkit\Doctrine\ORM;
 
+use SortDirection;
+use UnexpectedValueException;
+
 use Spatie\TypeScriptTransformer\Attributes\TypeScript;
 
 /**
@@ -37,4 +40,21 @@ enum EnumOrderByOptions: string
   case ASC = 'ASC';
   case DESC = 'DESC';
   case INDEX = 'INDEX';
+
+  /**
+   * Try to convert to a native PHP 8.6 SortDirection enum.
+   *
+   * @return SortDirection
+   */
+  public function asSortDirection(): SortDirection
+  {
+    switch ($this) {
+      case self::ASC:
+        return SortDirection::Ascending;
+      case self::DESC:
+        return SortDirection::Descending;
+      default:
+        throw new UnexpectedValueException('Unable to convert "' . $this->value . '" to a native PHP SortDirection case.');
+    }
+  }
 }
