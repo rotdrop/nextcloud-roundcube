@@ -64,7 +64,7 @@ OC.L10N.register(
     "RoundCube path can be entered relative to the Nextcloud server" : "Cesta k RoundCube môže byť zadaná ako relatívna k serveru Nextcloud",
     "Email Address Selection" : "Výber e-mailovej adresy",
     "Cloud Login-Id" : "Cloud Login-Id",
-    "User ID" : "ID užívateľa",
+    "User ID" : "ID používateľa",
     "Email Domain" : "E-mailová doména",
     "User's Preferences" : "Predvoľby užívateľa",
     "User's Choice" : "Voľby užívateľa",
