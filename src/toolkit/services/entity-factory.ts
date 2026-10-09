@@ -1,4 +1,6 @@
 /**
+ * @file
+ *
  * Loose collection of TypeScript stuff for reuse in my Nextcloud apps.
  *
  * @author Claus-Justus Heine
@@ -17,6 +19,8 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @module
  */
 
 import type {

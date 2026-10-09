@@ -1,4 +1,6 @@
 /**
+ * @file
+ *
  * Orchestra member, musicion and project management application.
  *
  * CAFEVDB -- Camerata Academica Freiburg e.V. DataBase.
@@ -19,6 +21,8 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @module
  */
 
 declare module '@nextcloud/dialogs/style.css';

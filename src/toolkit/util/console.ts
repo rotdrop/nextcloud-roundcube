@@ -1,4 +1,6 @@
 /**
+ * @file
+ *
  * @author Claus-Justus Heine
  * @copyright 2025, 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
@@ -15,6 +17,8 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @module
  */
 
 import type { StackFrame } from 'stacktrace-js';
@@ -123,7 +127,7 @@ class Console {
 
   enableSourceMaps(method?: ConsoleMethod, state: boolean = true) {
     if (!method) {
-      for (const key of Object.keys(this.smaps)) {
+      for (const key of Object.keys(this.smaps) as ConsoleMethod[]) {
         this.smaps[key] = state;
       }
     } else {

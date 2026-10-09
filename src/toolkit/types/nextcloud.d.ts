@@ -1,4 +1,6 @@
 /**
+ * @file
+ *
  * @author Claus-Justus Heine
  * @copyright 2025, 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
@@ -15,10 +17,9 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @module
  */
-
-// The core window.d.ts seems to be ignored (why?) so we duplicate the defs here
-import type Settings from '../../../../files/src/services/Settings.js';
 
 import '@nextcloud/typings';
 
@@ -37,7 +38,7 @@ declare global {
   // Private Files namespace
   var OCA: {
     Files: {
-      Settings: Settings;
+      Settings: unknown;
       Sidebar: SidebarAPI;
     };
   } & Record<string, any>; // eslint-disable-line @typescript-eslint/no-explicit-any

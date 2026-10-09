@@ -5,7 +5,7 @@
 
 import type { ISidebar } from '@nextcloud/files';
 import type { Pinia } from 'pinia';
-import type Router from '../../../../files/src/services/RouterService.ts';
+import type { Router } from 'vue-router';
 
 export type OCA_FILES = {
   Files?: {

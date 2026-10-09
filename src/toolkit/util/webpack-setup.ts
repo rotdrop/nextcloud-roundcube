@@ -1,4 +1,6 @@
 /**
+ * @file
+ *
  * @copyright Copyright (c) 2022, 2023, 2025, 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
@@ -17,6 +19,8 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @module
  */
 
 import { getRequestToken, onRequestTokenUpdate } from '@nextcloud/auth';

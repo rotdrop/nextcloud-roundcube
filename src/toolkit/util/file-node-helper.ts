@@ -1,4 +1,6 @@
 /**
+ * @file
+ *
  * @copyright Copyright (c) 2024, 2025, 2025, 2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
@@ -15,6 +17,8 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @module
  */
 
 import type {
