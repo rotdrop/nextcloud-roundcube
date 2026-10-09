@@ -109,6 +109,12 @@ class PhpToTypeScript extends Command
     parent::__construct();
   }
 
+  /** @return bool */
+  private function classOrInterfaceExists(string $class): bool
+  {
+    return class_exists($class, autoload: true) || interface_exists($class, autoload: true);
+  }
+
   /** {@inheritdoc} */
   protected function configure()
   {
@@ -265,7 +271,7 @@ class PhpToTypeScript extends Command
     $outputFile = $outputPrefix . self::TS_TYPES_FILE;
 
     $typeReplacements = [
-      // Carbon actually just by default emits a simple strings
+      // Carbon actually just by default emits a simple string
       // Carbon\CarbonImmutable::class => new TypeScriptType('{ date: string, timezone_type: number, timezone: string }'),
       // Carbon\Carbon::class => new TypeScriptType('{ date: string, timezone_type: number, timezone: string }'),
       Carbon\CarbonImmutable::class => new TypeScriptType('string'),
@@ -274,11 +280,15 @@ class PhpToTypeScript extends Command
       DateTimeImmutable::class => new TypeScriptType('{ date: string, timezone_type: number, timezone: string }'),
       UuidInterface::class => new TypeScriptType('string'),
     ];
-    $typeReplacements = array_filter(
-      $typeReplacements,
-      fn(string $class) => class_exists($class, autoload: true),
-      ARRAY_FILTER_USE_KEY,
-    );
+    foreach ($typeReplacements as $phpClass => $tsClass) {
+      if (!$this->classOrInterfaceExists($phpClass)) {
+        unset($typeReplacements[$phpClass]);
+      }
+      $phpClass = $scopedNamespacePrefix . '\\' . $phpClass;
+      if ($this->classOrInterfaceExists($phpClass)) {
+        $typeReplacements[$phpClass] = $tsClass;
+      }
+    }
 
     $config = TransformerConfig::create()
       ->appNamespace($namespacePrefix)
