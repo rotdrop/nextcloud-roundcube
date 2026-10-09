@@ -107,6 +107,7 @@ class PhpToTypeScript extends Command
     protected array $collectors = self::DEFAULT_COLLECTORS,
   ) {
     parent::__construct();
+    echo __DIR__ . __METHOD__ . PHP_EOL;
   }
 
   /** @return bool */
@@ -284,10 +285,12 @@ class PhpToTypeScript extends Command
       if (!$this->classOrInterfaceExists($phpClass)) {
         unset($typeReplacements[$phpClass]);
       }
-      $phpClass = $scopedNamespacePrefix . '\\' . $phpClass;
-      if ($this->classOrInterfaceExists($phpClass)) {
-        $typeReplacements[$phpClass] = $tsClass;
-      }
+      if (!empty($scopedNamespacePrefix)) {
+        $phpClass = $scopedNamespacePrefix . '\\' . $phpClass;
+        if ($this->classOrInterfaceExists($phpClass)) {
+          $typeReplacements[$phpClass] = $tsClass;
+        }
+	  }
     }
 
     $config = TransformerConfig::create()
