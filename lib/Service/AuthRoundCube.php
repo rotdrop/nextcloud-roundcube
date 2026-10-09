@@ -4,7 +4,7 @@
  *
  * @author 2019 Leonardo R. Morelli github.com/LeonardoRM
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2020 - 2025 Claus-Justus Heine
+ * @copyright 2020 - 2026 Claus-Justus Heine
  * @license AGPL-3.0-or-later
  *
  * Nextcloud RoundCube App is free software: you can redistribute it and/or
@@ -27,6 +27,7 @@ namespace OCA\RoundCube\Service;
 use DOMAttr;
 use DOMDocument;
 use DOMXPath;
+use SensitiveParameter;
 
 use OCP\IL10N;
 use OCP\IRequest;
@@ -180,7 +181,7 @@ class AuthRoundCube
    *
    * @return bool true if successful, false otherwise.
    */
-  public function login(string $username, string $password):bool
+  public function login(string $username, #[SensitiveParameter] string $password):bool
   {
     if ($this->checkLoggedIn()) {
       return true;
