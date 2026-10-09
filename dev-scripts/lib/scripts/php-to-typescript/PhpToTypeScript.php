@@ -107,7 +107,6 @@ class PhpToTypeScript extends Command
     protected array $collectors = self::DEFAULT_COLLECTORS,
   ) {
     parent::__construct();
-    echo __DIR__ . __METHOD__ . PHP_EOL;
   }
 
   /** @return bool */
