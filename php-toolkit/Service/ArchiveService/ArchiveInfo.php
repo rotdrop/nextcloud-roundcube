@@ -30,48 +30,50 @@ class ArchiveInfo extends AbstractDTO
   /** {@inheritdoc} */
   public function __construct(
     /**
-     * @var
+     * @var string
+     *
      * Internal format of the underlying archive backend.
      */
     public readonly string $format,
     /**
-     * @var
+     * @var string
+     *
      * Mime-type of the archive file.
      */
     public readonly string $mimeType,
     /**
-     * @var
+     * @var int
      *
      * The size of the archive file (not neccessarily the sum of the size of the
      * archive members).
      */
     public readonly int $size,
     /**
-     * @var
+     * @var int
      *
      * The sum of the compressed size of the archive members.
      */
     public readonly int $compressedSize,
     /**
-     * @var
+     * @var int
      *
      * The sum of the uncompressed size of the archive members.
      */
     public readonly int $originalSize,
     /**
-     * @var
+     * @var int
      *
      * The number of archive members (files) in the archive.
      */
     public readonly int $numberOfFiles,
     /**
-     * @var
+     * @var ?string
      *
      * Some archive formats support optional creator supplied comments.
      */
     public readonly ?string $comment,
     /**
-     * @var
+     * @var string
      *
      * Propose a mount point name based on the archive name.
      */
@@ -119,5 +121,4 @@ class ArchiveInfo extends AbstractDTO
       backendDriver: $backendDriver,
     );
   }
-
 }

@@ -147,22 +147,16 @@ class ArchiveService
     'LC_ALL' => 'C.UTF-8',
   ];
 
-  /** @var null|int */
-  private $sizeLimit = null;
+  private ?int $sizeLimit = null;
 
-  /** @var ArchiveBackend */
-  private $archiver;
+  private ArchiveBackend $archiver;
 
-  /** @var File */
-  private $fileNode;
+  private File $fileNode;
 
-  /** @var array */
-  private $archiveFiles;
+  private array $archiveFiles;
 
-  /** @var */
   private ?ArchiveInfo $archiveInfo;
 
-  /** @var array */
   private array $savedProcessEnvironment;
 
   /**

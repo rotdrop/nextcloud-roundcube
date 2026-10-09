@@ -59,7 +59,7 @@ class BeforeMessageLoggedEventListener implements IEventListener
   /**
    * Clear a recently captuerd log-entry.
    *
-   * @return void;
+   * @return void
    */
   public function clearLogEntry(): void
   {
