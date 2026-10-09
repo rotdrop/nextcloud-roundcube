@@ -16,6 +16,8 @@
       "/vendor*/**/polyfill-php80/**/*.php",
       "/vendor*/**/polyfill-php81/**/*.php",
       "/vendor*/humbug/php-scoper/**",
+      "/vendor*/phpmd/**",
+      "/vendor*/phpcs/**",
       "/build/**",
       "/3rdparty/**/[tT]ests/**/*.php",
       "/vendor/**/[tT]ests/**/*.php",
