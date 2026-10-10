@@ -349,17 +349,19 @@ class AuthRoundCube
    */
   public function logout()
   {
-    $data = [
-      '_action' => 'logout',
-      '_task' => 'logout',
-    ];
-    if ($this->rcRequestToken) {
-      $data['_token'] = $this->rcRequestToken;
-    }
-    $logoutPageObj = $this->sendRequest('', 'POST', $data);
-    if ($logoutPageObj === false) {
-      $this->logError("Could not trigger logout.");
-      return false;
+    // Fetch the current request token from the active RC session first;
+    // without an active session there is nothing to log out.
+    if ($this->rcRequestToken || $this->checkLoggedIn()) {
+      $data = [
+        '_action' => 'logout',
+        '_task' => 'logout',
+        '_token' => $this->rcRequestToken,
+      ];
+      $logoutPageObj = $this->sendRequest('', 'POST', $data);
+      if ($logoutPageObj === false) {
+        $this->logError("Could not trigger logout.");
+        return false;
+      }
     }
 
     setcookie(self::COOKIE_RC_SESSID, "-del-", 1, "/", "", true, true);
@@ -413,10 +415,11 @@ class AuthRoundCube
   {
     $response = null;
 
-    if (!empty($rcQuery) && $rcQuery[0] != '/') {
+    // Always exactly one '/' between installation path and query (with or without trailing slash).
+    if ($rcQuery === '' || $rcQuery[0] != '/') {
       $rcQuery = '/'.$rcQuery;
     }
-    $rcQuery = $this->externalURL().$rcQuery;
+    $rcQuery = rtrim((string)$this->externalURL(), '/').$rcQuery;
     // $this->logInfo("URL: '$rcQuery'.");
     try {
       $curl = curl_init();
