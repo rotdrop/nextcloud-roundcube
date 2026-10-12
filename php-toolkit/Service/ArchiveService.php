@@ -149,13 +149,13 @@ class ArchiveService
 
   private ?int $sizeLimit = null;
 
-  private ArchiveBackend $archiver;
+  private ?ArchiveBackend $archiver = null;
 
-  private File $fileNode;
+  private ?File $fileNode = null;
 
-  private array $archiveFiles;
+  private ?array $archiveFiles = null;
 
-  private ?ArchiveInfo $archiveInfo;
+  private ?ArchiveInfo $archiveInfo = null;
 
   private array $savedProcessEnvironment;
 
@@ -187,10 +187,6 @@ class ArchiveService
     protected ILogger $logger,
     protected IL10N $l,
   ) {
-    $this->archiver = null;
-    $this->fileNode = null;
-    $this->archiveFiles = null;
-    $this->archiveInfo = null;
   }
   // phpcs:enable
 
