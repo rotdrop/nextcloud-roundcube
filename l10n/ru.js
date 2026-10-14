@@ -25,7 +25,7 @@ OC.L10N.register(
     "pick a color" : "выберите цвет",
     "submit" : "Готово",
     "Choose a folder" : "Выберите папку",
-    "Choose {file}" : "Выбран «{file}»",
+    "Choose {file}" : "Выбрать «{file}»",
     "Choose" : "Выберите",
     "Invalid path selected: \"{dir}\"." : "Выбран некорректный путь: \"{dir}\".",
     "Selected path: \"{dir}/{base}/\"." : "Выбраный путь: \"{dir}/{base}/\".",
