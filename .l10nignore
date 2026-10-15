@@ -10,4 +10,6 @@ img/
 lib/Toolkit/
 php-toolkit/Service/
 statistics/
-src/toolkit/util/
+src/toolkit/services/entity-repository.ts
+src/toolkit/util/dialog-alert.ts
+src/toolkit/util/pangram.ts
