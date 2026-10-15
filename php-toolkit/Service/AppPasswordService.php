@@ -89,6 +89,13 @@ class AppPasswordService
       // when can this happen?
       $this->logInfo('loginName: "' . $loginName . '", user-id: "' . $userId . '"');
     }
+    // Invalidate app-passwords previously generated under the same name for
+    // this user, so that repeated logins do not accumulate stale tokens.
+    foreach ($this->tokenProvider->getTokenByUser($userId) as $oldToken) {
+      if ($oldToken->getName() === $name && $oldToken->getType() === IToken::PERMANENT_TOKEN) {
+        $this->tokenProvider->invalidateTokenById($userId, $oldToken->getId());
+      }
+    }
     $token = $this->generateRandomDeviceToken();
     $deviceToken = $this->tokenProvider->generateToken(
       $token, $userId, $loginName, $password, $name, IToken::PERMANENT_TOKEN,
