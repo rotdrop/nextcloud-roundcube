@@ -8,6 +8,7 @@
   - [Nextcloud App](#nextcloud-app)
   - [Roundcube App](#roundcube-app)
 - [Configuration](#configuration)
+  - [Roundcube App](#roundcube-app-1)
   - [Adminstration, Web-Server Setup](#adminstration-web-server-setup)
     - [TL;DR](#tldr)
     - [NC Domain equals RC Domain](#nc-domain-equals-rc-domain)
@@ -346,7 +347,23 @@ enabled. If this app detects that this is the case, it will try to
 generate a suitable app-token automatically and register it with the
 RoundCube CardDAV plugin -- which may work or not. In order to have
 auto-configuration working it is vital to **not** include "username" and
-"password" into the "fixed" array.
+"password" into the "fixed" array:
+``` php
+$prefs['cloud'] = [
+  'accountname'    => 'cloud',
+  'active'         =>  true,
+  'discovery_url'  => 'https://nextcloud.example.com/remote.php/dav/addressbooks',
+  'fixed'          => ['discovery_url',],
+  'hide'           =>  false,
+  'name'           => '%N (%a)',
+  'readonly'       =>  false,
+  'refresh_time'   => '00:15:00',
+  'use_categories' => true,
+]
+```
+If the Roundcube username differs from the Nextcloud username then it
+is also of no use to include "%l" in the discovery URL. It seems to
+work to just omit the user part here.
 
 ### Personal Settings
 

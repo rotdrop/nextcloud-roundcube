@@ -7,7 +7,7 @@
  - it under the terms of the GNU Affero General Public License as
  - published by the Free Software Foundation, either version 3 of the
  - License, or (at your option) any later version.
- -
+ -5b1c3620
  - This program is distributed in the hope that it will be useful,
  - but WITHOUT ANY WARRANTY; without even the implied warranty of
  - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -217,6 +217,28 @@ at the explanations in the README.md file.`) }}
             </template>
           </NcListItem>
         </ul>
+        <p class="hint">
+          {{ t(appName, `If the Roundcube username differs from the Nextcloud username and in particular
+when 2FA is active then the placeholders "%l" (Roundcube username) and "%p" (Roundcube password) make no
+sense. In this case the following snippet may be of more use.`) }}
+        </p>
+        <ul class="card-dav-template">
+          <NcListItem :name="t(appName, 'RCMCardDAV Plugin Configuration without login credentials')">
+            <template #subname>
+              <pre>
+                {{ cardDavTemplateNoUser }}
+              </pre>
+            </template>
+            <template #actions>
+              <NcActionButton @click="copyCardDavConfigNoUser">
+                <template #icon>
+                  <ClipBoard :size="20" />
+                </template>
+                {{ t(appName, 'ClipBoard') }}
+              </NcActionButton>
+            </template>
+          </NcListItem>
+        </ul>
       </div>
     </NcSettingsSection>
   </div>
@@ -285,11 +307,28 @@ $prefs['${settings.cardDavProvisioningTag}'] = [
   'active'         =>  true,
   'readonly'       =>  false,
   'refresh_time'   => '00:15:00',
-  'fixed'          => ['discovery_url',],
-  'hide'           =>  false,
+  'fixed'          => ['discovery_url', 'username', 'password'],
+  'hide'           => false,
   'use_categories' => true,
 ];
-      `)
+`)
+
+const addressBookUrlNoUser = computed(() => generateRemoteUrl('dav') + '/addressbooks')
+
+const cardDavTemplateNoUser = computed(() =>
+  `
+$prefs['${settings.cardDavProvisioningTag}'] = [
+  'accountname'    => '${settings.cardDavProvisioningTag}',
+  'discovery_url'  => '${addressBookUrlNoUser.value}',
+  'name'           => '%N (%a)',
+  'active'         =>  true,
+  'readonly'       =>  false,
+  'refresh_time'   => '00:15:00',
+  'fixed'          => ['discovery_url',],
+  'hide'           => false,
+  'use_categories' => true,
+];
+`)
 
 const protectedFixedSingleEmailPassword = computed({
   get() { return settings.fixedSingleEmailPassword || '' },
@@ -327,6 +366,14 @@ const saveSetting = async (settingsKey: string) => {
 
 const copyCardDavConfig = () => {
   navigator.clipboard.writeText(cardDavTemplate.value).then(function() {
+    showSuccess(t(appName, 'Config template has been copied to the clipboard.'))
+  }, function(reason) {
+    showError(t(appName, 'Failed copying the config template to the clipboard: {reason}.', { reason }))
+  })
+}
+
+const copyCardDavConfigNoUser = () => {
+  navigator.clipboard.writeText(cardDavTemplateNoUser.value).then(function() {
     showSuccess(t(appName, 'Config template has been copied to the clipboard.'))
   }, function(reason) {
     showError(t(appName, 'Failed copying the config template to the clipboard: {reason}.', { reason }))
