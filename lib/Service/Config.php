@@ -70,6 +70,8 @@ class Config
   public const PERSONAL_ENCRYPTION_DEFAULT = false;
   public const CARDDAV_PROVISIONG_TAG = 'cardDavProvisioningTag';
   public const CARDDAV_PROVISIONG_TAG_DEFAULT = '';
+  public const ALLOW_MANUAL_LOGIN = 'allowManualLogin';
+  public const ALLOW_MANUAL_LOGIN_DEFAULT = false;
 
   const SETTINGS = [
     self::EXTERNAL_LOCATION => self::EXTERNAL_LOCATION_DEFAULT,
@@ -80,6 +82,7 @@ class Config
     self::ENABLE_SSL_VERIFY => self::ENABLE_SSL_VERIFY_DEFAULT,
     self::PERSONAL_ENCRYPTION => self::PERSONAL_ENCRYPTION_DEFAULT,
     self::CARDDAV_PROVISIONG_TAG => self::CARDDAV_PROVISIONG_TAG_DEFAULT,
+    self::ALLOW_MANUAL_LOGIN => self::ALLOW_MANUAL_LOGIN_DEFAULT,
   ];
 
   /** @var \OCP\IUser */
