@@ -76,10 +76,11 @@ declare module '@nextcloud/event-bus' {
     'files:node:created': INode;
     'files:node:deleted': INode;
     'files:node:renamed': INode;
-    'toggle-navigation': { open: boolean };
-    'files:sidebar:opened': INode;
+    'files:node:updated': INode;
     'files:sidebar:closed': undefined;
+    'files:sidebar:opened': INode;
     'notifications:notification:received': NotificationEvent;
+    'toggle-navigation': { open: boolean };
   }
 }
 
