@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [1.3.3-rc1] - 2026-10-15
+
+### Added
+
+- PR #58, manual login option
+  - if enabled then now the logout button is also visible
+
+### Fixed
+
+- #79 by PR #80, invalidate old app passwords
+- #76, 77 by PR #78, logout request token and URL building in sendRequest()
+- scaling of Roundcube frame on narrow mobile devices, PR #65
+- checkboxes in admin-settings were broken
+- "show top line" (rather the logout button) option was broken
+
 ## [1.3.2] - 2026-10-05
 
 ### Added
