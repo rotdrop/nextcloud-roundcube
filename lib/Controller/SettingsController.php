@@ -61,6 +61,10 @@ class SettingsController extends Controller
     Config::FORCE_SSO => [ 'rw' => true, 'default' => Config::FORCE_SSO_DEFAULT, ],
     Config::SHOW_TOP_LINE => [ 'rw' => true, 'default' => Config::SHOW_TOP_LINE_DEFAULT, ],
     Config::ENABLE_SSL_VERIFY => [ 'rw' => true, 'default' => Config::ENABLE_SSL_VERIFY_DEFAULT, ],
+    Config::ENABLE_TLS_CLIENT_CERTIFICATES => [ 'rw' => true, 'default' => Config::ENABLE_TLS_CLIENT_CERTIFICATES_DEFAULT, ],
+    Config::CLIENT_TLS_KEY_FILE => [ 'rw' => true, 'default' => Config::CLIENT_TLS_KEY_FILE_DEFAULT, ],
+    Config::CLIENT_TLS_CERTIFICATE_FILE => [ 'rw' => true, 'default' => Config::CLIENT_TLS_CERTIFICATE_FILE_DEFAULT, ],
+    Config::CLIENT_TLS_KEY_PASSWORD => [ 'rw' => true, 'default' => Config::CLIENT_TLS_KEY_PASSWORD_DEFAULT, ],
     Config::PERSONAL_ENCRYPTION => [ 'rw' => true, 'default' => Config::PERSONAL_ENCRYPTION_DEFAULT, ],
     Config::CARDDAV_PROVISIONG_TAG => [ 'rw' => true, 'default' => Config::CARDDAV_PROVISIONG_TAG_DEFAULT, ],
     Config::ALLOW_MANUAL_LOGIN => [ 'rw' => true, 'default' => Config::ALLOW_MANUAL_LOGIN_DEFAULT, ],
@@ -154,6 +158,9 @@ class SettingsController extends Controller
       case Config::EMAIL_ADDRESS_CHOICE:
       case Config::FIXED_SINGLE_EMAIL_ADDRESS:
       case Config::CARDDAV_PROVISIONG_TAG:
+      case Config::CLIENT_TLS_KEY_FILE:
+      case Config::CLIENT_TLS_CERTIFICATE_FILE:
+      case Config::CLIENT_TLS_KEY_PASSWORD:
         $newValue = $value;
         break;
       case Config::FIXED_SINGLE_EMAIL_PASSWORD:
@@ -166,6 +173,7 @@ class SettingsController extends Controller
       case Config::ENABLE_SSL_VERIFY:
       case Config::PERSONAL_ENCRYPTION:
       case Config::ALLOW_MANUAL_LOGIN:
+      case Config::ENABLE_TLS_CLIENT_CERTIFICATES:
         $newValue = filter_var($value, FILTER_VALIDATE_BOOLEAN, ['flags' => FILTER_NULL_ON_FAILURE]);
         if ($newValue === null) {
           return self::grumble($this->l->t(
@@ -253,6 +261,9 @@ class SettingsController extends Controller
         case Config::EMAIL_ADDRESS_CHOICE:
         case Config::FIXED_SINGLE_EMAIL_ADDRESS:
         case Config::CARDDAV_PROVISIONG_TAG:
+        case Config::CLIENT_TLS_KEY_FILE:
+        case Config::CLIENT_TLS_CERTIFICATE_FILE:
+        case Config::CLIENT_TLS_KEY_PASSWORD:
           break;
         case Config::FIXED_SINGLE_EMAIL_PASSWORD:
           $humanValue = '●●●●●●●●';
@@ -263,6 +274,7 @@ class SettingsController extends Controller
         case Config::ENABLE_SSL_VERIFY:
         case Config::PERSONAL_ENCRYPTION:
         case Config::ALLOW_MANUAL_LOGIN:
+        case Config::ENABLE_TLS_CLIENT_CERTIFICATES:
           if ($humanValue !== null) {
             $humanValue = $humanValue ? $this->l->t('true') : $this->l->t('false');
           }
