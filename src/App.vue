@@ -101,7 +101,7 @@ helps. Otherwise contact your system administrator.`)
         emailUserId: initialState?.emailUserId ?? '',
       })
     case 'noemail':
-      return typeof emailUserId === 'string'
+      return typeof initialState?.emailUserId === 'string'
         ? t(appName, 'Unable to obtain email credentials for "{emailUserId}". Please check your personal Roundcube settings.', {
           emailUserId: initialState?.emailUserId ?? '',
         })
@@ -131,8 +131,7 @@ const onIFrameLoaded = async (event: { query: Record<string, string> }) => {
       routerLocation,
       currentQuery: JSON.stringify(currentRoute.query),
       targetQuery: JSON.stringify(routerLocation.query),
-    }
-    )
+    })
     try {
       await router.push(routerLocation)
     } catch (error) {
