@@ -3,7 +3,7 @@
  * A collection of reusable traits classes for Nextcloud apps.
  *
  * @author Claus-Justus Heine <himself@claus-justus-heine.de>
- * @copyright 2022, 2023, 2024, 2025 Claus-Justus Heine <himself@claus-justus-heine.de>
+ * @copyright 2022-2026 Claus-Justus Heine <himself@claus-justus-heine.de>
  * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -22,6 +22,7 @@
 
 namespace OCA\RotDrop\Toolkit\Traits;
 
+use Deprecated;
 use ReflectionClass;
 use Throwable;
 
@@ -32,6 +33,7 @@ use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Http\ContentSecurityPolicy;
 use OCP\IL10N;
 
+use OCA\RotDrop\Toolkit\Middleware\ExceptionMiddleware;
 use OCA\RotDrop\Toolkit\Response\PreRenderedTemplateResponse;
 
 /**
@@ -216,7 +218,12 @@ trait ResponseTrait
    * @see dataResponse()
    *
    * @todo Remove message/messages duplication.
+   *
+   * @deprecated Controller code should rather throw exceptions and generate
+   * error responses by means of
+   * OCA\RotDrop\Toolkit\Middleware\ExceptionMiddleware.
    */
+  #[Deprecated('controller code should rather throw exceptions and generate error responses by means of ' . ExceptionMiddleware::class)]
   protected static function grumble(
     mixed $message,
     mixed $value = null,

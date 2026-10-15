@@ -90,7 +90,7 @@ trait BackedEnumTrait
         $invalid = $instanceOrCaseOrValue ?? 'NULL';
         $self = self::class;
         throw new InvalidArgumentException(
-          "{$invalid} is neither a value nor a key of {$self}: " . print_r(self::toArray(), true),
+          "\"{$invalid}\" is neither a value nor an enum case of {$self}: " . print_r(self::toArray(), true),
           previous: $t,
         );
       }
