@@ -20,10 +20,13 @@
   <NcContent :appName="appName" class="app-container" :class="[state]">
     <NcAppContent :class="[appName + '-content-container', { 'icon-loading': loading }]">
       <RouterView v-show="!loading && state !== 'error'"
+                  v-slot="{ Component }"
                   v-model:loading="loading"
                   @iframeLoaded="onIFrameLoaded($event)"
                   @error="onError"
-      />
+      >
+        <component :is="Component" :hideTopLine="!showTopLine" />
+      </RouterView>
       <NcEmptyContent v-if="state === 'error'">
         <template #name>
           <h2>{{ t(appName, 'RoundCube Wrapper for Nextcloud') }}</h2>
@@ -77,6 +80,7 @@ console.info('INITIAL STATE', { ...initialState })
 
 const state = computed(() => errorHint.value ? 'error' : initialState?.state)
 const reason = computed(() => initialState?.reason)
+const showTopLine = ref((initialState?.allowManualLogin ?? false) || (initialState?.showTopLine ?? false))
 
 const errorMessage = computed(() => {
   if (state.value !== 'error') {

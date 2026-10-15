@@ -137,7 +137,6 @@
              class="checkbox"
              type="checkbox"
              name="forceSSO"
-             value="1"
              :disabled="loading || settings.emailAddressChoice === 'fixedSingleAddress'"
              @change="saveSetting('forceSSO')"
       >
@@ -149,19 +148,17 @@
              class="checkbox"
              type="checkbox"
              name="showTopLine"
-             value="1"
-             :disabled="loading"
+             :disabled="loading || settings.allowManualLogin"
              @change="saveSetting('showTopLine')"
       >
       <label for="show-top-line">
-        {{ t(appName, 'Show RoundCube top information bar (shows logout button).') }}
+        {{ t(appName, 'Show RoundCube logout button.') }}
       </label>
       <input id="allow-manual-login"
              v-model="settings.allowManualLogin"
              class="checkbox"
              type="checkbox"
              name="allowManualLogin"
-             value="1"
              :disabled="loading"
              @change="saveSetting('allowManualLogin')"
       >
@@ -175,7 +172,6 @@
              class="checkbox"
              type="checkbox"
              name="enableSSLVerify"
-             value="1"
              :disabled="loading"
              @change="saveSetting('enableSSLVerify')"
       >
@@ -189,7 +185,6 @@
              class="checkbox"
              type="checkbox"
              name="personalEncryption"
-             value="1"
              :disabled="loading"
              @change="saveSetting('personalEncryption')"
       >
@@ -207,12 +202,7 @@
       />
       <div v-if="settings.cardDavProvisioningTag">
         <p class="hint">
-          {{ t(appName, `Below is a configuration snippet which may or may not work with the
-current version of the RoundCube CardDAV plugin. The configuration
-shown below is just a suggestion and will not automatically be
-registered with the RoundCube app. It is your responsibility to
-configure the RoundCube CardDAV plugin correctly. Please have a look
-at the explanations in the README.md file.`) }}
+          {{ t(appName, 'Below is a configuration snippet which may or may not work with the current version of the RoundCube CardDAV plugin. The configuration shown below is just a suggestion and will not automatically be registered with the RoundCube app. It is your responsibility to configure the RoundCube CardDAV plugin correctly. Please have a look at the explanations in the README.md file.') }}
         </p>
         <ul class="card-dav-template">
           <NcListItem :name="t(appName, 'RCMCardDAV Plugin Configuration')">
@@ -232,9 +222,7 @@ at the explanations in the README.md file.`) }}
           </NcListItem>
         </ul>
         <p class="hint">
-          {{ t(appName, `If the Roundcube username differs from the Nextcloud username and in particular
-when 2FA is active then the placeholders "%l" (Roundcube username) and "%p" (Roundcube password) make no
-sense. In this case the following snippet may be of more use.`) }}
+          {{ t(appName, 'If the Roundcube username differs from the Nextcloud username and in particular when 2FA is active then the placeholders "%l" (Roundcube username) and "%p" (Roundcube password) make no sense. In this case the following snippet may be of more use.') }}
         </p>
         <ul class="card-dav-template">
           <NcListItem :name="t(appName, 'RCMCardDAV Plugin Configuration without login credentials')">

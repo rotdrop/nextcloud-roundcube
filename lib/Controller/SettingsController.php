@@ -173,20 +173,24 @@ class SettingsController extends Controller
               $value, $setting,
             ]));
         }
+        if ($newValue === true) {
+          $humanValue = $this->l->t('true');
+        } else /* if ($newValue === false) */ {
+          $humanValue = $this->l->t('false');
+        }
         if ($newValue === (self::ADMIN_SETTINGS[$setting]['default'] ?? false)) {
           $newValue = null;
-        } else {
-          if ($newValue === true) {
-            $humanValue = $this->l->t('true');
-          } elseif ($newValue === false) {
-            $humanValue = $this->l->t('false');
-          }
-          $newValue = (int)$newValue;
         }
         break;
       default:
         return self::grumble($this->l->t('Unknown admin setting: "%1$s"', $setting));
     }
+
+    $oldValue = $this->config->getAppValue(
+      $setting,
+      self::ADMIN_SETTINGS[$setting]['default'] ?? null,
+      encrypted: $encrypted,
+    );
 
     if ($newValue === null) {
       $this->config->deleteAppValue($setting);
@@ -198,12 +202,6 @@ class SettingsController extends Controller
     if ($humanValue === null) {
       $humanValue = $newValue;
     }
-
-    $oldValue = $this->config->getAppValue(
-      $setting,
-      self::ADMIN_SETTINGS[$setting]['default'] ?? null,
-      encrypted: $encrypted,
-    );
 
     return new DataResponse([
       'newValue' => $newValue,
