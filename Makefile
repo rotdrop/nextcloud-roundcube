@@ -33,6 +33,10 @@ BUNDLER_CONFIG = vite.config.ts
 WGET = $(shell which wget 2> /dev/null)
 OPENSSL = $(shell which openssl 2> /dev/null)
 PHPUNIT = ./vendor/bin/phpunit
+EMACS = $(shell which emacs 2> /dev/null)
+PHPUNIT=$(ABSSRCDIR)/vendor-bin/phpunit/vendor/bin/phpunit
+PHPCS = $(ABSSRCDIR)/vendor-bin/phpcs/vendor/bin/phpcs
+PHPMD = $(ABSSRCDIR)/vendor-bin/phpmd/vendor/bin/phpmd
 
 COMPOSER_SYSTEM = $(shell which composer 2> /dev/null)
 ifeq (, $(COMPOSER_SYSTEM))
@@ -113,15 +117,15 @@ include $(DEV_LIB_DIR)/makefile/npm.mk
 
 #@@ Run phpcs on the PHP code
 phpcs: composer
-	vendor/bin/phpcs -s --report=emacs --standard=$(SRCDIR)/.phpcs.xml lib/ appinfo/ templates/
+	$(PHPCS) -s --report=emacs --standard=$(SRCDIR)/.phpcs.xml lib/ appinfo/ templates/
 
 #@@ Run phpcs on the PHP code, hiding mere warnings
 phpcs-errors: composer
-	vendor/bin/phpcs -n --standard=$(SRCDIR)/.phpcs.xml lib/ appinfo/ templates/|grep FILE:|awk '{ print $$2; }'
+	$(PHPCS) -n --standard=$(SRCDIR)/.phpcs.xml lib/ appinfo/ templates/|grep FILE:|awk '{ print $$2; }'
 
 #@@ Run phpmd on the PHP code
 phpmd: composer
-	vendor/bin/phpmd lib/,appinfo/,templates/ text $(SRCDIR)/.phpmd.xml
+	$(PHPMD) lib/,appinfo/,templates/ text $(SRCDIR)/.phpmd.xml
 
 # what has to be copied to the appstore archive
 APPSTORE_FILES =\
