@@ -6,6 +6,7 @@ OC.L10N.register(
     "Choose" : "เลือก",
     "Show password" : "แสดงรหัสผ่าน",
     "User ID" : "ไอดีผู้ใช้งาน",
-    "Advanced Settings" : "การตั้งค่าขั้นสูง"
+    "Advanced Settings" : "การตั้งค่าขั้นสูง",
+    "No" : "ไม่ตกลง"
 },
 "nplurals=1; plural=0;");

@@ -74,16 +74,15 @@
     "Email Password" : "رمز عبور ایمیل",
     "Advanced Settings" : "تنظیمات پیشرفته",
     "Force single sign on (disables custom password)." : "اعمال ورود یکپارچه اجباری (غیرفعال کردن رمز عبور سفارشی).",
-    "Show RoundCube top information bar (shows logout button)." : "نمایش نوار اطلاعات بالای RoundCube (نمایش دکمه خروج).",
     "Disable when debugging with self-signed certificates." : "غیرفعال کردن هنگام اشکال‌زدایی با گواهی‌های خودامضا.",
     "Enable SSL verification." : "فعال‌سازی تأیید SSL.",
     "Encrypt per-user data -- in particular their email passwords -- with their personal cloud password. This implies that these settings will be lost when users forget their passwords. If unchecked the email login credentials are still protected by the server secret. The latter implies that an administrator is able to decrypt the login credentials, but the configuration data survives user password-loss." : "رمزگذاری داده‌های هر کاربر - به‌ویژه رمزهای عبور ایمیل آن‌ها - با رمز عبور شخصی ابری آن‌ها. این بدان معناست که این تنظیمات در صورت فراموشی رمز عبور کاربران از بین می‌روند. در صورت عدم انتخاب، اطلاعات ورود ایمیل همچنان توسط رمز سرور محافظت می‌شود. مورد دوم به این معناست که مدیر می‌تواند اطلاعات ورود را رمزگشایی کند، اما داده‌های پیکربندی در صورت فراموشی رمز عبور کاربر باقی می‌مانند.",
     "Per-user encryption of config values." : "رمزگذاری مقادیر تنظیمات برای هر کاربر.",
     "RoundCube CardDAV Tag" : "برچسب CardDAV RoundCube",
     "Tag of a preconfigured CardDAV account pointing to the cloud addressbook. See the documentation of the RCMCardDAV plugin." : "برچسب یک حساب CardDAV از پیش پیکربندی‌شده که به دفترچه آدرس ابری اشاره دارد. به مستندات افزونه RCMCardDAV مراجعه کنید.",
+    "Below is a configuration snippet which may or may not work with the current version of the RoundCube CardDAV plugin. The configuration shown below is just a suggestion and will not automatically be registered with the RoundCube app. It is your responsibility to configure the RoundCube CardDAV plugin correctly. Please have a look at the explanations in the README.md file." : "در زیر یک قطعه پیکربندی آورده شده است که ممکن است با نسخه فعلی افزونه CardDAV RoundCube کار کند یا نکند. پیکربندی نشان‌داده‌شده در زیر فقط یک پیشنهاد است و به‌طور خودکار در برنامه RoundCube ثبت نخواهد شد. این مسئولیت شماست که افزونه CardDAV RoundCube را به‌درستی پیکربندی کنید. لطفاً توضیحات موجود در فایل README.md را مطالعه کنید.",
     "RCMCardDAV Plugin Configuration" : "پیکربندی افزونه RCMCardDAV",
     "ClipBoard" : "کلیپ‌بورد",
-    "Below is a configuration snippet which may or may not work with the current version of the RoundCube CardDAV plugin. The configuration shown below is just a suggestion and will not automatically be registered with the RoundCube app. It is your responsibility to configure the RoundCube CardDAV plugin correctly. Please have a look at the explanations in the README.md file." : "در زیر یک قطعه پیکربندی آورده شده است که ممکن است با نسخه فعلی افزونه CardDAV RoundCube کار کند یا نکند. پیکربندی نشان‌داده‌شده در زیر فقط یک پیشنهاد است و به‌طور خودکار در برنامه RoundCube ثبت نخواهد شد. این مسئولیت شماست که افزونه CardDAV RoundCube را به‌درستی پیکربندی کنید. لطفاً توضیحات موجود در فایل README.md را مطالعه کنید.",
     "You did not tell me where to find your configured Roundcube\ninstance. Please head over to the admin-settings and configure this\napp, thank you! It might also be a good idea to have a look at the\nREADME.md file which is distributed together with this app." : "شما به من نگفته‌اید که نمونه Roundcube پیکربندی‌شده خود را کجا پیدا کنم. لطفاً به تنظیمات مدیر بروید و این برنامه را پیکربندی کنید، متشکرم! همچنین ایده خوبی است که به فایل README.md که همراه با این برنامه توزیع شده است نگاهی بیندازید.",
     "Unable to login into Roundcube, there are login errors. Please check\nyour personal Roundcube settings. Maybe a re-login to Nextcloud\nhelps. Otherwise contact your system administrator." : "امکان ورود به Roundcube وجود ندارد، خطاهای ورود وجود دارد. لطفاً تنظیمات شخصی Roundcube خود را بررسی کنید. شاید ورود مجدد به نکست‌کلود کمک کند. در غیر این صورت با مدیر سیستم خود تماس بگیرید.",
     "Unable to configure the CardDAV integration for \"{emailUserId}\"." : "امکان پیکربندی یکپارچه‌سازی CardDAV برای \"{emailUserId}\" وجود ندارد.",
@@ -100,7 +99,7 @@
     "Embedded RoundCube, Personal Settings" : "RoundCube جاسازی‌شده، تنظیمات شخصی",
     "Email Login Name" : "نام ورود ایمیل",
     "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "دسترسی به محتوای نمونهٔ {wrappedApp} بسته‌بندی‌شده امکان‌پذیر نیست.  ",
-    "Unable to search for entities \"{entityName}\" with identifier \"{criteria}\"." : "جستجوی موجودیت‌های \"{entityName}\" با شناسه \"{criteria}\" امکان‌پذیر نیست.  ",
-    "Unable to fetch entity \"{entityName}\" with identifier \"{identifier}\"." : "دریافت موجودیت \"{entityName}\" با شناسه \"{identifier}\" امکان‌پذیر نیست."
+    "reason unknown" : "دلیل نامشخص",
+    "Unable to query the initial value of all settings: {message}" : "امکان پرس‌وجوی مقدار اولیه همه تنظیمات وجود ندارد: {message}"
 },"pluralForm" :"nplurals=2; plural=(n > 1);"
 }

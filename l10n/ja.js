@@ -32,7 +32,6 @@ OC.L10N.register(
     "Email Password" : "メール パスワード",
     "Advanced Settings" : "詳細設定",
     "Force single sign on (disables custom password)." : " シングルサインオンを強制する（カスタムパスワードを無効化）",
-    "Show RoundCube top information bar (shows logout button)." : "RoundCube トップに情報バーを表示する(ログアウトボタンを表示する)",
     "Enable SSL verification." : "SSL検証を有効にする。",
     "Per-user encryption of config values." : "ユーザーごとに設定値を暗号化する。",
     "Unable to configure the CardDAV integration for \"{emailUserId}\"." : "\"{emailUserId}\"のCardDAV統合を設定できません。",

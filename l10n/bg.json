@@ -52,7 +52,6 @@
     "Email Password" : "Имейл парола",
     "Advanced Settings" : "Допълнителни настройки",
     "Force single sign on (disables custom password)." : "Принудително еднократна идентификация (деактивира персонализираната парола).",
-    "Show RoundCube top information bar (shows logout button)." : "Показване на горната информационна лента на RoundCube (показва бутон за излизане).",
     "Disable when debugging with self-signed certificates." : "Деактивиране при отстраняване на грешки със самоподписани сертификати.",
     "Enable SSL verification." : "Активиране на SSL потвърждение.",
     "Encrypt per-user data -- in particular their email passwords -- with their personal cloud password. This implies that these settings will be lost when users forget their passwords. If unchecked the email login credentials are still protected by the server secret. The latter implies that an administrator is able to decrypt the login credentials, but the configuration data survives user password-loss." : "Шифроване на данните за всеки потребител - по-специално техните пароли за имейли - с тяхната лична парола в облака. Това означава, че тези настройки ще бъдат загубени, когато потребителите забравят своите пароли. Ако не е отметнато, идентификационните данни за  влизане в имейл все още са защитени от тайната на сървъра. Последното предполага, че администраторът може да дешифрира идентификационните данни за вход, но данните за конфигурацията оцеляват след загуба на потребителска парола. ",

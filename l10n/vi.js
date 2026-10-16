@@ -7,6 +7,7 @@ OC.L10N.register(
     "Choose" : "Chọn",
     "Show password" : "Hiện mật khẩu",
     "Email Address" : "Địa chỉ email",
-    "Advanced Settings" : "Cài đặt nâng cao"
+    "Advanced Settings" : "Cài đặt nâng cao",
+    "No" : "Không"
 },
 "nplurals=1; plural=0;");

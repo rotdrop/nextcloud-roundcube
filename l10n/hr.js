@@ -47,7 +47,9 @@ OC.L10N.register(
     "User ID" : "ID korisnika",
     "Email Address" : "Adresa e-pošte",
     "Advanced Settings" : "Napredne postavke",
-    "Unable to search for entities \"{entityName}\" with identifier \"{criteria}\"." : "Nije moguće search for entities \\{entityName}\\ with identifier \\{criteria}\\.",
-    "Unable to fetch entity \"{entityName}\" with identifier \"{identifier}\"." : "Nije moguće fetch entity \\{entityName}\\ with identifier \\{identifier}\\."
+    "reason unknown" : "razlog nepoznat",
+    "Unable to query the initial value of all settings: {message}" : "Nije moguće dohvatiti početnu vrijednost svih postavki: {message}",
+    "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Vrijednost za „{settingsKey}” uspješno je postavljena na „{displayValue}”.",
+    "Setting \"{setting}\" has been unset successfully." : "Postavka „{setting}” uspješno je uklonjena."
 },
 "nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;");

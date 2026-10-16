@@ -90,7 +90,6 @@ OC.L10N.register(
     "Embedded RoundCube, Personal Settings" : "Lõimitud RoundCube'i isiklikud seadistused",
     "Email Login Name" : "E-posti kasutajanimi",
     "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "{wrappedApp} liidese sisule pole võimalik ligi saada.\nSee võib olla seotud domeenide ristkasutuse piirangutega.\nPalun kontrolli, et sinu Nextcloudi server ({nextcloudUrl}) ja lõimitud {wrappedApp} ({iFrameUrl}) paikneksid samas domeenis.",
-    "Unable to search for entities \"{entityName}\" with identifier \"{criteria}\"." : "Pole võimalik otsida andmeolemit „{entityName}“, mille tunnus on „{criteria}“.",
-    "Unable to fetch entity \"{entityName}\" with identifier \"{identifier}\"." : "Pole võimalik laadida andmeolemit „{entityName}“, mille tunnus on „{identifier}“."
+    "Unable to query the initial value of all settings: {message}" : "Kõikide seadistuste algsete väärtuste tuvastamine ei õnnestunud: {message}"
 },
 "nplurals=2; plural=(n != 1);");

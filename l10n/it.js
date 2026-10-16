@@ -42,6 +42,11 @@ OC.L10N.register(
     "Show password" : "Mostra password",
     "User ID" : "ID utente",
     "Email Address" : "Indirizzo email",
-    "Advanced Settings" : "Impostazioni avanzate"
+    "Advanced Settings" : "Impostazioni avanzate",
+    "reason unknown" : "motivo sconosciuto",
+    "Unable to query the initial value of all settings: {message}" : "Impossibile eseguire una query sul valore iniziale di tutte le impostazioni: {message}",
+    "Unable to query the initial value of {settingsKey}: {message}" : "Impossibile eseguire una query sul valore iniziale di {settingsKey}: {message}",
+    "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Valore impostato correttamente per \"{settingsKey}\" su \"{displayValue}\"",
+    "Setting \"{setting}\" has been unset successfully." : "L'impostazione \"{setting}\" è stata annullata correttamente."
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

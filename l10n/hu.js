@@ -69,7 +69,6 @@ OC.L10N.register(
     "Email Password" : "Email Jelszó",
     "Advanced Settings" : "Speciális beállítások",
     "Force single sign on (disables custom password)." : "Egyszeri bejelentkezési módszer kieröltetése (egyedi jelszó tiltása).",
-    "Show RoundCube top information bar (shows logout button)." : "RoundCube felső információs sáv mutatása (kijelentkezési gomb mutatása)",
     "Disable when debugging with self-signed certificates." : "Tiltva a saját aláírású tanusítványos hibakereséskor",
     "Enable SSL verification." : "SSL-ellenőrzés engedélyezése.",
     "Per-user encryption of config values." : "Felhasználónkénti konfigurációs értékek titkosítása.",
@@ -81,7 +80,9 @@ OC.L10N.register(
     "Email password for RoundCube, if needed." : "Email jelszó RoundCubehoz, ha szükséges",
     "Embedded RoundCube, Personal Settings" : "RoundCube beágyazott, Egyedi Beállítások",
     "Email Login Name" : "Emailes Bejelentkezési Név",
-    "Unable to search for entities \"{entityName}\" with identifier \"{criteria}\"." : "Nem lehet megkeresni a(z) „{criteria}” azonosítójú „{entityName}” entitásokat.",
-    "Unable to fetch entity \"{entityName}\" with identifier \"{identifier}\"." : "Nem lehet lekérni a(z) „{identifier}” azonosítójú „{entityName}” entitást."
+    "reason unknown" : "ismeretlen ok",
+    "Unable to query the initial value of all settings: {message}" : "Nem lehet lekérdezni a teljes beállítások értékeit: {message}",
+    "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "A(z) „{settingsKey}” értéke sikeresen beállítva erre: „{displayValue}”",
+    "Setting \"{setting}\" has been unset successfully." : "A(z) „{setting}” beállítás értéke sikeresen törölve."
 },
 "nplurals=2; plural=(n != 1);");

@@ -49,7 +49,6 @@ OC.L10N.register(
     "Email Password" : "Contraseña de correo electrónico",
     "Advanced Settings" : "Configuración avanzada",
     "Force single sign on (disables custom password)." : "Forzar inicio de sesión único (deshabilita la contraseña personalizada).",
-    "Show RoundCube top information bar (shows logout button)." : "Mostrar barra de información superior de RoundCube (muestra el botón de cierre de sesión).",
     "Disable when debugging with self-signed certificates." : "Deshabilitar cuando se depura con certificados autofirmados.",
     "Enable SSL verification." : "Habilitar verificación SSL.",
     "Encrypt per-user data -- in particular their email passwords -- with their personal cloud password. This implies that these settings will be lost when users forget their passwords. If unchecked the email login credentials are still protected by the server secret. The latter implies that an administrator is able to decrypt the login credentials, but the configuration data survives user password-loss." : "Cifrar datos por usuario, en particular sus contraseñas de correo electrónico, con su contraseña personal de la nube. Esto implica que estos ajustes se perderán cuando los usuarios olviden sus contraseñas. Si no está marcado, las credenciales de inicio de sesión de correo electrónico aún estarán protegidas por el secreto del servidor. Esto último implica que un administrador puede descifrar las credenciales de inicio de sesión, pero los datos de configuración sobreviven a la pérdida de contraseña del usuario.",
@@ -62,6 +61,7 @@ OC.L10N.register(
     "Single sign-on is globally forced \"on\"." : "El inicio de sesión único está forzado globalmente \"activado\".",
     "Email password for RoundCube, if needed." : "Contraseña de correo electrónico para RoundCube, si es necesario.",
     "Embedded RoundCube, Personal Settings" : "RoundCube integrado, Configuración personal",
-    "Email Login Name" : "Nombre de inicio de sesión de correo electrónico"
+    "Email Login Name" : "Nombre de inicio de sesión de correo electrónico",
+    "Unable to query the initial value of all settings: {message}" : "No se puede consultar el valor inicial de todas las configuraciones: {message}"
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

@@ -29,6 +29,10 @@ OC.L10N.register(
     "User ID" : "유저 ID",
     "Email Address" : "이메일 주소",
     "Advanced Settings" : "고급 설정",
-    "Disable when debugging with self-signed certificates." : "자기-서명 인증서로 디버깅할 시 비활성화"
+    "Disable when debugging with self-signed certificates." : "자기-서명 인증서로 디버깅할 시 비활성화",
+    "reason unknown" : "알 수 없는 이유",
+    "Unconfirmed, reverting to old value." : "확인되지 않음, 이전 값으로 되돌림",
+    "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "\"{settingsKey}\"을(를) \"{displayValue}\"(으)로 설정함",
+    "Setting \"{setting}\" has been unset successfully." : "설정 \"{setting}\"이(가) 해제되었습니다"
 },
 "nplurals=1; plural=0;");
