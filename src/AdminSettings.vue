@@ -185,7 +185,6 @@
              class="checkbox"
              type="checkbox"
              name="enableTLSClientCertificates"
-             value="1"
              :disabled="loading"
              @change="saveSetting('enableTLSClientCertificates')"
       >
