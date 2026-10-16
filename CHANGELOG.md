@@ -4,12 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [1.3.3-rc1] - 2026-10-15
+## [1.3.3-rc2] - 2026-10-16
 
 ### Added
 
 - PR #58, manual login option
   - if enabled then now the logout button is also visible
+- PR #55, add support for client TLS
 
 ### Fixed
 
