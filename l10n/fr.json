@@ -101,7 +101,19 @@
     "Embedded RoundCube, Personal Settings" : "RoundCube intégré, paramètres personnels",
     "Email Login Name" : "Identifiant e-mail",
     "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "Impossible d’accéder au contenu de l’instance {wrappedApp} encapsulée.\nCela peut être dû à des restrictions d’accès entre domaines.\nVeuillez vérifier que votre instance Nextcloud ({nextcloudUrl}) et l’instance {wrappedApp} encapsulée ({iFrameUrl}) sont hébergées sur le même domaine.",
+    "No" : "Non",
+    "Yes" : "Oui",
     "reason unknown" : "raison inconnue",
-    "Unable to query the initial value of all settings: {message}" : "Impossible de récupérer la valeur initiale de tous les paramètres : {message}"
+    "Unable to query the initial value of all settings: {message}" : "Impossible de récupérer la valeur initiale de tous les paramètres : {message}",
+    "Unable to query the initial value of {settingsKey}: {message}" : "Impossible de récupérer la valeur initiale de {settingsKey} : {message}",
+    "Successfully set \"{settingsKey}\" to {value}." : "Le paramètre \"{settingsKey}\" a été défini à {value}.",
+    "Setting \"{settingsKey}\" has been unset successfully." : "Le paramètre \"{settingsKey}\" a été réinitialisé avec succès.",
+    "Unable to set \"{settingsKey}\" to {value}: {message}." : "Impossible de définir le paramètre \"{settingsKey}\" à la valeur {value} : {message}.",
+    "Unable to unset \"{settingsKey}\": {message}" : "Impossible de désactiver \"{settingsKey}\" : {message}",
+    "Confirmation Required" : "Confirmation requise",
+    "Unconfirmed, reverting to old value." : "Non confirmé, rétabli à l'ancienne value.",
+    "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Le paramètre \"{settingsKey}\" a été défini à {displayValue} avec succès.",
+    "Setting \"{setting}\" has been unset successfully." : "Le paramètre \"{setting}\" a été réinitialisé avec succès.",
+    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Impossible de définir le paramètre \"{settingsKey}\" à {value} : {message}."
 },"pluralForm" :"nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
 }

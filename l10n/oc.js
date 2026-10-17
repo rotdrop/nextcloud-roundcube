@@ -8,6 +8,8 @@ OC.L10N.register(
     "Choose" : "Causir",
     "Show password" : "Mostrar lo senhal",
     "Advanced Settings" : "Paramètres avançats",
-    "Enable SSL verification." : "Activar la verificacion SSL."
+    "Enable SSL verification." : "Activar la verificacion SSL.",
+    "No" : "Non",
+    "Yes" : "Òc"
 },
 "nplurals=2; plural=(n > 1);");

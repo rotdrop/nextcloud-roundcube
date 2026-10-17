@@ -91,6 +91,7 @@
     "Email Login Name" : "Jina la Kuingia kwa Barua Pepe",
     "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "Imeshindwa kufikia maudhui ya mfano uliofungwa wa {wrappedApp}.\nHii inaweza kusababishwa na vikwazo vya ufikiaji wa vikoa tofauti.\nTafadhali hakikisha kuwa mfano wako wa Nextcloud ({nextcloudUrl}) na mfano uliofungwa wa {wrappedApp} ({iFrameUrl}) vinatolewa kutoka kwa kikoa sawa.",
     "No" : "Hapana",
+    "Yes" : "Ndiyo",
     "reason unknown" : "sababu haijulikani",
     "Unable to query the initial value of all settings: {message}" : "Haiwezi kuuliza thamani ya awali ya mipangilio yote: {message}",
     "Unable to query the initial value of {settingsKey}: {message}" : "Imeshindwa kuuliza thamani ya awali ya {settingsKey}: {message}",

@@ -90,6 +90,19 @@ OC.L10N.register(
     "Embedded RoundCube, Personal Settings" : "Lõimitud RoundCube'i isiklikud seadistused",
     "Email Login Name" : "E-posti kasutajanimi",
     "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "{wrappedApp} liidese sisule pole võimalik ligi saada.\nSee võib olla seotud domeenide ristkasutuse piirangutega.\nPalun kontrolli, et sinu Nextcloudi server ({nextcloudUrl}) ja lõimitud {wrappedApp} ({iFrameUrl}) paikneksid samas domeenis.",
-    "Unable to query the initial value of all settings: {message}" : "Kõikide seadistuste algsete väärtuste tuvastamine ei õnnestunud: {message}"
+    "No" : "Ei",
+    "Yes" : "Jah",
+    "reason unknown" : "põhjus pole teada",
+    "Unable to query the initial value of all settings: {message}" : "Kõikide seadistuste algsete väärtuste tuvastamine ei õnnestunud: {message}",
+    "Unable to query the initial value of {settingsKey}: {message}" : "„{settingsKey}“ seadistuse algse väärtuse tuvastamine ei õnnestunud: {message}",
+    "Successfully set \"{settingsKey}\" to {value}." : "„{settingsKey}“ seadistamine „{value}“ väärtusega õnnestus.",
+    "Setting \"{settingsKey}\" has been unset successfully." : "„{settingsKey}“ võtme väärtustuse eemaldamine õnnestus.",
+    "Unable to set \"{settingsKey}\" to {value}: {message}." : "„{settingsKey}“ seadistuse „{value}“ väärtuse eemaldamine ei õnnestunud: {message}",
+    "Unable to unset \"{settingsKey}\": {message}" : "„{settingsKey}“ seadistuse väärtuse eemaldamine ei õnnestunud: {message}",
+    "Confirmation Required" : "Kinnitus on vajalik",
+    "Unconfirmed, reverting to old value." : "Kinnitamata, kasutame edasi vana väärtust.",
+    "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "„{settingsKey}“ seadistamine „{displayValue}“ väärtusega õnnestus.",
+    "Setting \"{setting}\" has been unset successfully." : "„{setting}“ võtme väärtustuse eemaldamine õnnestus.",
+    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "„{settingsKey}“ võtme väärtustamine uue „{value}“ väärtusega ei õnnestunud: {message}"
 },
 "nplurals=2; plural=(n != 1);");

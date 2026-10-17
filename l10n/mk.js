@@ -13,6 +13,8 @@ OC.L10N.register(
     "Choose" : "Избери",
     "Show password" : "Прикажи лозинка",
     "Hide password" : "Сокриј лозинка",
-    "Advanced Settings" : "Напредни параметри"
+    "Advanced Settings" : "Напредни параметри",
+    "No" : "Не",
+    "Yes" : "Да"
 },
 "nplurals=2; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : 1;");

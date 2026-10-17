@@ -94,6 +94,7 @@
     "Email Login Name" : "ئېلخەت كىرىش ئىسمى",
     "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "ئورالغان {wrappedApp} مىسالىنىڭ مەزمۇنىغا كىرەلمىدى.\nبۇنىڭ سەۋەبى تور دائىرىسى ئارا كىرىش چەكلىمىسى بولۇشى مۇمكىن.\nNextcloud مىسالىڭىز ({nextcloudUrl}) بىلەن ئورالغان {wrappedApp} مىسالىڭىز ({iFrameUrl}) نىڭ ئوخشاش تور دائىرىسىدىن ئەۋەتىلگەنلىكىنى تەكشۈرۈڭ.",
     "No" : "ياق",
+    "Yes" : "ماقۇل",
     "reason unknown" : "سەۋەبى نامەلۇم",
     "Unable to query the initial value of all settings: {message}" : "بارلىق تەڭشەكلەرنىڭ دەسلەپكى قىممىتىنى سۈرۈشتە قىلالمىدى: {message}",
     "Unable to query the initial value of {settingsKey}: {message}" : "{settingsKey}: {message} نىڭ دەسلەپكى قىممىتىنى سۈرۈشتە قىلالمىدى",

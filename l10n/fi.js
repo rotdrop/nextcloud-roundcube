@@ -24,6 +24,9 @@ OC.L10N.register(
     "Email Address" : "Sähköpostiosoite",
     "Advanced Settings" : "Lisäasetukset",
     "Enable SSL verification." : "Käytä SSL-vahvistusta.",
-    "reason unknown" : "tuntematon syy"
+    "No" : "Ei",
+    "Yes" : "Kyllä",
+    "reason unknown" : "tuntematon syy",
+    "Confirmation Required" : "Vahvistus vaaditaan"
 },
 "nplurals=2; plural=(n != 1);");

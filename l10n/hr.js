@@ -47,9 +47,19 @@ OC.L10N.register(
     "User ID" : "ID korisnika",
     "Email Address" : "Adresa e-pošte",
     "Advanced Settings" : "Napredne postavke",
+    "No" : "Ne",
+    "Yes" : "Da",
     "reason unknown" : "razlog nepoznat",
     "Unable to query the initial value of all settings: {message}" : "Nije moguće dohvatiti početnu vrijednost svih postavki: {message}",
+    "Unable to query the initial value of {settingsKey}: {message}" : "Nije moguće dohvatiti početnu vrijednost za {settingsKey}: {message}",
+    "Successfully set \"{settingsKey}\" to {value}." : "„{settingsKey}” uspješno je postavljeno na {value}.",
+    "Setting \"{settingsKey}\" has been unset successfully." : "Postavka „{settingsKey}” uspješno je uklonjena.",
+    "Unable to set \"{settingsKey}\" to {value}: {message}." : "Nije moguće postaviti „{settingsKey}” na {value}: {message}.",
+    "Unable to unset \"{settingsKey}\": {message}" : "Nije moguće ukloniti postavku „{settingsKey}”: {message}",
+    "Confirmation Required" : "Potrebna je potvrda",
+    "Unconfirmed, reverting to old value." : "Nije potvrđeno, vraćanje na staru vrijednost.",
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Vrijednost za „{settingsKey}” uspješno je postavljena na „{displayValue}”.",
-    "Setting \"{setting}\" has been unset successfully." : "Postavka „{setting}” uspješno je uklonjena."
+    "Setting \"{setting}\" has been unset successfully." : "Postavka „{setting}” uspješno je uklonjena.",
+    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Nije moguće postaviti vrijednost za „{settingsKey}” na „{value}”: {message}."
 },
 "nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;");

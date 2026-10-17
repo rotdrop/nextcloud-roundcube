@@ -99,7 +99,19 @@
     "Embedded RoundCube, Personal Settings" : "RoundCube جاسازی‌شده، تنظیمات شخصی",
     "Email Login Name" : "نام ورود ایمیل",
     "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "دسترسی به محتوای نمونهٔ {wrappedApp} بسته‌بندی‌شده امکان‌پذیر نیست.  ",
+    "No" : "نه",
+    "Yes" : "بله",
     "reason unknown" : "دلیل نامشخص",
-    "Unable to query the initial value of all settings: {message}" : "امکان پرس‌وجوی مقدار اولیه همه تنظیمات وجود ندارد: {message}"
+    "Unable to query the initial value of all settings: {message}" : "امکان پرس‌وجوی مقدار اولیه همه تنظیمات وجود ندارد: {message}",
+    "Unable to query the initial value of {settingsKey}: {message}" : "امکان پرس‌وجوی مقدار اولیه {settingsKey} وجود ندارد: {message}",
+    "Successfully set \"{settingsKey}\" to {value}." : "\"{settingsKey}\" با موفقیت به {value} تنظیم شد.",
+    "Setting \"{settingsKey}\" has been unset successfully." : "تنظیم \"{settingsKey}\" با موفقیت لغو شد.",
+    "Unable to set \"{settingsKey}\" to {value}: {message}." : "امکان تنظیم \"{settingsKey}\" به {value} وجود ندارد: {message}",
+    "Unable to unset \"{settingsKey}\": {message}" : "امکان حذف تنظیم \"{settingsKey}\" وجود ندارد: {message}",
+    "Confirmation Required" : "تأیید الزامی است",
+    "Unconfirmed, reverting to old value." : "تأیید نشده، بازگشت به مقدار قبلی.",
+    "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "مقدار \"{settingsKey}\" با موفقیت به \"{displayValue}\" تنظیم شد",
+    "Setting \"{setting}\" has been unset successfully." : "تنظیم \"{setting}\" با موفقیت حذف شد",
+    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "امکان تنظیم مقدار \"{settingsKey}\" به {value} وجود ندارد: {message}"
 },"pluralForm" :"nplurals=2; plural=(n > 1);"
 }

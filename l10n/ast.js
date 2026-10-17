@@ -18,6 +18,8 @@ OC.L10N.register(
     "Show password" : "Amosar la contraseña",
     "Email Address" : "Direición de corréu electrónicu",
     "Advanced Settings" : "Configuración avanzada",
-    "Enable SSL verification." : "Activar la verificación SSL."
+    "Enable SSL verification." : "Activar la verificación SSL.",
+    "No" : "Non",
+    "Yes" : "Sí"
 },
 "nplurals=2; plural=(n != 1);");

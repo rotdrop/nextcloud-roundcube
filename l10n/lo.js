@@ -41,11 +41,19 @@ OC.L10N.register(
     "Show password" : "ສະແດງລະຫັດຜ່ານ",
     "User ID" : "ໄອດີຜູ້ໃຊ້",
     "Advanced Settings" : "ຕັ້ງ​ຄ່າ​ຂັ້ນ​ສູງ",
+    "No" : "ບໍ່",
+    "Yes" : "ແມ່ນ",
     "reason unknown" : "ບໍ່ຊາບສາເຫດ",
     "Unable to query the initial value of all settings: {message}" : "ບໍ່ສາມາດສອບຖາມຄ່າເລີ່ມຕົ້ນຂອງການຕັ້ງຄ່າທັງໝົດໄດ້: {message}",
     "Unable to query the initial value of {settingsKey}: {message}" : "ບໍ່ສາມາດສອບຖາມຄ່າເລີ່ມຕົ້ນຂອງ {settingsKey} ໄດ້: {message}",
+    "Successfully set \"{settingsKey}\" to {value}." : "ຕັ້ງຄ່າ \"{settingsKey}\" ເປັນ {value} ສຳເລັດແລ້ວ.",
+    "Setting \"{settingsKey}\" has been unset successfully." : "ຍົກເລີກການຕັ້ງຄ່າ \"{settingsKey}\" ສຳເລັດແລ້ວ.",
+    "Unable to set \"{settingsKey}\" to {value}: {message}." : "ບໍ່ສາມາດຕັ້ງຄ່າ \"{settingsKey}\" ເປັນ {value} ໄດ້: {message}.",
+    "Unable to unset \"{settingsKey}\": {message}" : "ບໍ່ສາມາດຍົກເລີກການຕັ້ງຄ່າ \"{settingsKey}\" ໄດ້: {message}",
+    "Confirmation Required" : "ຕ້ອງການການຢືນຢັນ",
     "Unconfirmed, reverting to old value." : "ບໍ່ໄດ້ຢືນຢັນ, ກັບຄືນສູ່ຄ່າເກົ່າ.",
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "ຕັ້ງຄ່າສຳລັບ \"{settingsKey}\" ເປັນ \"{displayValue}\" ສຳເລັດແລ້ວ",
-    "Setting \"{setting}\" has been unset successfully." : "ຍົກເລີກການຕັ້ງຄ່າ \"{setting}\" ສຳເລັດແລ້ວ."
+    "Setting \"{setting}\" has been unset successfully." : "ຍົກເລີກການຕັ້ງຄ່າ \"{setting}\" ສຳເລັດແລ້ວ.",
+    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "ບໍ່ສາມາດຕັ້ງຄ່າສຳລັບ \"{settingsKey}\" ເປັນ \"{value}\" ໄດ້: {message}"
 },
 "nplurals=1; plural=0;");

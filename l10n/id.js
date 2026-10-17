@@ -94,6 +94,8 @@ OC.L10N.register(
     "Email password for RoundCube, if needed." : "Kata sandi email untuk RoundCube, jika diperlukan.",
     "Embedded RoundCube, Personal Settings" : "RoundCube Tersemat, Pengaturan Pribadi",
     "Email Login Name" : "Nama Login Email",
-    "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "Tidak dapat mengakses konten instance {wrappedApp} yang dibungkus.\nHal ini mungkin disebabkan oleh pembatasan akses lintas domain.\nSilakan periksa bahwa instance Nextcloud Anda ({nextcloudUrl}) dan instance {wrappedApp} yang dibungkus ({iFrameUrl}) disajikan dari domain yang sama."
+    "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "Tidak dapat mengakses konten instance {wrappedApp} yang dibungkus.\nHal ini mungkin disebabkan oleh pembatasan akses lintas domain.\nSilakan periksa bahwa instance Nextcloud Anda ({nextcloudUrl}) dan instance {wrappedApp} yang dibungkus ({iFrameUrl}) disajikan dari domain yang sama.",
+    "No" : "Tidak",
+    "Yes" : "Ya"
 },
 "nplurals=1; plural=0;");

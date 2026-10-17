@@ -77,6 +77,7 @@ OC.L10N.register(
     "Email Password" : "E-Mail-Passwort",
     "Advanced Settings" : "Erweiterte Einstellungen",
     "Force single sign on (disables custom password)." : "Einmalige Anmeldung erzwingen (deaktiviert das benutzerdefinierte Passwort).",
+    "Show RoundCube logout button." : "RoundCube Anmeldeknopf anzeigen.",
     "Disable when debugging with self-signed certificates." : "Deaktiviere diese Option beim Debuggen mit selbstsignierten Zertifikaten.",
     "Enable SSL verification." : "SSL-Überprüfung aktivieren.",
     "Encrypt per-user data -- in particular their email passwords -- with their personal cloud password. This implies that these settings will be lost when users forget their passwords. If unchecked the email login credentials are still protected by the server secret. The latter implies that an administrator is able to decrypt the login credentials, but the configuration data survives user password-loss." : "Verschlüssel die Daten der einzelnen Benutzer - insbesondere ihre E-Mail-Passwörter - mit ihrem persönlichen Cloud-Passwort. Dies bedeutet, dass diese Einstellungen verloren gehen, wenn die Benutzer ihre Passwörter vergessen. Ist diese Option nicht aktiviert, sind die E-Mail-Anmeldedaten weiterhin durch das Servergeheimnis geschützt. Letzteres bedeutet, dass eine Administration in der Lage ist, die Anmeldedaten zu entschlüsseln, aber die Konfigurationsdaten bleiben erhalten, wenn der Benutzer sein Passwort vergisst.",
@@ -102,6 +103,10 @@ OC.L10N.register(
     "Email password for RoundCube, if needed." : "Email-Passwort für Roundcube, falls erforderlich.",
     "Embedded RoundCube, Personal Settings" : "Eingebettetes RoundCube, Persönliche Einstellungen",
     "Email Login Name" : "Email Anmeldename",
-    "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "Der Zugriff auf die Inhalte der umschlossenen {wrappedApp} Instanz ist nicht möglich.\nDie Ursache können domänenübergreifende Zugriffsbeschränkungen sein.\nBitte überprüfe, ob deine Nextcloud-Instanz ({nextcloudUrl}) und die umschlossene {wrappedApp} Instanz ({iFrameUrl}) von derselben Domäne aus bedient werden."
+    "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "Der Zugriff auf die Inhalte der umschlossenen {wrappedApp} Instanz ist nicht möglich.\nDie Ursache können domänenübergreifende Zugriffsbeschränkungen sein.\nBitte überprüfe, ob deine Nextcloud-Instanz ({nextcloudUrl}) und die umschlossene {wrappedApp} Instanz ({iFrameUrl}) von derselben Domäne aus bedient werden.",
+    "No" : "Nein",
+    "Yes" : "Ja",
+    "reason unknown" : "Grund unbekannt",
+    "Confirmation Required" : "Bestätigung erforderlich"
 },
 "nplurals=2; plural=(n != 1);");

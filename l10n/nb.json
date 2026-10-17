@@ -79,13 +79,19 @@
     "Email password for RoundCube, if needed." : "E-postpassord for RoundCube, om nødvendig.",
     "Embedded RoundCube, Personal Settings" : "Innebygd RoundCube, personlige innstillinger",
     "Email Login Name" : "Navn på pålogging via e-post",
+    "No" : "Nei",
+    "Yes" : "Ja",
     "reason unknown" : "årsak ukjent",
     "Unable to query the initial value of all settings: {message}" : "Kan ikke spørre etter startverdien for alle innstillinger: {message}",
     "Unable to query the initial value of {settingsKey}: {message}" : "Kan ikke spørre etter startverdien til {settingsKey}: {melding}",
+    "Successfully set \"{settingsKey}\" to {value}." : "Sett «{settingsKey}» til {value}.",
+    "Setting \"{settingsKey}\" has been unset successfully." : "Innstillingen «{settingsKey}» er deaktivert.",
     "Unable to set \"{settingsKey}\" to {value}: {message}." : "Kan ikke sette «{settingsKey}» til {value}: {message}.",
     "Unable to unset \"{settingsKey}\": {message}" : "Kan ikke deaktivere «{settingsKey}»: {message}",
+    "Confirmation Required" : "bekreftelse påkrevd",
     "Unconfirmed, reverting to old value." : "Ubekreftet, går tilbake til gammel verdi.",
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Sett verdien for «{settingsKey}» til «{displayValue}»",
-    "Setting \"{setting}\" has been unset successfully." : "Innstillingen «{setting}» er deaktivert."
+    "Setting \"{setting}\" has been unset successfully." : "Innstillingen «{setting}» er deaktivert.",
+    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Kunne ikke angi verdien for «{settingsKey}» til «{value}»: {message}"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

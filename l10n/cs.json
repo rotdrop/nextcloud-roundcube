@@ -98,6 +98,19 @@
     "Embedded RoundCube, Personal Settings" : "Vestavěné RoundCube – osobní nastavení",
     "Email Login Name" : "Přihlašovací jméno do e-mailu",
     "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "Nebylo možné přistoupit do obsahu  obalené instance{wrappedApp}.\nTo může být způsobeno omezeními přístupu napříč doménami.\nZkontrolujte, že vámi využívaná instance Nextcloud ({nextcloudUrl}) a obalená instance {wrappedApp} ({iFrameUrl}) jsou poskytovány ze stejné domény.",
-    "Unable to query the initial value of all settings: {message}" : "Nedaří se dotazovat úvodní hodnotu všech nastavení: {message}"
+    "No" : "Ne",
+    "Yes" : "Ano",
+    "reason unknown" : "příčina neznámá",
+    "Unable to query the initial value of all settings: {message}" : "Nedaří se dotazovat úvodní hodnotu všech nastavení: {message}",
+    "Unable to query the initial value of {settingsKey}: {message}" : "Nedaří se dotázat na úvodní hodnotu {settingsKey}: {message}",
+    "Successfully set \"{settingsKey}\" to {value}." : "Úspěšně nastaveno „{settingsKey}“ na {value}.",
+    "Setting \"{settingsKey}\" has been unset successfully." : "Nastavení „{settingsKey}“ bylo úspěšně zrušeno.",
+    "Unable to set \"{settingsKey}\" to {value}: {message}." : "Nedaří se nastavit „{settingsKey}“ na {value}: {message}.",
+    "Unable to unset \"{settingsKey}\": {message}" : "Nedaří se zrušit nastavení „{settingsKey}“: {message}",
+    "Confirmation Required" : "Je vyžadováno potvrzení",
+    "Unconfirmed, reverting to old value." : "Nepotvrzeno – vrací se na původní hodnotu.",
+    "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Úspěšně nastavena hodnota pro „{settingsKey}“ na „{displayValue}“",
+    "Setting \"{setting}\" has been unset successfully." : "Nastavení „{setting}“ bylo úspěšně zrušeno.",
+    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Nedaří se nastavit hodnotu pro „{settingsKey}“ na „{value}“: {message}"
 },"pluralForm" :"nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;"
 }

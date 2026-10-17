@@ -8,6 +8,9 @@ OC.L10N.register(
     "Choose {file}" : "Fren {file}",
     "Choose" : "Fren",
     "Show password" : "Sken awal uffir",
-    "Advanced Settings" : "Iɣewwaren leqqayen"
+    "Advanced Settings" : "Iɣewwaren leqqayen",
+    "No" : "Uhu",
+    "Yes" : "Ih",
+    "Confirmation Required" : "Asentem ilaq"
 },
 "nplurals=2; plural=(n != 1);");

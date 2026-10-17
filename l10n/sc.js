@@ -8,6 +8,8 @@ OC.L10N.register(
     "Choose" : "Sèbera",
     "Show password" : "Mustra crae",
     "Email Address" : "Indiritzu de posta eletrònica",
-    "Advanced Settings" : "Cunfiguratzione avantzada"
+    "Advanced Settings" : "Cunfiguratzione avantzada",
+    "No" : "No",
+    "Yes" : "Si"
 },
 "nplurals=2; plural=(n != 1);");

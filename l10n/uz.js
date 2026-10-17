@@ -8,6 +8,7 @@ OC.L10N.register(
     "Choose" : "Tanlang",
     "Show password" : "Parolni ko'rsatish",
     "Advanced Settings" : "Kengaytirilgan sozlamalar",
-    "No" : "Yo`q"
+    "No" : "Yo`q",
+    "Yes" : "Ha"
 },
 "nplurals=1; plural=0;");

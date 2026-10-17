@@ -99,14 +99,19 @@ OC.L10N.register(
     "Embedded RoundCube, Personal Settings" : "RoundCube Integrado, Configurações Pessoais",
     "Email Login Name" : "Nome de Login de E-mail",
     "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "Não é possível acessar o conteúdo da instância {wrappedApp} embrulhada.\nIsso pode ser causado por restrições de acesso entre domínios.\nVerifique se a instância Nextcloud ({nextcloudUrl}) e a instância {wrappedApp} embrulhada ({iFrameUrl}) são servidas a partir do mesmo domínio.",
+    "No" : "Não",
+    "Yes" : "Sim",
     "reason unknown" : "razão desconhecida",
     "Unable to query the initial value of all settings: {message}" : "Não foi possível obter o valor inicial de todas as definições: {message}",
     "Unable to query the initial value of {settingsKey}: {message}" : "Não foi possível obter o valor inicial de {settingsKey}: {message}",
+    "Successfully set \"{settingsKey}\" to {value}." : "Definição \"{settingsKey}\" alterada com sucesso para {value}.",
     "Setting \"{settingsKey}\" has been unset successfully." : "A definição \"{settingsKey}\" foi removida com sucesso.",
     "Unable to set \"{settingsKey}\" to {value}: {message}." : "Não foi possível definir \"{settingsKey}\" para {value}: {message}.",
     "Unable to unset \"{settingsKey}\": {message}" : "Não foi possível remover a definição \"{settingsKey}\": {message}",
+    "Confirmation Required" : "Confirmação necessária",
     "Unconfirmed, reverting to old value." : "Não confirmado; a reverter para o valor anterior.",
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Valor de \"{settingsKey}\" definido com sucesso para \"{displayValue}\"",
-    "Setting \"{setting}\" has been unset successfully." : "A definição \"{setting}\" foi removida com sucesso."
+    "Setting \"{setting}\" has been unset successfully." : "A definição \"{setting}\" foi removida com sucesso.",
+    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Não foi possível definir o valor de \"{settingsKey}\" para \"{value}\": {message}"
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

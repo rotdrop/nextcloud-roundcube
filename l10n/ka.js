@@ -7,6 +7,8 @@ OC.L10N.register(
     "Choose" : "არჩევა",
     "Show password" : "Show password",
     "Email Address" : "Email Address",
-    "Advanced Settings" : "Advanced Settings"
+    "Advanced Settings" : "Advanced Settings",
+    "No" : "არა",
+    "Yes" : "დიახ"
 },
 "nplurals=2; plural=(n!=1);");

@@ -99,11 +99,19 @@
     "Embedded RoundCube, Personal Settings" : "Įterptasis „RoundCube“, asmeniniai nustatymai",
     "Email Login Name" : "El. pašto prisijungimo vardas",
     "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "Nepavyksta pasiekti įdėto {wrappedApp} elemento turinio.\nTai gali būti dėl prieigos tarp domenų apribojimų.\nPatikrinkite, ar jūsų „Nextcloud“ egzempliorius ({nextcloudUrl}) ir įdėtas {wrappedApp} elementas ({iFrameUrl}) teikiami iš to paties domeno.",
+    "No" : "Ne",
+    "Yes" : "Taip",
     "reason unknown" : "priežastis nežinoma",
     "Unable to query the initial value of all settings: {message}" : "Nepavyko gauti visų nustatymų pradinių verčių: {message}",
     "Unable to query the initial value of {settingsKey}: {message}" : "Nepavyko gauti pradinės {settingsKey} reikšmės: {message}",
+    "Successfully set \"{settingsKey}\" to {value}." : "Sėkmingai nustatytas „{settingsKey}“ į {value}.",
+    "Setting \"{settingsKey}\" has been unset successfully." : "Nustatymas „{settingsKey}“ buvo sėkmingai panaikintas.",
+    "Unable to set \"{settingsKey}\" to {value}: {message}." : "Nepavyko nustatyti „{settingsKey}“ į {value}: {message}.",
+    "Unable to unset \"{settingsKey}\": {message}" : "Nepavyko panaikinti „{settingsKey}“: {message}",
+    "Confirmation Required" : "Reikalingas patvirtinimas",
     "Unconfirmed, reverting to old value." : "Nepatvirtinta, grįžtama prie senos vertės.",
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Sėkmingai nustatyta reikšmė nuo „{settingsKey}“ iki „{displayValue}“",
-    "Setting \"{setting}\" has been unset successfully." : "Nustatymas „{setting}“ buvo sėkmingai panaikintas."
+    "Setting \"{setting}\" has been unset successfully." : "Nustatymas „{setting}“ buvo sėkmingai panaikintas.",
+    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Nepavyko nustatyti „{settingsKey}“ reikšmės į „{value}“: {message}"
 },"pluralForm" :"nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);"
 }

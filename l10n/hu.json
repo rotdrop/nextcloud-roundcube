@@ -78,9 +78,19 @@
     "Email password for RoundCube, if needed." : "Email jelszó RoundCubehoz, ha szükséges",
     "Embedded RoundCube, Personal Settings" : "RoundCube beágyazott, Egyedi Beállítások",
     "Email Login Name" : "Emailes Bejelentkezési Név",
+    "No" : "Nem",
+    "Yes" : "Igen",
     "reason unknown" : "ismeretlen ok",
     "Unable to query the initial value of all settings: {message}" : "Nem lehet lekérdezni a teljes beállítások értékeit: {message}",
+    "Unable to query the initial value of {settingsKey}: {message}" : "Nem lehet lekérni a(z) {settingsKey} kezdeti értékét : {message}",
+    "Successfully set \"{settingsKey}\" to {value}." : "A(z) „{settingsKey}” sikeresen beállítva erre: {value}.",
+    "Setting \"{settingsKey}\" has been unset successfully." : "A(z) „{settingsKey}” beállított értéke sikeresen törölve.",
+    "Unable to set \"{settingsKey}\" to {value}: {message}." : "Nem lehet beállítani a(z) „{settingsKey}” értékét erre: {value}: {message}.",
+    "Unable to unset \"{settingsKey}\": {message}" : "Nem lehet törölni a(z) „{settingsKey}” értékét: {message}",
+    "Confirmation Required" : "Megerősítés szükséges",
+    "Unconfirmed, reverting to old value." : "Nincs megerősítve, visszaállítás az eredeti értékre.",
     "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "A(z) „{settingsKey}” értéke sikeresen beállítva erre: „{displayValue}”",
-    "Setting \"{setting}\" has been unset successfully." : "A(z) „{setting}” beállítás értéke sikeresen törölve."
+    "Setting \"{setting}\" has been unset successfully." : "A(z) „{setting}” beállítás értéke sikeresen törölve.",
+    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Nem lehet beállítani a(z) „{settingsKey}” értékét erre: „{value}”: {message}"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

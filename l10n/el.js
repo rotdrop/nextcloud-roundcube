@@ -101,6 +101,19 @@ OC.L10N.register(
     "Embedded RoundCube, Personal Settings" : "Ενσωματωμένο RoundCube, Προσωπικές Ρυθμίσεις",
     "Email Login Name" : "Όνομα σύνδεσης Email",
     "Unable to access the contents of the wrapped {wrappedApp} instance.\nThis may be caused by cross-domain access restrictions.\nPlease check that your Nextcloud instance ({nextcloudUrl}) and the wrapped {wrappedApp} instance ({iFrameUrl}) are served from the same domain." : "Αδυναμία πρόσβασης στα περιεχόμενα της περιεχόμενης εγκατάστασης {wrappedApp}.\nΑυτό μπορεί να προκληθεί από περιορισμούς πρόσβασης δια-τομέα.\nΠαρακαλώ ελέγξτε ότι η εγκατάσταση Nextcloud σας ({nextcloudUrl}) και η περιεχόμενη εγκατάσταση {wrappedApp} ({iFrameUrl}) εξυπηρετούνται από τον ίδιο τομέα.",
-    "Unable to query the initial value of all settings: {message}" : "Αδυναμία ερώτησης (query) της αρχικής τιμής όλων των ρυθμίσεων: {message}"
+    "No" : "Όχι",
+    "Yes" : "Ναι",
+    "reason unknown" : "άγνωστος λόγος",
+    "Unable to query the initial value of all settings: {message}" : "Αδυναμία ερώτησης (query) της αρχικής τιμής όλων των ρυθμίσεων: {message}",
+    "Unable to query the initial value of {settingsKey}: {message}" : "Αδυναμία ερώτησης (query) της αρχικής τιμής του {settingsKey}: {message}",
+    "Successfully set \"{settingsKey}\" to {value}." : "Επιτυχής ορισμός του \"{settingsKey}\" σε {value}.",
+    "Setting \"{settingsKey}\" has been unset successfully." : "Η ρύθμιση \"{settingsKey}\" καταργήθηκε (unset) με επιτυχία.",
+    "Unable to set \"{settingsKey}\" to {value}: {message}." : "Αδυναμία ορισμού του \"{settingsKey}\" σε {value}: {message}.",
+    "Unable to unset \"{settingsKey}\": {message}" : "Αδυναμία κατάργησης (unset) του \"{settingsKey}\": {message}",
+    "Confirmation Required" : "Απαιτείται επιβεβαίωση",
+    "Unconfirmed, reverting to old value." : "Μη επιβεβαιωμένο, επαναφορά στην παλιά τιμή.",
+    "Successfully set value for \"{settingsKey}\" to \"{displayValue}\"" : "Επιτυχής ορισμός τιμής για το \"{settingsKey}\" σε \"{displayValue}\"",
+    "Setting \"{setting}\" has been unset successfully." : "Η ρύθμιση \"{setting}\" καταργήθηκε (unset) με επιτυχία.",
+    "Could not set value for \"{settingsKey}\" to \"{value}\": {message}" : "Αδυναμία ορισμού τιμής για το \"{settingsKey}\" σε \"{value}\": {message}"
 },
 "nplurals=2; plural=(n != 1);");
