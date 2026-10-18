@@ -3,6 +3,9 @@ OC.L10N.register(
     {
     "User" : "Utilizator",
     "Password" : "Parolă",
+    "%1$s (renamed)" : "%1$s (redenumit)",
+    "renamed file" : "fișier redenumit",
+    "submit" : "trimite",
     "Choose {file}" : "Selectați {file}",
     "Choose" : "Alege",
     "Show password" : "Arată parola",
