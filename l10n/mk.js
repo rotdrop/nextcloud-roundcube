@@ -13,6 +13,7 @@ OC.L10N.register(
     "Choose" : "Избери",
     "Show password" : "Прикажи лозинка",
     "Hide password" : "Сокриј лозинка",
+    "User ID" : "Корисничко ID",
     "Advanced Settings" : "Напредни параметри",
     "No" : "Не",
     "Yes" : "Да"
