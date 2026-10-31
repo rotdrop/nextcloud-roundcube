@@ -89,6 +89,12 @@ Hopefully an installation is possible by one of the following alternatives:
   or `make build`. You need `composer`, `node` (`npm`), `jq` and `python-tabulate`. `make help`
   or just `make` will list the available targets.
 
+The file `composer/autoload.php` is an upgrade-compatibility hook which
+Nextcloud loads before running migrations. It registers the app's
+`lib/` and the scoped toolkit early and aliases the legacy
+`OCA\RoundCube\Toolkit\` namespace to the scoped one. It is shipped in
+the app-store tarball and must not be removed.
+
 ### Roundcube App
 
 Please refere to the [Roundcube](https://roundcube.net/) documentation for general installation instructions.
