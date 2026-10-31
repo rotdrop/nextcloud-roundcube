@@ -1,0 +1,32 @@
+{
+  "name": "rotdrop/nextcloud-app-roundcube-scoped",
+  "description": "Scoped dependencies of the Roundcube app for Nextcloud",
+  "type": "project",
+  "license": "AGPL",
+  "require": {
+    "rotdrop/nextcloud-app-toolkit": "dev-main",
+    "symfony/console": "^6.0.0"
+  },
+  "provide": {
+    "psr/cache": "*",
+    "psr/clock": "*",
+    "psr/container": "*",
+    "psr/log": "*"
+  },
+  "config": {
+    "vendor-dir": "vendor-scoped",
+    "optimize-autoloader": true,
+    "classmap-authoritative": true,
+    "platform": {
+      "php": "8.4"
+    }
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/rotdrop/nextcloud-app-toolkit"
+    }
+  ],
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}

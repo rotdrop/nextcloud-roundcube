@@ -13,7 +13,8 @@ build-flavour
 /composer.json
 /composer.lock
 stamp.composer-core-versions
-lib/Toolkit/[A-Z]*
+composer-scoped*.lock*
+vendor-scoped
 *-build-hash
 /vendor-bin/**/.ac-php*
 /vendor-bin/**/vendor/

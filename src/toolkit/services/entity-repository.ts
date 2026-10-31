@@ -24,10 +24,10 @@
  */
 
 import type { OCSResponse } from '@nextcloud/typings/ocs';
-import type { EnumOrderByOptions } from '../../../build/ts-types/php-modules/Toolkit/Doctrine/ORM.ts';
-import type { QUERY_OPTION_WILDCARDS, QUERY_OPTIONS_KEY } from '../../../build/ts-types/php-modules/Toolkit/Doctrine/ORM/Constants.ts';
-import type { EntityId, EntityMap } from '../../../build/ts-types/php-modules/Toolkit/Doctrine/ORM/EntityMetadata.ts';
-import type { EntityResponse } from '../../../build/ts-types/php-modules/Toolkit/Doctrine/ORM/EntitySerializer.ts';
+import type { EnumOrderByOptions } from '../../../build/ts-types/php-modules/Scoped/OCA/RotDrop/Toolkit/Doctrine/ORM.ts';
+import type { QUERY_OPTION_WILDCARDS, QUERY_OPTIONS_KEY } from '../../../build/ts-types/php-modules/Scoped/OCA/RotDrop/Toolkit/Doctrine/ORM/Constants.ts';
+import type { EntityId, EntityMap } from '../../../build/ts-types/php-modules/Scoped/OCA/RotDrop/Toolkit/Doctrine/ORM/EntityMetadata.ts';
+import type { EntityResponse } from '../../../build/ts-types/php-modules/Scoped/OCA/RotDrop/Toolkit/Doctrine/ORM/EntitySerializer.ts';
 import type { NonNegInt, NumberTuple, ObjectEntries } from '../types/type-traits.ts';
 import type { FrontEndEntity } from './entity-factory.ts';
 

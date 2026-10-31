@@ -39,7 +39,7 @@ use OCP\Security\ISecureRandom;
  */
 class Crypto
 {
-  use \OCA\RoundCube\Toolkit\Traits\LoggerTrait;
+  use \OCA\RoundCube\Scoped\OCA\RotDrop\Toolkit\Traits\LoggerTrait;
 
   // phpcs:disable Squiz.Commenting.FunctionComment.Missing
   public function __construct(

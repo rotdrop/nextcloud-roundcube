@@ -41,9 +41,9 @@ use OCA\RoundCube\Service\Config;
  */
 class SettingsController extends Controller
 {
-  use \OCA\RoundCube\Toolkit\Traits\UtilTrait;
-  use \OCA\RoundCube\Toolkit\Traits\ResponseTrait;
-  use \OCA\RoundCube\Toolkit\Traits\LoggerTrait;
+  use \OCA\RoundCube\Scoped\OCA\RotDrop\Toolkit\Traits\UtilTrait;
+  use \OCA\RoundCube\Scoped\OCA\RotDrop\Toolkit\Traits\ResponseTrait;
+  use \OCA\RoundCube\Scoped\OCA\RotDrop\Toolkit\Traits\LoggerTrait;
 
   private const ADMIN_SETTING = 'Admin';
 

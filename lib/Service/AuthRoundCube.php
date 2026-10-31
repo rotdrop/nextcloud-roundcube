@@ -36,14 +36,14 @@ use Psr\Log\LoggerInterface as ILogger;
 
 use OCA\RoundCube\AppInfo\Application;
 use OCA\RoundCube\Service\Config;
-use OCA\RoundCube\Toolkit\Service\AppPasswordService;
+use OCA\RoundCube\Scoped\OCA\RotDrop\Toolkit\Service\AppPasswordService;
 
 /**
  * This class provides the login to RC server using curl.
  */
 class AuthRoundCube
 {
-  use \OCA\RoundCube\Toolkit\Traits\LoggerTrait;
+  use \OCA\RoundCube\Scoped\OCA\RotDrop\Toolkit\Traits\LoggerTrait;
 
   const COOKIE_RC_SESSID    = 'roundcube_sessid';
   const COOKIE_RC_SESSAUTH  = 'roundcube_sessauth';

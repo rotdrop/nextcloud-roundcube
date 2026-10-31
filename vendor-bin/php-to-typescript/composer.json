@@ -1,0 +1,18 @@
+{
+  "require-dev": {
+    "rotdrop/php-to-typescript": "^2.0.2"
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/rotdrop/php-to-typescript"
+    }
+  ],
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "config": {
+    "allow-plugins": {
+      "cweagans/composer-patches": true
+    }
+  }
+}

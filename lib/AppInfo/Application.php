@@ -32,9 +32,10 @@ namespace OCA\RoundCube\AppInfo;
 use OCP\AppFramework\Bootstrap\IRegistrationContext;
 
 use OCA\RoundCube\Listener\Registration as ListenerRegistration;
-use OCA\RoundCube\Toolkit\AppInfo\AbstractApplication;
+use OCA\RoundCube\Scoped\OCA\RotDrop\Toolkit\AppInfo\AbstractApplication;
 
-include_once __DIR__ . '/../Toolkit/AppInfo/AbstractApplication.php';
+include_once __DIR__ . '/../../vendor/autoload.php';
+include_once __DIR__ . '/../../vendor-scoped/autoload.php';
 
 /**
  * App entry point.

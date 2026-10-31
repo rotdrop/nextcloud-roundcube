@@ -55,7 +55,7 @@ jobs:
           php-version: ${{ matrix.php-versions }}
 
       - name: Lint PHP files
-        run: find lib appinfo templates php-toolkit -name '*.php' -print0 | xargs -0 -n1 -P4 php -l
+        run: find lib appinfo templates composer -name '*.php' -print0 | xargs -0 -n1 -P4 php -l
 
   build:
     uses: ./.github/workflows/build-appstore.yml

@@ -84,6 +84,12 @@ jobs:
       - name: Build app archive
         run: make appstore APP_VERSION=${{ steps.meta.outputs.version }}
 
+      - name: Check generated TypeScript modules
+        run: >-
+          node_modules/.bin/tsc --ignoreConfig --noEmit
+          --allowImportingTsExtensions --target es2022 --module nodenext
+          $(find build/ts-types/php-modules -name '*.ts')
+
       - name: Sanity-check the build
         # `make appstore` exits 0 even when the webpack build emits nothing, so
         # guard against shipping a tarball without JS bundles.
