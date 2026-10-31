@@ -20,3 +20,4 @@ vendor-scoped
 /vendor-bin/**/vendor/
 /vendor-bin/**/composer.lock
 .vite/*patches.lock.json
+.vite
