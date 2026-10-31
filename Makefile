@@ -2,26 +2,11 @@
 # later. See the COPYING file.
 SRCDIR = .
 ABSSRCDIR = $(CURDIR)
-#
-# try to parse the info.xml if we can, only then fall-back to the directory name
-#
-APP_INFO = $(SRCDIR)/appinfo/info.xml
-XPATH = $(shell which xpath 2> /dev/null)
-ifneq ($(XPATH),)
-APP_NAME = $(shell $(XPATH) -q -e '/info/id/text()' $(APP_INFO))
-APP_VERSION = $(shell $(XPATH) -q -e '/info/version/text()' $(APP_INFO))
-APP_NAMESPACE = $(shell $(XPATH) -q -e '/info/namespace/text()' $(APP_INFO))
-else
-$(error The xpath binary could not be found, falling back to using the CWD as app-name)
-endif
 DEV_LIB_DIR = $(ABSSRCDIR)/dev-scripts/lib
-BUILDDIR = ./build
-ABSBUILDDIR = $(CURDIR)/build
-BUILD_TOOLS_DIR = $(BUILDDIR)/tools
-TYPESCRIPT_CONVERTER = $(ABSSRCDIR)/dev-scripts/php-to-typescript.php
-TS_TYPES_DIR = $(ABSBUILDDIR)/ts-types
+include $(DEV_LIB_DIR)/makefile/setup.mk
+
+# app specific overrides of the defaults from setup.mk
 TS_PHP_SOURCE_DIRS = lib
-DOWNLOADS_DIR = ./downloads
 
 SILENT = @
 
