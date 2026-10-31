@@ -93,7 +93,7 @@ $(BUILDDIR)/vendor-scoped: composer-scoped.lock
 	mkdir -p $(BUILDDIR)
 	ln -fs ../vendor $(BUILDDIR)
 	rm -rf $(BUILDDIR)/vendor-scoped
-	ln -sf ../composer-patches $(BUILDDIR)
+	ln -sfn ../dev-scripts/lib/patches $(BUILDDIR)/composer-patches
 	env COMPOSER="$(ABSSRCDIR)/composer-scoped.json" $(COMPOSER) -d$(BUILDDIR) install $(COMPOSER_OPTIONS)
 	env COMPOSER="$(ABSSRCDIR)/composer-scoped.json" $(COMPOSER) -d$(BUILDDIR) update $(COMPOSER_OPTIONS) --no-dev
 

@@ -15,8 +15,8 @@
   "extra": {
     "patches": {
       "squizlabs/php_codesniffer": {
-        "Allow short variable names for int and bool": "../../composer-patches/squizlabs/php_codesniffer/allow-short-variable-names.patch",
-        "Allow nullable short-hand": "../../composer-patches/squizlabs/php_codesniffer/allow-nullable-shorthand.patch"
+        "Allow short variable names for int and bool": "../../dev-scripts/lib/patches/squizlabs/php_codesniffer/allow-short-variable-names.patch",
+        "Allow nullable short-hand": "../../dev-scripts/lib/patches/squizlabs/php_codesniffer/allow-nullable-shorthand.patch"
       }
     }
   }

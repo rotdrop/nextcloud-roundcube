@@ -11,7 +11,7 @@
   "extra": {
     "patches": {
       "phpmd/phpmd": {
-        "Fix defining the default command": "../../composer-patches/phpmd/phpmd/fix-set-default-command.patch"
+        "Fix defining the default command": "../../dev-scripts/lib/patches/phpmd/phpmd/fix-set-default-command.patch"
       }
     }
   },
