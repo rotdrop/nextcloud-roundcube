@@ -15,18 +15,28 @@
 PRETTIER_FORMATTER = $(ABSSRCDIR)/node_modules/.bin/prettier
 ESLINT = $(ABSSRCDIR)/node_modules/.bin/eslint
 
+TS_TYPES_COMPOSER_DIR = $(ABSSRCDIR)/vendor-bin/php-to-typescript
+TS_TYPES_AUTOLOAD = $(TS_TYPES_COMPOSER_DIR)/vendor/autoload.php
+TS_TYPES_PACKAGE_DIR = $(TS_TYPES_COMPOSER_DIR)/vendor/rotdrop/php-to-typescript
+TS_TYPES_COMPOSER_DEPS = $(TS_TYPES_COMPOSER_DIR)/composer.json $(wildcard $(TS_TYPES_COMPOSER_DIR)/composer.lock)
+TS_TYPES_PACKAGE_DEPS = $(wildcard $(TS_TYPES_PACKAGE_DIR)/composer.json) $(shell if [ -d "$(TS_TYPES_PACKAGE_DIR)/src" ]; then find -L "$(TS_TYPES_PACKAGE_DIR)/src" -name "*.php"; fi)
+
 TS_TYPES_FILES = $(TS_TYPES_DIR)/php-types.d.ts $(TS_TYPES_DIR)/php-modules/ROOT.ts
 PHP_SOURCES=$(TS_PHP_SOURCE_DIRS:%=--source-dir %)
-TS_TYPES_FILES_DEPS = $(foreach dir,$(TS_PHP_SOURCE_DIRS),$(shell find $(dir) -name "*.php"))
+TS_TYPES_FILES_DEPS = $(foreach dir,$(TS_PHP_SOURCE_DIRS),$(shell if [ -d "$(dir)" ]; then find -L "$(dir)" -name "*.php"; fi))
 
 #@private
-$(TS_TYPES_FILES): $(TS_TYPES_FILES_DEPS) $(TYPESCRIPT_CONVERTER) $(wildcard $(ABSSRCDIR)/dev-scripts/lib/scripts/php-to-typescript/*.php) $(MAKEFILE_DEP)
+$(TS_TYPES_FILES): $(TS_TYPES_FILES_DEPS) $(TYPESCRIPT_CONVERTER) $(TS_TYPES_COMPOSER_DEPS) $(TS_TYPES_PACKAGE_DEPS) $(TS_TYPES_AUTOLOAD) $(MAKEFILE_DEP)
 	$(MAKE) dev-setup
-	rm -rf $(DEV_LIB_DIR)/scripts/vendor $(DEV_LIB_DIR)/scripts/composer.lock $(DEV_LIB_DIR)/scripts/patches.lock.json
-	env COMPOSER=$(DEV_LIB_DIR)/scripts/composer.json $(COMPOSER) -d$(DEV_LIB_DIR)/scripts install
 	$(TYPESCRIPT_CONVERTER) --output-prefix=$(TS_TYPES_DIR) $(PHP_SOURCES) --as-modules --ns-prefix='OCA\$(APP_NAMESPACE)' --scoped-ns-prefix=$(WRAPPER_NAMESPACE_POSTFIX)
 	$(PRETTIER_FORMATTER) --write --ignore-path /dev/null $(TS_TYPES_DIR)
 	[ -x "$(ESLINT)" ] && $(ESLINT) --fix $(TS_TYPES_DIR) && $(ESLINT) $(TS_TYPES_DIR)
+
+#@private
+$(TS_TYPES_AUTOLOAD): $(TS_TYPES_COMPOSER_DEPS)
+	$(MAKE) dev-setup
+	$(COMPOSER) -d$(ABSSRCDIR) bin php-to-typescript install
+	test -f "$@"
 
 #@private
 ts-types-files: $(TS_TYPES_FILES)
@@ -50,7 +60,3 @@ scss-variables: $(TS_TYPES_FILES)
    -e 's/^(\$$[A-Z])/\L\1/g' >> "$(SCSS_VARIABLES_DIR)/$$SCSS_FILE";\
  done
 .PHONY: scss-variables
-
-dev-scripts-real-clean::
-	rm -rf $(DEV_LIB_DIR)scripts/vendor $(DEV_LIBS_DIR)/scripts/composer.lock
-.PHONY: dev-scripts-real-clean

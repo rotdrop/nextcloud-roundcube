@@ -42,8 +42,8 @@ endif
 #@private
 $(WEBPACK_TARGETS): $(BUILD_FLAVOUR_FILE) $(WEBPACK_DEPS)
 	make webpack-clean
-	@env LC_ALL=C make $(WEBPACK_DEPS) 2>&1 | grep -vE '(Nothing to be done for|is up to date)'
-	$(NPM) run $(shell cat $(BUILD_FLAVOUR_FILE)) || rm -f $(WEBPACK_TARGETS)
+	@env LC_ALL=C $(MAKE) $(WEBPACK_DEPS)
+	$(NPM) run $(shell cat $(BUILD_FLAVOUR_FILE)) || { status=$$?; rm -f $(WEBPACK_TARGETS); exit $$status; }
 
 #@private
 npm-dev: build-flavour-dev $(WEBPACK_TARGETS)
