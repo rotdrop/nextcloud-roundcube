@@ -19,5 +19,5 @@ vendor-scoped
 /vendor-bin/**/.ac-php*
 /vendor-bin/**/vendor/
 /vendor-bin/**/composer.lock
-.vite/*patches.lock.json
+**/*patches.lock*
 .vite
