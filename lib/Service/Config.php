@@ -38,7 +38,7 @@ use OCP\Security\ICrypto;
 /** Helper class for handling config values. */
 class Config
 {
-  use \OCA\RoundCube\Toolkit\Traits\LoggerTrait;
+  use \OCA\RoundCube\Scoped\OCA\RotDrop\Toolkit\Traits\LoggerTrait;
 
   public const EXTERNAL_LOCATION = 'externalLocation';
   public const EXTERNAL_LOCATION_DEFAULT = null;

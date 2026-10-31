@@ -45,7 +45,7 @@ use OCA\RoundCube\Service\Config;
 /** Main page entry point. */
 class PageController extends Controller
 {
-  use \OCA\RoundCube\Toolkit\Traits\LoggerTrait;
+  use \OCA\RoundCube\Scoped\OCA\RotDrop\Toolkit\Traits\LoggerTrait;
 
   const MAIN_TEMPLATE = 'app';
   const MAIN_ASSET = self::MAIN_TEMPLATE;

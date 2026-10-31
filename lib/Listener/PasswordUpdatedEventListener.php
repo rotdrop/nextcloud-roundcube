@@ -39,7 +39,7 @@ use OCA\RoundCube\Service\Config;
 /** Re-encrypt encrypted personal values on password change. */
 class PasswordUpdatedEventListener implements IEventListener
 {
-  use \OCA\RoundCube\Toolkit\Traits\LoggerTrait;
+  use \OCA\RoundCube\Scoped\OCA\RotDrop\Toolkit\Traits\LoggerTrait;
 
   const EVENT = HandledEvent::class;
 

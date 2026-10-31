@@ -2,26 +2,11 @@
 # later. See the COPYING file.
 SRCDIR = .
 ABSSRCDIR = $(CURDIR)
-#
-# try to parse the info.xml if we can, only then fall-back to the directory name
-#
-APP_INFO = $(SRCDIR)/appinfo/info.xml
-XPATH = $(shell which xpath 2> /dev/null)
-ifneq ($(XPATH),)
-APP_NAME = $(shell $(XPATH) -q -e '/info/id/text()' $(APP_INFO))
-APP_VERSION = $(shell $(XPATH) -q -e '/info/version/text()' $(APP_INFO))
-APP_NAMESPACE = $(shell $(XPATH) -q -e '/info/namespace/text()' $(APP_INFO))
-else
-$(error The xpath binary could not be found, falling back to using the CWD as app-name)
-endif
 DEV_LIB_DIR = $(ABSSRCDIR)/dev-scripts/lib
-BUILDDIR = ./build
-ABSBUILDDIR = $(CURDIR)/build
-BUILD_TOOLS_DIR = $(BUILDDIR)/tools
-TYPESCRIPT_CONVERTER = $(ABSSRCDIR)/dev-scripts/php-to-typescript.php
-TS_TYPES_DIR = $(ABSBUILDDIR)/ts-types
-TS_PHP_SOURCE_DIRS = lib
-DOWNLOADS_DIR = ./downloads
+include $(DEV_LIB_DIR)/makefile/setup.mk
+
+# app specific overrides of the defaults from setup.mk
+TS_PHP_SOURCE_DIRS = lib vendor-scoped/rotdrop/nextcloud-app-toolkit/src
 
 SILENT = @
 
@@ -37,6 +22,7 @@ EMACS = $(shell which emacs 2> /dev/null)
 PHPUNIT=$(ABSSRCDIR)/vendor-bin/phpunit/vendor/bin/phpunit
 PHPCS = $(ABSSRCDIR)/vendor-bin/phpcs/vendor/bin/phpcs
 PHPMD = $(ABSSRCDIR)/vendor-bin/phpmd/vendor/bin/phpmd
+PHP_SCOPER = $(ABSSRCDIR)/vendor-bin/php-scoper/vendor/bin/php-scoper
 
 COMPOSER_SYSTEM = $(shell which composer 2> /dev/null)
 ifeq (, $(COMPOSER_SYSTEM))
@@ -88,16 +74,45 @@ dev: dev-setup npm-dev # test
 .PHONY: dev
 
 #@private
-dev-setup: app-toolkit composer
+dev-setup: composer namespace-wrapper
 .PHONY: dev-setup
 
 include $(DEV_LIB_DIR)/makefile/composer.mk
 
-APP_TOOLKIT_DIR = $(ABSSRCDIR)/php-toolkit
-APP_TOOLKIT_DEST = $(ABSSRCDIR)/lib/Toolkit
-APP_TOOLKIT_NS = RoundCube
+#@private
+php-scoper-install: $(PHP_SCOPER)
+.PHONY: php-scoper-install
 
-include $(APP_TOOLKIT_DIR)/tools/scopeme.mk
+$(PHP_SCOPER): composer.lock
+	if ! [ -x "$@" ]; then $(COMPOSER) bin php-scoper install; else touch "$@"; fi
+
+composer-scoped.lock: composer-scoped.json Makefile
+	rm -f composer-scoped.lock
+
+$(BUILDDIR)/vendor-scoped: composer-scoped.lock
+	mkdir -p $(BUILDDIR)
+	ln -fs ../vendor $(BUILDDIR)
+	rm -rf $(BUILDDIR)/vendor-scoped
+	ln -sf ../composer-patches $(BUILDDIR)
+	env COMPOSER="$(ABSSRCDIR)/composer-scoped.json" $(COMPOSER) -d$(BUILDDIR) install $(COMPOSER_OPTIONS)
+	env COMPOSER="$(ABSSRCDIR)/composer-scoped.json" $(COMPOSER) -d$(BUILDDIR) update $(COMPOSER_OPTIONS) --no-dev
+
+$(BUILDDIR)/vendor-scoped/autoload.php: $(BUILDDIR)/vendor-scoped composer-scoped.json $(MAKEFILE_DEP)
+	env COMPOSER="$(ABSSRCDIR)/composer-scoped.json" $(COMPOSER) -d$(BUILDDIR) dump-autoload
+
+vendor-scoped: $(MAKEFILE_DEP) $(PHP_SCOPER) scoper.inc.php $(BUILDDIR)/vendor-scoped
+	$(PHP_SCOPER) add-prefix -d$(BUILDDIR) --config=$(ABSSRCDIR)/scoper.inc.php --output-dir=$(ABSSRCDIR)/vendor-scoped --force
+
+# the patch is only needed (and only applicable) if there are autoloaded "files"
+vendor-scoped/autoload.php: vendor-scoped
+	env COMPOSER="$(ABSSRCDIR)/composer-scoped.json" $(COMPOSER) dump-autoload
+	if [ -f vendor-scoped/composer/autoload_files.php ]; then\
+  cd vendor-scoped; sed -e 's/@FILE_IDENTIFIER_PREFIX@/OCA_$(APP_NAMESPACE)_$(SCOPED_NAMESPACE_POSTFIX)/g' $(ABSSRCDIR)/composer-patches/composer/scoped_autoload_real.patch|patch -p1;\
+fi
+
+namespace-wrapper: php-scoper-install vendor-scoped/autoload.php
+.PHONY: namespace-wrapper
+
 include $(DEV_LIB_DIR)/makefile/ts-app-config.mk
 include $(DEV_LIB_DIR)/makefile/ts-types-files.mk
 
@@ -137,6 +152,8 @@ APPSTORE_FILES =\
  templates\
  lib\
  vendor\
+ vendor-scoped\
+ composer\
  CHANGELOG.md\
  COPYING\
  README.md
@@ -145,7 +162,10 @@ APPSTORE_FILES =\
 APPSTORE_BLACKLISTED = foobar .git* .*keep .htaccess *~
 
 #@@ Prepare appstore archive
-appstore: clean dev-setup npm-build
+appstore:
+	$(MAKE) clean
+	$(MAKE) dev-setup
+	$(MAKE) npm-build
 	$(COMPOSER) update --no-dev
 	mkdir -p $(APPSTORE_SIGN_DIR)/$(APP_NAME)
 	$(RSYNC) -a -L $(APPSTORE_BLACKLISTED:%=--exclude '%') $(APPSTORE_FILES) $(APPSTORE_SIGN_DIR)/$(APP_NAME)
@@ -188,9 +208,9 @@ clean: ## Tidy up local environment
 #@@ Same as clean but also removes dependencies installed by composer, bower and npm
 distclean: clean ## Clean even more, calls clean
 	rm -rf vendor
+	rm -rf vendor-scoped
 	rm -rf vendor-bin/**/vendor
 	rm -rf node_modules
-	rm -rf lib/Toolkit/*
 .PHONY: distclean
 
 #@@ Almost everything but downloads
@@ -204,7 +224,7 @@ mostlyclean: webpack-clean distclean
 	rm -f stats.json
 
 #@@ Really delete everything but the bare source files
-realclean: mostlyclean downloadsclean dev-scripts-real-clean
+realclean: mostlyclean downloadsclean
 .PHONY: realclean
 
 #@@ Remove non-npm non-composer downloads

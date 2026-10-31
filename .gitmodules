@@ -1,0 +1,3 @@
+[submodule "dev-scripts/lib"]
+	path = dev-scripts/lib
+	url = https://github.com/rotdrop/nextcloud-app-build-system.git

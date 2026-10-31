@@ -22,10 +22,10 @@ namespace OCA\RoundCube;
 
 use Spatie\TypeScriptTransformer\Attributes as TSAttributes;
 
-use OCA\RoundCube\Toolkit\Constants as ToolkitConstants;
+use OCA\RoundCube\Scoped\OCA\RotDrop\Toolkit\Constants as ToolkitConstants;
 
 /** General constants for the app. */
-#[TSAttributes\Typescript]
+#[TSAttributes\TypeScript]
 class Constants extends ToolkitConstants
 {
 }

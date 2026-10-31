@@ -7,8 +7,7 @@ contrib/
 js/
 css/
 img/
-lib/Toolkit/
-php-toolkit/Service/
+vendor-scoped/
 statistics/
 src/toolkit/services/entity-repository.ts
 src/toolkit/util/dialog-alert.ts

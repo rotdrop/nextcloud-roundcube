@@ -14,6 +14,7 @@
   <author>Leonardo R. Morelli</author>
   <maintainer>Claus-Justus Heine</maintainer>
   <namespace>RoundCube</namespace>
+  <scopednamespace>Scoped</scopednamespace>
   <category>integration</category>
   <category>social</category>+
   <dependencies>

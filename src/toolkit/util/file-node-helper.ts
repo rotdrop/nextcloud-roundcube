@@ -27,7 +27,7 @@ import type {
   IFolder,
   NodeData,
 } from '@nextcloud/files';
-import type { LegacyFileInfo } from '../../../build/ts-types/php-modules/Toolkit/DTO.ts';
+import type { LegacyFileInfo } from '../../../build/ts-types/php-modules/Scoped/OCA/RotDrop/Toolkit/DTO.ts';
 
 import { getCurrentUser } from '@nextcloud/auth';
 import { File, FileType, Folder } from '@nextcloud/files';

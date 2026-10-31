@@ -37,7 +37,7 @@ use OCA\RoundCube\Service\AuthRoundCube;
 /** Log the current user out of Roundcube when it logs out of Nextcloud. */
 class BeforeUserLoggedOutEventListener implements IEventListener
 {
-  use \OCA\RoundCube\Toolkit\Traits\LoggerTrait;
+  use \OCA\RoundCube\Scoped\OCA\RotDrop\Toolkit\Traits\LoggerTrait;
 
   const EVENT = HandledEvent::class;
 

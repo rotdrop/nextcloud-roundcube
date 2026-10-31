@@ -1,0 +1,11 @@
+--- vendor-scoped/composer/autoload_real.php.orig	2026-09-27 19:36:11.750538347 +0200
++++ vendor-scoped/composer/autoload_real.php	2026-09-27 19:37:03.746566430 +0200
+@@ -47,7 +47,7 @@
+             }
+         }, null, null);
+         foreach ($filesToLoad as $fileIdentifier => $file) {
+-            $requireFile($fileIdentifier, $file);
++            $requireFile('@FILE_IDENTIFIER_PREFIX@' . $fileIdentifier, $file);
+         }
+ 
+         return $loader;
