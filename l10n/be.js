@@ -1,10 +1,6 @@
 OC.L10N.register(
     "mail_roundcube",
     {
-    "User" : "Карыстальнік",
-    "Password" : "Пароль",
-    "%1$s (renamed)" : "%1$s (перайменаваны)",
-    "renamed file" : "перайменаваны файл",
     "submit" : "адправіць",
     "Choose a folder" : "Выберыце папку",
     "Choose {file}" : "Выбраць {file}",

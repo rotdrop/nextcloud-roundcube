@@ -3,8 +3,6 @@ OC.L10N.register(
     {
     "true" : "verai",
     "false" : "fals",
-    "User" : "Utilizator",
-    "Password" : "Senhal",
     "Choose" : "Causir",
     "Show password" : "Mostrar lo senhal",
     "Advanced Settings" : "Paramètres avançats",

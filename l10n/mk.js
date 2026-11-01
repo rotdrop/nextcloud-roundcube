@@ -1,11 +1,6 @@
 OC.L10N.register(
     "mail_roundcube",
     {
-    "User" : "Корисник",
-    "Password" : "Лозинка",
-    "%1$s (renamed)" : "%1$s (преименувано)",
-    "renamed file" : "преименувана датотека",
-    "bytes" : "бајти",
     "open" : "отвори",
     "submit" : "испрати",
     "Choose a folder" : "Избери папка",

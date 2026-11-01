@@ -1,7 +1,6 @@
 OC.L10N.register(
     "mail_roundcube",
     {
-    "User" : "Uzanto",
     "Choose {file}" : "Elekti {file}",
     "Choose" : "Elekti",
     "Show password" : "Montri pasvorton",

@@ -1,8 +1,6 @@
 OC.L10N.register(
     "mail_roundcube",
     {
-    "User" : "User",
-    "Password" : "Password",
     "Choose {file}" : "{file}-ის არჩევა",
     "Choose" : "არჩევა",
     "Show password" : "Show password",

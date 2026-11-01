@@ -1,9 +1,6 @@
 OC.L10N.register(
     "mail_roundcube",
     {
-    "User" : "Usuario",
-    "Password" : "Contraseña",
-    "bytes" : "bytes",
     "Choose {file}" : "Elegir {file}",
     "Choose" : "Elegir",
     "Show password" : "Mostrar contraseña",

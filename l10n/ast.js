@@ -3,11 +3,6 @@ OC.L10N.register(
     {
     "true" : "true",
     "false" : "false",
-    "User" : "Usuariu",
-    "Password" : "Contraseña",
-    "Login succeeded." : "L'aniciu de la sesión foi correutu.",
-    "Login failed." : "L'aniciu de la sesión falló.",
-    "bytes" : "bytes",
     "RoundCube Web Mail" : "RoundCube Web Mail",
     "open" : "abrir",
     "submit" : "unviar",

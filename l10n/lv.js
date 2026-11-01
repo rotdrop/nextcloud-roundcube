@@ -1,11 +1,6 @@
 OC.L10N.register(
     "mail_roundcube",
     {
-    "User" : "Lietotājs",
-    "Password" : "Parole",
-    "%1$s (renamed)" : "%1$s (pārdēvēta)",
-    "renamed file" : "pārdēvēja datni",
-    "bytes" : "baiti",
     "Choose" : "Izvēlēties",
     "Clear Selection" : "Notīrīt atlasi",
     "Show password" : "Rādīt paroli",
