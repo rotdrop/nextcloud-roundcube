@@ -106,7 +106,7 @@ vendor-scoped: $(MAKEFILE_DEP) $(PHP_SCOPER) scoper.inc.php $(BUILDDIR)/vendor-s
 # the patch is only needed (and only applicable) if there are autoloaded "files"
 vendor-scoped/autoload.php: vendor-scoped
 	env COMPOSER="$(ABSSRCDIR)/composer-scoped.json" $(COMPOSER) dump-autoload
-	if [ -f vendor-scoped/composer/autoload_files.php ]; then\
+	if [ -f vendor-scoped/composer/autoload_files.php ]; then \
 	$(call apply-scoped-autoload-patch,vendor-scoped);\
 fi
 
