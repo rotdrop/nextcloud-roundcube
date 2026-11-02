@@ -215,8 +215,6 @@ const loadHandler = () => {
       removeTopLine(iFrame)
     } catch (error: unknown) {
       logger.error('UNABLE TO TUNE IFRAME CONTENTS', { error })
-      emitError(error)
-      return
     }
   }
   if (props.fullScreen) {

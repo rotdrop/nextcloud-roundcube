@@ -34,7 +34,10 @@ export const hideTopLine = (rcf: HTMLIFrameElement) => {
   const frameWindow: RoundCubeWindow = rcf.contentWindow!;
   const frameDocument = frameWindow.document!;
 
-  const skin = frameWindow.rcmail!.env.skin;
+  const skin = frameWindow.rcmail?.env?.skin;
+  if (!skin) {
+    return;
+  }
   if (skin.includes('classic')) {
     // just remove the logout button
     frameDocument.querySelectorAll('.button-logout').forEach((el) => el.remove());
