@@ -268,7 +268,6 @@ class SettingsController extends Controller
         case Config::FIXED_SINGLE_EMAIL_PASSWORD:
           $humanValue = '●●●●●●●●';
           break;
-        break;
         case Config::FORCE_SSO:
         case Config::SHOW_TOP_LINE:
         case Config::ENABLE_SSL_VERIFY:
