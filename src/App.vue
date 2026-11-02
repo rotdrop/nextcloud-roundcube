@@ -17,7 +17,7 @@
  - along with this program. If not, see <http://www.gnu.org/licenses/>.
  -->
 <template>
-  <NcContent :appName="appName" class="app-container" :class="[state]">
+  <NcContent :appName="appName" class="app-container" :class="{ [`state-${state}`]: !!state }">
     <NcAppContent :class="[appName + '-content-container', { 'icon-loading': loading }]">
       <RouterView v-show="!loading && state !== 'error'"
                   v-slot="{ Component }"
