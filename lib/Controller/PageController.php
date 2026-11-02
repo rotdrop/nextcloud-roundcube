@@ -107,7 +107,7 @@ class PageController extends Controller
     $this->initialState->provideInitialState('config', [
       'state' => $state,
       'reason' => $reason,
-      'emailUserId' => $credentials['userId'] ?? null,
+      'emailUserId' => is_array($credentials) ? $credentials['userId'] : ($this->config->emailAddress() ?: null),
       Config::EXTERNAL_LOCATION => $roundCubeUrl,
       Config::SHOW_TOP_LINE => $this->config->getAppValue(Config::SHOW_TOP_LINE),
       Config::ALLOW_MANUAL_LOGIN => $this->config->getAppValue(Config::ALLOW_MANUAL_LOGIN),

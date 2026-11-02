@@ -309,10 +309,38 @@ class Config
   }
 
   /**
+   * Resolve the email address of the configured account for the current
+   * user, according to the configured address-choice strategy.
+   *
+   * @return null|string The email address, or null when it cannot be
+   * determined.
+   */
+  public function emailAddress()
+  {
+    $emailAddressChoice = $this->getAppValue(self::EMAIL_ADDRESS_CHOICE, self::EMAIL_ADDRESS_CHOICE_USER_PREFERENCES);
+    $emailDefaultDomain = $this->getAppValue(self::EMAIL_DEFAULT_DOMAIN, self::EMAIL_DEFAULT_DOMAIN_DEFAULT);
+    switch ($emailAddressChoice) {
+      case self::EMAIL_ADDRESS_CHOICE_USER_ID:
+        $userEmail = $this->user->getUID();
+        if (strpos($userEmail, '@') === false && !empty($emailDefaultDomain)) {
+          $userEmail .= '@'.$emailDefaultDomain;
+        }
+        return $userEmail;
+      case self::EMAIL_ADDRESS_CHOICE_USER_PREFERENCES:
+        return $this->user->getEMailAddress();
+      case self::EMAIL_ADDRESS_CHOICE_USER_CHOSEN:
+        return $this->getPersonalValue('emailAddress', '');
+      case self::EMAIL_ADDRESS_CHOICE_FIXED_SINGLE_ADDRESS:
+        return $this->getAppValue(self::FIXED_SINGLE_EMAIL_ADDRESS, self::FIXED_SINGLE_EMAIL_ADDRESS_DEFAULT);
+    }
+    return null;
+  }
+
+  /**
    * Return the login credentials for the configured email account for
    * the current user.
    *
-   * @return array
+   * @return array|false
    * ```
    * [
    *   userId: BLAH@FOO.BAR,
@@ -322,31 +350,15 @@ class Config
    */
   public function emailCredentials()
   {
-    $userEmail = null;
-    $userPassword = null;
-    $emailAddressChoice = $this->getAppValue(self::EMAIL_ADDRESS_CHOICE, self::EMAIL_ADDRESS_CHOICE_USER_PREFERENCES);
-    $emailDefaultDomain = $this->getAppValue(self::EMAIL_DEFAULT_DOMAIN, self::EMAIL_DEFAULT_DOMAIN_DEFAULT);
-    switch ($emailAddressChoice) {
-      case self::EMAIL_ADDRESS_CHOICE_USER_ID:
-        $userEmail = $this->user->getUID();
-        if (strpos($userEmail, '@') === false && !empty($emailDefaultDomain)) {
-          $userEmail .= '@'.$emailDefaultDomain;
-        }
-        break;
-      case self::EMAIL_ADDRESS_CHOICE_USER_PREFERENCES:
-        $userEmail = $this->user->getEMailAddress();
-        break;
-      case self::EMAIL_ADDRESS_CHOICE_USER_CHOSEN:
-        $userEmail = $this->getPersonalValue('emailAddress', '');
-        break;
-      case self::EMAIL_ADDRESS_CHOICE_FIXED_SINGLE_ADDRESS:
-        $userEmail = $this->getAppValue(self::FIXED_SINGLE_EMAIL_ADDRESS, self::FIXED_SINGLE_EMAIL_ADDRESS_DEFAULT);
-        $userPassword = $this->getAppValue(self::FIXED_SINGLE_EMAIL_PASSWORD, self::FIXED_SINGLE_EMAIL_PASSWORD_DEFAULT, encrypted: true);
-        break;
-    }
+    $userEmail = $this->emailAddress();
     if (empty($userEmail)) {
       $this->logError('Unable to obtain email credentials for user ' . $this->userId);
       return false;
+    }
+    $userPassword = null;
+    $emailAddressChoice = $this->getAppValue(self::EMAIL_ADDRESS_CHOICE, self::EMAIL_ADDRESS_CHOICE_USER_PREFERENCES);
+    if ($emailAddressChoice === self::EMAIL_ADDRESS_CHOICE_FIXED_SINGLE_ADDRESS) {
+      $userPassword = $this->getAppValue(self::FIXED_SINGLE_EMAIL_PASSWORD, self::FIXED_SINGLE_EMAIL_PASSWORD_DEFAULT, encrypted: true);
     }
     if (empty($userPassword)) {
       $forceSSO = $this->getAppValue('forceSSO', false);
