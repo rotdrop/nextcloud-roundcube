@@ -92,7 +92,9 @@ const loading = ref(true)
 
 watch(loading, (value) => emit('updateLoading', value))
 
-const queryString = computed(() => (new URLSearchParams(props.query as Record<string, string>)).toString().replace(/\+/g, '%20'))
+const serializeQuery = (query: Record<string, string>) => (new URLSearchParams(query)).toString().replace(/\+/g, '%20')
+
+const queryString = computed(() => serializeQuery(props.query as Record<string, string>))
 
 const requestedLocation = computed(() => {
   return props.externalLocation + '/' + (queryString.value ? '?' + queryString.value : '')
@@ -105,6 +107,11 @@ const iFrameLocation = ref(requestedLocation.value)
  * Actual location which in general is different from the src attribute.
  */
 const currentLocation = ref(requestedLocation.value)
+/**
+ * Query of the actual location, serialized like queryString so that both
+ * compare equal whatever encoding, hash or script name RoundCube uses.
+ */
+const currentQueryString = ref(queryString.value)
 
 const frameId = computed(() => appName + '-frame')
 
@@ -165,6 +172,7 @@ const emitLoaded = (iFrame: HTMLIFrameElement) => {
   currentLocation.value = iFrameWindow.location.href
   const search = iFrameWindow.location.search
   const query = Object.fromEntries((new URLSearchParams(search)).entries()) as (Record<string, string>)
+  currentQueryString.value = serializeQuery(query)
   emit('iframeLoaded', {
     query,
     iFrame,
@@ -180,7 +188,7 @@ const contentObserver = new MutationObserver((entries) => {
 })
 
 watch(queryString, (_value) => {
-  if (requestedLocation.value !== currentLocation.value) {
+  if (queryString.value !== currentQueryString.value) {
     logger.debug('TRIGGER IFRAME REFRESH', { request: requestedLocation.value, current: currentLocation.value })
     loading.value = true
     contentObserver.disconnect()
