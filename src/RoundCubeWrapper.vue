@@ -95,7 +95,7 @@ watch(loading, (value) => emit('updateLoading', value))
 const queryString = computed(() => (new URLSearchParams(props.query as Record<string, string>)).toString().replace(/\+/g, '%20'))
 
 const requestedLocation = computed(() => {
-  return props.externalLocation + '/' + (queryString.value ? '?' + queryString.value : '')
+  return props.externalLocation.replace(/\/+$/, '') + '/' + (queryString.value ? '?' + queryString.value : '')
 })
 /**
  * Value of src attribute of iframe.
