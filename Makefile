@@ -6,7 +6,7 @@ DEV_LIB_DIR = $(ABSSRCDIR)/dev-scripts/lib
 include $(DEV_LIB_DIR)/makefile/setup.mk
 
 # app specific overrides of the defaults from setup.mk
-TS_PHP_SOURCE_DIRS = lib vendor-scoped/rotdrop/nextcloud-app-toolkit/src
+TS_PHP_SOURCE_DIRS = lib vendor-$(SCOPED_VENDOR_SUFFIX)/rotdrop/nextcloud-app-toolkit/src
 
 SILENT = @
 
@@ -78,40 +78,7 @@ dev-setup: composer namespace-wrapper
 .PHONY: dev-setup
 
 include $(DEV_LIB_DIR)/makefile/composer.mk
-
-#@private
-php-scoper-install: $(PHP_SCOPER)
-.PHONY: php-scoper-install
-
-$(PHP_SCOPER): composer.lock
-	if ! [ -x "$@" ]; then $(COMPOSER) bin php-scoper install; else touch "$@"; fi
-
-composer-scoped.lock: composer-scoped.json Makefile
-	rm -f composer-scoped.lock
-
-$(BUILDDIR)/vendor-scoped: composer-scoped.lock
-	mkdir -p $(BUILDDIR)
-	ln -fs ../vendor $(BUILDDIR)
-	rm -rf $(BUILDDIR)/vendor-scoped
-	ln -sfn ../dev-scripts/lib/patches $(BUILDDIR)/composer-patches
-	env COMPOSER="$(ABSSRCDIR)/composer-scoped.json" $(COMPOSER) -d$(BUILDDIR) install $(COMPOSER_OPTIONS)
-	env COMPOSER="$(ABSSRCDIR)/composer-scoped.json" $(COMPOSER) -d$(BUILDDIR) update $(COMPOSER_OPTIONS) --no-dev
-
-$(BUILDDIR)/vendor-scoped/autoload.php: $(BUILDDIR)/vendor-scoped composer-scoped.json $(MAKEFILE_DEP)
-	env COMPOSER="$(ABSSRCDIR)/composer-scoped.json" $(COMPOSER) -d$(BUILDDIR) dump-autoload
-
-vendor-scoped: $(MAKEFILE_DEP) $(PHP_SCOPER) scoper.inc.php $(BUILDDIR)/vendor-scoped
-	$(PHP_SCOPER) add-prefix -d$(BUILDDIR) --config=$(ABSSRCDIR)/scoper.inc.php --output-dir=$(ABSSRCDIR)/vendor-scoped --force
-
-# the patch is only needed (and only applicable) if there are autoloaded "files"
-vendor-scoped/autoload.php: vendor-scoped
-	env COMPOSER="$(ABSSRCDIR)/composer-scoped.json" $(COMPOSER) dump-autoload
-	if [ -f vendor-scoped/composer/autoload_files.php ]; then \
-	$(call apply-scoped-autoload-patch,vendor-scoped);\
-fi
-
-namespace-wrapper: php-scoper-install vendor-scoped/autoload.php
-.PHONY: namespace-wrapper
+include $(DEV_LIB_DIR)/makefile/namespace-wrapper.mk
 
 include $(DEV_LIB_DIR)/makefile/ts-app-config.mk
 include $(DEV_LIB_DIR)/makefile/ts-types-files.mk
@@ -129,6 +96,7 @@ WEBPACK_DEPS =\
  ts-types-files
 
 include $(DEV_LIB_DIR)/makefile/npm.mk
+include $(DEV_LIB_DIR)/makefile/l10n.mk
 
 #@@ Run phpcs on the PHP code
 phpcs: composer
