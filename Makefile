@@ -96,6 +96,7 @@ WEBPACK_DEPS =\
  ts-types-files
 
 include $(DEV_LIB_DIR)/makefile/npm.mk
+include $(DEV_LIB_DIR)/makefile/l10n.mk
 
 #@@ Run phpcs on the PHP code
 phpcs: composer
