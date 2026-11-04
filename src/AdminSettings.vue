@@ -49,7 +49,7 @@
           {{ t(appName, 'Cloud Login-Id') }}
         </label>
         <span class="user-id-email-placeholder" :class="{ disabled: loading || (settings.emailAddressChoice !== 'userIdEmail')}">{{ t(appName, 'User ID') }}@</span>
-        <TextField v-mode:value="settings.emailDefaultDomain"
+        <TextField v-model="settings.emailDefaultDomain"
                    class="email-default-domain"
                    :disabled="loading || (settings.emailAddressChoice !== 'userIdEmail')"
                    :placeholder="t(appName, 'Email Domain')"
