@@ -409,5 +409,3 @@ for the login into the email-server.
 #### Personal Settings
 
 ![file list](contrib/screenshots/personal-settings.png)
-
-<!-- Temporary CI trigger -->
