@@ -30,7 +30,7 @@ const busyNodes: { node: INode; status?: INodeStatus }[] = [];
 
 export const setFileNodeBusy = (node?: INode, status: boolean = true) => {
   if (node && status) {
-    console.info('NODE IDS', { id: node.id, fileid: node.fileid });
+    console.info('NODE IDS', { id: node.id });
     const busyNode = { node, status: node.status };
     node.status = NodeStatus.LOADING;
     emit('files:node:updated', node);
