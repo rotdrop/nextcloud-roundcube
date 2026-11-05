@@ -17,7 +17,7 @@
  - along with this program. If not, see <http://www.gnu.org/licenses/>.
  -->
 <template>
-  <NcContent :appName="appName" class="app-container" :class="[state]">
+  <NcContent :appName="appName" class="app-container" :class="{ [`state-${state}`]: !!state }">
     <NcAppContent :class="[appName + '-content-container', { 'icon-loading': loading }]">
       <RouterView v-show="!loading && state !== 'error'"
                   v-slot="{ Component }"
@@ -39,6 +39,11 @@
             {{ errorMessage }}
           </div>
         </template>
+        <template v-if="showSettingsLink" #action>
+          <NcButton :href="personalSettingsUrl">
+            {{ t(appName, 'Open your personal settings') }}
+          </NcButton>
+        </template>
       </NcEmptyContent>
     </NcAppContent>
   </NcContent>
@@ -49,8 +54,10 @@ import type { RouteLocationRaw as RouterLocation } from 'vue-router'
 import type { InitialState } from './types/initial-state.d.ts'
 
 import { translate as t } from '@nextcloud/l10n'
+import { generateUrl } from '@nextcloud/router'
 import {
   NcAppContent,
+  NcButton,
   NcContent,
   NcEmptyContent,
 } from '@nextcloud/vue'
@@ -81,6 +88,9 @@ console.info('INITIAL STATE', { ...initialState })
 const state = computed(() => errorHint.value ? 'error' : initialState?.state)
 const reason = computed(() => initialState?.reason)
 const showTopLine = ref((initialState?.allowManualLogin ?? false) || (initialState?.showTopLine ?? false))
+
+const personalSettingsUrl = generateUrl('/settings/user/' + appName)
+const showSettingsLink = computed(() => ['login', 'noemail'].includes(reason.value ?? ''))
 
 const errorMessage = computed(() => {
   if (state.value !== 'error') {
