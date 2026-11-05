@@ -45,20 +45,6 @@ interface FetchSettingsArgs {
 const equals = (a: any, b: any) => deepEqual(a, b, { strict: true });
 
 /**
- * The server reports an unset value as null. Keep the current client-side
- * value in that case, so that a field declared as a string never receives
- * null.
- *
- * @param value Value received from the server.
- *
- * @param current Current client-side value.
- *
- * @return The value to store.
- */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const serverValue = (value: any, current: any) => value ?? current;
-
-/**
  * @param data The destructuring object
  *
  * @param data.section AJAX call goes to `apps/${appName}/settings/${section}`.
@@ -74,7 +60,7 @@ async function fetchSettings({ section, settings }: FetchSettingsArgs) {
     // Object.assign(settings, response.data);
     for (const [key, value] of Object.entries(response.data)) {
       if (!equals(settings[key], value)) {
-        settings[key] = serverValue(value, settings[key]);
+        settings[key] = value;
       }
     }
     return true;
@@ -116,7 +102,7 @@ async function fetchSetting({ settingsKey, section, settings }: FetchSettingArgs
   try {
     const response = await axios.get(generateUrl('apps/' + appName + '/settings/' + section + '/' + settingsKey), {});
     if (!equals(settings[settingsKey], response.data.value)) {
-      settings[settingsKey] = serverValue(response.data.value, settings[settingsKey]);
+      settings[settingsKey] = response.data.value;
     }
     return true;
   } catch (e) {
@@ -174,7 +160,7 @@ async function saveSimpleSetting({ settingsKey, section, onSuccess, settings }: 
     if (responseData) {
       if (responseData.newValue !== undefined) {
         if (!equals(settings[settingsKey], responseData.newValue)) {
-          settings[settingsKey] = serverValue(responseData.newValue, settings[settingsKey]);
+          settings[settingsKey] = responseData.newValue;
         }
         displayValue = settings[settingsKey];
       }
@@ -296,7 +282,7 @@ const saveConfirmedSetting = async ({
       if (responseData) {
         if (responseData.newValue !== undefined) {
           if (!equals(settings[settingsKey], responseData.newValue)) {
-            settings[settingsKey] = serverValue(responseData.newValue, settings[settingsKey]);
+            settings[settingsKey] = responseData.newValue;
           }
           displayValue = settings[settingsKey];
         }
