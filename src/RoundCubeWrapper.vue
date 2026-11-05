@@ -97,7 +97,7 @@ const serializeQuery = (query: Record<string, string>) => (new URLSearchParams(q
 const queryString = computed(() => serializeQuery(props.query as Record<string, string>))
 
 const requestedLocation = computed(() => {
-  return props.externalLocation + '/' + (queryString.value ? '?' + queryString.value : '')
+  return props.externalLocation.replace(/\/+$/, '') + '/' + (queryString.value ? '?' + queryString.value : '')
 })
 /**
  * Value of src attribute of iframe.
