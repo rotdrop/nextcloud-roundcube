@@ -186,10 +186,12 @@ mostlyclean: webpack-clean distclean
 	rm -f composer*.lock
 	rm -f composer.json
 	rm -f vendor-bin/**/composer.lock
+	rm -f vendor-bin/**/patches.lock.json
 	rm -f stamp.composer-core-versions
 	rm -f package-lock.json
 	rm -f *.html
 	rm -f stats.json
+	rm -rf .vite build-flavour
 
 #@@ Really delete everything but the bare source files
 realclean: mostlyclean downloadsclean
