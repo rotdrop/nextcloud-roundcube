@@ -222,3 +222,7 @@ run-tide:
 #@@ Runs the Emacs Tide IDE in batch mode and diagnoses TypeScript errors.
 tide: dev-setup ts-app-config ts-types-files run-tide
 .PHONY: tide
+
+# The Vite builds used to analyse the l10n exclusions need the generated TS files.
+L10N_VITE_CONFIG = vite.l10n.config.ts
+vue-components-l10n-ignore: ts-app-config ts-types-files
