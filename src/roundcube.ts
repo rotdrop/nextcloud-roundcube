@@ -39,8 +39,17 @@ export const hideTopLine = (rcf: HTMLIFrameElement) => {
     // just remove the logout button
     frameDocument.querySelectorAll('.button-logout').forEach((el) => el.remove());
   } else if (skin.includes('elastic')) {
-    // just remove the logout button
+    // remove the logout button
     frameDocument.querySelectorAll(':scope .special-buttons .logout').forEach((el) => el.remove());
+    // hide the menu logo: the whole popover header on desktop, but only the
+    // logo on mobile where the header also holds the button to close the menu
+    const style = frameDocument.createElement('style');
+    style.textContent = `
+      #layout-menu .popover-header { display: none !important; }
+      html.layout-phone #layout-menu .popover-header { display: flex !important; }
+      html.layout-phone #layout-menu .popover-header #logo { display: none !important; }
+    `;
+    frameDocument.head.appendChild(style);
   } else if (skin.includes('larry')) {
     // User shouldn't be able to logout from rc, but from outer app:
     // 1. #topline has a logout button which we don't want, so remove it and
