@@ -63,7 +63,7 @@ import {
   useRouter,
 } from 'vue-router'
 import DynamicSvgIcon from '@rotdrop/nextcloud-vue-components/lib/components/DynamicSvgIcon.vue'
-import appIcon from '../img/app.svg?raw'
+import appIcon from '../img/roundcube.svg?raw'
 import { appName } from './config.ts'
 import logger from './logger.ts'
 import getInitialState from './toolkit/util/initial-state.ts'
