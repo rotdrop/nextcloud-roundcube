@@ -1,14 +1,6 @@
 OC.L10N.register(
     "mail_roundcube",
     {
-    "pick a color" : "valitse väri",
-    "undo color choice" : "kumoa värivalinta",
-    "Custom Color" : "Mukautettu väri",
-    "Choose a folder" : "Valitse kansio",
-    "Choose {file}" : "Valitse {file}",
-    "Choose" : "Valitse",
-    "Invalid path selected: \"{dir}\"." : "Virheellinen polku valittu: \"{dir}\".",
-    "Selected path: \"{dir}/{base}/\"." : "Valittu polku: \"{dir}/{base}/\".",
     "Show password" : "Näytä salasana",
     "Hide password" : "Piilota salasana",
     "Roundcube Installation" : "Roundcube-asennus",

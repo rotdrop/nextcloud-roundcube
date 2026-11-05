@@ -1,12 +1,6 @@
 OC.L10N.register(
     "mail_roundcube",
     {
-    "submit" : "адправіць",
-    "Choose a folder" : "Выберыце папку",
-    "Choose {file}" : "Выбраць {file}",
-    "Choose" : "Выбраць",
-    "Reset Changes" : "Скінуць змены",
-    "Clear Selection" : "Ачысціць выбар",
     "Show password" : "Паказаць пароль",
     "Hide password" : "Схаваць пароль",
     "Advanced Settings" : "Пашыраныя налады",

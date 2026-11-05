@@ -1,8 +1,6 @@
 OC.L10N.register(
     "mail_roundcube",
     {
-    "Choose {file}" : "Veldu {file}",
-    "Choose" : "Velja",
     "Show password" : "Sýna lykilorð",
     "Hide password" : "Fela lykilorð",
     "Email Address" : "Tölvupóstfang",

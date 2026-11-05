@@ -1,11 +1,6 @@
 OC.L10N.register(
     "mail_roundcube",
     {
-    "open" : "отвори",
-    "submit" : "испрати",
-    "Choose a folder" : "Избери папка",
-    "Choose {file}" : "Избери {file}",
-    "Choose" : "Избери",
     "Show password" : "Прикажи лозинка",
     "Hide password" : "Сокриј лозинка",
     "User ID" : "Корисничко ID",

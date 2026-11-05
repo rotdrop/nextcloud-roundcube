@@ -1,8 +1,6 @@
 OC.L10N.register(
     "mail_roundcube",
     {
-    "Choose" : "Izvēlēties",
-    "Clear Selection" : "Notīrīt atlasi",
     "Show password" : "Rādīt paroli",
     "Advanced Settings" : "Paplašināti iestatījumi",
     "No" : "Nē",

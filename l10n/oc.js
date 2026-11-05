@@ -3,7 +3,6 @@ OC.L10N.register(
     {
     "true" : "verai",
     "false" : "fals",
-    "Choose" : "Causir",
     "Show password" : "Mostrar lo senhal",
     "Advanced Settings" : "Paramètres avançats",
     "Enable SSL verification." : "Activar la verificacion SSL.",

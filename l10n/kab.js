@@ -3,8 +3,6 @@ OC.L10N.register(
     {
     "true" : "idetti",
     "false" : "ucciḍ",
-    "Choose {file}" : "Fren {file}",
-    "Choose" : "Fren",
     "Show password" : "Sken awal uffir",
     "Advanced Settings" : "Iɣewwaren leqqayen",
     "No" : "Uhu",

@@ -1,8 +1,6 @@
 OC.L10N.register(
     "mail_roundcube",
     {
-    "Choose {file}" : "Sèbera {file}",
-    "Choose" : "Sèbera",
     "Show password" : "Mustra crae",
     "Email Address" : "Indiritzu de posta eletrònica",
     "Advanced Settings" : "Cunfiguratzione avantzada",
