@@ -1,0 +1,17 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: read
+
+jobs:
+  release:
+    uses: rotdrop/nextcloud-app-build-system/.github/workflows/release.yml@main
+    with:
+      php-version: '8.5'
+    secrets: inherit

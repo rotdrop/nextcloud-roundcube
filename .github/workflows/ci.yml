@@ -1,0 +1,23 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+name: CI
+
+on:
+  pull_request: {}
+  push:
+    branches:
+      - master
+
+concurrency:
+  group: ci-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  ci:
+    uses: rotdrop/nextcloud-app-build-system/.github/workflows/ci.yml@main
+    with:
+      php-versions: '["8.4", "8.5"]'
+      php-version: '8.5'
+      php-lint-dirs: lib appinfo templates composer
