@@ -12,6 +12,31 @@ statistics/
 src/toolkit/services/entity-repository.ts
 src/toolkit/util/dialog-alert.ts
 src/toolkit/util/pangram.ts
+# BEGIN PHP nextcloud-app-toolkit exclusions
+rotdrop/nextcloud-app-toolkit/src/Controller/EntityRepositoryControllerTrait.php
+rotdrop/nextcloud-app-toolkit/src/Doctrine/ORM/EntitySerializer/EntityArrayAdapter.php
+rotdrop/nextcloud-app-toolkit/src/Doctrine/ORM/EntitySerializer/EntitySerializer.php
+rotdrop/nextcloud-app-toolkit/src/Exceptions/AuthorizationException.php
+rotdrop/nextcloud-app-toolkit/src/Exceptions/DatabaseEntityNotUniqueException.php
+rotdrop/nextcloud-app-toolkit/src/Exceptions/DatabaseInconsistentValueException.php
+rotdrop/nextcloud-app-toolkit/src/Exceptions/SessionStillOpenException.php
+rotdrop/nextcloud-app-toolkit/src/Response/HttpStatus.php
+rotdrop/nextcloud-app-toolkit/src/Service/AnyToPdf.php
+rotdrop/nextcloud-app-toolkit/src/Service/AppStorageDisclosure.php
+rotdrop/nextcloud-app-toolkit/src/Service/GroupFoldersService.php
+rotdrop/nextcloud-app-toolkit/src/Service/MimeTypeService.php
+rotdrop/nextcloud-app-toolkit/src/Service/SimpleSharingService.php
+rotdrop/nextcloud-app-toolkit/src/Service/UserScopeService.php
+rotdrop/nextcloud-app-toolkit/src/Traits/ApiRequestTrait.php
+rotdrop/nextcloud-app-toolkit/src/Traits/AppNameTrait.php
+rotdrop/nextcloud-app-toolkit/src/Traits/AuthenticatedCommandTrait.php
+rotdrop/nextcloud-app-toolkit/src/Traits/CloudAdminTrait.php
+rotdrop/nextcloud-app-toolkit/src/Traits/DateTimeTrait.php
+rotdrop/nextcloud-app-toolkit/src/Traits/IncludeExcludeTrait.php
+rotdrop/nextcloud-app-toolkit/src/Traits/NodeTrait.php
+rotdrop/nextcloud-app-toolkit/src/Traits/SanitizeFilenameTrait.php
+rotdrop/nextcloud-app-toolkit/src/Traits/TranslatableEnumTrait.php
+rotdrop/nextcloud-app-toolkit/src/Traits/UnusedMethodTrait.php
 # BEGIN generated nextcloud-vue-components exclusions
 node_modules/@rotdrop/nextcloud-vue-components/lib/components/ColorPickerExtension.vue
 node_modules/@rotdrop/nextcloud-vue-components/lib/components/FilePrefixPicker.vue
