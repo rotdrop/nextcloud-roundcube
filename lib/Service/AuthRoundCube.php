@@ -437,14 +437,15 @@ class AuthRoundCube
         CURLOPT_HEADER         => true,
         CURLOPT_FOLLOWLOCATION => false,
         CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_FRESH_CONNECT  => true
+        CURLOPT_FRESH_CONNECT  => true,
+        CURLOPT_CONNECTTIMEOUT => 10,
+        CURLOPT_TIMEOUT        => 60,
       ];
       if ($method === 'POST') {
         $curlOpts[CURLOPT_POST] = true;
         if ($data) {
           $postData = http_build_query($data);
           $curlOpts[CURLOPT_POSTFIELDS] = $postData;
-          $curlOpts[CURLOPT_TIMEOUT] = 60;
           $curlOpts[CURLOPT_HTTPHEADER] = [
             'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
             'Accept-Encoding: identity',
