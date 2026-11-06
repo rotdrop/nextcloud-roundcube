@@ -86,6 +86,9 @@ include $(DEV_LIB_DIR)/makefile/ts-types-files.mk
 L10N_FILES = $(wildcard l10n/*.js l10n/*.json)
 JS_FILES = $(shell find $(ABSSRCDIR)/src -name "*.js" -o -name "*.ts" -o -name "*.vue")
 
+l10n: l10n-sources l10n-ignore toolkit-l10n-ignore-candidates
+.PHONY: l10n
+
 NPM_INIT_DEPS =\
  Makefile package-lock.json package.json $(BUNDLER_CONFIG) eslint.config.mjs
 
