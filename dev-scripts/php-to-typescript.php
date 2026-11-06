@@ -49,8 +49,6 @@ use OCA\RotDrop\DevScripts\PhpToTypeScript\Collectors\DefaultCollector;
 use Spatie\TypeScriptTransformer\Collectors\EnumCollector;
 
 $excludes = [
-  'lib/Mount', // there is nothing to convert, and code diversion between NC versions triggers errors.
-  'lib/Storage',
   'vendor-scoped/rotdrop/nextcloud-app-toolkit/src/Common',
   'vendor-scoped/rotdrop/nextcloud-app-toolkit/src/Doctrine',
   'vendor-scoped/rotdrop/nextcloud-app-toolkit/src/Backend',
