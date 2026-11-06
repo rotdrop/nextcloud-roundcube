@@ -16,7 +16,7 @@ permissions:
 
 jobs:
   ci:
-    uses: rotdrop/nextcloud-app-build-system/.github/workflows/ci.yml@main
+    uses: rotdrop/nextcloud-app-build-system/.github/workflows/ci.yml@v1
     with:
       php-versions: '["8.4", "8.5"]'
       php-version: '8.5'

@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   release:
-    uses: rotdrop/nextcloud-app-build-system/.github/workflows/release.yml@main
+    uses: rotdrop/nextcloud-app-build-system/.github/workflows/release.yml@v1
     with:
       php-version: '8.5'
     secrets: inherit
