@@ -1,6 +1,9 @@
 OC.L10N.register(
     "mail_roundcube",
     {
+    "Collection \"%1$s\" in entity of type \"%2$s\" is null." : "類型為「%2$s」的實體中，集合「%1$s」為空值。",
+    "Installation instructions:" : "安裝說明：",
+    "The input color values are invalid." : "輸入的顏色值無效。",
     "Unknown admin setting: \"%1$s\"" : "未知的管理設定：「%1$s」",
     "The admin setting \"%1$s\" is read-only" : "管理設定「%1$s」是唯讀的",
     "Scheme of external URL must be one of \"http\" or \"https\", but nothing was specified." : "外部 URL 格式必須為「http」或「https」其中之一，但並未指定任何內容。",

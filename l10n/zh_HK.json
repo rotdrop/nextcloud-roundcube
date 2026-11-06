@@ -1,4 +1,5 @@
 { "translations": {
+    "Collection \"%1$s\" in entity of type \"%2$s\" is null." : "類型為「%2$s」的實體中，集合「%1$s」為空值。",
     "Unknown admin setting: \"%1$s\"" : "管理員設定不詳：\"%1$s\"",
     "The admin setting \"%1$s\" is read-only" : "管理設定「%1$s」是唯讀的",
     "Scheme of external URL must be one of \"http\" or \"https\", but nothing was specified." : "外部 URL 方案必須是“http”或“https”之一，但未指定任何內容。",
