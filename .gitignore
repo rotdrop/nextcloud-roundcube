@@ -7,7 +7,6 @@ node_modules/**
 vendor/**
 #vendor/composer/**
 #vendor/autoload.php
-package-lock.json
 *.html
 build-flavour
 /composer.json
