@@ -1,6 +1,13 @@
 OC.L10N.register(
     "mail_roundcube",
     {
+    "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "安装问题：所需的“%2$s”类型的资源文件“%1$s”并未在服务器上安装，请联系系统管理员！",
+    "The input color values are invalid." : "输入的颜色值无效。",
+    "The supplied color-string \"%s\" seems to be invalid." : "提供的颜色字符串“%s”似乎是无效的。",
+    "There is no archive file associated with this archiver instance." : "这个压缩器实例没有关联的压缩文件。",
+    "Unable to open archive file %s (%s)" : "无法打开压缩文件%s（%s）",
+    "Uncompressed size of archive \"%1$s\" is too large: %2$s > %3$s" : "压缩文件“%1$s”解压后的大小太大了：%2$s> %3$s",
+    "bytes" : "字节",
     "Unknown admin setting: \"%1$s\"" : "未知的管理设置：”%1$s“",
     "The admin setting \"%1$s\" is read-only" : "管理员设置“%1$s“是只读的",
     "Value \"%1$s\" for setting \"%2$s\" is not convertible to boolean." : "设置“%2$s”的值“%1$s”无法被转化为布尔值。",

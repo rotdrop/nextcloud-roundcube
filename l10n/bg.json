@@ -1,4 +1,12 @@
 { "translations": {
+    "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Проблем с инсталирането; необходимият ресурс „%1$s“ от тип „%2$s“ не е инсталиран на сървъра, моля, свържете се със системния администратор!",
+    "Please install the \"%s\" program on the server." : "Моля, инсталирайте програмата „%s“ на сървъра.",
+    "The input color values are invalid." : "Въведените стойности на цвят са невалидни.",
+    "The supplied color-string \"%s\" seems to be invalid." : "Предоставеният низ за цвят „%s“ изглежда е невалиден.",
+    "There is no archive file associated with this archiver instance." : "Няма архивен файл, свързан с този екземпляр на архиватора.",
+    "Unable to open archive file %s (%s)" : "Не е възможно да се отвори архивният файл %s (%s)",
+    "Uncompressed size of archive \"%1$s\" is too large: %2$s > %3$s" : "Некомпресираният размер на архива „%1$s“ е твърде голям: %2$s > %3$s",
+    "bytes" : "байта",
     "Unknown admin setting: \"%1$s\"" : "Неизвестна настройка на администратора: „%1$s“",
     "The admin setting \"%1$s\" is read-only" : "Административната настройка „%1$s“ е само за четене",
     "Scheme of external URL must be one of \"http\" or \"https\", but nothing was specified." : "Схемата на външния URL адрес трябва да бъде една от двете - \"http\" или \"https\", но не е указано нищо.",

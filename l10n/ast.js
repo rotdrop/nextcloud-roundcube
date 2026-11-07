@@ -1,6 +1,7 @@
 OC.L10N.register(
     "mail_roundcube",
     {
+    "bytes" : "bytes",
     "true" : "true",
     "false" : "false",
     "RoundCube Web Mail" : "RoundCube Web Mail",

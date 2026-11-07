@@ -1,6 +1,9 @@
 OC.L10N.register(
     "mail_roundcube",
     {
+    "Please install the \"%s\" program on the server." : "Asenna ohjelma \"%s\" palvelimelle.",
+    "Unable to open archive file %s (%s)" : "Arkistotiedostoa %s ei voitu avata (%s)",
+    "bytes" : "tavua",
     "Show password" : "Näytä salasana",
     "Hide password" : "Piilota salasana",
     "Roundcube Installation" : "Roundcube-asennus",

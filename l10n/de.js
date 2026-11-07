@@ -1,6 +1,8 @@
 OC.L10N.register(
     "mail_roundcube",
     {
+    "Installation instructions:" : "Installationsanleitung:",
+    "Unable to serve request to \"%1$s\": %2$s" : "Anfrage an \"%1$s\" konnte nicht bearbeitet werden: %2$s",
     "Unknown admin setting: \"%1$s\"" : "Unbekannte Administrationseinstellung: \"%1$s\"",
     "The admin setting \"%1$s\" is read-only" : "Die Verwaltungseinstellung \"%1$s\" kann nur gelesen werden.",
     "Scheme of external URL must be one of \"http\" or \"https\", but nothing was specified." : "Das Schema der externen URL muss \"http\" oder \"https\" enthalten, aber es wurde keins von beiden angegeben.",

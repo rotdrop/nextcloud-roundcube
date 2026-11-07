@@ -1,6 +1,13 @@
 OC.L10N.register(
     "mail_roundcube",
     {
+    "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Problema d'instal·lació; el recurs necessari \"%1$s\" del tipus \"%2$s\" no està instal·lat al servidor, poseu-vos en contacte amb l'administrador del sistema!",
+    "The input color values are invalid." : "Els valors de color d'entrada no són vàlids.",
+    "The supplied color-string \"%s\" seems to be invalid." : "La cadena de color subministrada \"%s\" sembla que no és vàlida.",
+    "There is no archive file associated with this archiver instance." : "No hi ha cap fitxer d'arxiu associat amb aquesta instància de l'arxivador.",
+    "Unable to open archive file %s (%s)" : "No es pot obrir el fitxer d'arxiu %s (%s)",
+    "Uncompressed size of archive \"%1$s\" is too large: %2$s > %3$s" : "La mida no comprimida de l'arxiu \"%1$s\" és massa gran: %2$s > %3$s",
+    "bytes" : "bytes",
     "Unknown admin setting: \"%1$s\"" : "Paràmetre d'administrador desconegut: \"%1$s\"",
     "The admin setting \"%1$s\" is read-only" : "El paràmetre de l'administrador \"%1$s\" és només de lectura",
     "Scheme of external URL must be one of \"http\" or \"https\", but nothing was specified." : "L'esquema d'URL extern ha de ser \"http\" o \"https\", però no s'ha especificat res.",

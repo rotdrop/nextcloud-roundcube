@@ -1,6 +1,14 @@
 OC.L10N.register(
     "mail_roundcube",
     {
+    "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Problema de instalación; el recurso requerido \"%1$s\" del tipo \"%2$s\" no está instalado en el servidor, ¡póngase en contacto con el administrador del sistema!",
+    "Please install the \"%s\" program on the server." : "Por favor, instala el programa \"%s\" en el servidor.",
+    "The input color values are invalid." : "Los valores de color de entrada no son válidos.",
+    "The supplied color-string \"%s\" seems to be invalid." : "La cadena de color suministrada \"%s\" parece ser inválida.",
+    "There is no archive file associated with this archiver instance." : "No hay ningún archivo de archivo asociado con esta instancia de archivador.",
+    "Unable to open archive file %s (%s)" : "No se puede abrir el archivo de archivo %s (%s)",
+    "Uncompressed size of archive \"%1$s\" is too large: %2$s > %3$s" : "El tamaño descomprimido del archivo de archivo \"%1$s\" es demasiado grande: %2$s > %3$s",
+    "bytes" : "bytes",
     "Unknown admin setting: \"%1$s\"" : "Configuración de administrador desconocida: \"%1$s\"",
     "The admin setting \"%1$s\" is read-only" : "La configuración de administrador \"%1$s\" es de solo lectura",
     "Scheme of external URL must be one of \"http\" or \"https\", but nothing was specified." : "El esquema de la URL externa debe ser uno de \"http\" o \"https\", pero no se especificó nada.",

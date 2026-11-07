@@ -1,4 +1,9 @@
 { "translations": {
+    "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Masalah instalasi; sumber daya yang diperlukan \"%1$s\" dengan tipe \"%2$s\" tidak terinstal di server, silakan hubungi administrator sistem!",
+    "The input color values are invalid." : "Nilai warna masukan tidak valid.",
+    "The supplied color-string \"%s\" seems to be invalid." : "String warna yang diberikan \"%s\" tampaknya tidak valid.",
+    "bytes" : "byte",
+    "Provided data is not a valid SVG image: \"{data}\"." : "Data yang diberikan bukan gambar SVG yang valid: \"{data}\".",
     "Unknown admin setting: \"%1$s\"" : "Pengaturan admin tidak dikenal: \"%1$s\"",
     "The admin setting \"%1$s\" is read-only" : "Pengaturan admin \"%1$s\" bersifat hanya-baca",
     "Scheme of external URL must be one of \"http\" or \"https\", but nothing was specified." : "Skema URL eksternal harus salah satu dari \"http\" atau \"https\", tetapi tidak ada yang ditentukan.",

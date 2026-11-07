@@ -1,4 +1,12 @@
 { "translations": {
+    "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Instalazio arazoa; \"%2$s\" motako \"%1$s\" beharrezko baliabidea ez dago zerbitzarian instalatuta, jarri harremanetan sistemaren administratzailearekin!",
+    "Please install the \"%s\" program on the server." : "Instalatu \"%s\" programa zerbitzarian.",
+    "The input color values are invalid." : "Sartutako kolorearen balioak baliogabeak dira.",
+    "The supplied color-string \"%s\" seems to be invalid." : "Emandako \"%s\" kolore-katea baliogabea dirudi.",
+    "There is no archive file associated with this archiver instance." : "Ez dago artxibo-fitxategirik lotutako artxibo-instantzia honekin.",
+    "Unable to open archive file %s (%s)" : "Ezin izan da artxibo fitxategia ireki %s (%s)",
+    "Uncompressed size of archive \"%1$s\" is too large: %2$s > %3$s" : "\"%1$s\" artxiboaren tamaina deskonprimatuta handiegia da: %2$s>%3$s",
+    "bytes" : "byte",
     "Unknown admin setting: \"%1$s\"" : "Administratzaile ezarpen ezezaguna: \"%1$s\"",
     "The admin setting \"%1$s\" is read-only" : "\"%1$s\" administratzaile-ezarpena soilik irakurtzeko da",
     "Scheme of external URL must be one of \"http\" or \"https\", but nothing was specified." : "Kanpoko URLaren eskemak \"http\" edo \"https\" izan behar du, baina ez da ezer zehaztu.",

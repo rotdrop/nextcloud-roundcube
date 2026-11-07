@@ -1,4 +1,7 @@
 { "translations": {
+    "Please install the \"%s\" program on the server." : "Program »%s« je pred uporabo treba namestiti na strežnik.",
+    "Unable to open archive file %s (%s)" : "Datoteke arhiva %s ni mogoče odpreti (%s)",
+    "bytes" : "bajtov",
     "Unknown admin setting: \"%1$s\"" : "Neznana skrbniška nastavitev »%1$s«",
     "The admin setting \"%1$s\" is read-only" : "Skrbniška nastavitev »%1$s« je le za branje",
     "Value \"%1$s\" for setting \"%2$s\" is not convertible to boolean." : "Vrednost »%1$s« za nastavitev »%2$s« ni prevedljiva v logično vrednost.",

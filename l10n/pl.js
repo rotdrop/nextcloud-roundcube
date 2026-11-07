@@ -1,6 +1,10 @@
 OC.L10N.register(
     "mail_roundcube",
     {
+    "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Problem z instalacją: wymagany zasób „%1$s” typu „%2$s” nie jest zainstalowany na serwerze, skontaktuj się z administratorem!",
+    "The input color values are invalid." : "Wprowadzone wartości kolorów są nieprawidłowe.",
+    "There is no archive file associated with this archiver instance." : "Z tą instancją archiwizatora nie jest powiązany żaden plik archiwum.",
+    "bytes" : "bajtów",
     "Unknown admin setting: \"%1$s\"" : "Nieznane ustawienie administracyjne: \"%1$s\"",
     "The admin setting \"%1$s\" is read-only" : "Ustawienie administratora \"%1$s\" jest tylko do odczytu",
     "Scheme of external URL must be one of \"http\" or \"https\", but nothing was specified." : "Zewnętrzny URL musi zawierać „http” lub „https”, lecz nic nie podano.",
