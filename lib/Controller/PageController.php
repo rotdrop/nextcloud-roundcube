@@ -84,13 +84,13 @@ class PageController extends Controller
     $reason = null;
 
     $roundCubeUrl = $this->authenticator->externalURL();
-    $allowManualLogin = $this->config->getAppValue(Config::ALLOW_MANUAL_LOGIN);
+    $loginMode = $this->config->loginMode();
+    $loginFormShown = $loginMode === Config::LOGIN_MODE_FORM_ONLY;
     $credentials = null;
     if (empty($roundCubeUrl)) {
       $state = self::ERROR_STATE;
       $reason = self::ERROR_NORCURL_REASON;
-    } elseif (!$allowManualLogin) {
-      // Only check credentials if manual login is not allowed
+    } elseif ($loginMode !== Config::LOGIN_MODE_FORM_ONLY) {
       $credentials = $this->config->emailCredentials();
       if (empty($credentials)) {
         $state = self::ERROR_STATE;
@@ -102,6 +102,12 @@ class PageController extends Controller
         $state = self::ERROR_STATE;
         $reason = self::ERROR_CARDDAV_REASON;
       }
+      if ($state === self::ERROR_STATE && $loginMode === Config::LOGIN_MODE_AUTO_WITH_FALLBACK) {
+        // Let the user log in with the RoundCube login form instead.
+        $state = self::SUCCESS_STATE;
+        $reason = null;
+        $loginFormShown = true;
+      }
     }
 
     $this->initialState->provideInitialState('config', [
@@ -110,7 +116,8 @@ class PageController extends Controller
       'emailUserId' => is_array($credentials) ? $credentials['userId'] : ($this->config->emailAddress() ?: null),
       Config::EXTERNAL_LOCATION => $roundCubeUrl,
       Config::SHOW_TOP_LINE => $this->config->getAppValue(Config::SHOW_TOP_LINE),
-      Config::ALLOW_MANUAL_LOGIN => $this->config->getAppValue(Config::ALLOW_MANUAL_LOGIN),
+      Config::LOGIN_MODE => $loginMode,
+      'loginFormShown' => $loginFormShown,
     ]);
 
     Util::addScript($this->appName, $this->assetService->getJSAsset(self::MAIN_ASSET));

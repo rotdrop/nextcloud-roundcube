@@ -148,25 +148,56 @@
              class="checkbox"
              type="checkbox"
              name="showTopLine"
-             :disabled="loading || settings.allowManualLogin"
+             :disabled="loading || settings.loginMode === 'formOnly'"
              @change="saveSetting('showTopLine')"
       >
       <label for="show-top-line">
         {{ t(appName, 'Show RoundCube logout button.') }}
       </label>
-      <input id="allow-manual-login"
-             v-model="settings.allowManualLogin"
-             class="checkbox"
-             type="checkbox"
-             name="allowManualLogin"
-             :disabled="loading"
-             @change="saveSetting('allowManualLogin')"
-      >
-      <label for="allow-manual-login"
-             :title="t(appName, 'Allow users to login manually to RoundCube without pre-configured credentials. Useful for shared mailboxes or when SSO is not available.')"
-      >
-        {{ t(appName, 'Allow manual RoundCube login (skip credential check).') }}
-      </label>
+      <div class="login-mode">
+        <input id="login-mode-auto"
+               v-model="settings.loginMode"
+               class="radio"
+               type="radio"
+               name="loginMode"
+               value="auto"
+               :disabled="loading"
+               @change="saveSetting('loginMode')"
+        >
+        <label for="login-mode-auto"
+               :title="t(appName, 'Log in automatically with the configured credentials; show an error if this fails.')"
+        >
+          {{ t(appName, 'Automatic') }}
+        </label>
+        <input id="login-mode-autoWithFallback"
+               v-model="settings.loginMode"
+               class="radio"
+               type="radio"
+               name="loginMode"
+               value="autoWithFallback"
+               :disabled="loading"
+               @change="saveSetting('loginMode')"
+        >
+        <label for="login-mode-autoWithFallback"
+               :title="t(appName, 'Log in automatically if possible, otherwise show the RoundCube login form. The login form accepts any account RoundCube accepts, restrict this in RoundCube (imap_host, login_username_filter or a plugin) if needed.')"
+        >
+          {{ t(appName, 'Automatic, login form as fallback') }}
+        </label>
+        <input id="login-mode-formOnly"
+               v-model="settings.loginMode"
+               class="radio"
+               type="radio"
+               name="loginMode"
+               value="formOnly"
+               :disabled="loading"
+               @change="saveSetting('loginMode')"
+        >
+        <label for="login-mode-formOnly"
+               :title="t(appName, 'Always show the RoundCube login form without a credentials check. Useful for shared mailboxes or when SSO is not available.')"
+        >
+          {{ t(appName, 'Login form only') }}
+        </label>
+      </div>
       <input id="enable-ssl-verify"
              v-model="settings.enableSSLVerify"
              class="checkbox"
@@ -325,7 +356,7 @@ const settings = reactive({
   fixedSingleEmailPassword: '',
   forceSSO: false,
   showTopLine: false,
-  allowManualLogin: false,
+  loginMode: 'auto' as 'auto' | 'autoWithFallback' | 'formOnly',
   enableSSLVerify: true,
   enableTLSClientCertificates: false,
   clientTLSKeyFile: '',

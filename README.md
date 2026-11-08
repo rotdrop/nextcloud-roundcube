@@ -265,6 +265,19 @@ This is just a text-box for the web-address of the Roundcube
 installation. **Please read** the [notes about the web-server
 setup](#adminstration-web-server-setup).
 
+#### Login Mode
+
+- **Automatic** (default): log in with the configured credentials,
+  show an error if that fails.
+- **Automatic, login form as fallback**: log in automatically, show
+  the Roundcube login form if that fails.
+- **Login form only**: always show the Roundcube login form (an
+  existing "allow manual login" setting maps to this mode).
+
+The Roundcube login form accepts any account Roundcube accepts, not
+only the one bound to the Nextcloud account. Restrict this in
+Roundcube (`imap_host`, `login_username_filter` or a plugin).
+
 #### Email Address Selection
 
 The default is "User's Choice". Please note that the term
