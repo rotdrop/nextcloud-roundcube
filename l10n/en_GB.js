@@ -91,6 +91,7 @@ OC.L10N.register(
     "Unable to obtain email credentials for \"{emailUserId}\". Please check your personal Roundcube settings." : "Unable to obtain email credentials for \"{emailUserId}\". Please check your personal Roundcube settings.",
     "The email user id is not configured. Please check your personal Roundcube settings." : "The email user id is not configured. Please check your personal Roundcube settings.",
     "RoundCube Wrapper for Nextcloud" : "RoundCube Wrapper for Nextcloud",
+    "Open your personal settings" : "Open your personal settings",
     "Globally configured as NEXTCLOUD_USER_ID@{emailDefaultDomainAdmin}" : "Globally configured as NEXTCLOUD_USER_ID@{emailDefaultDomainAdmin}",
     "Globally configured as NEXTCLOUD_USER_ID" : "Globally configured as NEXTCLOUD_USER_ID",
     "Globally configured as user's email address, see user's personal settings." : "Globally configured as user's email address, see user's personal settings.",

@@ -91,6 +91,7 @@ OC.L10N.register(
     "Unable to obtain email credentials for \"{emailUserId}\". Please check your personal Roundcube settings." : "無法獲取 “{emailUserId}” 的電子郵件身份驗證。請檢查您的個人 Roundcube 設定。",
     "The email user id is not configured. Please check your personal Roundcube settings." : "電郵用戶 ID 尚未設定。請檢查您的個人 Roundcube 設定。",
     "RoundCube Wrapper for Nextcloud" : "Nextcloud 的 RoundCube Wrapper",
+    "Open your personal settings" : "開啟您的個人設定",
     "Globally configured as NEXTCLOUD_USER_ID@{emailDefaultDomainAdmin}" : "全局地配置為 NEXTCLOUD_USER_ID@{emailDefaultDomainAdmin}",
     "Globally configured as NEXTCLOUD_USER_ID" : "全局地配置為 NEXTCLOUD_USER_ID",
     "Globally configured as user's email address, see user's personal settings." : "全局地配置為用戶電郵地址，查看用戶個人設定。",

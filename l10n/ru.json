@@ -89,6 +89,7 @@
     "Unable to obtain email credentials for \"{emailUserId}\". Please check your personal Roundcube settings." : "Не удалось получить учётные данные электронной почты для «{emailUserId}». Проверьте персональные параметры Roundcube.",
     "The email user id is not configured. Please check your personal Roundcube settings." : "ID пользователя электронной почты не настроен. Проверьте персональные параметры Roundcube.",
     "RoundCube Wrapper for Nextcloud" : "Оболочка Roundcube для Nextcloud",
+    "Open your personal settings" : "Открыть личные параметры",
     "Globally configured as NEXTCLOUD_USER_ID@{emailDefaultDomainAdmin}" : "Глобально настроен как NEXTCLOUD_USER_ID@{emailDefaultDomainAdmin}",
     "Globally configured as NEXTCLOUD_USER_ID" : "Глобально настроен как NEXTCLOUD_USER_ID",
     "Globally configured as user's email address, see user's personal settings." : "Глобально настроен как адрес электронной почты пользователя, см. личные параметры пользователя.",
