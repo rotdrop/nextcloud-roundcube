@@ -18,6 +18,7 @@ use OCA\RoundCube\Service\Config;
 class PageControllerLoginModeTest extends TestCase
 {
   private const FAILURES = ['noemail', 'login', 'carddav'];
+  private const LOGIN_FAILURES = ['noemail', 'login'];
 
   /**
    * Run PageController::index() and return the "config" initial state.
@@ -79,6 +80,11 @@ class PageControllerLoginModeTest extends TestCase
     return array_combine(self::FAILURES, array_map(fn($f) => [$f], self::FAILURES));
   }
 
+  public static function loginFailureProvider(): array
+  {
+    return array_combine(self::LOGIN_FAILURES, array_map(fn($f) => [$f], self::LOGIN_FAILURES));
+  }
+
   #[DataProvider('modeProvider')]
   public function testMissingRoundCubeUrlIsAnErrorInEveryMode(string $mode): void
   {
@@ -113,13 +119,21 @@ class PageControllerLoginModeTest extends TestCase
     $this->assertFalse($state['loginFormShown']);
   }
 
-  #[DataProvider('failureProvider')]
-  public function testFallbackModeShowsTheLoginFormOnFailure(string $failure): void
+  #[DataProvider('loginFailureProvider')]
+  public function testFallbackModeShowsTheLoginFormOnLoginFailure(string $failure): void
   {
     $state = $this->runIndex(Config::LOGIN_MODE_AUTO_WITH_FALLBACK, $failure);
     $this->assertSame('success', $state['state']);
     $this->assertNull($state['reason']);
     $this->assertTrue($state['loginFormShown']);
+  }
+
+  public function testFallbackModeReportsTheCardDavError(): void
+  {
+    $state = $this->runIndex(Config::LOGIN_MODE_AUTO_WITH_FALLBACK, 'carddav');
+    $this->assertSame('error', $state['state']);
+    $this->assertSame('carddav', $state['reason']);
+    $this->assertFalse($state['loginFormShown']);
   }
 
   public function testFormOnlyShowsTheLoginFormWithoutCheckingCredentials(): void
