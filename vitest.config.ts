@@ -10,13 +10,13 @@ export default defineConfig({
   resolve: {
     // The real Nextcloud components are heavy and irrelevant for these tests.
     alias: {
-      '@nextcloud/vue': path.resolve(import.meta.dirname, 'tests/js/stubs/nextcloud-vue.ts'),
-      '@nextcloud/dialogs': path.resolve(import.meta.dirname, 'tests/js/stubs/nextcloud-dialogs.ts'),
-      '@rotdrop/nextcloud-vue-components/lib/components': path.resolve(import.meta.dirname, 'tests/js/stubs'),
+      '@nextcloud/vue': path.resolve(import.meta.dirname, 'tests/vitest/stubs/nextcloud-vue.ts'),
+      '@nextcloud/dialogs': path.resolve(import.meta.dirname, 'tests/vitest/stubs/nextcloud-dialogs.ts'),
+      '@rotdrop/nextcloud-vue-components/lib/components': path.resolve(import.meta.dirname, 'tests/vitest/stubs'),
     },
   },
   test: {
     environment: 'jsdom',
-    include: ['tests/js/**/*.test.ts'],
+    include: ['tests/vitest/**/*.test.ts'],
   },
 });

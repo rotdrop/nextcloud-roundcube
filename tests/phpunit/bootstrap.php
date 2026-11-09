@@ -22,7 +22,7 @@ namespace OCP {
 }
 
 namespace {
-  $appDir = dirname(__DIR__);
+  $appDir = dirname(__DIR__, 2);
   $serverRoot = getenv('NEXTCLOUD_ROOT') ?: dirname($appDir, 2);
   $serverAutoloader = $serverRoot . '/lib/composer/autoload.php';
   if (!is_file($serverAutoloader)) {
