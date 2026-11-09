@@ -24,6 +24,11 @@ env:
 jobs:
   phpunit:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php-version: ['8.3', '8.4', '8.5']
+    name: phpunit (${{ matrix.php-version }})
     env:
       COMPOSER_AUTH: '{"github-oauth":{"github.com":"${{ github.token }}"}}'
     steps:
@@ -49,7 +54,7 @@ jobs:
 
       - uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.5'
+          php-version: ${{ matrix.php-version }}
           extensions: ctype, curl, dom, fileinfo, gd, iconv, intl, mbstring, openssl, posix, simplexml, xml, zip
           coverage: xdebug
           tools: composer:v2
@@ -63,7 +68,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: phpunit-reports
+          name: phpunit-reports-${{ matrix.php-version }}
           path: server/apps/${{ env.APP_NAME }}/build/artifacts/tests/phpunit/
           if-no-files-found: ignore
 
