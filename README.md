@@ -434,3 +434,10 @@ NEXTCLOUD_ROOT=/path/to/nextcloud phpunit
 ```
 
 `NEXTCLOUD_ROOT` can be omitted if the app lives below `apps/`.
+
+The frontend tests run with [Vitest](https://vitest.dev/):
+
+```
+npm install
+npm test
+```
