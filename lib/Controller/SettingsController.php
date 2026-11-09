@@ -354,6 +354,10 @@ class SettingsController extends Controller
       $this->config->setPersonalValue($setting, $newValue);
     }
 
+    if ($setting === self::EMAIL_ADDRESS) {
+      $newValue = $newValue ?? '';
+    }
+
     switch ($setting) {
       case self::EMAIL_PASSWORD:
         $humanValue = '●●●●●●●●';
@@ -421,6 +425,9 @@ class SettingsController extends Controller
           $humanValue = '●●●●●●●●';
           break;
         case self::EMAIL_ADDRESS:
+          $value = $value ?? '';
+          $humanValue = $value;
+          break;
         case Config::EMAIL_ADDRESS_CHOICE . self::ADMIN_SETTING:
         case Config::EMAIL_DEFAULT_DOMAIN . self::ADMIN_SETTING:
         case Config::FIXED_SINGLE_EMAIL_ADDRESS . self::ADMIN_SETTING:
