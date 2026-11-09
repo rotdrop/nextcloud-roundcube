@@ -42,6 +42,10 @@ class Config
 
   public const EXTERNAL_LOCATION = 'externalLocation';
   public const EXTERNAL_LOCATION_DEFAULT = null;
+  public const CONNECT_TIMEOUT = 'connectTimeout';
+  public const CONNECT_TIMEOUT_DEFAULT = 10;
+  public const REQUEST_TIMEOUT = 'requestTimeout';
+  public const REQUEST_TIMEOUT_DEFAULT = 60;
   public const EMAIL_DEFAULT_DOMAIN = 'emailDefaultDomain';
   public const EMAIL_DEFAULT_DOMAIN_DEFAULT = null;
   public const FIXED_SINGLE_EMAIL_ADDRESS = 'fixedSingleEmailAddress';
@@ -93,6 +97,8 @@ class Config
 
   const SETTINGS = [
     self::EXTERNAL_LOCATION => self::EXTERNAL_LOCATION_DEFAULT,
+    self::CONNECT_TIMEOUT => self::CONNECT_TIMEOUT_DEFAULT,
+    self::REQUEST_TIMEOUT => self::REQUEST_TIMEOUT_DEFAULT,
     self::EMAIL_DEFAULT_DOMAIN => self::EMAIL_DEFAULT_DOMAIN_DEFAULT,
     self::EMAIL_ADDRESS_CHOICE => self::EMAIL_ADDRESS_CHOICE_DEFAULT,
     self::FORCE_SSO => self::FORCE_SSO_DEFAULT,

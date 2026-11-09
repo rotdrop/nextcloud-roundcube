@@ -54,6 +54,8 @@ class SettingsController extends Controller
    */
   const ADMIN_SETTINGS = [
     Config::EXTERNAL_LOCATION => [ 'rw' => true, 'default' => Config::EXTERNAL_LOCATION_DEFAULT, ],
+    Config::CONNECT_TIMEOUT => [ 'rw' => true, 'default' => Config::CONNECT_TIMEOUT_DEFAULT, ],
+    Config::REQUEST_TIMEOUT => [ 'rw' => true, 'default' => Config::REQUEST_TIMEOUT_DEFAULT, ],
     Config::EMAIL_DEFAULT_DOMAIN => [ 'rw' => true, 'default' => Config::EMAIL_DEFAULT_DOMAIN_DEFAULT, ],
     Config::FIXED_SINGLE_EMAIL_ADDRESS => [ 'rw' => true, 'default' => Config::FIXED_SINGLE_EMAIL_ADDRESS_DEFAULT, ],
     Config::FIXED_SINGLE_EMAIL_PASSWORD => [ 'rw' => true, 'default' => Config::FIXED_SINGLE_EMAIL_PASSWORD_DEFAULT, ],
@@ -153,6 +155,19 @@ class SettingsController extends Controller
         // if (false && $this->authenticator->loginStatus() == Authenticator::STATUS_UNKNOWN) {
         //   return self::grumble($this->l->t("RoundCube instance does not seem to be reachable at %s", [ $value ]));
         // }
+        break;
+      case Config::CONNECT_TIMEOUT:
+      case Config::REQUEST_TIMEOUT:
+        $newValue = filter_var($value, FILTER_VALIDATE_INT, ['options' => ['min_range' => 1]]);
+        if ($newValue === false) {
+          return self::grumble($this->l->t(
+            'Value "%1$s" for setting "%2$s" is not a positive number of seconds.', [
+              $value, $setting,
+            ]));
+        }
+        if ($newValue === self::ADMIN_SETTINGS[$setting]['default']) {
+          $newValue = null;
+        }
         break;
       case Config::LOGIN_MODE:
         if (!in_array($value, Config::LOGIN_MODES, true)) {
@@ -278,6 +293,11 @@ class SettingsController extends Controller
         case Config::EMAIL_DEFAULT_DOMAIN:
         case Config::FIXED_SINGLE_EMAIL_ADDRESS:
           $value = $value ?? '';
+          $humanValue = $value;
+          break;
+        case Config::CONNECT_TIMEOUT:
+        case Config::REQUEST_TIMEOUT:
+          $value = (int)$value;
           $humanValue = $value;
           break;
         case Config::LOGIN_MODE:
