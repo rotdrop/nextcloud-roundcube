@@ -78,5 +78,9 @@ jobs:
         with:
           node-version: '24'
           cache: npm
+      - name: Install xpath
+        run: sudo apt-get install -y --no-install-recommends libxml-xpath-perl
       - run: npm ci
+      - name: Generate the app config types
+        run: make ts-app-config
       - run: npm test
