@@ -422,3 +422,15 @@ for the login into the email-server.
 #### Personal Settings
 
 ![file list](contrib/screenshots/personal-settings.png)
+
+## Tests
+
+The PHP unit tests need PHPUnit and a Nextcloud server tree (for the
+OCP interfaces; it is not booted) and the built `vendor-scoped/`
+directory. Run them from the app directory with
+
+```
+NEXTCLOUD_ROOT=/path/to/nextcloud phpunit
+```
+
+`NEXTCLOUD_ROOT` can be omitted if the app lives below `apps/`.

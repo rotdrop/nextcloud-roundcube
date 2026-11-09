@@ -205,6 +205,12 @@ class SettingsController extends Controller
       encrypted: $encrypted,
     );
 
+    if ($setting === Config::LOGIN_MODE) {
+      // An explicit choice supersedes the legacy boolean, otherwise it
+      // would resurrect "formOnly" after the default has been selected.
+      $this->config->deleteAppValue(Config::ALLOW_MANUAL_LOGIN);
+    }
+
     if ($newValue === null) {
       $this->config->deleteAppValue($setting);
       $newValue = self::ADMIN_SETTINGS[$setting]['default'] ?? null;

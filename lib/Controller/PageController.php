@@ -127,7 +127,7 @@ class PageController extends Controller
 
     // This is mandatory to embed a different server in an iframe.
     $urlParts = parse_url($roundCubeUrl);
-    $rcServer = $urlParts['host'];
+    $rcServer = $urlParts['host'] ?? '';
 
     if ($rcServer !== '') {
       $csp = new ContentSecurityPolicy();
