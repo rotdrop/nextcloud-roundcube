@@ -6,14 +6,30 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.3.3-rc3] - 2026-11-09
+
 ### Added
 
 - PR #108, configurable connect and request timeouts in the admin settings
+- PR #93, login modes with the Roundcube login form as fallback
+- PHP 8.3 support (supported range is now 8.3 - 8.5)
+- PHPUnit and Vitest tests, wired into CI
+
+### Changed
+
+- Migrated the build and release process to the shared
+  nextcloud-app-build-system, PRs #100, #101
+- Updated translations from Transifex
 
 ### Fixed
 
 - #72 by PR #108, requests to Roundcube could hang indefinitely as
   only POST requests had a timeout
+- Migrate the legacy "allow manual login" setting to the login mode
+- Missing personal email login field
+- Unset admin text settings
+- Do not return personal email passwords, handle stored passwords
+  safely in the personal settings UI
 
 ## [1.3.3-rc2] - 2026-10-16
 
