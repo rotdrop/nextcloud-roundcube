@@ -25,5 +25,6 @@ export interface InitialState {
   emailUserId: string|null;
   externalLocation: string|null;
   showTopLine: boolean;
-  allowManualLogin: boolean;
+  loginMode: 'auto'|'autoWithFallback'|'formOnly';
+  loginFormShown: boolean;
 }

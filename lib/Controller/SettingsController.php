@@ -67,7 +67,7 @@ class SettingsController extends Controller
     Config::CLIENT_TLS_KEY_PASSWORD => [ 'rw' => true, 'default' => Config::CLIENT_TLS_KEY_PASSWORD_DEFAULT, ],
     Config::PERSONAL_ENCRYPTION => [ 'rw' => true, 'default' => Config::PERSONAL_ENCRYPTION_DEFAULT, ],
     Config::CARDDAV_PROVISIONG_TAG => [ 'rw' => true, 'default' => Config::CARDDAV_PROVISIONG_TAG_DEFAULT, ],
-    Config::ALLOW_MANUAL_LOGIN => [ 'rw' => true, 'default' => Config::ALLOW_MANUAL_LOGIN_DEFAULT, ],
+    Config::LOGIN_MODE => [ 'rw' => true, 'default' => Config::LOGIN_MODE_DEFAULT, ],
   ];
 
   public const EMAIL_ADDRESS = 'emailAddress';
@@ -154,6 +154,12 @@ class SettingsController extends Controller
         //   return self::grumble($this->l->t("RoundCube instance does not seem to be reachable at %s", [ $value ]));
         // }
         break;
+      case Config::LOGIN_MODE:
+        if (!in_array($value, Config::LOGIN_MODES, true)) {
+          return self::grumble($this->l->t('Unknown login mode: "%1$s"', $value));
+        }
+        $newValue = $value;
+        break;
       case Config::EMAIL_DEFAULT_DOMAIN:
       case Config::EMAIL_ADDRESS_CHOICE:
       case Config::FIXED_SINGLE_EMAIL_ADDRESS:
@@ -172,7 +178,6 @@ class SettingsController extends Controller
       case Config::SHOW_TOP_LINE:
       case Config::ENABLE_SSL_VERIFY:
       case Config::PERSONAL_ENCRYPTION:
-      case Config::ALLOW_MANUAL_LOGIN:
       case Config::ENABLE_TLS_CLIENT_CERTIFICATES:
         $newValue = filter_var($value, FILTER_VALIDATE_BOOLEAN, ['flags' => FILTER_NULL_ON_FAILURE]);
         if ($newValue === null) {
@@ -199,6 +204,12 @@ class SettingsController extends Controller
       self::ADMIN_SETTINGS[$setting]['default'] ?? null,
       encrypted: $encrypted,
     );
+
+    if ($setting === Config::LOGIN_MODE) {
+      // An explicit choice supersedes the legacy boolean, otherwise it
+      // would resurrect "formOnly" after the default has been selected.
+      $this->config->deleteAppValue(Config::ALLOW_MANUAL_LOGIN);
+    }
 
     if ($newValue === null) {
       $this->config->deleteAppValue($setting);
@@ -254,8 +265,12 @@ class SettingsController extends Controller
         self::ADMIN_SETTINGS[$oneSetting]['default'] ?? null,
         encrypted: $encrypted,
       );
+      if ($oneSetting === Config::LOGIN_MODE) {
+        $value = $this->config->loginMode();
+      }
       $humanValue = $value;
       switch ($oneSetting) {
+        case Config::LOGIN_MODE:
         case Config::EXTERNAL_LOCATION:
         case Config::EMAIL_DEFAULT_DOMAIN:
         case Config::EMAIL_ADDRESS_CHOICE:
@@ -272,7 +287,6 @@ class SettingsController extends Controller
         case Config::SHOW_TOP_LINE:
         case Config::ENABLE_SSL_VERIFY:
         case Config::PERSONAL_ENCRYPTION:
-        case Config::ALLOW_MANUAL_LOGIN:
         case Config::ENABLE_TLS_CLIENT_CERTIFICATES:
           if ($humanValue !== null) {
             $humanValue = $humanValue ? $this->l->t('true') : $this->l->t('false');

@@ -23,6 +23,11 @@
   </dependencies>
   <bugs>https://github.com/rotdrop/nextcloud-roundcube/issues</bugs>
   <website>https://github.com/rotdrop/nextcloud-roundcube/</website>
+  <repair-steps>
+    <post-migration>
+      <step>OCA\RoundCube\Migration\MigrateAllowManualLogin</step>
+    </post-migration>
+  </repair-steps>
   <navigations>
     <navigation>
       <name>RoundCube Web Mail</name>

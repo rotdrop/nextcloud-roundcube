@@ -87,7 +87,7 @@ console.info('INITIAL STATE', { ...initialState })
 
 const state = computed(() => errorHint.value ? 'error' : initialState?.state)
 const reason = computed(() => initialState?.reason)
-const showTopLine = ref((initialState?.allowManualLogin ?? false) || (initialState?.showTopLine ?? false))
+const showTopLine = ref((initialState?.loginFormShown ?? false) || (initialState?.showTopLine ?? false))
 
 const personalSettingsUrl = generateUrl('/settings/user/' + appName)
 const showSettingsLink = computed(() => ['login', 'noemail'].includes(reason.value ?? ''))

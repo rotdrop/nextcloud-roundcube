@@ -265,6 +265,19 @@ This is just a text-box for the web-address of the Roundcube
 installation. **Please read** the [notes about the web-server
 setup](#adminstration-web-server-setup).
 
+#### Login Mode
+
+- **Automatic** (default): log in with the configured credentials,
+  show an error if that fails.
+- **Automatic, login form as fallback**: log in automatically, show
+  the Roundcube login form if that fails.
+- **Login form only**: always show the Roundcube login form (an
+  existing "allow manual login" setting maps to this mode).
+
+The Roundcube login form accepts any account Roundcube accepts, not
+only the one bound to the Nextcloud account. Restrict this in
+Roundcube (`imap_host`, `login_username_filter` or a plugin).
+
 #### Email Address Selection
 
 The default is "User's Choice". Please note that the term
@@ -409,3 +422,26 @@ for the login into the email-server.
 #### Personal Settings
 
 ![file list](contrib/screenshots/personal-settings.png)
+
+## Tests
+
+The PHP unit tests need PHPUnit and a Nextcloud server tree (for the
+OCP interfaces; it is not booted) and the built `vendor-scoped/`
+directory. Run them from the app directory with
+
+```
+NEXTCLOUD_ROOT=/path/to/nextcloud make phpunit
+```
+
+(`make phpunitfilter PHPUNITTEST=<filter>` runs a subset.) The same
+targets run in the `Tests` GitHub workflow, together with the Vitest
+suite.
+
+`NEXTCLOUD_ROOT` can be omitted if the app lives below `apps/`.
+
+The frontend tests run with [Vitest](https://vitest.dev/):
+
+```
+npm install
+npm test
+```

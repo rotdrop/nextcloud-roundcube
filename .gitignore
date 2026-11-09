@@ -20,3 +20,4 @@ vendor-scoped
 /vendor-bin/**/composer.lock
 **/*patches.lock*
 .vite
+/.phpunit.cache

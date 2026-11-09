@@ -80,6 +80,16 @@ class Config
   public const CARDDAV_PROVISIONG_TAG_DEFAULT = '';
   public const ALLOW_MANUAL_LOGIN = 'allowManualLogin';
   public const ALLOW_MANUAL_LOGIN_DEFAULT = false;
+  public const LOGIN_MODE = 'loginMode';
+  public const LOGIN_MODE_AUTO = 'auto';
+  public const LOGIN_MODE_AUTO_WITH_FALLBACK = 'autoWithFallback';
+  public const LOGIN_MODE_FORM_ONLY = 'formOnly';
+  public const LOGIN_MODE_DEFAULT = self::LOGIN_MODE_AUTO;
+  public const LOGIN_MODES = [
+    self::LOGIN_MODE_AUTO,
+    self::LOGIN_MODE_AUTO_WITH_FALLBACK,
+    self::LOGIN_MODE_FORM_ONLY,
+  ];
 
   const SETTINGS = [
     self::EXTERNAL_LOCATION => self::EXTERNAL_LOCATION_DEFAULT,
@@ -95,6 +105,7 @@ class Config
     self::PERSONAL_ENCRYPTION => self::PERSONAL_ENCRYPTION_DEFAULT,
     self::CARDDAV_PROVISIONG_TAG => self::CARDDAV_PROVISIONG_TAG_DEFAULT,
     self::ALLOW_MANUAL_LOGIN => self::ALLOW_MANUAL_LOGIN_DEFAULT,
+    self::LOGIN_MODE => self::LOGIN_MODE_DEFAULT,
   ];
 
   /** @var \OCP\IUser */
@@ -164,6 +175,24 @@ class Config
       $value = $this->crypto->decrypt($value);
     }
     return $value;
+  }
+
+  /**
+   * Effective login mode. The legacy boolean "allowManualLogin" maps to
+   * "formOnly" as long as no explicit mode has been saved.
+   *
+   * @return string One of the LOGIN_MODE_* constants.
+   */
+  public function loginMode():string
+  {
+    $mode = $this->config->getAppValue($this->appName, self::LOGIN_MODE, '');
+    if (in_array($mode, self::LOGIN_MODES, true)) {
+      return $mode;
+    }
+    $legacy = $this->config->getAppValue($this->appName, self::ALLOW_MANUAL_LOGIN, '');
+    return filter_var($legacy, FILTER_VALIDATE_BOOLEAN)
+      ? self::LOGIN_MODE_FORM_ONLY
+      : self::LOGIN_MODE_DEFAULT;
   }
 
   /**
