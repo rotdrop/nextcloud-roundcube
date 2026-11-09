@@ -49,7 +49,7 @@
     "jsdom": "^31.0.0",
     "prettier": "^3.9.9",
     "sass": "^1.99.0",
-    "stacktrace-gps": "github:stacktracejs/stacktrace-gps#62f6967fc85e6fdd5fb9cea1a056b935d9b07a9a",
+    "stacktrace-gps": "https://codeload.github.com/stacktracejs/stacktrace-gps/tar.gz/62f6967fc85e6fdd5fb9cea1a056b935d9b07a9a",
     "stacktrace-js": "^2.0.2",
     "typescript": "^6.0.3",
     "vite": "^8.3.1",
@@ -86,7 +86,6 @@
   },
   "allowScripts": {
     "core-js": true,
-    "github:stacktracejs/stacktrace-gps#62f6967fc85e6fdd5fb9cea1a056b935d9b07a9a": true,
     "@parcel/watcher": true
   }
 }
