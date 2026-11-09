@@ -367,7 +367,7 @@ class SettingsController extends Controller
 
     switch ($setting) {
       case self::EMAIL_PASSWORD:
-        $humanValue = '●●●●●●●●';
+        $humanValue = $newValue !== null && $newValue !== '' ? '●●●●●●●●' : '';
         break;
       default:
         $humanValue = $newValue;
@@ -375,8 +375,8 @@ class SettingsController extends Controller
     }
 
     return new DataResponse([
-      'newValue' => $newValue,
-      'oldValue' => $oldValue,
+      'newValue' => $setting === self::EMAIL_PASSWORD ? '' : $newValue,
+      'oldValue' => $setting === self::EMAIL_PASSWORD ? '' : $oldValue,
       'humanValue' => $humanValue,
     ]);
   }
@@ -429,7 +429,8 @@ class SettingsController extends Controller
       $humanValue = $value;
       switch ($oneSetting) {
         case self::EMAIL_PASSWORD:
-          $humanValue = '●●●●●●●●';
+          $humanValue = $value !== null && $value !== '' ? '●●●●●●●●' : '';
+          $value = '';
           break;
         case self::EMAIL_ADDRESS:
           $value = $value ?? '';

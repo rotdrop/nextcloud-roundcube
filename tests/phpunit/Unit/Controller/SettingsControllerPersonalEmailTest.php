@@ -67,4 +67,55 @@ class SettingsControllerPersonalEmailTest extends TestCase
     $this->assertSame('', $result['newValue']);
     $this->assertSame('', $result['humanValue']);
   }
+
+  public function testGetPersonalDoesNotReturnThePassword(): void
+  {
+    $config = $this->createStub(Config::class);
+    $config->method('getPersonalValue')->willReturnCallback(
+      fn(string $key) => $key === SettingsController::EMAIL_PASSWORD ? 'secret' : null,
+    );
+    $config->method('getAppValue')->willReturn(null);
+
+    $controller = $this->makeController($config);
+
+    $all = $controller->getPersonal()->getData();
+    $single = $controller->getPersonal(SettingsController::EMAIL_PASSWORD)->getData();
+
+    $this->assertSame('', $all[SettingsController::EMAIL_PASSWORD]);
+    $this->assertSame('●●●●●●●●', $all['humanEmailPassword']);
+    $this->assertSame(['value' => '', 'humanValue' => '●●●●●●●●'], $single);
+  }
+
+  public function testGetPersonalIndicatesWhenThePasswordIsUnset(): void
+  {
+    $config = $this->createStub(Config::class);
+    $config->method('getPersonalValue')->willReturn(null);
+    $config->method('getAppValue')->willReturn(null);
+
+    $result = $this->makeController($config)->getPersonal(SettingsController::EMAIL_PASSWORD)->getData();
+
+    $this->assertSame(['value' => '', 'humanValue' => ''], $result);
+  }
+
+  public function testSetPersonalDoesNotReturnThePassword(): void
+  {
+    $config = $this->createMock(Config::class);
+    $config->expects($this->once())
+      ->method('getPersonalValue')
+      ->with(SettingsController::EMAIL_PASSWORD, null)
+      ->willReturn('old-secret');
+    $config->expects($this->once())
+      ->method('setPersonalValue')
+      ->with(SettingsController::EMAIL_PASSWORD, 'new-secret');
+
+    $result = $this->makeController($config)
+      ->setPersonal(SettingsController::EMAIL_PASSWORD, 'new-secret')
+      ->getData();
+
+    $this->assertSame([
+      'newValue' => '',
+      'oldValue' => '',
+      'humanValue' => '●●●●●●●●',
+    ], $result);
+  }
 }
