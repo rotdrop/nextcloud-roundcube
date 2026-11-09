@@ -18,17 +18,17 @@ class ConfigLoginModeTest extends TestCase
   /** @param array<string, string> $stored */
   private function makeConfig(array $stored): Config
   {
-    $ocConfig = $this->createMock(IConfig::class);
+    $ocConfig = $this->createStub(IConfig::class);
     $ocConfig->method('getAppValue')->willReturnCallback(
       fn(string $app, string $key, mixed $default = '') => $stored[$key] ?? $default
     );
     return new Config(
-      $this->createMock(IUserSession::class),
-      $this->createMock(IStore::class),
+      $this->createStub(IUserSession::class),
+      $this->createStub(IStore::class),
       'roundcube',
       $ocConfig,
-      $this->createMock(ICrypto::class),
-      $this->createMock(LoggerInterface::class),
+      $this->createStub(ICrypto::class),
+      $this->createStub(LoggerInterface::class),
     );
   }
 

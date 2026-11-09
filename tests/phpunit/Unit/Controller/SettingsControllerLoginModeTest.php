@@ -18,15 +18,15 @@ class SettingsControllerLoginModeTest extends TestCase
 {
   private function makeController(Config $config): SettingsController
   {
-    $l10n = $this->createMock(IL10N::class);
+    $l10n = $this->createStub(IL10N::class);
     $l10n->method('t')->willReturnCallback(fn(string $text, $params = []) => vsprintf($text, (array)$params));
 
     return new SettingsController(
       'roundcube',
-      $this->createMock(IRequest::class),
+      $this->createStub(IRequest::class),
       'admin',
-      $this->createMock(LoggerInterface::class),
-      $this->createMock(IURLGenerator::class),
+      $this->createStub(LoggerInterface::class),
+      $this->createStub(IURLGenerator::class),
       $l10n,
       $config,
     );
@@ -75,7 +75,7 @@ class SettingsControllerLoginModeTest extends TestCase
 
   public function testGetAdminReportsTheEffectiveMode(): void
   {
-    $config = $this->createMock(Config::class);
+    $config = $this->createStub(Config::class);
     $config->method('loginMode')->willReturn(Config::LOGIN_MODE_FORM_ONLY);
     $config->method('getAppValue')->willReturn(null);
 

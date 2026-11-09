@@ -26,7 +26,7 @@ class PageControllerLoginModeTest extends TestCase
    */
   private function runIndex(string $mode, string $failure = '', string $url = 'https://rc.example.com/'): array
   {
-    $config = $this->createMock(Config::class);
+    $config = $this->createStub(Config::class);
     $config->method('loginMode')->willReturn($mode);
     $config->method('emailAddress')->willReturn('user@example.com');
     $config->method('getAppValue')->willReturn(false);
@@ -34,17 +34,17 @@ class PageControllerLoginModeTest extends TestCase
       $failure === 'noemail' ? false : ['userId' => 'user@example.com', 'password' => 'secret']
     );
 
-    $authenticator = $this->createMock(AuthRoundCube::class);
+    $authenticator = $this->createStub(AuthRoundCube::class);
     $authenticator->method('externalURL')->willReturn($url);
     $authenticator->method('login')->willReturn($failure !== 'login');
     $authenticator->method('cardDavConfig')->willReturn($failure !== 'carddav');
 
-    $assets = $this->createMock(AssetService::class);
+    $assets = $this->createStub(AssetService::class);
     $assets->method('getJSAsset')->willReturn('app.js');
     $assets->method('getCSSAsset')->willReturn('app.css');
 
     $state = null;
-    $initialState = $this->createMock(IInitialState::class);
+    $initialState = $this->createStub(IInitialState::class);
     $initialState->method('provideInitialState')->willReturnCallback(
       function (string $key, $value) use (&$state) {
         if ($key === 'config') {
@@ -55,14 +55,14 @@ class PageControllerLoginModeTest extends TestCase
 
     $controller = new PageController(
       'roundcube',
-      $this->createMock(IRequest::class),
+      $this->createStub(IRequest::class),
       'user',
       $authenticator,
       $config,
       $assets,
       $initialState,
-      $this->createMock(IURLGenerator::class),
-      $this->createMock(LoggerInterface::class),
+      $this->createStub(IURLGenerator::class),
+      $this->createStub(LoggerInterface::class),
     );
     $controller->index();
 
@@ -134,9 +134,9 @@ class PageControllerLoginModeTest extends TestCase
     $authenticator->expects($this->never())->method('login');
     $authenticator->expects($this->never())->method('cardDavConfig');
 
-    $assets = $this->createMock(AssetService::class);
+    $assets = $this->createStub(AssetService::class);
     $state = null;
-    $initialState = $this->createMock(IInitialState::class);
+    $initialState = $this->createStub(IInitialState::class);
     $initialState->method('provideInitialState')->willReturnCallback(
       function (string $key, $value) use (&$state) {
         $state = $value;
@@ -145,14 +145,14 @@ class PageControllerLoginModeTest extends TestCase
 
     (new PageController(
       'roundcube',
-      $this->createMock(IRequest::class),
+      $this->createStub(IRequest::class),
       'user',
       $authenticator,
       $config,
       $assets,
       $initialState,
-      $this->createMock(IURLGenerator::class),
-      $this->createMock(LoggerInterface::class),
+      $this->createStub(IURLGenerator::class),
+      $this->createStub(LoggerInterface::class),
     ))->index();
 
     $this->assertSame('success', $state['state']);
