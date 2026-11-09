@@ -102,8 +102,10 @@ class PageController extends Controller
         $state = self::ERROR_STATE;
         $reason = self::ERROR_CARDDAV_REASON;
       }
-      if ($state === self::ERROR_STATE && $loginMode === Config::LOGIN_MODE_AUTO_WITH_FALLBACK) {
-        // Let the user log in with the RoundCube login form instead.
+      if ($loginMode === Config::LOGIN_MODE_AUTO_WITH_FALLBACK
+          && in_array($reason, [self::ERROR_NOEMAIL_REASON, self::ERROR_LOGIN_REASON], true)) {
+        // Let the user log in with the RoundCube login form instead. A CardDAV
+        // error comes after a successful login and is reported as such.
         $state = self::SUCCESS_STATE;
         $reason = null;
         $loginFormShown = true;
