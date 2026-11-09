@@ -430,8 +430,12 @@ OCP interfaces; it is not booted) and the built `vendor-scoped/`
 directory. Run them from the app directory with
 
 ```
-NEXTCLOUD_ROOT=/path/to/nextcloud phpunit
+NEXTCLOUD_ROOT=/path/to/nextcloud make phpunit
 ```
+
+(`make phpunitfilter PHPUNITTEST=<filter>` runs a subset.) The same
+targets run in the `Tests` GitHub workflow, together with the Vitest
+suite.
 
 `NEXTCLOUD_ROOT` can be omitted if the app lives below `apps/`.
 

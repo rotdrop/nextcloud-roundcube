@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="mail_roundcube" default="gen-report" basedir="%BASEDIR%">
+  <target name="gen-report">
+    <phpunitreport infile="%INFILE%"
+                   format="frames"
+                   todir="%OUTPUTDIR%"
+                   styledir="./vendor-bin/phing/vendor/phing/phing/etc/"
+                   />
+  </target>
+</project>
