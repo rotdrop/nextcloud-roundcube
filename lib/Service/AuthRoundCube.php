@@ -62,6 +62,12 @@ class AuthRoundCube
 
   /** @var bool */
   private $enableSSLVerify;
+
+  /** @var int Connect timeout in seconds. */
+  private $connectTimeout;
+
+  /** @var int Total request timeout in seconds. */
+  private $requestTimeout;
   private $enableClientTLSCertificates;
 
   private $proto;
@@ -84,6 +90,8 @@ class AuthRoundCube
     protected AppPasswordService $appPasswordService,
     protected ILogger $logger,
   ) {
+    $this->connectTimeout = (int)$this->config->getAppValue(Config::CONNECT_TIMEOUT);
+    $this->requestTimeout = (int)$this->config->getAppValue(Config::REQUEST_TIMEOUT);
     $this->enableSSLVerify = $this->config->getAppValue(Config::ENABLE_SSL_VERIFY);
     $this->enableClientTLSCertificates = $this->config->getAppValue(Config::ENABLE_TLS_CLIENT_CERTIFICATES);
     $this->clientTLSKeyFile = $this->config->getAppValue(Config::CLIENT_TLS_KEY_FILE);
@@ -437,14 +445,15 @@ class AuthRoundCube
         CURLOPT_HEADER         => true,
         CURLOPT_FOLLOWLOCATION => false,
         CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_FRESH_CONNECT  => true
+        CURLOPT_FRESH_CONNECT  => true,
+        CURLOPT_CONNECTTIMEOUT => $this->connectTimeout,
+        CURLOPT_TIMEOUT        => $this->requestTimeout,
       ];
       if ($method === 'POST') {
         $curlOpts[CURLOPT_POST] = true;
         if ($data) {
           $postData = http_build_query($data);
           $curlOpts[CURLOPT_POSTFIELDS] = $postData;
-          $curlOpts[CURLOPT_TIMEOUT] = 60;
           $curlOpts[CURLOPT_HTTPHEADER] = [
             'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
             'Accept-Encoding: identity',

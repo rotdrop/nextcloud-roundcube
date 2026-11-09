@@ -31,6 +31,22 @@
                  :disabled="loading"
                  @submit="saveTextInput('externalLocation')"
       />
+      <TextField v-model="settings.connectTimeout"
+                 type="number"
+                 min="1"
+                 :label="t(appName, 'Connect Timeout')"
+                 :helperText="t(appName, 'Maximum time in seconds to wait for establishing the connection to the RoundCube server.')"
+                 :disabled="loading"
+                 @submit="saveTextInput('connectTimeout')"
+      />
+      <TextField v-model="settings.requestTimeout"
+                 type="number"
+                 min="1"
+                 :label="t(appName, 'Request Timeout')"
+                 :helperText="t(appName, 'Maximum total time in seconds for a single request to the RoundCube server.')"
+                 :disabled="loading"
+                 @submit="saveTextInput('requestTimeout')"
+      />
     </NcSettingsSection>
     <NcSettingsSection :name="t(appName, 'Email Address Selection')"
                        class="flex-container flex-column"
@@ -350,6 +366,8 @@ const cloudVersionClasses = computed(() => cloudVersionClassesImport)
 
 const settings = reactive({
   externalLocation: '',
+  connectTimeout: 10,
+  requestTimeout: 60,
   emailAddressChoice: 'userChosenEmail' as EmailAddressChoice,
   emailDefaultDomain: '',
   fixedSingleEmailAddress: '',

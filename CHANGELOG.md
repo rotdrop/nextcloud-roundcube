@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+
+- PR #108, configurable connect and request timeouts in the admin settings
+
+### Fixed
+
+- #72 by PR #108, requests to Roundcube could hang indefinitely as
+  only POST requests had a timeout
+
 ## [1.3.3-rc2] - 2026-10-16
 
 ### Added
