@@ -218,6 +218,10 @@ class SettingsController extends Controller
       $this->config->setAppValue($setting, $newValue, encrypted: $encrypted);
     }
 
+    if ($setting === Config::EXTERNAL_LOCATION) {
+      $newValue = $newValue ?? '';
+    }
+
     if ($humanValue === null) {
       $humanValue = $newValue;
     }
@@ -270,11 +274,14 @@ class SettingsController extends Controller
       }
       $humanValue = $value;
       switch ($oneSetting) {
-        case Config::LOGIN_MODE:
         case Config::EXTERNAL_LOCATION:
         case Config::EMAIL_DEFAULT_DOMAIN:
-        case Config::EMAIL_ADDRESS_CHOICE:
         case Config::FIXED_SINGLE_EMAIL_ADDRESS:
+          $value = $value ?? '';
+          $humanValue = $value;
+          break;
+        case Config::LOGIN_MODE:
+        case Config::EMAIL_ADDRESS_CHOICE:
         case Config::CARDDAV_PROVISIONG_TAG:
         case Config::CLIENT_TLS_KEY_FILE:
         case Config::CLIENT_TLS_CERTIFICATE_FILE:
@@ -354,6 +361,10 @@ class SettingsController extends Controller
       $this->config->setPersonalValue($setting, $newValue);
     }
 
+    if ($setting === self::EMAIL_ADDRESS) {
+      $newValue = $newValue ?? '';
+    }
+
     switch ($setting) {
       case self::EMAIL_PASSWORD:
         $humanValue = '●●●●●●●●';
@@ -421,6 +432,9 @@ class SettingsController extends Controller
           $humanValue = '●●●●●●●●';
           break;
         case self::EMAIL_ADDRESS:
+          $value = $value ?? '';
+          $humanValue = $value;
+          break;
         case Config::EMAIL_ADDRESS_CHOICE . self::ADMIN_SETTING:
         case Config::EMAIL_DEFAULT_DOMAIN . self::ADMIN_SETTING:
         case Config::FIXED_SINGLE_EMAIL_ADDRESS . self::ADMIN_SETTING:
