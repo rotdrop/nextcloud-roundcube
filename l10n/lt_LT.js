@@ -57,6 +57,7 @@ OC.L10N.register(
     "Email Password" : "El. pašto slaptažodis",
     "Advanced Settings" : "Išplėstiniai nustatymai",
     "Force single sign on (disables custom password)." : "Priverstinai įjungti vienkartinį prisijungimą (išjungia pasirinktinį slaptažodį).",
+    "Automatic" : "Automatinė",
     "Disable when debugging with self-signed certificates." : "Išjungti derinant su savarankiškai pasirašytais sertifikatais.",
     "Enable SSL verification." : "Įgalinti SSL patvirtinimą.",
     "Encrypt per-user data -- in particular their email passwords -- with their personal cloud password. This implies that these settings will be lost when users forget their passwords. If unchecked the email login credentials are still protected by the server secret. The latter implies that an administrator is able to decrypt the login credentials, but the configuration data survives user password-loss." : "Šifruoti kiekvieno vartotojo duomenis, ypač jų el. pašto slaptažodžius, naudojant asmeninį debesies slaptažodį. Tai reiškia, kad šie nustatymai bus prarasti, kai vartotojai pamirš savo slaptažodžius. Jei nepažymėta, el. pašto prisijungimo duomenys vis tiek bus apsaugoti serverio paslaptimi. Pastaroji reiškia, kad administratorius gali iššifruoti prisijungimo duomenis, tačiau konfigūracijos duomenys liks ir praradus vartotojo slaptažodį.",

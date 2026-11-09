@@ -5,6 +5,7 @@ OC.L10N.register(
     "false" : "ucciḍ",
     "Show password" : "Sken awal uffir",
     "Advanced Settings" : "Iɣewwaren leqqayen",
+    "Automatic" : "Awurman",
     "No" : "Uhu",
     "Yes" : "Ih",
     "Confirmation Required" : "Asentem ilaq"

@@ -63,6 +63,7 @@ OC.L10N.register(
     "Email Password" : "E-posti salasõna",
     "Advanced Settings" : "Täiendavad seadistused",
     "Show RoundCube logout button." : "Näita RoundCube'i väljalogimisnuppu.",
+    "Automatic" : "Automaatne",
     "Enable SSL verification." : "Lülita SSL-i kontrollimine sisse",
     "Filename for the client TLS private key" : "Failinimi kliendi TLS-i privaatvõtme jaoks",
     "Filename for the client TLS certificate" : "Failinimi kliendi TLS-i sertifikaadi jaoks",

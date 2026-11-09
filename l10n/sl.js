@@ -13,9 +13,11 @@ OC.L10N.register(
     "The personal setting \"%1$s\" is read-only" : "Uporabniška nastavitev »%1$s« je le za branje",
     "Unknown personal setting: \"%s\"." : "Neznana osebna nastavitev »%s«",
     "Show password" : "Pokaži geslo",
+    "Request Timeout" : "Časovni potek zahteve",
     "User ID" : "ID Uporabnika",
     "Email Address" : "Elektronski naslov",
     "Advanced Settings" : "Napredne nastavitve",
+    "Automatic" : "Samodejno",
     "No" : "Ne",
     "Yes" : "Da",
     "reason unknown" : "razlog ni znan"

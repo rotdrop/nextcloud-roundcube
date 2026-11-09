@@ -6,6 +6,7 @@ OC.L10N.register(
     "Hide password" : "Сокриј лозинка",
     "User ID" : "Корисничко ID",
     "Advanced Settings" : "Напредни параметри",
+    "Automatic" : "Автоматски",
     "No" : "Не",
     "Yes" : "Да"
 },

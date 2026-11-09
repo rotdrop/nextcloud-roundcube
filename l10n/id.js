@@ -45,6 +45,7 @@ OC.L10N.register(
     "Email Password" : "Kata Sandi Email",
     "Advanced Settings" : "Pengaturan Lanjutan",
     "Force single sign on (disables custom password)." : "Paksa single sign-on (menonaktifkan kata sandi kustom).",
+    "Automatic" : "Otomatis",
     "Disable when debugging with self-signed certificates." : "Nonaktifkan saat debugging dengan sertifikat self-signed.",
     "Enable SSL verification." : "Aktifkan verifikasi SSL.",
     "Encrypt per-user data -- in particular their email passwords -- with their personal cloud password. This implies that these settings will be lost when users forget their passwords. If unchecked the email login credentials are still protected by the server secret. The latter implies that an administrator is able to decrypt the login credentials, but the configuration data survives user password-loss." : "Enkripsi data per pengguna -- khususnya kata sandi email mereka -- dengan kata sandi cloud pribadi mereka. Ini berarti bahwa pengaturan ini akan hilang ketika pengguna lupa kata sandi mereka. Jika tidak dicentang, kredensial login email tetap dilindungi oleh rahasia server. Hal ini berarti administrator dapat mendekripsi kredensial login, tetapi data konfigurasi tetap bertahan meskipun pengguna kehilangan kata sandi.",

@@ -11,6 +11,7 @@ OC.L10N.register(
     "User ID" : "Käyttäjätunniste",
     "Email Address" : "Sähköpostiosoite",
     "Advanced Settings" : "Lisäasetukset",
+    "Automatic" : "Automaattinen",
     "Enable SSL verification." : "Käytä SSL-vahvistusta.",
     "No" : "Ei",
     "Yes" : "Kyllä",

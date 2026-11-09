@@ -15,6 +15,7 @@ OC.L10N.register(
     "User ID" : "Gebruiker-ID",
     "Email Address" : "E-mailadres",
     "Advanced Settings" : "Geavanceerde instellingen",
+    "Automatic" : "Automatisch",
     "Disable when debugging with self-signed certificates." : "Uitschakelen bij de foutopsporing met zelfondertekende certificaten.",
     "No" : "Nee",
     "Yes" : "Ja"

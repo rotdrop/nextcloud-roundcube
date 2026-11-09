@@ -6,6 +6,7 @@ OC.L10N.register(
     "Hide password" : "Fela lykilorð",
     "Email Address" : "Tölvupóstfang",
     "Advanced Settings" : "Ítarlegar stillingar",
+    "Automatic" : "Sjálfvirkt",
     "No" : "Nei",
     "Yes" : "Já"
 },

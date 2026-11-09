@@ -21,6 +21,7 @@ OC.L10N.register(
     "User ID" : "用户ID",
     "Email Address" : "电子邮件地址",
     "Advanced Settings" : "高级设置",
+    "Automatic" : "自动",
     "ClipBoard" : "剪贴板",
     "No" : "否",
     "Yes" : "是",
