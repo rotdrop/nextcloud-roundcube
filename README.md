@@ -265,6 +265,20 @@ This is just a text-box for the web-address of the Roundcube
 installation. **Please read** the [notes about the web-server
 setup](#adminstration-web-server-setup).
 
+Below the address there are two number fields:
+
+- **Connect Timeout** (default: 10 seconds): the maximum time to wait
+  for establishing the connection to the Roundcube server.
+- **Request Timeout** (default: 60 seconds): the maximum total time
+  for a single request to the Roundcube server, including the login
+  and session requests the app sends to Roundcube.
+
+Both values are positive whole numbers of seconds. Entering the
+default value resets the setting. If Roundcube stops responding, the
+affected cloud request fails after the timeout instead of waiting
+indefinitely. Raise the values for slow, distant or heavily loaded
+Roundcube installations.
+
 #### Login Mode
 
 - **Automatic** (default): log in with the configured credentials,
