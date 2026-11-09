@@ -31,14 +31,14 @@
                :type="isPasswordHidden ? 'password' : 'text'"
                :label="t(appName, 'Email Password')"
                :disabled="emailPasswordDisabled"
-               :placeholder="t(appName, 'Email Password')"
+               :placeholder="settings.humanEmailPassword || t(appName, 'Email Password')"
                :helperText="emailPasswordHint"
                class="password"
-               @submit="saveTextInput('emailPassword')"
+               @submit="saveEmailPassword()"
     >
       <template #alignedAfter>
         <NcButton :aria-label="passwordToggleLabel"
-                  :disabled="emailPasswordDisabled"
+                  :disabled="emailPasswordDisabled || !settings.emailPassword"
                   @click.stop.prevent="isPasswordHidden = !isPasswordHidden"
         >
           <template #icon>
@@ -48,6 +48,12 @@
         </NcButton>
       </template>
     </TextField>
+    <NcButton v-if="settings.humanEmailPassword"
+              :disabled="emailPasswordDisabled"
+              @click="saveEmailPassword(true)"
+    >
+      {{ t(appName, 'Clear stored password') }}
+    </NcButton>
   </NcSettingsSection>
 </template>
 
@@ -76,6 +82,7 @@ import {
 } from './toolkit/util/settings-sync.ts'
 
 const loading = ref(true)
+const savingPassword = ref(false)
 
 const isPasswordHidden = ref(true)
 const passwordToggleLabel = computed(() => isPasswordHidden.value ? t(appName, 'Show password') : t(appName, 'Hide password'))
@@ -85,6 +92,7 @@ const cloudVersionClasses = computed(() => cloudVersionClassesImport)
 const settings = reactive({
   emailAddress: '',
   emailPassword: '',
+  humanEmailPassword: '',
   emailAddressChoiceAdmin: 'userChosenEmail' as EmailAddressChoice,
   emailDefaultDomainAdmin: null as null|string,
   fixedSingleEmailAddressAdmin: null as null|string,
@@ -93,7 +101,12 @@ const settings = reactive({
 
 const protectedEmailPassword = computed({
   get() { return settings.emailPassword || '' },
-  set(newValue) { settings.emailPassword = newValue },
+  set(newValue) {
+    settings.emailPassword = newValue
+    if (!newValue) {
+      isPasswordHidden.value = true
+    }
+  },
 })
 
 // eslint-disable-next-line vue/return-in-computed-property
@@ -146,7 +159,7 @@ const emailAddressHint = computed(() => {
 })
 
 const emailPasswordDisabled = computed(() => {
-  if (settings.forceSSOAdmin) {
+  if (loading.value || savingPassword.value || settings.forceSSOAdmin) {
     return true
   }
   switch (settings.emailAddressChoiceAdmin) {
@@ -179,6 +192,27 @@ const getData = async () => {
   })
 }
 getData()
+
+const saveEmailPassword = async (clear = false) => {
+  if (emailPasswordDisabled.value || (!clear && !settings.emailPassword)) {
+    return
+  }
+  savingPassword.value = true
+  try {
+    const saved = await saveConfirmedSetting({
+      value: clear ? '' : settings.emailPassword,
+      section: 'personal',
+      settingsKey: 'emailPassword',
+      settings,
+    })
+    if (saved) {
+      settings.emailPassword = ''
+      isPasswordHidden.value = true
+    }
+  } finally {
+    savingPassword.value = false
+  }
+}
 
 const saveTextInput = async (settingsKey: string, value?: string, force?: boolean) => {
   if (value === undefined) {

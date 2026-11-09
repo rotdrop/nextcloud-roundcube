@@ -407,6 +407,11 @@ available if the administrator has configured this app to attempt
 single-sign-on in which case use of the Nextcloud password is enforced
 for the login into the email-server.
 
+A stored password is indicated by a masked placeholder and is never returned
+to the browser. Enter and submit a new password to replace it; the visibility
+toggle applies only to the new input. Leaving the field empty keeps the stored
+password unchanged. Use "Clear stored password" to remove it explicitly.
+
 ## Screenshots
 
 ### Main Window

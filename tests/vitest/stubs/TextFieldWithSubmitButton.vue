@@ -1,7 +1,14 @@
 <template>
-  <input class="text-field-stub" :value="modelValue">
+  <input v-bind="$attrs"
+         v-model="model"
+         class="text-field-stub"
+         @keydown.enter="$emit('submit')"
+  >
+  <slot name="alignedAfter" />
 </template>
 
 <script setup lang="ts">
-defineProps<{ modelValue?: string }>()
+defineOptions({ inheritAttrs: false })
+const model = defineModel<string>({ default: '' })
+defineEmits(['submit'])
 </script>
