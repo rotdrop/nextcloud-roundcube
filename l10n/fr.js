@@ -29,6 +29,7 @@ OC.L10N.register(
     "Scheme of external URL must be one of \"http\" or \"https\", but nothing was specified." : "Le schéma de l’URL externe doit être « http » ou « https », mais aucun n’a été spécifié.",
     "Scheme of external URL must be one of \"http\" or \"https\", \"%s\" given." : "Le schéma de l’URL externe doit être « http » ou « https », mais « %s » a été fourni.",
     "Host-part of external URL seems to be empty" : "La partie hôte de l'URL externe semble vide",
+    "Value \"%1$s\" for setting \"%2$s\" is not a positive number of seconds." : "La valeur « %1$s » du paramètre « %2$s » n'est pas un nombre positif de secondes.",
     "Value \"%1$s\" for setting \"%2$s\" is not convertible to boolean." : "La valeur \"%1$s\" pour le paramètre \"%2$s\" ne peut pas être convertie en booléen.",
     "true" : "vrai",
     "false" : "faux",

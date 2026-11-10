@@ -1,0 +1,12 @@
+OC.L10N.register(
+    "mail_roundcube",
+    {
+    "bytes" : "bytes",
+    "Show password" : "Mostrar contraseña",
+    "Hide password" : "Ocultar contraseña",
+    "User ID" : "ID de usuario",
+    "Email Address" : "Dirección de correo electrónico",
+    "Advanced Settings" : "Configuraciones Avanzadas",
+    "Automatic" : "Automático"
+},
+"nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");
