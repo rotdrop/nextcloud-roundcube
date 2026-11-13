@@ -6,6 +6,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.3.3] - 2026-11-13
+
+Includes also everything from 1.3.3-rc1 to 1.3.3-rc3 below.
+
+### Fixed
+
+- Keep the CardDAV error in fallback login mode
+- Do not use git+ssh for dependencies in package.json
+- Updated translations from Transifex
+- Updated the build-system submodule
+
 ## [1.3.3-rc3] - 2026-11-09
 
 ### Added
