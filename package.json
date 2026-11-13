@@ -87,6 +87,7 @@
   "allowScripts": {
     "core-js": true,
     "git+https://github.com/stacktracejs/stacktrace-gps#62f6967fc85e6fdd5fb9cea1a056b935d9b07a9a": true,
-    "@parcel/watcher": true
+    "@parcel/watcher": true,
+    "esbuild": true
   }
 }
