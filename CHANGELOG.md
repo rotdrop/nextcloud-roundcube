@@ -6,9 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [1.3.3] - 2026-11-11
+## [1.3.3] - 2026-11-13
 
-DRAFT, for review. Includes everything from 1.3.3-rc1 to 1.3.3-rc3 below.
+Includes also everything from 1.3.3-rc1 to 1.3.3-rc3 below.
 
 ### Fixed
 
