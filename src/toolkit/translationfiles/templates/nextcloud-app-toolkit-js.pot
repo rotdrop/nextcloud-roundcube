@@ -1,0 +1,93 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the nextcloud-app-toolkit-js package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: nextcloud-app-toolkit-js\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-13 12:56+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: services/entity-repository.ts:159
+msgid ""
+"Unable to search for entities \"{entityName}\" with identifier \"{criteria}"
+"\"."
+msgstr ""
+
+#: services/entity-repository.ts:191
+msgid ""
+"Unable to fetch entity \"{entityName}\" with identifier \"{identifier}\"."
+msgstr ""
+
+#: util/dialog-alert.ts:40
+msgid "close"
+msgstr ""
+
+#. TRANSLATORS: This should be a pangram in the target language, please have a look at
+#. TRANSLATORS: https://en.wikipedia.org/wiki/Pangram where you can
+#. TRANSLATORS: also find examples for some languages.
+#: util/pangram.ts:30
+msgid "The quick brown fox jumps over the lazy dog."
+msgstr ""
+
+#: util/settings-sync.ts:69 util/settings-sync.ts:110 util/settings-sync.ts:192
+#: util/settings-sync.ts:312
+msgid "reason unknown"
+msgstr ""
+
+#: util/settings-sync.ts:76
+msgid "Unable to query the initial value of all settings: {message}"
+msgstr ""
+
+#: util/settings-sync.ts:117
+msgid "Unable to query the initial value of {settingsKey}: {message}"
+msgstr ""
+
+#: util/settings-sync.ts:179 util/settings-sync.ts:202
+msgid "true"
+msgstr ""
+
+#: util/settings-sync.ts:182
+msgid "Successfully set \"{settingsKey}\" to {value}."
+msgstr ""
+
+#: util/settings-sync.ts:184
+msgid "Setting \"{settingsKey}\" has been unset successfully."
+msgstr ""
+
+#: util/settings-sync.ts:200
+msgid "Unable to set \"{settingsKey}\" to {value}: {message}."
+msgstr ""
+
+#: util/settings-sync.ts:208
+msgid "Unable to unset \"{settingsKey}\": {message}"
+msgstr ""
+
+#: util/settings-sync.ts:267
+msgid "Confirmation Required"
+msgstr ""
+
+#: util/settings-sync.ts:273
+msgid "Unconfirmed, reverting to old value."
+msgstr ""
+
+#: util/settings-sync.ts:301
+msgid "Successfully set value for \"{settingsKey}\" to \"{displayValue}\""
+msgstr ""
+
+#: util/settings-sync.ts:303
+msgid "Setting \"{setting}\" has been unset successfully."
+msgstr ""
+
+#: util/settings-sync.ts:319
+msgid "Could not set value for \"{settingsKey}\" to \"{value}\": {message}"
+msgstr ""
