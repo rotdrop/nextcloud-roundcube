@@ -35,7 +35,7 @@ OC.L10N.register(
     "true" : "wahr",
     "false" : "falsch",
     "Unknown personal setting: \"%1$s\"" : "Unbekannte persönliche Einstellung: \"%1$s\"",
-    "The personal setting \"%1$s\" is read-only" : "Die perönliche Einstellung \"%1$s\" kann nur gelesen werden.",
+    "The personal setting \"%1$s\" is read-only" : "Die persönliche Einstellung \"%1$s\" kann nur gelesen werden.",
     "Unknown personal setting: \"%s\"." : "Unbekannte persönliche Einstellung: \"%s\"",
     "RoundCube Integration" : "RoundCube-Einbindung",
     "Roundcube Mail" : "RoundCube Mail",
