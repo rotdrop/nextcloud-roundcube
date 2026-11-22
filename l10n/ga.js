@@ -72,6 +72,7 @@ OC.L10N.register(
     "Show RoundCube logout button." : "Taispeáin an cnaipe log amach do RoundCube.",
     "Log in automatically with the configured credentials; show an error if this fails." : "Logáil isteach go huathoibríoch leis na dintiúir atá cumraithe; taispeáin earráid má theipeann air seo.",
     "Automatic" : "Uathoibríoch",
+    "Log in automatically if possible, otherwise show the RoundCube login form. The login form accepts any account RoundCube accepts, restrict this in RoundCube (imap_host, login_username_filter or a plugin) if needed." : "Logáil isteach go huathoibríoch más féidir; mura féidir, taispeáin an fhoirm logála isteach de chuid RoundCube. Glacann an fhoirm logála isteach le haon chuntas a nglacann RoundCube leis; más gá, is féidir srian a chur leis seo laistigh de RoundCube (trí úsáid a bhaint as imap_host, login_username_filter, nó breiseán).",
     "Automatic, login form as fallback" : "Uathoibríoch, foirm logáil isteach mar rogha chúltaca",
     "Always show the RoundCube login form without a credentials check. Useful for shared mailboxes or when SSO is not available." : "Taispeáin foirm logála isteach RoundCube i gcónaí, gan seiceáil a dhéanamh ar dhintiúir. Tá sé seo úsáideach i gcás boscaí poist comhroinnte nó nuair nach bhfuil SSO ar fáil.",
     "Login form only" : "Foirm logála isteach amháin",
