@@ -43,7 +43,10 @@ const props = withDefaults(defineProps<{
   dialogClasses?: string[]
   onReady?: (content: HTMLElement) => void
 }>(), {
+  html: undefined,
+  severity: undefined,
   dialogClasses: () => [],
+  onReady: undefined,
 })
 
 const emit = defineEmits<{ close: [result: CustomDialogResult] }>()
