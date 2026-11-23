@@ -21,9 +21,9 @@
  * @module
  */
 
-import { getDialogBuilder } from '@nextcloud/dialogs';
 import { translate as t } from '@nextcloud/l10n';
 import { appName } from '../../config.ts';
+import { Dialog } from './custom-dialog.ts';
 
 export interface DialogAlertArgs {
   title: string;
@@ -32,24 +32,18 @@ export interface DialogAlertArgs {
 }
 
 const dialogAlert = async ({ title, text, allowHtml }: DialogAlertArgs) => {
-  console.info('START');
-  const dialog = getDialogBuilder(title)
-    .setText(allowHtml === true ? '' : text)
-    .setSeverity('info')
-    .addButton({
+  const dialog = new Dialog({
+    name: title,
+    text: allowHtml === true ? '' : text,
+    html: allowHtml === true ? text : undefined,
+    severity: 'info',
+    buttons: [{
       label: t(appName, 'close'),
       variant: 'primary',
       callback() {},
-    })
-    .build();
-  console.info('AFTER BUILD');
-  if (allowHtml === true) {
-    // dialog.setHTML(text);
-  }
-  console.info('BEFORE SHOW()');
-  const result = dialog.show();
-  console.info('AFTER SHOW()');
-  return result;
+    }],
+  });
+  return dialog.show();
 };
 
 export default dialogAlert;

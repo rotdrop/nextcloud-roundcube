@@ -81,6 +81,7 @@ declare module '@nextcloud/vue' {
   const NcModal: Vue & {
     close: () => void;
   };
+  const NcNoteCard: Vue;
   const NcProgressBar: Vue;
   const NcRichContenteditable: Vue;
   const NcRichText: Vue;
@@ -143,6 +144,7 @@ declare module '@nextcloud/vue' {
     NcListItem,
     NcListItemIcon,
     NcModal,
+    NcNoteCard,
     NcPasswordField,
     NcPopover,
     NcProgressBar,

@@ -21,8 +21,8 @@
  * @module
  */
 
-import { getDialogBuilder } from '@nextcloud/dialogs';
 import { translate as t } from '@nextcloud/l10n';
+import { Dialog } from './custom-dialog.ts';
 
 export interface DialogConfirmArgs {
   title: string;
@@ -33,23 +33,21 @@ export interface DialogConfirmArgs {
 
 const dialogConfirm = async ({ title, text, allowHtml, defaultNo }: DialogConfirmArgs): Promise<boolean|undefined> => {
   let answer: boolean|undefined;
-  const dialog = getDialogBuilder(title)
-    .setSeverity('info')
-    .setText(allowHtml === true ? '' : text)
-    .addButton({
+  const dialog = new Dialog({
+    name: title,
+    text: allowHtml === true ? '' : text,
+    html: allowHtml === true ? text : undefined,
+    severity: 'info',
+    buttons: [{
       label: t('core', 'No'),
       variant: defaultNo ? 'primary' : 'secondary',
       callback() { answer = false; },
-    })
-    .addButton({
+    }, {
       label: t('core', 'Yes'),
       variant: defaultNo ? 'secondary' : 'primary',
       callback() { answer = true; },
-    })
-    .build();
-  if (allowHtml === true) {
-    // dialog.setHTML(text);
-  }
+    }],
+  });
   await dialog.show();
   if (answer === undefined) {
     return undefined;
