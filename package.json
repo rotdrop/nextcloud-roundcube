@@ -17,8 +17,8 @@
   "scripts": {
     "build": "vite --mode production build",
     "dev": "vite --mode development build",
-    "lint": "eslint --ext .js,.ts,.vue src",
-    "lint:fix": "eslint --ext .js,.ts,.vue src --fix",
+    "lint": "eslint --ext .js,.ts,.vue src l10n-sources",
+    "lint:fix": "eslint --ext .js,.ts,.vue src l10n-sourcs --fix",
     "test": "vitest run"
   },
   "browserslist": [
