@@ -1,4 +1,5 @@
 { "translations": {
+    "Installation instructions:" : "Instalazio argibideak:",
     "Installation problem; the required resource \"%1$s\" of type \"%2$s\" is not installed on the server, please contact the system administrator!" : "Instalazio arazoa; \"%2$s\" motako \"%1$s\" beharrezko baliabidea ez dago zerbitzarian instalatuta, jarri harremanetan sistemaren administratzailearekin!",
     "Please install the \"%s\" program on the server." : "Instalatu \"%s\" programa zerbitzarian.",
     "The input color values are invalid." : "Sartutako kolorearen balioak baliogabeak dira.",
